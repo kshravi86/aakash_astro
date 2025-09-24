@@ -1,0 +1,3691 @@
+{
+  "sha": "3084917b5d2384af6fb928583552e0a299fb6d83",
+  "url": "https://api.github.com/repos/aloistr/swisseph/git/trees/3084917b5d2384af6fb928583552e0a299fb6d83",
+  "tree": [
+    {
+      "path": ".gitattributes",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "cdb15ffe777eb2d80048de9fa6bd43e14fa90e89",
+      "size": 13,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/cdb15ffe777eb2d80048de9fa6bd43e14fa90e89"
+    },
+    {
+      "path": "LICENSE",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b6f68752cdb15969a8d5e769b0c2ebe4de7c63b9",
+      "size": 2371,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/b6f68752cdb15969a8d5e769b0c2ebe4de7c63b9"
+    },
+    {
+      "path": "LICENSE.TXT",
+      "mode": "120000",
+      "type": "blob",
+      "sha": "7a694c9699a986b9adf1f6cb8a18a6e923e47ed9",
+      "size": 7,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/7a694c9699a986b9adf1f6cb8a18a6e923e47ed9"
+    },
+    {
+      "path": "Makefile",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "af689cc34681843327938ee1fe9ff8e20db76c08",
+      "size": 4591,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/af689cc34681843327938ee1fe9ff8e20db76c08"
+    },
+    {
+      "path": "agpl-3.0.txt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "be3f7b28e564e7dd05eaf59d64adba1a4065ac0e",
+      "size": 34523,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/be3f7b28e564e7dd05eaf59d64adba1a4065ac0e"
+    },
+    {
+      "path": "bin",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "3cb982fc226887532634d7fad107f6d940324a4d",
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/trees/3cb982fc226887532634d7fad107f6d940324a4d"
+    },
+    {
+      "path": "bin/swetest",
+      "mode": "100755",
+      "type": "blob",
+      "sha": "7e7dcabf7f1b6d8659fcbaa80449ce19689cb1be",
+      "size": 1185928,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/7e7dcabf7f1b6d8659fcbaa80449ce19689cb1be"
+    },
+    {
+      "path": "bin/swevents",
+      "mode": "100755",
+      "type": "blob",
+      "sha": "25bc72db1cc1c4f9c5e5a52d269d1cd569b5e5f8",
+      "size": 1138056,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/25bc72db1cc1c4f9c5e5a52d269d1cd569b5e5f8"
+    },
+    {
+      "path": "contrib",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "f3ab88cce1d57f78732c74b39e76d2dad3a3772e",
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/trees/f3ab88cce1d57f78732c74b39e76d2dad3a3772e"
+    },
+    {
+      "path": "contrib/Sweph32_For_Excel_VBA_and_VB.zip",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ef953401c2df8d967575ccac98c629835149c0a8",
+      "size": 319130,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/ef953401c2df8d967575ccac98c629835149c0a8"
+    },
+    {
+      "path": "contrib/android",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "6b4b365e3bd86e78974560649888e3363218b9bd",
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/trees/6b4b365e3bd86e78974560649888e3363218b9bd"
+    },
+    {
+      "path": "contrib/android/jni",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "ac9b6ababc4e055da57e99b52cb7825a09694aa1",
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/trees/ac9b6ababc4e055da57e99b52cb7825a09694aa1"
+    },
+    {
+      "path": "contrib/android/jni/Android.mk",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "49a733c53dc2df44335095d3cc7593092555685e",
+      "size": 431,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/49a733c53dc2df44335095d3cc7593092555685e"
+    },
+    {
+      "path": "contrib/android/jni/Application.mk",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d5bbf541b73730e11a6da11e5a9eb23de46ceeb0",
+      "size": 63,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/d5bbf541b73730e11a6da11e5a9eb23de46ceeb0"
+    },
+    {
+      "path": "contrib/android/jni/sefstars.txt",
+      "mode": "120000",
+      "type": "blob",
+      "sha": "e4ed3806421ef431821fb75ffcecbeaf69036438",
+      "size": 26,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/e4ed3806421ef431821fb75ffcecbeaf69036438"
+    },
+    {
+      "path": "contrib/android/jni/seleapsec.txt",
+      "mode": "120000",
+      "type": "blob",
+      "sha": "92e82a1fc5615d3c48d1812ceb7b8bac8e8320c0",
+      "size": 22,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/92e82a1fc5615d3c48d1812ceb7b8bac8e8320c0"
+    },
+    {
+      "path": "contrib/android/jni/seorbel.txt",
+      "mode": "120000",
+      "type": "blob",
+      "sha": "cb6bfb3165e6b87d467bee7b17b4f2dde9e63892",
+      "size": 25,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/cb6bfb3165e6b87d467bee7b17b4f2dde9e63892"
+    },
+    {
+      "path": "contrib/android/jni/swecl.c",
+      "mode": "120000",
+      "type": "blob",
+      "sha": "ace8edbb7eba336e3c78fb4ec0fcf57a33f176bc",
+      "size": 16,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/ace8edbb7eba336e3c78fb4ec0fcf57a33f176bc"
+    },
+    {
+      "path": "contrib/android/jni/swedate.c",
+      "mode": "120000",
+      "type": "blob",
+      "sha": "0354d36348df70e01b1e7e147139d9f518596267",
+      "size": 18,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/0354d36348df70e01b1e7e147139d9f518596267"
+    },
+    {
+      "path": "contrib/android/jni/swedate.h",
+      "mode": "120000",
+      "type": "blob",
+      "sha": "2b5103658958abff7266dc0e12e99af8ccdc4383",
+      "size": 18,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/2b5103658958abff7266dc0e12e99af8ccdc4383"
+    },
+    {
+      "path": "contrib/android/jni/swehel.c",
+      "mode": "120000",
+      "type": "blob",
+      "sha": "651eb0c800b6eab8e6eb570b8f63753b3ed9201f",
+      "size": 17,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/651eb0c800b6eab8e6eb570b8f63753b3ed9201f"
+    },
+    {
+      "path": "contrib/android/jni/swehouse.c",
+      "mode": "120000",
+      "type": "blob",
+      "sha": "c282df8e713dec538ad87559662d3adb76fa0532",
+      "size": 19,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/c282df8e713dec538ad87559662d3adb76fa0532"
+    },
+    {
+      "path": "contrib/android/jni/swehouse.h",
+      "mode": "120000",
+      "type": "blob",
+      "sha": "61a9199bcb1620d433371f447c066d1afd7b3fdc",
+      "size": 19,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/61a9199bcb1620d433371f447c066d1afd7b3fdc"
+    },
+    {
+      "path": "contrib/android/jni/swejni.c",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "dca4a4bf2b089fe309035a2028167eecd28f4bed",
+      "size": 76645,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/dca4a4bf2b089fe309035a2028167eecd28f4bed"
+    },
+    {
+      "path": "contrib/android/jni/swejni.h",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b19ad7fdbdfe068d56e16b7e2af9246b0e755706",
+      "size": 23924,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/b19ad7fdbdfe068d56e16b7e2af9246b0e755706"
+    },
+    {
+      "path": "contrib/android/jni/swejpl.c",
+      "mode": "120000",
+      "type": "blob",
+      "sha": "46c3806e12dd03419b8a831ebdfaeba5cfcb1488",
+      "size": 17,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/46c3806e12dd03419b8a831ebdfaeba5cfcb1488"
+    },
+    {
+      "path": "contrib/android/jni/swejpl.h",
+      "mode": "120000",
+      "type": "blob",
+      "sha": "bfa8fa88fb7bcbf39adb8a33a640dbcd8c790202",
+      "size": 17,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/bfa8fa88fb7bcbf39adb8a33a640dbcd8c790202"
+    },
+    {
+      "path": "contrib/android/jni/swemmoon.c",
+      "mode": "120000",
+      "type": "blob",
+      "sha": "959d9cbc8ee6de00d55d41e48e17c7ef54b63864",
+      "size": 19,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/959d9cbc8ee6de00d55d41e48e17c7ef54b63864"
+    },
+    {
+      "path": "contrib/android/jni/swemplan.c",
+      "mode": "120000",
+      "type": "blob",
+      "sha": "2c69bf25805277b85fc2fb2983ed56d72ea0a0f0",
+      "size": 19,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/2c69bf25805277b85fc2fb2983ed56d72ea0a0f0"
+    },
+    {
+      "path": "contrib/android/jni/swemptab.h",
+      "mode": "120000",
+      "type": "blob",
+      "sha": "20e92c4282c8d0b8b91a800a9d673509693d0d7e",
+      "size": 19,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/20e92c4282c8d0b8b91a800a9d673509693d0d7e"
+    },
+    {
+      "path": "contrib/android/jni/swenut2000a.h",
+      "mode": "120000",
+      "type": "blob",
+      "sha": "4ceb0a31026aa8f53e8b681675747c10b9c73ea1",
+      "size": 22,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/4ceb0a31026aa8f53e8b681675747c10b9c73ea1"
+    },
+    {
+      "path": "contrib/android/jni/sweodef.h",
+      "mode": "120000",
+      "type": "blob",
+      "sha": "d927b9756c351e85157447b02cfb1d74aa3d78b7",
+      "size": 18,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/d927b9756c351e85157447b02cfb1d74aa3d78b7"
+    },
+    {
+      "path": "contrib/android/jni/sweph.c",
+      "mode": "120000",
+      "type": "blob",
+      "sha": "abdaa338bb5b26da4ce258042676fbbe4dc3dd1c",
+      "size": 16,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/abdaa338bb5b26da4ce258042676fbbe4dc3dd1c"
+    },
+    {
+      "path": "contrib/android/jni/sweph.h",
+      "mode": "120000",
+      "type": "blob",
+      "sha": "88730e07b606ba04bec0e6134615eff051532fd6",
+      "size": 16,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/88730e07b606ba04bec0e6134615eff051532fd6"
+    },
+    {
+      "path": "contrib/android/jni/swephexp.h",
+      "mode": "120000",
+      "type": "blob",
+      "sha": "25ec4e73878c1b45e1949e1893efca537618c216",
+      "size": 19,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/25ec4e73878c1b45e1949e1893efca537618c216"
+    },
+    {
+      "path": "contrib/android/jni/swephlib.c",
+      "mode": "120000",
+      "type": "blob",
+      "sha": "ec202872a32873086c4270350530078cb931bbf5",
+      "size": 19,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/ec202872a32873086c4270350530078cb931bbf5"
+    },
+    {
+      "path": "contrib/android/jni/swephlib.h",
+      "mode": "120000",
+      "type": "blob",
+      "sha": "3f5bab6f899902edc67dc7d9de02e269ff2829eb",
+      "size": 19,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/3f5bab6f899902edc67dc7d9de02e269ff2829eb"
+    },
+    {
+      "path": "contrib/android/libs",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "cb6baf4ee7ce96a23486d9676703be4445aeee11",
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/trees/cb6baf4ee7ce96a23486d9676703be4445aeee11"
+    },
+    {
+      "path": "contrib/android/libs/arm64-v8a",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "27d5f90efd1381d9ef8982963ad20e6f5ff0039f",
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/trees/27d5f90efd1381d9ef8982963ad20e6f5ff0039f"
+    },
+    {
+      "path": "contrib/android/libs/arm64-v8a/libswe-2.10.03.so",
+      "mode": "100755",
+      "type": "blob",
+      "sha": "af1b3e458af901397d4d1de8f18dbc8026009c24",
+      "size": 574352,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/af1b3e458af901397d4d1de8f18dbc8026009c24"
+    },
+    {
+      "path": "contrib/android/libs/armeabi-v7a",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "c7b857845f00a666137e1998c51dd2e07aee79b5",
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/trees/c7b857845f00a666137e1998c51dd2e07aee79b5"
+    },
+    {
+      "path": "contrib/android/libs/armeabi-v7a/libswe-2.10.03.so",
+      "mode": "100755",
+      "type": "blob",
+      "sha": "d815879953707c3f05d416aecedd2b85683ac684",
+      "size": 475188,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/d815879953707c3f05d416aecedd2b85683ac684"
+    },
+    {
+      "path": "contrib/android/libs/x86",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "6309b0951c6edcd36a1b7799dd80307c4d7e080e",
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/trees/6309b0951c6edcd36a1b7799dd80307c4d7e080e"
+    },
+    {
+      "path": "contrib/android/libs/x86/libswe-2.10.03.so",
+      "mode": "100755",
+      "type": "blob",
+      "sha": "828e019ba2a99469f481b4e800bf29de18d4b183",
+      "size": 739916,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/828e019ba2a99469f481b4e800bf29de18d4b183"
+    },
+    {
+      "path": "contrib/android/libs/x86_64",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "38494697789e9741e7c6bcc95e196be9ebe8252a",
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/trees/38494697789e9741e7c6bcc95e196be9ebe8252a"
+    },
+    {
+      "path": "contrib/android/libs/x86_64/libswe-2.10.03.so",
+      "mode": "100755",
+      "type": "blob",
+      "sha": "581abb466efd16616914c7bdd0b93e65691bc8ba",
+      "size": 651544,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/581abb466efd16616914c7bdd0b93e65691bc8ba"
+    },
+    {
+      "path": "contrib/projectPF_VS2017.zip",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "fcf61c93a9b3de6e7b6f421850bfb9a7eba4c1a5",
+      "size": 77803,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/fcf61c93a9b3de6e7b6f421850bfb9a7eba4c1a5"
+    },
+    {
+      "path": "contrib/readme.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "17ea654d861b19a9b1af986830c2c79bcfb53184",
+      "size": 2693,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/17ea654d861b19a9b1af986830c2c79bcfb53184"
+    },
+    {
+      "path": "contrib/rp_source_0_9.zip",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "90d9cab712c1d4ce9baa7d21b469e57f95dfb11f",
+      "size": 361330,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/90d9cab712c1d4ce9baa7d21b469e57f95dfb11f"
+    },
+    {
+      "path": "contrib/swedll64_2.02.01.zip",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "527ce676a12b38068a2bef06d3219c0298482b31",
+      "size": 333010,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/527ce676a12b38068a2bef06d3219c0298482b31"
+    },
+    {
+      "path": "contrib/swissdelphi_2.07.01.zip",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5491000c8ee00d692f6d00e0428b1fd44c167692",
+      "size": 12406,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/5491000c8ee00d692f6d00e0428b1fd44c167692"
+    },
+    {
+      "path": "contrib/swisseph-2.01.00-java-src-01.zip",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "983f35b9de7e45a0674c869f497241ee3b3342dd",
+      "size": 1023596,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/983f35b9de7e45a0674c869f497241ee3b3342dd"
+    },
+    {
+      "path": "doc",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "69fca13235a77fa542f50a8fc88908b61dac19ce",
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/trees/69fca13235a77fa542f50a8fc88908b61dac19ce"
+    },
+    {
+      "path": "doc/README.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1bcaa2e468c4323a18d905a4b93a5c6363b42aa5",
+      "size": 469,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/1bcaa2e468c4323a18d905a4b93a5c6363b42aa5"
+    },
+    {
+      "path": "doc/makefile",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f281db3f96abcdce3b6b1c23f7268f2c86f874b1",
+      "size": 925,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/f281db3f96abcdce3b6b1c23f7268f2c86f874b1"
+    },
+    {
+      "path": "doc/media",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "5aa0c2d1d29f5f892b046561a0e6d6482a4064f7",
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/trees/5aa0c2d1d29f5f892b046561a0e6d6482a4064f7"
+    },
+    {
+      "path": "doc/media/image1.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "14704689a90796d1e1b60a96b9c824e952fe0821",
+      "size": 78370,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/14704689a90796d1e1b60a96b9c824e952fe0821"
+    },
+    {
+      "path": "doc/media/image10.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b6bb570d7f6f96745b19240f3432752672e125da",
+      "size": 6818,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/b6bb570d7f6f96745b19240f3432752672e125da"
+    },
+    {
+      "path": "doc/media/image11.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "049dea503f3431ce48ddfe45a71e490ccc12f702",
+      "size": 42250,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/049dea503f3431ce48ddfe45a71e490ccc12f702"
+    },
+    {
+      "path": "doc/media/image12.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4201bd5829f358aad0570c6d6f760260ddb4b309",
+      "size": 5242,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/4201bd5829f358aad0570c6d6f760260ddb4b309"
+    },
+    {
+      "path": "doc/media/image13.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "87cfba92ab93bf06041f8ec15d64577a50d440d2",
+      "size": 150205,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/87cfba92ab93bf06041f8ec15d64577a50d440d2"
+    },
+    {
+      "path": "doc/media/image14.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f19f5cf43971562e0f9566db4123be9a780d8ccd",
+      "size": 8799,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/f19f5cf43971562e0f9566db4123be9a780d8ccd"
+    },
+    {
+      "path": "doc/media/image15.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1bc025ba9d356e1133e423ca1ed4cc5325fcdd93",
+      "size": 10943,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/1bc025ba9d356e1133e423ca1ed4cc5325fcdd93"
+    },
+    {
+      "path": "doc/media/image16.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3f17513d60d94b941b6014a7deb16c2b3a3014b0",
+      "size": 8384,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/3f17513d60d94b941b6014a7deb16c2b3a3014b0"
+    },
+    {
+      "path": "doc/media/image17.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d381d669841d63f43443f609b10c0cf730c69f63",
+      "size": 8192,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/d381d669841d63f43443f609b10c0cf730c69f63"
+    },
+    {
+      "path": "doc/media/image18.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "cc68e585070a08f50121ed9be91519ed0dcadb9e",
+      "size": 6037,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/cc68e585070a08f50121ed9be91519ed0dcadb9e"
+    },
+    {
+      "path": "doc/media/image19.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "28643328bfc203e1c4238dfcd0b7257d0bbd296c",
+      "size": 26775,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/28643328bfc203e1c4238dfcd0b7257d0bbd296c"
+    },
+    {
+      "path": "doc/media/image2.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "106b145748fdc92b9cc9fd040687acc08c82f63c",
+      "size": 36536,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/106b145748fdc92b9cc9fd040687acc08c82f63c"
+    },
+    {
+      "path": "doc/media/image20.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "32558c30f1a67dbad93351e3508262c455ce7c4b",
+      "size": 105074,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/32558c30f1a67dbad93351e3508262c455ce7c4b"
+    },
+    {
+      "path": "doc/media/image21.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9659c3b6e1175b4ba7b08d3731905edd133fedaa",
+      "size": 14555,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/9659c3b6e1175b4ba7b08d3731905edd133fedaa"
+    },
+    {
+      "path": "doc/media/image22.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "71e15232875d20cbf1e04c05fdd72099ae4599fa",
+      "size": 48008,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/71e15232875d20cbf1e04c05fdd72099ae4599fa"
+    },
+    {
+      "path": "doc/media/image23.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1085003a3f1452dfea9fabacc3f33d61673fc40b",
+      "size": 42926,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/1085003a3f1452dfea9fabacc3f33d61673fc40b"
+    },
+    {
+      "path": "doc/media/image24.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "77968e12b892e437c2e009f735f6f13f6fd98466",
+      "size": 25802,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/77968e12b892e437c2e009f735f6f13f6fd98466"
+    },
+    {
+      "path": "doc/media/image25.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0e2df30bf324d590ce95c4b8d4600a7c33616550",
+      "size": 26084,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/0e2df30bf324d590ce95c4b8d4600a7c33616550"
+    },
+    {
+      "path": "doc/media/image26.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8e8989a68efd8559d1fcfc197d24b30f3345eb68",
+      "size": 10028,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/8e8989a68efd8559d1fcfc197d24b30f3345eb68"
+    },
+    {
+      "path": "doc/media/image27.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b22432f3573a62678959e8dd1ad2d8fb73781383",
+      "size": 5132,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/b22432f3573a62678959e8dd1ad2d8fb73781383"
+    },
+    {
+      "path": "doc/media/image28.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5519f5aa06b02212ae7eca3b6041b8401f760892",
+      "size": 4486,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/5519f5aa06b02212ae7eca3b6041b8401f760892"
+    },
+    {
+      "path": "doc/media/image29.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "52ae9b2d5d654728eedf7934fd10953e51eba4f6",
+      "size": 7135,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/52ae9b2d5d654728eedf7934fd10953e51eba4f6"
+    },
+    {
+      "path": "doc/media/image3.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1e31a95f59d55060776c8e1296b50042c5697ba9",
+      "size": 28809,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/1e31a95f59d55060776c8e1296b50042c5697ba9"
+    },
+    {
+      "path": "doc/media/image30.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "21a873c75b5c8872d8ca3c543627a8f19741e6d0",
+      "size": 10645,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/21a873c75b5c8872d8ca3c543627a8f19741e6d0"
+    },
+    {
+      "path": "doc/media/image31.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a9f6ba1da114794e03cc3c50f5e32983fb9abc95",
+      "size": 5151,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/a9f6ba1da114794e03cc3c50f5e32983fb9abc95"
+    },
+    {
+      "path": "doc/media/image32.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9066089f4f33c24d7b0c450e52bf7aaa3a3f8d63",
+      "size": 11269,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/9066089f4f33c24d7b0c450e52bf7aaa3a3f8d63"
+    },
+    {
+      "path": "doc/media/image33.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7fcd36f4378017a6cfb5671a0f6d43fd0eb591a7",
+      "size": 5884,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/7fcd36f4378017a6cfb5671a0f6d43fd0eb591a7"
+    },
+    {
+      "path": "doc/media/image34.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "bb47c15af0ddeac646b25b332aa9f3613d21eaf9",
+      "size": 20037,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/bb47c15af0ddeac646b25b332aa9f3613d21eaf9"
+    },
+    {
+      "path": "doc/media/image35.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "18dc680382196e1bffac76b67fdaf78f6d4610f0",
+      "size": 19800,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/18dc680382196e1bffac76b67fdaf78f6d4610f0"
+    },
+    {
+      "path": "doc/media/image36.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6280c6f4eff2593b80ea31736097cb5f6add6294",
+      "size": 61456,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/6280c6f4eff2593b80ea31736097cb5f6add6294"
+    },
+    {
+      "path": "doc/media/image37.jpeg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f61d9e6bc3ec6a62b02e2995b5715c50bb7b61cf",
+      "size": 54484,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/f61d9e6bc3ec6a62b02e2995b5715c50bb7b61cf"
+    },
+    {
+      "path": "doc/media/image38.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b3f915024e26d207e670466817185e09c0e9e59b",
+      "size": 837343,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/b3f915024e26d207e670466817185e09c0e9e59b"
+    },
+    {
+      "path": "doc/media/image39.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f12183ebb36fc96f5cbb2b437b78424834be1a6e",
+      "size": 92198,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/f12183ebb36fc96f5cbb2b437b78424834be1a6e"
+    },
+    {
+      "path": "doc/media/image4.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "13fb3339d86ce9beab48d63bd1b93088784e47c5",
+      "size": 10922,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/13fb3339d86ce9beab48d63bd1b93088784e47c5"
+    },
+    {
+      "path": "doc/media/image40.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "71438389849f7f8b4b599aebe6f2b2d6384827b1",
+      "size": 53347,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/71438389849f7f8b4b599aebe6f2b2d6384827b1"
+    },
+    {
+      "path": "doc/media/image5.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3d4efd02371e77ffdb54b21a3233a2ea7454da10",
+      "size": 16609,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/3d4efd02371e77ffdb54b21a3233a2ea7454da10"
+    },
+    {
+      "path": "doc/media/image6.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "aefb181e932e7b7ddd4508486f410136f909a62f",
+      "size": 7339,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/aefb181e932e7b7ddd4508486f410136f909a62f"
+    },
+    {
+      "path": "doc/media/image7.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0dda1cf3221971976b33aed6b85364482a1e67f2",
+      "size": 6869,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/0dda1cf3221971976b33aed6b85364482a1e67f2"
+    },
+    {
+      "path": "doc/media/image8.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "cc6e669b6058b4c93c9c431e2b63f25461383b47",
+      "size": 2930,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/cc6e669b6058b4c93c9c431e2b63f25461383b47"
+    },
+    {
+      "path": "doc/media/image9.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "66d8d8676064c388da9ba12d64a7245e26211fda",
+      "size": 7577,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/66d8d8676064c388da9ba12d64a7245e26211fda"
+    },
+    {
+      "path": "doc/secont_e.pdf",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "18b69c0490d50a458589ea37ed5430bedaaf04fb",
+      "size": 66544,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/18b69c0490d50a458589ea37ed5430bedaaf04fb"
+    },
+    {
+      "path": "doc/swephprg.pdf",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "580ec6d7429d1addf7c51b22a6468b63e430c1d3",
+      "size": 1846571,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/580ec6d7429d1addf7c51b22a6468b63e430c1d3"
+    },
+    {
+      "path": "doc/swisseph.htm",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f068017dd4ed20ac19a0342cedeea53d3efa2242",
+      "size": 3001531,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/f068017dd4ed20ac19a0342cedeea53d3efa2242"
+    },
+    {
+      "path": "doc/swisseph.pdf",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c401a6869d7339ae3878c476591a8f592688bd8c",
+      "size": 1997085,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/c401a6869d7339ae3878c476591a8f592688bd8c"
+    },
+    {
+      "path": "doc/template.htm",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c70b5cd20e60fd6b1096deab992a3abca5d1484c",
+      "size": 322,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/c70b5cd20e60fd6b1096deab992a3abca5d1484c"
+    },
+    {
+      "path": "ephe",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "8c68158d7aeb9588e01bb36139f3087f8e4804b9",
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/trees/8c68158d7aeb9588e01bb36139f3087f8e4804b9"
+    },
+    {
+      "path": "ephe/astlistn.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "40fdfe950a7f59336d8571929cffdc3ba295f5c6",
+      "size": 1294384,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/40fdfe950a7f59336d8571929cffdc3ba295f5c6"
+    },
+    {
+      "path": "ephe/ep4",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "580a7288730ecd16592957d4c55ba11bd6d75f40",
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/trees/580a7288730ecd16592957d4c55ba11bd6d75f40"
+    },
+    {
+      "path": "ephe/ep4/sep4_196",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "701101e70a4dfb43d596a4f3c5d11d36f1c77d5f",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/701101e70a4dfb43d596a4f3c5d11d36f1c77d5f"
+    },
+    {
+      "path": "ephe/ep4/sep4_197",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "88113ae74924790a97dc3ea622a41e5f6082e044",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/88113ae74924790a97dc3ea622a41e5f6082e044"
+    },
+    {
+      "path": "ephe/ep4/sep4_198",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e7916bda0d24ab9cde02fc18a18e5cab853a9a1b",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/e7916bda0d24ab9cde02fc18a18e5cab853a9a1b"
+    },
+    {
+      "path": "ephe/ep4/sep4_199",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5ccc064f017ad5b239262ac903da54aaa1dfcb09",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/5ccc064f017ad5b239262ac903da54aaa1dfcb09"
+    },
+    {
+      "path": "ephe/ep4/sep4_200",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f010dfd1d8990c763090f42c3721e9c03860c820",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/f010dfd1d8990c763090f42c3721e9c03860c820"
+    },
+    {
+      "path": "ephe/ep4/sep4_201",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "184d627b56d6ac01b1843cb8a34f3a78c6f53069",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/184d627b56d6ac01b1843cb8a34f3a78c6f53069"
+    },
+    {
+      "path": "ephe/ep4/sep4_202",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "fc1a97553a4534de7ed425aa8f072f028162b80d",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/fc1a97553a4534de7ed425aa8f072f028162b80d"
+    },
+    {
+      "path": "ephe/ep4/sep4_203",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "858d818ff068c896cc0ba9cc97ea2f6fcada2525",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/858d818ff068c896cc0ba9cc97ea2f6fcada2525"
+    },
+    {
+      "path": "ephe/ep4/sep4_204",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9d99b18b219b4aa3360e09e76681688aa25eb693",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/9d99b18b219b4aa3360e09e76681688aa25eb693"
+    },
+    {
+      "path": "ephe/ep4/sep4_205",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "48370e9f03dd87b6de131f9eeadb51ac81523075",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/48370e9f03dd87b6de131f9eeadb51ac81523075"
+    },
+    {
+      "path": "ephe/ep4/sep4_206",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f693c6a5d185e914c4da49683b67f61afc489d5d",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/f693c6a5d185e914c4da49683b67f61afc489d5d"
+    },
+    {
+      "path": "ephe/ep4/sep4_207",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1bab92fd378c4618cc01bea192af310eb5b14d6c",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/1bab92fd378c4618cc01bea192af310eb5b14d6c"
+    },
+    {
+      "path": "ephe/ep4/sep4_208",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e01ce3a5d4134ef525c9443f02ab356de3693e75",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/e01ce3a5d4134ef525c9443f02ab356de3693e75"
+    },
+    {
+      "path": "ephe/ep4/sep4_209",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "fb467a12ba21f4a73a3ec33b7c602d16adfb99e7",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/fb467a12ba21f4a73a3ec33b7c602d16adfb99e7"
+    },
+    {
+      "path": "ephe/ep4/sep4_210",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f595836405024272893c4dedcdb8b659d42b8aa7",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/f595836405024272893c4dedcdb8b659d42b8aa7"
+    },
+    {
+      "path": "ephe/ep4/sep4_211",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "507c47ba547721d0ba8051b67254d341a473b6b0",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/507c47ba547721d0ba8051b67254d341a473b6b0"
+    },
+    {
+      "path": "ephe/ep4/sep4_212",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "70f48f3371fe204c6b1e237f167325136306e0e2",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/70f48f3371fe204c6b1e237f167325136306e0e2"
+    },
+    {
+      "path": "ephe/ep4/sep4_213",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "95a452a796557e33a7aed9912368d0503cd4aaa4",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/95a452a796557e33a7aed9912368d0503cd4aaa4"
+    },
+    {
+      "path": "ephe/ep4/sep4_214",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "87b04c1186770c973a37fa66827062d96a5fb56b",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/87b04c1186770c973a37fa66827062d96a5fb56b"
+    },
+    {
+      "path": "ephe/ep4/sep4_215",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e121be9cf1d216f7708911d9e3ea06fbb4f0994a",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/e121be9cf1d216f7708911d9e3ea06fbb4f0994a"
+    },
+    {
+      "path": "ephe/ep4/sep4_216",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7bff9d9535a566767fe73d922d2d68966415d3d6",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/7bff9d9535a566767fe73d922d2d68966415d3d6"
+    },
+    {
+      "path": "ephe/ep4/sep4_217",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "221731209e814f574143528bc06a9faa9cd0a400",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/221731209e814f574143528bc06a9faa9cd0a400"
+    },
+    {
+      "path": "ephe/ep4/sep4_218",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "cf85b7c2452cb0e3764a64b782dc53cf2ce2895e",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/cf85b7c2452cb0e3764a64b782dc53cf2ce2895e"
+    },
+    {
+      "path": "ephe/ep4/sep4_219",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1d1e1857f4d67a27d93a82a15b204d63022441ee",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/1d1e1857f4d67a27d93a82a15b204d63022441ee"
+    },
+    {
+      "path": "ephe/ep4/sep4_220",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e8ece94becc0a9ff953f8c03f58526bafcd14922",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/e8ece94becc0a9ff953f8c03f58526bafcd14922"
+    },
+    {
+      "path": "ephe/ep4/sep4_221",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "69080addb33e03d4785dd43dadd60cd66403bdc8",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/69080addb33e03d4785dd43dadd60cd66403bdc8"
+    },
+    {
+      "path": "ephe/ep4/sep4_222",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "206393be7f2177b4e527293ffaf26c4dabee67f1",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/206393be7f2177b4e527293ffaf26c4dabee67f1"
+    },
+    {
+      "path": "ephe/ep4/sep4_223",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "71f3f41fa954432519011ef097ec125c5d1ad561",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/71f3f41fa954432519011ef097ec125c5d1ad561"
+    },
+    {
+      "path": "ephe/ep4/sep4_224",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "aa5352828953520efd29bf2749e65cf7161905e9",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/aa5352828953520efd29bf2749e65cf7161905e9"
+    },
+    {
+      "path": "ephe/ep4/sep4_225",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "28c4ffeed4ada91198af0967938c519f3d68ec0f",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/28c4ffeed4ada91198af0967938c519f3d68ec0f"
+    },
+    {
+      "path": "ephe/ep4/sep4_226",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "46ed015778bce0768529ec2b8032d61280fcd9d0",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/46ed015778bce0768529ec2b8032d61280fcd9d0"
+    },
+    {
+      "path": "ephe/ep4/sep4_227",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "929aea4c3bcc8b78db073841b00e845e5fde8b45",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/929aea4c3bcc8b78db073841b00e845e5fde8b45"
+    },
+    {
+      "path": "ephe/ep4/sep4_228",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "02f47381b6dd6010de0fd3bcc1ea8411aec17428",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/02f47381b6dd6010de0fd3bcc1ea8411aec17428"
+    },
+    {
+      "path": "ephe/ep4/sep4_229",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7f9adf98a29a38187d9098088c902ba46796ad6a",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/7f9adf98a29a38187d9098088c902ba46796ad6a"
+    },
+    {
+      "path": "ephe/ep4/sep4_230",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e775017bd029f5b2a12a791d440cc797cad229f0",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/e775017bd029f5b2a12a791d440cc797cad229f0"
+    },
+    {
+      "path": "ephe/ep4/sep4_231",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3f579500810eec02785241578d344fd098dbd7f5",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/3f579500810eec02785241578d344fd098dbd7f5"
+    },
+    {
+      "path": "ephe/ep4/sep4_232",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "bf93e5ee57c6d5eb9e73f3719b5e9579f2351c91",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/bf93e5ee57c6d5eb9e73f3719b5e9579f2351c91"
+    },
+    {
+      "path": "ephe/ep4/sep4_233",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "df9977ad607e7af665c31bb0e34530ead40ce0f1",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/df9977ad607e7af665c31bb0e34530ead40ce0f1"
+    },
+    {
+      "path": "ephe/ep4/sep4_234",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4bb181fb0823090a790dfff1d6555947d76e1f46",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/4bb181fb0823090a790dfff1d6555947d76e1f46"
+    },
+    {
+      "path": "ephe/ep4/sep4_235",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d7bd58f8803d5472bbaf5386379d832e285f04c3",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/d7bd58f8803d5472bbaf5386379d832e285f04c3"
+    },
+    {
+      "path": "ephe/ep4/sep4_236",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9370675333fddbdc5a7478ad658193612d4419cb",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/9370675333fddbdc5a7478ad658193612d4419cb"
+    },
+    {
+      "path": "ephe/ep4/sep4_237",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c2711ac9f1084dd0b90037c9785dbe0017388d3b",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/c2711ac9f1084dd0b90037c9785dbe0017388d3b"
+    },
+    {
+      "path": "ephe/ep4/sep4_238",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2d5b5592dfc5655bc1fb991cb5b0ed910fd72b6e",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/2d5b5592dfc5655bc1fb991cb5b0ed910fd72b6e"
+    },
+    {
+      "path": "ephe/ep4/sep4_239",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e4761e5bdd3eec97d33a623c3e82fc062c43054a",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/e4761e5bdd3eec97d33a623c3e82fc062c43054a"
+    },
+    {
+      "path": "ephe/ep4/sep4_240",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2db5b16c24b7d7234b5eb99c9ba57cb41808b327",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/2db5b16c24b7d7234b5eb99c9ba57cb41808b327"
+    },
+    {
+      "path": "ephe/ep4/sep4_241",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d1845fa35cbfbefe38b87667978aa22f4839ad63",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/d1845fa35cbfbefe38b87667978aa22f4839ad63"
+    },
+    {
+      "path": "ephe/ep4/sep4_242",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b2ea1177aa00208228a5f244bc5946e4dad4dbb0",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/b2ea1177aa00208228a5f244bc5946e4dad4dbb0"
+    },
+    {
+      "path": "ephe/ep4/sep4_243",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f4a69005cd43b081792f79e3b680cf5e9b03d3b8",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/f4a69005cd43b081792f79e3b680cf5e9b03d3b8"
+    },
+    {
+      "path": "ephe/ep4/sep4_244",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9b3fe125ad725543b15f6df32d35bdf6f905028c",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/9b3fe125ad725543b15f6df32d35bdf6f905028c"
+    },
+    {
+      "path": "ephe/ep4/sep4_245",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "72c857a9ba21cd9bba62e8d9f8352ad97e97d355",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/72c857a9ba21cd9bba62e8d9f8352ad97e97d355"
+    },
+    {
+      "path": "ephe/ep4/sep4_246",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "62772cbf801b1b3fae66654f8228a9fb20bea280",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/62772cbf801b1b3fae66654f8228a9fb20bea280"
+    },
+    {
+      "path": "ephe/ep4/sep4_247",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f58d1690e2dfca4ca2b7893867f30d1e4b8068c6",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/f58d1690e2dfca4ca2b7893867f30d1e4b8068c6"
+    },
+    {
+      "path": "ephe/ep4/sep4_248",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2713b5034a5aae4baa27e58d1eded272632092cb",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/2713b5034a5aae4baa27e58d1eded272632092cb"
+    },
+    {
+      "path": "ephe/ep4/sep4_249",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2bc23f8ba34782d5a1cd623330d192727a395da5",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/2bc23f8ba34782d5a1cd623330d192727a395da5"
+    },
+    {
+      "path": "ephe/ep4/sep4_250",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "fac776f7b57d7d6fd2e2a007b04d5b615b87f105",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/fac776f7b57d7d6fd2e2a007b04d5b615b87f105"
+    },
+    {
+      "path": "ephe/ep4/sep4_251",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "70a3ec4d9bc526e89fa61f22a400cffaf4a9e6d0",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/70a3ec4d9bc526e89fa61f22a400cffaf4a9e6d0"
+    },
+    {
+      "path": "ephe/ep4/sep4_252",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4df06b9443ff7568d442e68e7cf537160685835e",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/4df06b9443ff7568d442e68e7cf537160685835e"
+    },
+    {
+      "path": "ephe/ep4/sep4_253",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6efcc26e70a76b5777e9c5342553ae84eede2624",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/6efcc26e70a76b5777e9c5342553ae84eede2624"
+    },
+    {
+      "path": "ephe/ep4/sep4_254",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "bbc2b0450df5da3ea688aec9f65ebe4b51e7223f",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/bbc2b0450df5da3ea688aec9f65ebe4b51e7223f"
+    },
+    {
+      "path": "ephe/ep4/sep4_255",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8eb89594024723d5095434709c90059db3fc0315",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/8eb89594024723d5095434709c90059db3fc0315"
+    },
+    {
+      "path": "ephe/ep4/sep4_256",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ac3f1b22f25533715b746e3c110aa9cd8b8e7f22",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/ac3f1b22f25533715b746e3c110aa9cd8b8e7f22"
+    },
+    {
+      "path": "ephe/ep4/sep4_257",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3254af4845f5fe5e3fe9cfc1e9503f424a4f4600",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/3254af4845f5fe5e3fe9cfc1e9503f424a4f4600"
+    },
+    {
+      "path": "ephe/ep4/sep4_258",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2895597ed96483e85895559c827a643a6dd30222",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/2895597ed96483e85895559c827a643a6dd30222"
+    },
+    {
+      "path": "ephe/ep4/sep4_259",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d14ac85f40f587a13441edd66667d6adb96ebbaf",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/d14ac85f40f587a13441edd66667d6adb96ebbaf"
+    },
+    {
+      "path": "ephe/ep4/sep4_260",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c9319c74d89211115808dc03bdaf7bde2cdc86b2",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/c9319c74d89211115808dc03bdaf7bde2cdc86b2"
+    },
+    {
+      "path": "ephe/ep4/sep4_261",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ede4a7ff91efa9b540f03d77b5cdf31f08b1ddfd",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/ede4a7ff91efa9b540f03d77b5cdf31f08b1ddfd"
+    },
+    {
+      "path": "ephe/ep4/sep4_262",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "fb3e392781f83b9ad40edbbf5f1dd61db50bcdb8",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/fb3e392781f83b9ad40edbbf5f1dd61db50bcdb8"
+    },
+    {
+      "path": "ephe/ep4/sep4_263",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "29ccfd6e46be4f51c0c1746315e2e1b1b892fb75",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/29ccfd6e46be4f51c0c1746315e2e1b1b892fb75"
+    },
+    {
+      "path": "ephe/ep4/sep4_264",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "36fbfb92bca467972a17fb7a417de89529b41708",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/36fbfb92bca467972a17fb7a417de89529b41708"
+    },
+    {
+      "path": "ephe/ep4/sep4_265",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1e06da994d4edb34cfab1302ca3683cb496e638b",
+      "size": 358000,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/1e06da994d4edb34cfab1302ca3683cb496e638b"
+    },
+    {
+      "path": "ephe/list.zip",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b943d5ed081d399621e64ea800b5143245ed372a",
+      "size": 6907659,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/b943d5ed081d399621e64ea800b5143245ed372a"
+    },
+    {
+      "path": "ephe/sat",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "d6376756b8019dcd51c684dd86e679bf4b1adf1d",
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/trees/d6376756b8019dcd51c684dd86e679bf4b1adf1d"
+    },
+    {
+      "path": "ephe/sat/plmolist.txt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4ad9633e3a4264c970087a600cf972151937aaa1",
+      "size": 818,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/4ad9633e3a4264c970087a600cf972151937aaa1"
+    },
+    {
+      "path": "ephe/sat/sepm9401.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4503e9944cac20d46bd024273485a6c86a052853",
+      "size": 15357353,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/4503e9944cac20d46bd024273485a6c86a052853"
+    },
+    {
+      "path": "ephe/sat/sepm9402.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8b0723e6c05f47d3e40f863fd44d0e2deb28d59f",
+      "size": 12827585,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/8b0723e6c05f47d3e40f863fd44d0e2deb28d59f"
+    },
+    {
+      "path": "ephe/sat/sepm9501.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e810bd5b83336c9e60fdb424b338f2371f0c1f89",
+      "size": 10287328,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/e810bd5b83336c9e60fdb424b338f2371f0c1f89"
+    },
+    {
+      "path": "ephe/sat/sepm9502.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c7e5c88f498d1fffa632bcb8f8690b28006c8fca",
+      "size": 8145611,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/c7e5c88f498d1fffa632bcb8f8690b28006c8fca"
+    },
+    {
+      "path": "ephe/sat/sepm9503.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0859558892e65df2ab23f777c1fc523a5a34a6fa",
+      "size": 5828931,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/0859558892e65df2ab23f777c1fc523a5a34a6fa"
+    },
+    {
+      "path": "ephe/sat/sepm9504.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "52ba1aa60ef80fecc14f7a5366fba438d8d9401b",
+      "size": 3785712,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/52ba1aa60ef80fecc14f7a5366fba438d8d9401b"
+    },
+    {
+      "path": "ephe/sat/sepm9599.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "56f87f5a95d8ea3bbe8491cbaa363b3b45f38df9",
+      "size": 8624975,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/56f87f5a95d8ea3bbe8491cbaa363b3b45f38df9"
+    },
+    {
+      "path": "ephe/sat/sepm9601.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4228fce27efc2354df2448d8b92493e34387f73e",
+      "size": 7435593,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/4228fce27efc2354df2448d8b92493e34387f73e"
+    },
+    {
+      "path": "ephe/sat/sepm9602.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d4ca6afc4aa998afd90a569a5a802b46354f5777",
+      "size": 11430607,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/d4ca6afc4aa998afd90a569a5a802b46354f5777"
+    },
+    {
+      "path": "ephe/sat/sepm9603.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "cf30c4712142161c0cba946a5cac9a66109aebb6",
+      "size": 8301813,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/cf30c4712142161c0cba946a5cac9a66109aebb6"
+    },
+    {
+      "path": "ephe/sat/sepm9604.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "98e5a215499c9d917755330568b31da5921ec975",
+      "size": 7094762,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/98e5a215499c9d917755330568b31da5921ec975"
+    },
+    {
+      "path": "ephe/sat/sepm9605.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d5d73787c2ca76ef0fb295cd85c8f7fae1bafb29",
+      "size": 5343409,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/d5d73787c2ca76ef0fb295cd85c8f7fae1bafb29"
+    },
+    {
+      "path": "ephe/sat/sepm9606.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5595188b21111ef9b50ab349840dc3c3e8ee89d7",
+      "size": 3239559,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/5595188b21111ef9b50ab349840dc3c3e8ee89d7"
+    },
+    {
+      "path": "ephe/sat/sepm9607.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "24d413e24ebe2288076b31979653b05ca9a92ea8",
+      "size": 3095391,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/24d413e24ebe2288076b31979653b05ca9a92ea8"
+    },
+    {
+      "path": "ephe/sat/sepm9608.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "28c6a5b69a3357f87bdc3ea1bc139041e8f0be17",
+      "size": 2177753,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/28c6a5b69a3357f87bdc3ea1bc139041e8f0be17"
+    },
+    {
+      "path": "ephe/sat/sepm9699.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "63dedeca9f7b97be7f5b4c35eda9d2440461d6e1",
+      "size": 7332958,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/63dedeca9f7b97be7f5b4c35eda9d2440461d6e1"
+    },
+    {
+      "path": "ephe/sat/sepm9701.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "485811c1fd1834c9992cf33a01153f0a941cd201",
+      "size": 8297926,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/485811c1fd1834c9992cf33a01153f0a941cd201"
+    },
+    {
+      "path": "ephe/sat/sepm9702.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4686a6c56f3b41c4beaf8604d2a9f68b26107b94",
+      "size": 6905506,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/4686a6c56f3b41c4beaf8604d2a9f68b26107b94"
+    },
+    {
+      "path": "ephe/sat/sepm9703.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0f4b463aa8cad3f4571beaa55c2ba93b34a8752e",
+      "size": 4676544,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/0f4b463aa8cad3f4571beaa55c2ba93b34a8752e"
+    },
+    {
+      "path": "ephe/sat/sepm9704.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3bf0982315352006f08a18d403fc146460424aee",
+      "size": 3871760,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/3bf0982315352006f08a18d403fc146460424aee"
+    },
+    {
+      "path": "ephe/sat/sepm9705.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d2ae088140bfe36af66ce9a6a47fb8a1f98f5065",
+      "size": 10989141,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/d2ae088140bfe36af66ce9a6a47fb8a1f98f5065"
+    },
+    {
+      "path": "ephe/sat/sepm9799.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9e946ebf7ef487b8911713a8b49d369e6cd05fe4",
+      "size": 8385419,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/9e946ebf7ef487b8911713a8b49d369e6cd05fe4"
+    },
+    {
+      "path": "ephe/sat/sepm9801.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c69b152357b0fc3d8f3c120a4567279579a75463",
+      "size": 2231921,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/c69b152357b0fc3d8f3c120a4567279579a75463"
+    },
+    {
+      "path": "ephe/sat/sepm9802.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9f64775765f18d9bd0cdd94286a6522c5f9567fc",
+      "size": 773959,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/9f64775765f18d9bd0cdd94286a6522c5f9567fc"
+    },
+    {
+      "path": "ephe/sat/sepm9808.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a10c966d3385f74e783fc835240dd754a29e0064",
+      "size": 7895717,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/a10c966d3385f74e783fc835240dd754a29e0064"
+    },
+    {
+      "path": "ephe/sat/sepm9899.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "22facf916d792afd6339a2c596538959a1bbab63",
+      "size": 5654688,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/22facf916d792afd6339a2c596538959a1bbab63"
+    },
+    {
+      "path": "ephe/sat/sepm9901.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5a7754f178e5eab61cdba97a4fc1311382b053c2",
+      "size": 2069569,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/5a7754f178e5eab61cdba97a4fc1311382b053c2"
+    },
+    {
+      "path": "ephe/sat/sepm9902.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "02233b600385231e5d0147bc24960481c008a843",
+      "size": 2081603,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/02233b600385231e5d0147bc24960481c008a843"
+    },
+    {
+      "path": "ephe/sat/sepm9903.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "dfde96779ceb03190b2bda08a06bc10b30779100",
+      "size": 1815588,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/dfde96779ceb03190b2bda08a06bc10b30779100"
+    },
+    {
+      "path": "ephe/sat/sepm9904.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "bc07bb574babe538978034e8a92f5c451f5e12a6",
+      "size": 1903569,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/bc07bb574babe538978034e8a92f5c451f5e12a6"
+    },
+    {
+      "path": "ephe/sat/sepm9905.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6977b2fa3eade6ed87aabb8475646a24fb1b3db5",
+      "size": 2155153,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/6977b2fa3eade6ed87aabb8475646a24fb1b3db5"
+    },
+    {
+      "path": "ephe/sat/sepm9999.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6c31716021f07c26044557dcb91b5e776f901b0e",
+      "size": 2096463,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/6c31716021f07c26044557dcb91b5e776f901b0e"
+    },
+    {
+      "path": "ephe/seas_00.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "369b9b35b51e3965e8b91eae27dcd1f26fd16203",
+      "size": 224351,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/369b9b35b51e3965e8b91eae27dcd1f26fd16203"
+    },
+    {
+      "path": "ephe/seas_06.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3c0219dc63b97844e6e11d1bd3db79d4c2f09f54",
+      "size": 223810,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/3c0219dc63b97844e6e11d1bd3db79d4c2f09f54"
+    },
+    {
+      "path": "ephe/seas_102.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "bfc8e6c6e37094934e573ab00f4efa0fddb928ee",
+      "size": 229487,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/bfc8e6c6e37094934e573ab00f4efa0fddb928ee"
+    },
+    {
+      "path": "ephe/seas_108.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "af10b1444a16c0c4f436cdecd75d123a449722b3",
+      "size": 229960,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/af10b1444a16c0c4f436cdecd75d123a449722b3"
+    },
+    {
+      "path": "ephe/seas_114.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a1c44e75dbdc3465c0460bc1c8af35cf45001a60",
+      "size": 230440,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/a1c44e75dbdc3465c0460bc1c8af35cf45001a60"
+    },
+    {
+      "path": "ephe/seas_12.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "aab20b20a90a4c8d2435def678e01a00650e7344",
+      "size": 223396,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/aab20b20a90a4c8d2435def678e01a00650e7344"
+    },
+    {
+      "path": "ephe/seas_120.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9fc70af497a28297cb46ddc15313eecf48ece977",
+      "size": 230613,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/9fc70af497a28297cb46ddc15313eecf48ece977"
+    },
+    {
+      "path": "ephe/seas_126.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2093a3e4390134a064ceacdda04c7f0de3457f7a",
+      "size": 230569,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/2093a3e4390134a064ceacdda04c7f0de3457f7a"
+    },
+    {
+      "path": "ephe/seas_132.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "bd54dbb4e511d782043488962934eb6d210e4300",
+      "size": 230188,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/bd54dbb4e511d782043488962934eb6d210e4300"
+    },
+    {
+      "path": "ephe/seas_138.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "154675ac264b7b017ab15b09dec9cd00ba5ee5dd",
+      "size": 229560,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/154675ac264b7b017ab15b09dec9cd00ba5ee5dd"
+    },
+    {
+      "path": "ephe/seas_144.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d830faf01f2d9016ca9ec610b2a440094ca13c58",
+      "size": 228740,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/d830faf01f2d9016ca9ec610b2a440094ca13c58"
+    },
+    {
+      "path": "ephe/seas_150.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "946e3d9458c800a20e2ede977dbde217be2bfe53",
+      "size": 227930,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/946e3d9458c800a20e2ede977dbde217be2bfe53"
+    },
+    {
+      "path": "ephe/seas_156.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a953b7fd6b3aa0f1454aa311c4923389ce7f81ee",
+      "size": 227064,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/a953b7fd6b3aa0f1454aa311c4923389ce7f81ee"
+    },
+    {
+      "path": "ephe/seas_162.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ad3704b1e1e8045c697b90c7ff5738cdadba8311",
+      "size": 226218,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/ad3704b1e1e8045c697b90c7ff5738cdadba8311"
+    },
+    {
+      "path": "ephe/seas_18.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5de13e59a926abf8c27fa2adf0e440bd1b2c4e7d",
+      "size": 223002,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/5de13e59a926abf8c27fa2adf0e440bd1b2c4e7d"
+    },
+    {
+      "path": "ephe/seas_24.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d428989ff291549876f6239a701e4c0cc6a6ebad",
+      "size": 222674,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/d428989ff291549876f6239a701e4c0cc6a6ebad"
+    },
+    {
+      "path": "ephe/seas_30.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3be31bf914703c8f2e797987ecdc787a8cbdaafd",
+      "size": 222209,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/3be31bf914703c8f2e797987ecdc787a8cbdaafd"
+    },
+    {
+      "path": "ephe/seas_36.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1ae6f702e429399269edfb68ce57f9ab0c5eff9a",
+      "size": 221567,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/1ae6f702e429399269edfb68ce57f9ab0c5eff9a"
+    },
+    {
+      "path": "ephe/seas_42.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7bbbcb93286ac2626e740d9a6183e32a09f2eb2c",
+      "size": 221189,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/7bbbcb93286ac2626e740d9a6183e32a09f2eb2c"
+    },
+    {
+      "path": "ephe/seas_48.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d7227c7f534755f8d04ca890c1ef70ab5fd46fcf",
+      "size": 221158,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/d7227c7f534755f8d04ca890c1ef70ab5fd46fcf"
+    },
+    {
+      "path": "ephe/seas_54.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ffeaa5646dd1871b91fceacf9b9edb5ee2dab8f6",
+      "size": 221364,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/ffeaa5646dd1871b91fceacf9b9edb5ee2dab8f6"
+    },
+    {
+      "path": "ephe/seas_60.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e0b69e1c5d3a541d27cd732291954571697da11e",
+      "size": 221711,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/e0b69e1c5d3a541d27cd732291954571697da11e"
+    },
+    {
+      "path": "ephe/seas_66.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a96b51992bc42c3f557e96242c59dcca9c160874",
+      "size": 222778,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/a96b51992bc42c3f557e96242c59dcca9c160874"
+    },
+    {
+      "path": "ephe/seas_72.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9027a29d34e1f725a6621e9d39c827c04a0b271d",
+      "size": 223888,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/9027a29d34e1f725a6621e9d39c827c04a0b271d"
+    },
+    {
+      "path": "ephe/seas_78.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "512b906ab91194a6f9497f5e889281d916bec184",
+      "size": 225184,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/512b906ab91194a6f9497f5e889281d916bec184"
+    },
+    {
+      "path": "ephe/seas_84.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "86d3a7c3e16c9d93ff9f53d70061d3f86f39b79a",
+      "size": 226457,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/86d3a7c3e16c9d93ff9f53d70061d3f86f39b79a"
+    },
+    {
+      "path": "ephe/seas_90.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9151fbf8be802fb026fbc60e2d2db27c4a8368d4",
+      "size": 227450,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/9151fbf8be802fb026fbc60e2d2db27c4a8368d4"
+    },
+    {
+      "path": "ephe/seas_96.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1d36969162dcaee5d3d9285f9875bfec7cfdb8db",
+      "size": 228365,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/1d36969162dcaee5d3d9285f9875bfec7cfdb8db"
+    },
+    {
+      "path": "ephe/seasm06.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b247719cb187795fc1afbfe945daad3988809810",
+      "size": 225406,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/b247719cb187795fc1afbfe945daad3988809810"
+    },
+    {
+      "path": "ephe/seasm102.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "86a02800ecbc61ea0b651c28832e62f38df136d3",
+      "size": 223062,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/86a02800ecbc61ea0b651c28832e62f38df136d3"
+    },
+    {
+      "path": "ephe/seasm108.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "fb08947351bafc774a36479ace9e6e060d4f13d5",
+      "size": 222863,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/fb08947351bafc774a36479ace9e6e060d4f13d5"
+    },
+    {
+      "path": "ephe/seasm114.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9948e67380b56964d0c840f2f1f308adce469ae3",
+      "size": 222850,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/9948e67380b56964d0c840f2f1f308adce469ae3"
+    },
+    {
+      "path": "ephe/seasm12.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "05fa95839240dda12f605e6604e171963d286fd2",
+      "size": 227010,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/05fa95839240dda12f605e6604e171963d286fd2"
+    },
+    {
+      "path": "ephe/seasm120.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "bb1e9e5021b626296f6413f6c08071328011e296",
+      "size": 222932,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/bb1e9e5021b626296f6413f6c08071328011e296"
+    },
+    {
+      "path": "ephe/seasm126.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "fbe462605321fc5e2a828c584b7530fafd1f491b",
+      "size": 223127,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/fbe462605321fc5e2a828c584b7530fafd1f491b"
+    },
+    {
+      "path": "ephe/seasm132.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "aacc23db5721d2c5d4e3172de80e4a30d70c87ea",
+      "size": 223597,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/aacc23db5721d2c5d4e3172de80e4a30d70c87ea"
+    },
+    {
+      "path": "ephe/seasm18.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d5d4f45722f4129986e5947d259f6a8be7048d2d",
+      "size": 228237,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/d5d4f45722f4129986e5947d259f6a8be7048d2d"
+    },
+    {
+      "path": "ephe/seasm24.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b9580b05a273e2be887f1d138258c1b9e87889e7",
+      "size": 229151,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/b9580b05a273e2be887f1d138258c1b9e87889e7"
+    },
+    {
+      "path": "ephe/seasm30.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "478d34450ffc14c3e13ae596160edc420201719a",
+      "size": 229721,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/478d34450ffc14c3e13ae596160edc420201719a"
+    },
+    {
+      "path": "ephe/seasm36.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b5f27d2e43c4bdcbb3bd4096d45b7d6c3d37b43b",
+      "size": 229501,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/b5f27d2e43c4bdcbb3bd4096d45b7d6c3d37b43b"
+    },
+    {
+      "path": "ephe/seasm42.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ace0cb66b775f9e0e8eb3253077c1d40c453a7a9",
+      "size": 229036,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/ace0cb66b775f9e0e8eb3253077c1d40c453a7a9"
+    },
+    {
+      "path": "ephe/seasm48.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "efc2f9503cecb5e0ee7c568ee913707a5971dc02",
+      "size": 227873,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/efc2f9503cecb5e0ee7c568ee913707a5971dc02"
+    },
+    {
+      "path": "ephe/seasm54.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "da1ae63a1fc14be580ad0d675a5f966e0db9b1b6",
+      "size": 226748,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/da1ae63a1fc14be580ad0d675a5f966e0db9b1b6"
+    },
+    {
+      "path": "ephe/seasm60.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e05dc66381d27df63af2c498ccd0b357d862a1da",
+      "size": 225772,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/e05dc66381d27df63af2c498ccd0b357d862a1da"
+    },
+    {
+      "path": "ephe/seasm66.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1dce4f1ceed90c953f5c8bf2b99486948f7d920f",
+      "size": 224806,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/1dce4f1ceed90c953f5c8bf2b99486948f7d920f"
+    },
+    {
+      "path": "ephe/seasm72.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "89312117d5e72023556a35eada22e2979ab42a23",
+      "size": 224037,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/89312117d5e72023556a35eada22e2979ab42a23"
+    },
+    {
+      "path": "ephe/seasm78.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "01d80814c7b8ede2ba6c0803c54326d085196463",
+      "size": 223568,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/01d80814c7b8ede2ba6c0803c54326d085196463"
+    },
+    {
+      "path": "ephe/seasm84.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0692762e2f0f9ab41c79be69b44ddbb9a5e2a746",
+      "size": 223374,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/0692762e2f0f9ab41c79be69b44ddbb9a5e2a746"
+    },
+    {
+      "path": "ephe/seasm90.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8d30ba0fed46a0d47853b72ce4e91187e0a434c6",
+      "size": 223203,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/8d30ba0fed46a0d47853b72ce4e91187e0a434c6"
+    },
+    {
+      "path": "ephe/seasm96.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "846c1c743e310732b187c459fbb8fdd077ecc16d",
+      "size": 223232,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/846c1c743e310732b187c459fbb8fdd077ecc16d"
+    },
+    {
+      "path": "ephe/seasnam.txt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6e30025707d91b31095b46780532123c3ee21b66",
+      "size": 15478218,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/6e30025707d91b31095b46780532123c3ee21b66"
+    },
+    {
+      "path": "ephe/sefstars.txt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0c6a40a880c4fa9d1b93d09474c923a3284f81e2",
+      "size": 136618,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/0c6a40a880c4fa9d1b93d09474c923a3284f81e2"
+    },
+    {
+      "path": "ephe/semo_00.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "65d4f85ce566018ebcd3465644ed970a3eea1dc2",
+      "size": 1322594,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/65d4f85ce566018ebcd3465644ed970a3eea1dc2"
+    },
+    {
+      "path": "ephe/semo_06.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "087b12cc7645d888402b3958cc4f5f24123c276b",
+      "size": 1316045,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/087b12cc7645d888402b3958cc4f5f24123c276b"
+    },
+    {
+      "path": "ephe/semo_102.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "cf14c8b931ac07a40b5276422daaef3f80be0e2f",
+      "size": 1411422,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/cf14c8b931ac07a40b5276422daaef3f80be0e2f"
+    },
+    {
+      "path": "ephe/semo_108.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a129b9eb96caf688374bb98e4c143103b98e2387",
+      "size": 1416577,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/a129b9eb96caf688374bb98e4c143103b98e2387"
+    },
+    {
+      "path": "ephe/semo_114.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "487e7ad733036dfb1f81b0e08686a549c560c055",
+      "size": 1420469,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/487e7ad733036dfb1f81b0e08686a549c560c055"
+    },
+    {
+      "path": "ephe/semo_12.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "753b2b08585acdf3119eb247c5216fd0883e6111",
+      "size": 1305931,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/753b2b08585acdf3119eb247c5216fd0883e6111"
+    },
+    {
+      "path": "ephe/semo_120.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2de4b49817fd903550bbfc6057c04bdfe9c7ea38",
+      "size": 1424162,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/2de4b49817fd903550bbfc6057c04bdfe9c7ea38"
+    },
+    {
+      "path": "ephe/semo_126.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "06ea92f8bfe604194bc41c54fb1d61d5d7ddd590",
+      "size": 1432625,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/06ea92f8bfe604194bc41c54fb1d61d5d7ddd590"
+    },
+    {
+      "path": "ephe/semo_132.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "bab55524564d8dfe04e74e0f24a044a869acb149",
+      "size": 1442619,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/bab55524564d8dfe04e74e0f24a044a869acb149"
+    },
+    {
+      "path": "ephe/semo_138.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "680c53b7f49424506fc4e13012c9c534cb8d2cd2",
+      "size": 1450003,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/680c53b7f49424506fc4e13012c9c534cb8d2cd2"
+    },
+    {
+      "path": "ephe/semo_144.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "94aa23cfbde68dabeecac203b118417996087e48",
+      "size": 1459433,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/94aa23cfbde68dabeecac203b118417996087e48"
+    },
+    {
+      "path": "ephe/semo_150.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6abd5a3bb29ce7c27a2ae65bd96705145f455d98",
+      "size": 1474021,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/6abd5a3bb29ce7c27a2ae65bd96705145f455d98"
+    },
+    {
+      "path": "ephe/semo_156.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d32335ba65e7a52562a2b821102f6b22f786aca2",
+      "size": 1495817,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/d32335ba65e7a52562a2b821102f6b22f786aca2"
+    },
+    {
+      "path": "ephe/semo_162.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9f1edd29a46e04d835f7d9cc823eab85cdb89afc",
+      "size": 1505928,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/9f1edd29a46e04d835f7d9cc823eab85cdb89afc"
+    },
+    {
+      "path": "ephe/semo_18.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9396778a5454f41f36f6d4eba4409005717986db",
+      "size": 1304771,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/9396778a5454f41f36f6d4eba4409005717986db"
+    },
+    {
+      "path": "ephe/semo_24.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "557013f93ca3351413367dd0d280b8e63c8fbb84",
+      "size": 1308123,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/557013f93ca3351413367dd0d280b8e63c8fbb84"
+    },
+    {
+      "path": "ephe/semo_30.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9b42e507da42f300573ab74d53853c6246c80906",
+      "size": 1312208,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/9b42e507da42f300573ab74d53853c6246c80906"
+    },
+    {
+      "path": "ephe/semo_36.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9ec1741f1153274873b6abc253f3fc2f3c90424e",
+      "size": 1326257,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/9ec1741f1153274873b6abc253f3fc2f3c90424e"
+    },
+    {
+      "path": "ephe/semo_42.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "bbabb73c6640faf0139288a44e351c354f646c42",
+      "size": 1339659,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/bbabb73c6640faf0139288a44e351c354f646c42"
+    },
+    {
+      "path": "ephe/semo_48.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c33dd3e562bf90d1b9864cd5eac15784b4ecb811",
+      "size": 1349937,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/c33dd3e562bf90d1b9864cd5eac15784b4ecb811"
+    },
+    {
+      "path": "ephe/semo_54.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7314388c48007b07af43708d7df3a3883811a132",
+      "size": 1358320,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/7314388c48007b07af43708d7df3a3883811a132"
+    },
+    {
+      "path": "ephe/semo_60.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0f86381fadbc458590d1690b6a50039fbf10d568",
+      "size": 1366885,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/0f86381fadbc458590d1690b6a50039fbf10d568"
+    },
+    {
+      "path": "ephe/semo_66.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "628f3f79b64921f086f17e525453f38d72f63357",
+      "size": 1375610,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/628f3f79b64921f086f17e525453f38d72f63357"
+    },
+    {
+      "path": "ephe/semo_72.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "da7a93e3b1af7d2087d57783272c740b8254df5a",
+      "size": 1383983,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/da7a93e3b1af7d2087d57783272c740b8254df5a"
+    },
+    {
+      "path": "ephe/semo_78.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "87a629f0ee19b958ffff958bccbebc4c478d2180",
+      "size": 1391143,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/87a629f0ee19b958ffff958bccbebc4c478d2180"
+    },
+    {
+      "path": "ephe/semo_84.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "cce9152ea7206d0515ce69030d96a126f9992bd6",
+      "size": 1397403,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/cce9152ea7206d0515ce69030d96a126f9992bd6"
+    },
+    {
+      "path": "ephe/semo_90.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "35f1afe5343d6c166e823bc07804912c98a3b673",
+      "size": 1402879,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/35f1afe5343d6c166e823bc07804912c98a3b673"
+    },
+    {
+      "path": "ephe/semo_96.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ebec85f591dbe3f2eca6ce1e7cad58ad5c8532ba",
+      "size": 1407105,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/ebec85f591dbe3f2eca6ce1e7cad58ad5c8532ba"
+    },
+    {
+      "path": "ephe/semom06.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9daaa9b2a4e7241956f2dd36366f80532a365a78",
+      "size": 1332945,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/9daaa9b2a4e7241956f2dd36366f80532a365a78"
+    },
+    {
+      "path": "ephe/semom102.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "fc98e9b23eb3e322a9f8fc946d8243e991264cd6",
+      "size": 1457499,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/fc98e9b23eb3e322a9f8fc946d8243e991264cd6"
+    },
+    {
+      "path": "ephe/semom108.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8d9ad5827772e424bf014e856f8fe7b209994bea",
+      "size": 1466886,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/8d9ad5827772e424bf014e856f8fe7b209994bea"
+    },
+    {
+      "path": "ephe/semom114.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "57fc3908020231c213965b5f1cbf918514b9691f",
+      "size": 1476216,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/57fc3908020231c213965b5f1cbf918514b9691f"
+    },
+    {
+      "path": "ephe/semom12.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "edac1cd0404b4ec237103f3fa6af165900d4fdb6",
+      "size": 1347197,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/edac1cd0404b4ec237103f3fa6af165900d4fdb6"
+    },
+    {
+      "path": "ephe/semom120.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4a3d062e7956ee83b35fb58cd3aee6a5835a946e",
+      "size": 1490638,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/4a3d062e7956ee83b35fb58cd3aee6a5835a946e"
+    },
+    {
+      "path": "ephe/semom126.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "64a00d8e9e115b67f96fb252825ec90cb239fd7b",
+      "size": 1499802,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/64a00d8e9e115b67f96fb252825ec90cb239fd7b"
+    },
+    {
+      "path": "ephe/semom132.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7eb5f901d7fe58c41c35660a674d7862b3c08d31",
+      "size": 1514331,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/7eb5f901d7fe58c41c35660a674d7862b3c08d31"
+    },
+    {
+      "path": "ephe/semom18.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "752850babc33b9cd424afa8ffb85d9fa005b222e",
+      "size": 1356379,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/752850babc33b9cd424afa8ffb85d9fa005b222e"
+    },
+    {
+      "path": "ephe/semom24.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "632019d47fcaae3bebbc832062f2cfed6f1f2dbe",
+      "size": 1365357,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/632019d47fcaae3bebbc832062f2cfed6f1f2dbe"
+    },
+    {
+      "path": "ephe/semom30.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3dafa43a33964963af352f3a5722d726c8628855",
+      "size": 1371740,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/3dafa43a33964963af352f3a5722d726c8628855"
+    },
+    {
+      "path": "ephe/semom36.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "aa0ed91a38cf4d157dbfebeff5712251f2a0b6b1",
+      "size": 1380820,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/aa0ed91a38cf4d157dbfebeff5712251f2a0b6b1"
+    },
+    {
+      "path": "ephe/semom42.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2131eb806549bc51971d89f49ac9fa50f4da81b9",
+      "size": 1390210,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/2131eb806549bc51971d89f49ac9fa50f4da81b9"
+    },
+    {
+      "path": "ephe/semom48.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a8d540501e8e2e3bbefdbbcfae29dc8da220e9ab",
+      "size": 1398880,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/a8d540501e8e2e3bbefdbbcfae29dc8da220e9ab"
+    },
+    {
+      "path": "ephe/semom54.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "92e503413973b6ebdf369dbec47df96206e51065",
+      "size": 1403463,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/92e503413973b6ebdf369dbec47df96206e51065"
+    },
+    {
+      "path": "ephe/semom60.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e23de1bb3f0223bc6b0ffe2a0b496d4492b04ea2",
+      "size": 1409454,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/e23de1bb3f0223bc6b0ffe2a0b496d4492b04ea2"
+    },
+    {
+      "path": "ephe/semom66.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7bbddea7fdb36e368f386c5629f3939e196949fc",
+      "size": 1414798,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/7bbddea7fdb36e368f386c5629f3939e196949fc"
+    },
+    {
+      "path": "ephe/semom72.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c08b5cd8592a630de00e1154b0f1d909095a38f8",
+      "size": 1423009,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/c08b5cd8592a630de00e1154b0f1d909095a38f8"
+    },
+    {
+      "path": "ephe/semom78.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b66549c78154c754b1f34147361f9517ffa675ca",
+      "size": 1427325,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/b66549c78154c754b1f34147361f9517ffa675ca"
+    },
+    {
+      "path": "ephe/semom84.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6aff38e4b4dcd25924fca4faa0bd3ecb4bbaf7e7",
+      "size": 1433946,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/6aff38e4b4dcd25924fca4faa0bd3ecb4bbaf7e7"
+    },
+    {
+      "path": "ephe/semom90.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f4c1f6071d010cde8da17eac0980e2e477aeb055",
+      "size": 1443026,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/f4c1f6071d010cde8da17eac0980e2e477aeb055"
+    },
+    {
+      "path": "ephe/semom96.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b88965f047b80146ea7a8a19b4c3bf3a1ff87549",
+      "size": 1453178,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/b88965f047b80146ea7a8a19b4c3bf3a1ff87549"
+    },
+    {
+      "path": "ephe/seorbel.txt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "748189af230eab9af65f45ca72253e0217d4c1cf",
+      "size": 6063,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/748189af230eab9af65f45ca72253e0217d4c1cf"
+    },
+    {
+      "path": "ephe/sepl_00.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "fff203f5541e6d005cbae767d8bbf06eb560be0e",
+      "size": 483871,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/fff203f5541e6d005cbae767d8bbf06eb560be0e"
+    },
+    {
+      "path": "ephe/sepl_06.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "65b9b193a62cc413712ba88e3268715da4ea3498",
+      "size": 482953,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/65b9b193a62cc413712ba88e3268715da4ea3498"
+    },
+    {
+      "path": "ephe/sepl_102.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a35446ed8970e0a80458942e78f7e0284812708d",
+      "size": 566462,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/a35446ed8970e0a80458942e78f7e0284812708d"
+    },
+    {
+      "path": "ephe/sepl_108.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9cbd5d039fbc499550c7e0f179533a60c6c7000a",
+      "size": 574871,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/9cbd5d039fbc499550c7e0f179533a60c6c7000a"
+    },
+    {
+      "path": "ephe/sepl_114.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e82e44cebaa0004c24c01ed24464dbeb473bd24b",
+      "size": 589817,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/e82e44cebaa0004c24c01ed24464dbeb473bd24b"
+    },
+    {
+      "path": "ephe/sepl_12.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1d04ce05085e32beb5f2fcabb9e313fa7838626d",
+      "size": 483757,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/1d04ce05085e32beb5f2fcabb9e313fa7838626d"
+    },
+    {
+      "path": "ephe/sepl_120.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "cf09b5778e2a39a1ecc36e2112734bb67ed7ea76",
+      "size": 598274,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/cf09b5778e2a39a1ecc36e2112734bb67ed7ea76"
+    },
+    {
+      "path": "ephe/sepl_126.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1c858bf28bdda1806c59b2622a13d904a04b91b7",
+      "size": 605675,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/1c858bf28bdda1806c59b2622a13d904a04b91b7"
+    },
+    {
+      "path": "ephe/sepl_132.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "166c85325151fcfa495e36f968522ac44d9a67e2",
+      "size": 619007,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/166c85325151fcfa495e36f968522ac44d9a67e2"
+    },
+    {
+      "path": "ephe/sepl_138.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "31ddf033eb270d7f7f8d0b3ef38599f0b26cfe4f",
+      "size": 623354,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/31ddf033eb270d7f7f8d0b3ef38599f0b26cfe4f"
+    },
+    {
+      "path": "ephe/sepl_144.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d9a4c504b27f405e56aa835bddf29249e7478809",
+      "size": 628335,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/d9a4c504b27f405e56aa835bddf29249e7478809"
+    },
+    {
+      "path": "ephe/sepl_150.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "91407cab0a1629cc7a840f1731bdc03094750313",
+      "size": 644186,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/91407cab0a1629cc7a840f1731bdc03094750313"
+    },
+    {
+      "path": "ephe/sepl_156.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8edf5c4854ba739752792c39fffb5d8c5889c238",
+      "size": 652910,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/8edf5c4854ba739752792c39fffb5d8c5889c238"
+    },
+    {
+      "path": "ephe/sepl_162.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b7989e0b531f6f29b280333fa61902a7385071b2",
+      "size": 658153,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/b7989e0b531f6f29b280333fa61902a7385071b2"
+    },
+    {
+      "path": "ephe/sepl_18.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "41a1e26c7223c4c74310d61a3d66aa6c24a77e9a",
+      "size": 484055,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/41a1e26c7223c4c74310d61a3d66aa6c24a77e9a"
+    },
+    {
+      "path": "ephe/sepl_24.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d75313dbaa126a614f72620154e4e0b513380f5d",
+      "size": 483402,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/d75313dbaa126a614f72620154e4e0b513380f5d"
+    },
+    {
+      "path": "ephe/sepl_30.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "30a1ba6545cf3beae81ea263eed699d85aff2bba",
+      "size": 484373,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/30a1ba6545cf3beae81ea263eed699d85aff2bba"
+    },
+    {
+      "path": "ephe/sepl_36.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "376ac64db00e2d1f7029b15fb1021c1eaf8a2d8d",
+      "size": 484686,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/376ac64db00e2d1f7029b15fb1021c1eaf8a2d8d"
+    },
+    {
+      "path": "ephe/sepl_42.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7c3d019846894bcae124beefe6a3be3dad14122a",
+      "size": 483628,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/7c3d019846894bcae124beefe6a3be3dad14122a"
+    },
+    {
+      "path": "ephe/sepl_48.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "30062bbe3dd7a127bcd219e6f3b7bbf215408fc4",
+      "size": 485517,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/30062bbe3dd7a127bcd219e6f3b7bbf215408fc4"
+    },
+    {
+      "path": "ephe/sepl_54.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4cd04810ea45712c59bae67ab1fa9375a12264d4",
+      "size": 488956,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/4cd04810ea45712c59bae67ab1fa9375a12264d4"
+    },
+    {
+      "path": "ephe/sepl_60.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6b9270c4d1e501e4c7f2dbcf631454bffe91d448",
+      "size": 493649,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/6b9270c4d1e501e4c7f2dbcf631454bffe91d448"
+    },
+    {
+      "path": "ephe/sepl_66.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b416559ab6dbda436d5ffeea968a4a1db6429bc5",
+      "size": 501136,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/b416559ab6dbda436d5ffeea968a4a1db6429bc5"
+    },
+    {
+      "path": "ephe/sepl_72.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3bc8b6c9ff87c4262da730c1f3006093a0180a73",
+      "size": 508815,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/3bc8b6c9ff87c4262da730c1f3006093a0180a73"
+    },
+    {
+      "path": "ephe/sepl_78.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b4f87ae8288dd580f5bbc5b5307b82f5dd76212e",
+      "size": 516226,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/b4f87ae8288dd580f5bbc5b5307b82f5dd76212e"
+    },
+    {
+      "path": "ephe/sepl_84.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0bc801a88127c5cf6667320132c837cb7131cf73",
+      "size": 530714,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/0bc801a88127c5cf6667320132c837cb7131cf73"
+    },
+    {
+      "path": "ephe/sepl_90.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e36619a25a8b5ac1dbd4ae67a8e3aed5c2a999fa",
+      "size": 543316,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/e36619a25a8b5ac1dbd4ae67a8e3aed5c2a999fa"
+    },
+    {
+      "path": "ephe/sepl_96.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6186baa0baa9b55dbf95ffc641bcfe97fb7e5e07",
+      "size": 554703,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/6186baa0baa9b55dbf95ffc641bcfe97fb7e5e07"
+    },
+    {
+      "path": "ephe/seplm06.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "78fa7e45f7b281095f7c304464bfc4cba408cbb0",
+      "size": 484266,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/78fa7e45f7b281095f7c304464bfc4cba408cbb0"
+    },
+    {
+      "path": "ephe/seplm102.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "99a5cdd625c8d16358d847ac83f553c8bcc38e27",
+      "size": 630636,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/99a5cdd625c8d16358d847ac83f553c8bcc38e27"
+    },
+    {
+      "path": "ephe/seplm108.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d271d3d2993584ea1d1ff9910cbc1b9ec17249bb",
+      "size": 641587,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/d271d3d2993584ea1d1ff9910cbc1b9ec17249bb"
+    },
+    {
+      "path": "ephe/seplm114.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7377c7a3795102dfd33ff42eb1c4927f394d4ef7",
+      "size": 650870,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/7377c7a3795102dfd33ff42eb1c4927f394d4ef7"
+    },
+    {
+      "path": "ephe/seplm12.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "45232e4466d067caf31c012c24bee28c1ac0e27a",
+      "size": 483990,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/45232e4466d067caf31c012c24bee28c1ac0e27a"
+    },
+    {
+      "path": "ephe/seplm120.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "de7a1d6dac5c312b865539cc3ee677a0832b2f3d",
+      "size": 656541,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/de7a1d6dac5c312b865539cc3ee677a0832b2f3d"
+    },
+    {
+      "path": "ephe/seplm126.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9c45de9f6ff4b74ac8114f562fbd7bc95190c04a",
+      "size": 662357,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/9c45de9f6ff4b74ac8114f562fbd7bc95190c04a"
+    },
+    {
+      "path": "ephe/seplm132.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6f1100a33d6707d386a5e4b039331e82092cb3e3",
+      "size": 665907,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/6f1100a33d6707d386a5e4b039331e82092cb3e3"
+    },
+    {
+      "path": "ephe/seplm18.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "517d092181036377463e9e7ee037135e170f8e9d",
+      "size": 488142,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/517d092181036377463e9e7ee037135e170f8e9d"
+    },
+    {
+      "path": "ephe/seplm24.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "01b30a40a4fe562e6b3c46fcc59b4370c5d7eb12",
+      "size": 489846,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/01b30a40a4fe562e6b3c46fcc59b4370c5d7eb12"
+    },
+    {
+      "path": "ephe/seplm30.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9cfdebfdb27e2494586e84dde664e626d741535b",
+      "size": 493416,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/9cfdebfdb27e2494586e84dde664e626d741535b"
+    },
+    {
+      "path": "ephe/seplm36.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "427cf3b90acb752b1478cb6353bea3d7cb730f50",
+      "size": 500226,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/427cf3b90acb752b1478cb6353bea3d7cb730f50"
+    },
+    {
+      "path": "ephe/seplm42.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "87453c1edf320032f5ddc50155819bc9158bdb61",
+      "size": 513210,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/87453c1edf320032f5ddc50155819bc9158bdb61"
+    },
+    {
+      "path": "ephe/seplm48.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9de07db57835dd07b99ec3bdc62fb8a1c22a0e94",
+      "size": 521081,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/9de07db57835dd07b99ec3bdc62fb8a1c22a0e94"
+    },
+    {
+      "path": "ephe/seplm54.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b23e3fdc05e83c76680c48f02c028a89ac0b018c",
+      "size": 531230,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/b23e3fdc05e83c76680c48f02c028a89ac0b018c"
+    },
+    {
+      "path": "ephe/seplm60.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d134817d5497b039c7617cc8e574d6966da0846e",
+      "size": 541501,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/d134817d5497b039c7617cc8e574d6966da0846e"
+    },
+    {
+      "path": "ephe/seplm66.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7ef3765fbfaca622be684feb855b60798bfe25e7",
+      "size": 553441,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/7ef3765fbfaca622be684feb855b60798bfe25e7"
+    },
+    {
+      "path": "ephe/seplm72.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8d380a1c5cae0de56b37fe09ba23804a0000cd4e",
+      "size": 565716,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/8d380a1c5cae0de56b37fe09ba23804a0000cd4e"
+    },
+    {
+      "path": "ephe/seplm78.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "49a636ad5af5bd7dd7e1da858d43e255d6ce2840",
+      "size": 582598,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/49a636ad5af5bd7dd7e1da858d43e255d6ce2840"
+    },
+    {
+      "path": "ephe/seplm84.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3c6047564ce536f50f8f41b6af7082c5bd239d6c",
+      "size": 609773,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/3c6047564ce536f50f8f41b6af7082c5bd239d6c"
+    },
+    {
+      "path": "ephe/seplm90.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "61d8f1cd9d68b68c4c65dd4ea7ff035b0b58dc64",
+      "size": 617973,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/61d8f1cd9d68b68c4c65dd4ea7ff035b0b58dc64"
+    },
+    {
+      "path": "ephe/seplm96.se1",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "cc4f36d2ca3101ae29536a9f4fc2009201d2f837",
+      "size": 625668,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/cc4f36d2ca3101ae29536a9f4fc2009201d2f837"
+    },
+    {
+      "path": "readme.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9bdddceb4e1486930ddc99a48de79e14dc6680f2",
+      "size": 7174,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/9bdddceb4e1486930ddc99a48de79e14dc6680f2"
+    },
+    {
+      "path": "seleapsec.txt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "45389b9b4511193bf98cd3df3670f7aedd53211b",
+      "size": 282,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/45389b9b4511193bf98cd3df3670f7aedd53211b"
+    },
+    {
+      "path": "setest",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "c9bff5aad72c0d37e6684a8401def98a494566f5",
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/trees/c9bff5aad72c0d37e6684a8401def98a494566f5"
+    },
+    {
+      "path": "setest/Makefile",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "55b4f508196a2da7f1f92fb931cf626d02b70085",
+      "size": 1874,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/55b4f508196a2da7f1f92fb931cf626d02b70085"
+    },
+    {
+      "path": "setest/checkpoints.c",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "367c69297844679ca36efdd9b58af5c33f8f061c",
+      "size": 8756,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/367c69297844679ca36efdd9b58af5c33f8f061c"
+    },
+    {
+      "path": "setest/checkpoints.h",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7e7d2e2807d2bac66fee2e0d5c47af41d232ac8a",
+      "size": 1575,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/7e7d2e2807d2bac66fee2e0d5c47af41d232ac8a"
+    },
+    {
+      "path": "setest/cmd.gdb",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0256499c180b63e80de1e0641bc217db82c16740",
+      "size": 130,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/0256499c180b63e80de1e0641bc217db82c16740"
+    },
+    {
+      "path": "setest/constants.c",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "81a40697c03737aa7eef166594c078066aeaae26",
+      "size": 968,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/81a40697c03737aa7eef166594c078066aeaae26"
+    },
+    {
+      "path": "setest/gen_fix_templ.m4",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f8c34071feddc4800b2f92f7ed5249e9ce5b60c1",
+      "size": 709,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/f8c34071feddc4800b2f92f7ed5249e9ce5b60c1"
+    },
+    {
+      "path": "setest/generate_prepare_fix_m4.pl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f35d4ac2b6c22c55f563bc8c50c4f1bed11c4aae",
+      "size": 1698,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/f35d4ac2b6c22c55f563bc8c50c4f1bed11c4aae"
+    },
+    {
+      "path": "setest/generate_prepare_fix_m4a.pl",
+      "mode": "100755",
+      "type": "blob",
+      "sha": "5e9895626fdeb1645e60e82c6d9d7cd0ac5c4e2a",
+      "size": 1692,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/5e9895626fdeb1645e60e82c6d9d7cd0ac5c4e2a"
+    },
+    {
+      "path": "setest/globals.c",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8795d8b10203f348514548e119486504b557bb17",
+      "size": 2540,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/8795d8b10203f348514548e119486504b557bb17"
+    },
+    {
+      "path": "setest/globals.h",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "401fe1dd358dd81abab6aa327e12b203d7065787",
+      "size": 1019,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/401fe1dd358dd81abab6aa327e12b203d7065787"
+    },
+    {
+      "path": "setest/globals_suite.c",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5d30d784b634096aab60d9dc116f2f5e0d3f4326",
+      "size": 1842,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/5d30d784b634096aab60d9dc116f2f5e0d3f4326"
+    },
+    {
+      "path": "setest/multivalues.c",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2b493f498a257e3484c1b5105a5d04c757c8ac68",
+      "size": 5585,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/2b493f498a257e3484c1b5105a5d04c757c8ac68"
+    },
+    {
+      "path": "setest/multivalues.h",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "31e089602e4a2b6701e7d5f0ee3520291c0b32fb",
+      "size": 1120,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/31e089602e4a2b6701e7d5f0ee3520291c0b32fb"
+    },
+    {
+      "path": "setest/mytest.fix",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0a8388e6590d0b23b81c770e8d41adbba106cdd5",
+      "size": 8592,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/0a8388e6590d0b23b81c770e8d41adbba106cdd5"
+    },
+    {
+      "path": "setest/prepare_fix.m4",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "47c5efce17896dab3d72a883fb1e43087ba64cd2",
+      "size": 11739,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/47c5efce17896dab3d72a883fb1e43087ba64cd2"
+    },
+    {
+      "path": "setest/reader.c",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b623e52475ec38ce1e6254175bc149acd70409a1",
+      "size": 4623,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/b623e52475ec38ce1e6254175bc149acd70409a1"
+    },
+    {
+      "path": "setest/reader.h",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8b2de4f68a2da37092fdccbefb7362da2159c8bd",
+      "size": 1548,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/8b2de4f68a2da37092fdccbefb7362da2159c8bd"
+    },
+    {
+      "path": "setest/setest.c",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2751815bc16ba3d6cb8bbf859fe16c4694789228",
+      "size": 15859,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/2751815bc16ba3d6cb8bbf859fe16c4694789228"
+    },
+    {
+      "path": "setest/setest.h",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "efcc7181f1f1fba837624b51691a719c51c55e1e",
+      "size": 3674,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/efcc7181f1f1fba837624b51691a719c51c55e1e"
+    },
+    {
+      "path": "setest/setest.help",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "595447545aa4d40f0f0715131584595ef45fbebf",
+      "size": 550,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/595447545aa4d40f0f0715131584595ef45fbebf"
+    },
+    {
+      "path": "setest/setest.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e64536b124b81474b6c1ee3fdd4699d1575bde9d",
+      "size": 1830,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/e64536b124b81474b6c1ee3fdd4699d1575bde9d"
+    },
+    {
+      "path": "setest/suite_01_calc.c",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "993878ce04dab0ffaf56c60315455ac0da3d33ef",
+      "size": 1665,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/993878ce04dab0ffaf56c60315455ac0da3d33ef"
+    },
+    {
+      "path": "setest/suite_02_fixstar.c",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ffda1f80de5b5949b892bef3ed1da9806c4e9ac5",
+      "size": 1803,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/ffda1f80de5b5949b892bef3ed1da9806c4e9ac5"
+    },
+    {
+      "path": "setest/suite_03_misc.c",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5e8b997d0736c7051f86eddacee06fbc9e0e8166",
+      "size": 437,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/5e8b997d0736c7051f86eddacee06fbc9e0e8166"
+    },
+    {
+      "path": "setest/suite_04_ayanamsa.c",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d3266a98d630a94dc1f0b40c6b3e6c6a1a02d05f",
+      "size": 2096,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/d3266a98d630a94dc1f0b40c6b3e6c6a1a02d05f"
+    },
+    {
+      "path": "setest/suite_05_date_time.c",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "94de0577cab3f1a4d5609902d35edc921e7f6689",
+      "size": 1693,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/94de0577cab3f1a4d5609902d35edc921e7f6689"
+    },
+    {
+      "path": "setest/suite_06_houses.c",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "bc4778e9ce210c24af71f1dc57b733e704b14956",
+      "size": 2994,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/bc4778e9ce210c24af71f1dc57b733e704b14956"
+    },
+    {
+      "path": "setest/suite_07_apsides.c",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f489f4bddc83541e71cd59c73af719c48c9d903a",
+      "size": 1464,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/f489f4bddc83541e71cd59c73af719c48c9d903a"
+    },
+    {
+      "path": "setest/suite_08_eclipses.c",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9c0acb254476ed408a81a7ae0e8f8bec5d47e352",
+      "size": 2901,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/9c0acb254476ed408a81a7ae0e8f8bec5d47e352"
+    },
+    {
+      "path": "setest/suite_09_rise.c",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5db23051a376e2f3211cf55b716461f8e46489e7",
+      "size": 2437,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/5db23051a376e2f3211cf55b716461f8e46489e7"
+    },
+    {
+      "path": "setest/suite_10_solcross.c",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1988ff675c3d9825af08b5fe575b05c6af55effc",
+      "size": 2966,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/1988ff675c3d9825af08b5fe575b05c6af55effc"
+    },
+    {
+      "path": "setest/t.exp",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2f264dc70a5365952801ac99719750ce3d5b3c77",
+      "size": 12977947,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/2f264dc70a5365952801ac99719750ce3d5b3c77"
+    },
+    {
+      "path": "setest/t.fix",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a0729218975b256c8e74d61458638ad9c92a0923",
+      "size": 21457,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/a0729218975b256c8e74d61458638ad9c92a0923"
+    },
+    {
+      "path": "setest/t",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "07e7692dd1ed353bbd102f2ada449718dbe05a82",
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/trees/07e7692dd1ed353bbd102f2ada449718dbe05a82"
+    },
+    {
+      "path": "setest/t/test",
+      "mode": "100755",
+      "type": "blob",
+      "sha": "4d2cc7f15297738e53ad6446ca522b6eca788648",
+      "size": 363,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/4d2cc7f15297738e53ad6446ca522b6eca788648"
+    },
+    {
+      "path": "setest/t/test.pl",
+      "mode": "100755",
+      "type": "blob",
+      "sha": "c6192c7949178790a59fd957f325e9e5f49e317e",
+      "size": 621,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/c6192c7949178790a59fd957f325e9e5f49e317e"
+    },
+    {
+      "path": "setest/t/test.sh",
+      "mode": "100755",
+      "type": "blob",
+      "sha": "4d2cc7f15297738e53ad6446ca522b6eca788648",
+      "size": 363,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/4d2cc7f15297738e53ad6446ca522b6eca788648"
+    },
+    {
+      "path": "setest/t/test_dummy.pl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f786bf094982fd76251066cc6aed2dc975714d36",
+      "size": 92,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/f786bf094982fd76251066cc6aed2dc975714d36"
+    },
+    {
+      "path": "setest/t/test_mytest_ok.sh",
+      "mode": "100755",
+      "type": "blob",
+      "sha": "8ccd5683ce15fc748948454413ea69d266b14640",
+      "size": 1068,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/8ccd5683ce15fc748948454413ea69d266b14640"
+    },
+    {
+      "path": "setest/t/test_read_section.sh",
+      "mode": "100755",
+      "type": "blob",
+      "sha": "564782add8f42cf337e5397223aee49edbf8f71a",
+      "size": 683,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/564782add8f42cf337e5397223aee49edbf8f71a"
+    },
+    {
+      "path": "setest/test_one_per_process.pl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6552a2c7a80083d364ada53c9e7f2203811cf718",
+      "size": 853,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/6552a2c7a80083d364ada53c9e7f2203811cf718"
+    },
+    {
+      "path": "setest/testdata.c",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6089f0f60ab697443bdeb1f13e86c6b3d8dd7afe",
+      "size": 5574,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/6089f0f60ab697443bdeb1f13e86c6b3d8dd7afe"
+    },
+    {
+      "path": "setest/testdata.h",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a25035fa9d426487f4add5d2957edd2f99083536",
+      "size": 1033,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/a25035fa9d426487f4add5d2957edd2f99083536"
+    },
+    {
+      "path": "setest/testdata.s",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a595797bf519e9abdfee346ccb14be60aa0d09b7",
+      "size": 36,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/a595797bf519e9abdfee346ccb14be60aa0d09b7"
+    },
+    {
+      "path": "setest/testsuite.m4",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "10955b6baf0d533c81ec1e760ef6601e0d5bf89d",
+      "size": 4080,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/10955b6baf0d533c81ec1e760ef6601e0d5bf89d"
+    },
+    {
+      "path": "setest/testsuite_end.m4",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9810a72c951e29bd17b8d0ad70e4f706fefa4972",
+      "size": 54,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/9810a72c951e29bd17b8d0ad70e4f706fefa4972"
+    },
+    {
+      "path": "setest/testsuite_facade.h",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b634bfbb2f45569ef9b5a164dc8ac9026728f00a",
+      "size": 1608,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/b634bfbb2f45569ef9b5a164dc8ac9026728f00a"
+    },
+    {
+      "path": "setest/testsuite_final.h",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "79479e3ecaffaa00de470411d9d38e01d805a863",
+      "size": 80,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/79479e3ecaffaa00de470411d9d38e01d805a863"
+    },
+    {
+      "path": "swecl.c",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "69447ab82e248225a1618d3ed6a9831b94d2ad37",
+      "size": 225773,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/69447ab82e248225a1618d3ed6a9831b94d2ad37"
+    },
+    {
+      "path": "swedate.c",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b31d7274201e7000e3978f3ade3d12eb23a45922",
+      "size": 20063,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/b31d7274201e7000e3978f3ade3d12eb23a45922"
+    },
+    {
+      "path": "swedate.h",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "33d1ea0979e4cdfc5bf814361bce2a2f9f53abad",
+      "size": 3191,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/33d1ea0979e4cdfc5bf814361bce2a2f9f53abad"
+    },
+    {
+      "path": "swedll.h",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "47617ee189854c04c6ba8b6f693617f3317d6874",
+      "size": 17785,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/47617ee189854c04c6ba8b6f693617f3317d6874"
+    },
+    {
+      "path": "sweephe4.c",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d62d3d83f2bfa063ed26290d96e02dc2b158d82c",
+      "size": 22699,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/d62d3d83f2bfa063ed26290d96e02dc2b158d82c"
+    },
+    {
+      "path": "sweephe4.h",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "afaef91ca284a14f4f71aebdf195f277acf100d1",
+      "size": 9817,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/afaef91ca284a14f4f71aebdf195f277acf100d1"
+    },
+    {
+      "path": "swehel.c",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "044f927b0ce4fd323510803f97e3ce73dfd34f11",
+      "size": 122777,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/044f927b0ce4fd323510803f97e3ce73dfd34f11"
+    },
+    {
+      "path": "swehouse.c",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1c5bbd3f16892df1a4e55c398ed8d1900fda3871",
+      "size": 112460,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/1c5bbd3f16892df1a4e55c398ed8d1900fda3871"
+    },
+    {
+      "path": "swehouse.h",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8fb5823132f1de7538798ed95dccbccbac6cf7db",
+      "size": 3702,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/8fb5823132f1de7538798ed95dccbccbac6cf7db"
+    },
+    {
+      "path": "swein600.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e7379f3bec570d708109d4a8c5ea161c1b2020f4",
+      "size": 60004,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/e7379f3bec570d708109d4a8c5ea161c1b2020f4"
+    },
+    {
+      "path": "swejpl.c",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6eb5dcb053b49ed00ed23119d0bb7b4e4c342617",
+      "size": 33613,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/6eb5dcb053b49ed00ed23119d0bb7b4e4c342617"
+    },
+    {
+      "path": "swejpl.h",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "fbee9d1d1c018928c2daea4af33e22e9b0edaf13",
+      "size": 3995,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/fbee9d1d1c018928c2daea4af33e22e9b0edaf13"
+    },
+    {
+      "path": "swemini.c",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "20e71b3511443ccfdb33543df1a9db95177c7982",
+      "size": 2592,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/20e71b3511443ccfdb33543df1a9db95177c7982"
+    },
+    {
+      "path": "swemmoon.c",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "dcddb1dff66877c9880e0ee526dad307d755adb5",
+      "size": 61411,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/dcddb1dff66877c9880e0ee526dad307d755adb5"
+    },
+    {
+      "path": "swemplan.c",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f0ec8efab0b407cdbe8f0cf693e65b0a295e0e4e",
+      "size": 27880,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/f0ec8efab0b407cdbe8f0cf693e65b0a295e0e4e"
+    },
+    {
+      "path": "swemptab.h",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6a1b9a5b5ab6745b8e8cdf0a5173691890cf056a",
+      "size": 311984,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/6a1b9a5b5ab6745b8e8cdf0a5173691890cf056a"
+    },
+    {
+      "path": "swenut2000a.h",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c7907b81cd1d75bb7e058360e64f81263b9a16f2",
+      "size": 68486,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/c7907b81cd1d75bb7e058360e64f81263b9a16f2"
+    },
+    {
+      "path": "sweodef.h",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e6a2cf378cbb69e3d715c8f638d2d4ac4b7eca34",
+      "size": 10180,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/e6a2cf378cbb69e3d715c8f638d2d4ac4b7eca34"
+    },
+    {
+      "path": "sweph.c",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "caa82a5e8db7ecb30e35f982305bd44f05eadd7c",
+      "size": 290685,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/caa82a5e8db7ecb30e35f982305bd44f05eadd7c"
+    },
+    {
+      "path": "sweph.h",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7a80166abf5449e8d0cbe710a9c7935412539f2a",
+      "size": 34466,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/7a80166abf5449e8d0cbe710a9c7935412539f2a"
+    },
+    {
+      "path": "swephexp.h",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "08ad61979a6f9de5dd539c5b0ec1e391a9b3c151",
+      "size": 40912,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/08ad61979a6f9de5dd539c5b0ec1e391a9b3c151"
+    },
+    {
+      "path": "swephgen4.c",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "692cfb2516fed48589e4027607710729ba52061e",
+      "size": 9413,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/692cfb2516fed48589e4027607710729ba52061e"
+    },
+    {
+      "path": "swephlib.c",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "14d561745d60783bc5aa20df05f0f11294a3405b",
+      "size": 164367,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/14d561745d60783bc5aa20df05f0f11294a3405b"
+    },
+    {
+      "path": "swephlib.h",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "856e92f3cc46fb1b9db3c9945a9f0d031d6ef33a",
+      "size": 7786,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/856e92f3cc46fb1b9db3c9945a9f0d031d6ef33a"
+    },
+    {
+      "path": "swetest.c",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "aa92659ffa0cf8674e8daad2d889fff781706920",
+      "size": 144891,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/aa92659ffa0cf8674e8daad2d889fff781706920"
+    },
+    {
+      "path": "swevents.c",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1860bb78afedbd2aa7e0d1039cfcde08b5dcc7cd",
+      "size": 99424,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/1860bb78afedbd2aa7e0d1039cfcde08b5dcc7cd"
+    },
+    {
+      "path": "swevents.h",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "54a91b2c464a54621aef47dc5f85930edd892c4b",
+      "size": 4422,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/54a91b2c464a54621aef47dc5f85930edd892c4b"
+    },
+    {
+      "path": "windows",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "1605cfbed218efe7f84fdb3bf73a11995b4e324d",
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/trees/1605cfbed218efe7f84fdb3bf73a11995b4e324d"
+    },
+    {
+      "path": "windows/programs",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "5db33d755c7564c3ed9e5f6b6426d7baa9a2f4aa",
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/trees/5db33d755c7564c3ed9e5f6b6426d7baa9a2f4aa"
+    },
+    {
+      "path": "windows/programs/ceres.exe",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5e871cde8d957025170b27a4b2c9a86b7b9ce1f3",
+      "size": 835584,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/5e871cde8d957025170b27a4b2c9a86b7b9ce1f3"
+    },
+    {
+      "path": "windows/programs/ceres.readme",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f56d396128c65d0e41fbde54f045e3a48b20e7cd",
+      "size": 560,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/f56d396128c65d0e41fbde54f045e3a48b20e7cd"
+    },
+    {
+      "path": "windows/programs/swete32.exe",
+      "mode": "100755",
+      "type": "blob",
+      "sha": "dc80b41771d80d760e7cf7cb951cb61d8348be5c",
+      "size": 446464,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/dc80b41771d80d760e7cf7cb951cb61d8348be5c"
+    },
+    {
+      "path": "windows/programs/swete64.exe",
+      "mode": "100755",
+      "type": "blob",
+      "sha": "78ad4a73df2549f505a04a8f2cc8e6f1664ff071",
+      "size": 547328,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/78ad4a73df2549f505a04a8f2cc8e6f1664ff071"
+    },
+    {
+      "path": "windows/programs/swetest.exe",
+      "mode": "100755",
+      "type": "blob",
+      "sha": "8780ede3061d05c03b23fec1146dc0e2a0c90e35",
+      "size": 1066496,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/8780ede3061d05c03b23fec1146dc0e2a0c90e35"
+    },
+    {
+      "path": "windows/programs/swetest64.exe",
+      "mode": "100755",
+      "type": "blob",
+      "sha": "ab34f6b0b90081e6f86c52ad6662617692d96062",
+      "size": 1145856,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/ab34f6b0b90081e6f86c52ad6662617692d96062"
+    },
+    {
+      "path": "windows/programs/swevents64.exe",
+      "mode": "100755",
+      "type": "blob",
+      "sha": "f6a66cbf91e496092a8eea2e5adbe6abbab17d6f",
+      "size": 1297999,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/f6a66cbf91e496092a8eea2e5adbe6abbab17d6f"
+    },
+    {
+      "path": "windows/programs/swewin32.exe",
+      "mode": "100755",
+      "type": "blob",
+      "sha": "5eb9207dd4b28139d77b75fd90c1826097347508",
+      "size": 310784,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/5eb9207dd4b28139d77b75fd90c1826097347508"
+    },
+    {
+      "path": "windows/readme.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a11891d4db888ab5f9a5f90958122b7511cd820b",
+      "size": 998,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/a11891d4db888ab5f9a5f90958122b7511cd820b"
+    },
+    {
+      "path": "windows/sweph.zip",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3c26798c0767c5a4e771eea56129638faf4b19ad",
+      "size": 10984439,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/3c26798c0767c5a4e771eea56129638faf4b19ad"
+    },
+    {
+      "path": "windows/swephzip.txt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "096d57097aa3d52df39ce95ffcca398dc1e96d38",
+      "size": 6377,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/096d57097aa3d52df39ce95ffcca398dc1e96d38"
+    },
+    {
+      "path": "windows/swewin",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "7630699745759941a52bc70069571f2119545ad2",
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/trees/7630699745759941a52bc70069571f2119545ad2"
+    },
+    {
+      "path": "windows/swewin/resource.h",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "495eb0683d9ff250ec01038b7a5721dbb1ad5d22",
+      "size": 2984,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/495eb0683d9ff250ec01038b7a5721dbb1ad5d22"
+    },
+    {
+      "path": "windows/swewin/swewin.c",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3d99e121d5e15adf6be991802add6e9841974337",
+      "size": 44156,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/3d99e121d5e15adf6be991802add6e9841974337"
+    },
+    {
+      "path": "windows/swewin/swewin.h",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "804077dea92c9c4f497f38c66f26d59fb3feed6a",
+      "size": 1806,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/804077dea92c9c4f497f38c66f26d59fb3feed6a"
+    },
+    {
+      "path": "windows/swewin/swewin.rc",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "91415b6abb77a7f531598572312a15722edec2b9",
+      "size": 6385,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/91415b6abb77a7f531598572312a15722edec2b9"
+    },
+    {
+      "path": "windows/swewin/swewin64.c",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "397a8b4f79575df738df8db5364b5f9196ba51d6",
+      "size": 43722,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/397a8b4f79575df738df8db5364b5f9196ba51d6"
+    },
+    {
+      "path": "windows/swewin/swewin64.h",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "94fe40cea9a58de13a7c447cd80cd24aa05d00cc",
+      "size": 1032,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/94fe40cea9a58de13a7c447cd80cd24aa05d00cc"
+    },
+    {
+      "path": "windows/vb",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "42c011357a89cb775a1bcf45020af6ad5bc36102",
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/trees/42c011357a89cb775a1bcf45020af6ad5bc36102"
+    },
+    {
+      "path": "windows/vb/swedecl.txt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "39589a253d6e0cb97de1e048cb8b213ccb0a8403",
+      "size": 43332,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/39589a253d6e0cb97de1e048cb8b213ccb0a8403"
+    },
+    {
+      "path": "windows/vb/swedecl64.txt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3190724eae11f6460be60dd7e8ae6ca036ec8d4d",
+      "size": 39440,
+      "url": "https://api.github.com/repos/aloistr/swisseph/git/blobs/3190724eae11f6460be60dd7e8ae6ca036ec8d4d"
+    }
+  ],
+  "truncated": false
+}

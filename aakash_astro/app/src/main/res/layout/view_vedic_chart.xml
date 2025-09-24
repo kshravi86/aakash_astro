@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    app:cardBackgroundColor="@android:color/transparent"
+    app:cardElevation="0dp"
+    app:strokeColor="@color/secondaryText"
+    app:strokeWidth="1dp">
+
+    <GridLayout
+        android:id="@+id/chartGrid"
+        android:layout_width="match_parent"
+        android:layout_height="320dp"
+        android:alignmentMode="alignBounds"
+        android:columnCount="4"
+        android:rowCount="4"
+        android:useDefaultMargins="true"
+        android:padding="8dp">
+
+        <!-- Row 1: 12 1 2 3 -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            app:cardBackgroundColor="@color/surface_variant"
+            app:cardCornerRadius="8dp">
+            <TextView
+                android:id="@+id/house12"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textColor="@color/primaryText"
+                tools:text="12" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            app:cardBackgroundColor="@color/surface_variant"
+            app:cardCornerRadius="8dp">
+            <TextView
+                android:id="@+id/house1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textColor="@color/primaryText"
+                tools:text="1" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            app:cardBackgroundColor="@color/surface_variant"
+            app:cardCornerRadius="8dp">
+            <TextView
+                android:id="@+id/house2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textColor="@color/primaryText"
+                tools:text="2" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            app:cardBackgroundColor="@color/surface_variant"
+            app:cardCornerRadius="8dp">
+            <TextView
+                android:id="@+id/house3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textColor="@color/primaryText"
+                tools:text="3" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Row 2: 11 empty empty 4 -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            app:cardBackgroundColor="@color/surface_variant"
+            app:cardCornerRadius="8dp">
+            <TextView
+                android:id="@+id/house11"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textColor="@color/primaryText"
+                tools:text="11" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            app:cardBackgroundColor="@color/surface_variant"
+            app:cardCornerRadius="8dp">
+            <TextView
+                android:id="@+id/house4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textColor="@color/primaryText"
+                tools:text="4" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Row 3: 10 empty empty 5 -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            app:cardBackgroundColor="@color/surface_variant"
+            app:cardCornerRadius="8dp">
+            <TextView
+                android:id="@+id/house10"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textColor="@color/primaryText"
+                tools:text="10" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            app:cardBackgroundColor="@color/surface_variant"
+            app:cardCornerRadius="8dp">
+            <TextView
+                android:id="@+id/house5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textColor="@color/primaryText"
+                tools:text="5" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Row 4: 9 8 7 6 -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            app:cardBackgroundColor="@color/surface_variant"
+            app:cardCornerRadius="8dp">
+            <TextView
+                android:id="@+id/house9"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textColor="@color/primaryText"
+                tools:text="9" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            app:cardBackgroundColor="@color/surface_variant"
+            app:cardCornerRadius="8dp">
+            <TextView
+                android:id="@+id/house8"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textColor="@color/primaryText"
+                tools:text="8" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            app:cardBackgroundColor="@color/surface_variant"
+            app:cardCornerRadius="8dp">
+            <TextView
+                android:id="@+id/house7"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textColor="@color/primaryText"
+                tools:text="7" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            app:cardBackgroundColor="@color/surface_variant"
+            app:cardCornerRadius="8dp">
+            <TextView
+                android:id="@+id/house6"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textColor="@color/primaryText"
+                tools:text="6" />
+        </com.google.android.material.card.MaterialCardView>
+
+    </GridLayout>
+</com.google.android.material.card.MaterialCardView>
