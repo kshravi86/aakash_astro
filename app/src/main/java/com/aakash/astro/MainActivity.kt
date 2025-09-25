@@ -178,7 +178,7 @@ class MainActivity : AppCompatActivity() {
             val degreeText = formatDegreeWithSign(chart.ascendantDegree)
             itemBinding.planetDetails.text = getString(
                 R.string.planet_position_format,
-                "${chart.ascendantSign.symbol} ${chart.ascendantSign.displayName}",
+                chart.ascendantSign.displayName,
                 degreeText,
                 "House 1"
             )
@@ -187,16 +187,20 @@ class MainActivity : AppCompatActivity() {
 
         chart.planets.forEach { planet ->
             val itemBinding = ItemPlanetPositionBinding.inflate(inflater, binding.planetContainer, false)
-            itemBinding.planetName.text = planet.name
+            val nameWithRetro = if (planet.isRetrograde) "${planet.name} (R)" else planet.name
+            itemBinding.planetName.text = nameWithRetro
             val degreeText = formatDegreeWithSign(planet.degree)
             itemBinding.planetDetails.text = getString(
                 R.string.planet_position_format,
-                "${planet.sign.symbol} ${planet.sign.displayName}",
+                planet.sign.displayName,
                 degreeText,
                 "House ${planet.house}"
             )
             binding.planetContainer.addView(itemBinding.root)
         }
+
+        // Finally, render the Vedic chart (South Indian style) at the end
+        binding.vedicChartView.setChart(chart)
     }
 
     private fun formatDegree(value: Double): String {
@@ -216,6 +220,8 @@ class MainActivity : AppCompatActivity() {
         val inSignText = formatDegree(inSign)
         return "$absText ($inSignText)"
     }
+
+
 
     private fun initializeDefaultsAndGenerate() {
         // Set current date and time by default

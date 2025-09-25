@@ -209,6 +209,21 @@
                         android:padding="16dp" />
                 </com.google.android.material.card.MaterialCardView>
 
+                <TextView
+                    android:id="@+id/sectionChart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:text="Vedic Chart (South Indian)"
+                    android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
+                    android:textColor="@color/primaryText" />
+
+                <com.aakash.astro.ui.VedicChartView
+                    android:id="@+id/vedicChartView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp" />
+
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

@@ -21,7 +21,8 @@ data class PlanetPosition(
     val planet: Planet,
     val degree: Double,
     val sign: ZodiacSign,
-    val house: Int
+    val house: Int,
+    val isRetrograde: Boolean = false
 ) {
     val name: String = planet.displayName
 }
@@ -128,7 +129,8 @@ class AstrologyCalculator {
                 planet = planet,
                 degree = siderealLongitude,
                 sign = ZodiacSign.fromDegree(siderealLongitude),
-                house = house
+                house = house,
+                isRetrograde = false
             )
         }
     }

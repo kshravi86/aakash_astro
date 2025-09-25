@@ -109,10 +109,12 @@ class AccurateCalculator {
         for ((planet, ipl) in planetMap) {
             sweCalcUt.invoke(swe, jdUt, ipl, iflag, xx, serr)
             var lon = normalize(xx[0])
+            val speedLon = xx[3]
+            val isRetro = speedLon < 0.0
             if (planet == Planet.KETU) lon = normalize(lon + 180.0)
             val sign = ZodiacSign.fromDegree(lon)
             val house = 1 + (sign.ordinal - ascSign.ordinal + 12) % 12
-            planets += PlanetPosition(planet = planet, degree = lon, sign = sign, house = house)
+            planets += PlanetPosition(planet = planet, degree = lon, sign = sign, house = house, isRetrograde = isRetro)
         }
 
         ChartResult(

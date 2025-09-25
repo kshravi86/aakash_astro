@@ -8,6 +8,7 @@ import android.widget.TextView
 import com.aakash.astro.R
 import com.aakash.astro.astrology.ChartResult
 import com.aakash.astro.astrology.Planet
+import com.aakash.astro.astrology.ZodiacSign
 import com.aakash.astro.databinding.ViewVedicChartBinding
 
 class VedicChartView @JvmOverloads constructor(
@@ -18,19 +19,20 @@ class VedicChartView @JvmOverloads constructor(
 
     private val binding = ViewVedicChartBinding.inflate(LayoutInflater.from(context), this, true)
 
-    private val houseViews: Map<Int, TextView> = mapOf(
-        1 to binding.house1,
-        2 to binding.house2,
-        3 to binding.house3,
-        4 to binding.house4,
-        5 to binding.house5,
-        6 to binding.house6,
-        7 to binding.house7,
-        8 to binding.house8,
-        9 to binding.house9,
-        10 to binding.house10,
-        11 to binding.house11,
-        12 to binding.house12
+    // Fixed-sign South Indian layout with Pisces at top-left, then clockwise.
+    private val signViews: Map<ZodiacSign, TextView> = mapOf(
+        ZodiacSign.PISCES to binding.house12,
+        ZodiacSign.ARIES to binding.house1,
+        ZodiacSign.TAURUS to binding.house2,
+        ZodiacSign.GEMINI to binding.house3,
+        ZodiacSign.CANCER to binding.house4,
+        ZodiacSign.LEO to binding.house5,
+        ZodiacSign.VIRGO to binding.house6,
+        ZodiacSign.LIBRA to binding.house7,
+        ZodiacSign.SCORPIO to binding.house8,
+        ZodiacSign.SAGITTARIUS to binding.house9,
+        ZodiacSign.CAPRICORN to binding.house10,
+        ZodiacSign.AQUARIUS to binding.house11,
     )
 
     private val planetAbbrev = mapOf(
@@ -46,48 +48,54 @@ class VedicChartView @JvmOverloads constructor(
     )
 
     fun setChart(chart: ChartResult?) {
-        if (chart == null) {
-            resetHouses()
-            return
-        }
+        if (chart == null) { resetSigns(); return }
 
-        val houseData = chart.houses.associateBy { it.number }
-
-        houseViews.forEach { (number, textView) ->
-            val info = houseData[number]
-            val signSymbol = info?.sign?.symbol ?: ""
-            val planetsInHouse = chart.planets.filter { it.house == number }
-
-            val planetsLabel = if (planetsInHouse.isEmpty()) "" else planetsInHouse.joinToString(" ") {
-                planetAbbrev[it.planet] ?: it.name.first().toString()
+        signViews.forEach { (sign, textView) ->
+            val planetsInSign = chart.planets.filter { it.sign == sign }
+            val planetsLabel = if (planetsInSign.isEmpty()) "" else planetsInSign.joinToString(" ") {
+                val base = planetAbbrev[it.planet] ?: it.name.first().toString()
+                if (it.isRetrograde) base + "(R)" else base
             }
 
             val label = buildString {
-                // South Indian style: show sign glyph on first line, planets below
-                append(signSymbol)
-                if (number == 1) {
-                    append("  Lagna")
+                // Hide sign name/abbrev per request; show only Lagna and planets.
+                if (chart.ascendantSign == sign) {
+                    append("Lagna")
                 }
                 if (planetsLabel.isNotEmpty()) {
-                    append('\n')
+                    if (isNotEmpty()) append('\n')
                     append(planetsLabel)
                 }
             }
-
-            textView.text = label.ifEmpty { signSymbol.ifEmpty { if (number == 1) "Lagna" else "" } }
+            textView.text = label
             textView.contentDescription = resources.getString(
                 R.string.house_content_description,
-                number,
-                info?.sign?.displayName ?: "",
-                planetsInHouse.joinToString { it.name }
+                0,
+                sign.displayName,
+                planetsInSign.joinToString { it.name }
             )
         }
     }
 
-    private fun resetHouses() {
-        houseViews.forEach { (number, textView) ->
-            textView.text = if (number == 1) "Lagna" else ""
-            textView.contentDescription = resources.getString(R.string.house_placeholder_content_description, number)
+    private fun resetSigns() {
+        signViews.forEach { (_, textView) ->
+            textView.text = ""
+            textView.contentDescription = resources.getString(R.string.house_placeholder_content_description, 0)
         }
+    }
+
+    private fun signAbbrev(sign: ZodiacSign): String = when (sign) {
+        ZodiacSign.ARIES -> "Ar"
+        ZodiacSign.TAURUS -> "Ta"
+        ZodiacSign.GEMINI -> "Ge"
+        ZodiacSign.CANCER -> "Cn"
+        ZodiacSign.LEO -> "Le"
+        ZodiacSign.VIRGO -> "Vi"
+        ZodiacSign.LIBRA -> "Li"
+        ZodiacSign.SCORPIO -> "Sc"
+        ZodiacSign.SAGITTARIUS -> "Sg"
+        ZodiacSign.CAPRICORN -> "Cp"
+        ZodiacSign.AQUARIUS -> "Aq"
+        ZodiacSign.PISCES -> "Pi"
     }
 }
