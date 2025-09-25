@@ -62,6 +62,7 @@ class MainActivity : AppCompatActivity() {
         binding.selectDateButton.setOnClickListener { showDatePicker() }
         binding.selectTimeButton.setOnClickListener { showTimePicker() }
         binding.generateButton.setOnClickListener { generateChart() }
+        binding.dashaButton.setOnClickListener { openDasha() }
         prepareEphemeris()
 
         // Defaults: current date/time and Bengaluru as birthplace
@@ -165,6 +166,22 @@ class MainActivity : AppCompatActivity() {
         renderPlanets(accurate)
         binding.engineIndicator.text = "Engine: Swiss Ephemeris (Lahiri)"
         birthDetails.name?.let { binding.subtitleText.text = getString(R.string.chart_generated_for, it) }
+    }
+
+    private fun openDasha() {
+        val date = selectedDate ?: return
+        val time = selectedTime ?: return
+        val city = selectedCity ?: CityDatabase.findByName(binding.placeInput.text?.toString()?.trim().orEmpty()) ?: return
+        val zone = ZoneId.systemDefault()
+        val birthDateTime = LocalDateTime.of(date, time).atZone(zone)
+        val intent = android.content.Intent(this, DashaActivity::class.java).apply {
+            putExtra(DashaActivity.EXTRA_NAME, binding.nameInput.text?.toString())
+            putExtra(DashaActivity.EXTRA_EPOCH_MILLIS, birthDateTime.toInstant().toEpochMilli())
+            putExtra(DashaActivity.EXTRA_ZONE_ID, zone.id)
+            putExtra(DashaActivity.EXTRA_LAT, city.latitude)
+            putExtra(DashaActivity.EXTRA_LON, city.longitude)
+        }
+        startActivity(intent)
     }
 
     private fun renderPlanets(chart: com.aakash.astro.astrology.ChartResult) {

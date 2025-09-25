@@ -7,4 +7,7 @@
     <string name="chart_generated_for">Chart generated for %1$s</string>
     <string name="planet_position_format">%1$s  -  %2$s  -  %3$s</string>
     <string name="nakshatra_format">%1$s • Pada %2$d</string>
+    <string name="dasha_title">Vimshottari Dasha</string>
+    <string name="dasha_engine_missing">Swiss Ephemeris is required to compute dasha.</string>
+    <string name="dasha_range_format">%1$s  •  %2$s</string>
 </resources>
