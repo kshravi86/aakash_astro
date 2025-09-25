@@ -111,7 +111,7 @@ class MainActivity : AppCompatActivity() {
         val initialTime = selectedTime ?: LocalTime.of(12, 0)
         val picker = MaterialTimePicker.Builder()
             .setTitleText("Select birth time")
-            .setTimeFormat(TimeFormat.CLOCK_24H)
+            .setTimeFormat(TimeFormat.CLOCK_12H)
             .setHour(initialTime.hour)
             .setMinute(initialTime.minute)
             .build()
@@ -126,11 +126,12 @@ class MainActivity : AppCompatActivity() {
     private fun updateDateTimeSummary() {
         val date = selectedDate
         val time = selectedTime
+        val timeText = time?.let { java.time.format.DateTimeFormatter.ofPattern("hh:mm a").format(it) }
         binding.dateTimeValue.text = when {
             date == null && time == null -> "No date and time selected"
             date != null && time == null -> "Date: $date"
-            date == null && time != null -> "Time: $time"
-            else -> "$date - $time"
+            date == null && time != null -> "Time: $timeText"
+            else -> "$date - $timeText"
         }
     }
 
