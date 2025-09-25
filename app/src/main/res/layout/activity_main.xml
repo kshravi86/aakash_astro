@@ -132,12 +132,14 @@
 
                 <TextView
                     android:id="@+id/dateTimeValue"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="14dp"
+                    android:gravity="center_horizontal"
                     android:text="No date and time selected"
-                    android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
-                    android:textColor="@color/secondaryText" />
+                    android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+                    android:textStyle="bold"
+                    android:textColor="@color/primaryText" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/placeInputLayout"
