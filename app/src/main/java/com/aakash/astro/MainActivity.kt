@@ -171,6 +171,20 @@ class MainActivity : AppCompatActivity() {
         binding.planetContainer.removeAllViews()
         val inflater: LayoutInflater = LayoutInflater.from(this)
 
+        // Add Ascendant (Lagna) as a row
+        run {
+            val itemBinding = ItemPlanetPositionBinding.inflate(inflater, binding.planetContainer, false)
+            itemBinding.planetName.text = "Ascendant (Lagna)"
+            val degreeText = formatDegreeWithSign(chart.ascendantDegree)
+            itemBinding.planetDetails.text = getString(
+                R.string.planet_position_format,
+                "${chart.ascendantSign.symbol} ${chart.ascendantSign.displayName}",
+                degreeText,
+                "House 1"
+            )
+            binding.planetContainer.addView(itemBinding.root)
+        }
+
         chart.planets.forEach { planet ->
             val itemBinding = ItemPlanetPositionBinding.inflate(inflater, binding.planetContainer, false)
             itemBinding.planetName.text = planet.name
