@@ -215,6 +215,22 @@
                     android:layout_marginTop="8dp"
                     android:text="Transit Overlay (Ra/Ke)" />
 
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/vargaButton"
+                    style="@style/Widget.Material3.Button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/view_vargas" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/d60Button"
+                    style="@style/Widget.Material3.Button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/view_d60" />
+
                 <TextView
                     android:id="@+id/sectionResults"
                     android:layout_width="wrap_content"

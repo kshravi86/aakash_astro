@@ -66,6 +66,8 @@ class MainActivity : AppCompatActivity() {
         binding.transitButton.setOnClickListener { openTransit() }
         binding.transitOverlayButton.setOnClickListener { openTransitOverlay() }
         binding.transitOverlayNodesButton.setOnClickListener { openTransitOverlayNodes() }
+        binding.vargaButton.setOnClickListener { openVargas() }
+        binding.d60Button.setOnClickListener { openD60() }
         prepareEphemeris()
 
         // Defaults: current date/time and Bengaluru as birthplace
@@ -238,6 +240,42 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    private fun openVargas() {
+        val date = selectedDate ?: return
+        val time = selectedTime ?: return
+        val city = selectedCity
+            ?: CityDatabase.findByName(binding.placeInput.text?.toString()?.trim().orEmpty())
+            ?: return
+        val zone = ZoneId.systemDefault()
+        val birthDateTime = LocalDateTime.of(date, time).atZone(zone)
+        val intent = android.content.Intent(this, DivisionalChartsActivity::class.java).apply {
+            putExtra(DivisionalChartsActivity.EXTRA_NAME, binding.nameInput.text?.toString())
+            putExtra(DivisionalChartsActivity.EXTRA_EPOCH_MILLIS, birthDateTime.toInstant().toEpochMilli())
+            putExtra(DivisionalChartsActivity.EXTRA_ZONE_ID, zone.id)
+            putExtra(DivisionalChartsActivity.EXTRA_LAT, city.latitude)
+            putExtra(DivisionalChartsActivity.EXTRA_LON, city.longitude)
+        }
+        startActivity(intent)
+    }
+
+    private fun openD60() {
+        val date = selectedDate ?: return
+        val time = selectedTime ?: return
+        val city = selectedCity
+            ?: CityDatabase.findByName(binding.placeInput.text?.toString()?.trim().orEmpty())
+            ?: return
+        val zone = ZoneId.systemDefault()
+        val birthDateTime = LocalDateTime.of(date, time).atZone(zone)
+        val intent = android.content.Intent(this, D60Activity::class.java).apply {
+            putExtra(D60Activity.EXTRA_NAME, binding.nameInput.text?.toString())
+            putExtra(D60Activity.EXTRA_EPOCH_MILLIS, birthDateTime.toInstant().toEpochMilli())
+            putExtra(D60Activity.EXTRA_ZONE_ID, zone.id)
+            putExtra(D60Activity.EXTRA_LAT, city.latitude)
+            putExtra(D60Activity.EXTRA_LON, city.longitude)
+        }
+        startActivity(intent)
+    }
+
     private fun renderPlanets(chart: com.aakash.astro.astrology.ChartResult) {
         binding.planetContainer.removeAllViews()
         val inflater: LayoutInflater = LayoutInflater.from(this)
@@ -299,9 +337,9 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun initializeDefaultsAndGenerate() {
-        // Set current date and time by default
-        if (selectedDate == null) selectedDate = LocalDate.now()
-        if (selectedTime == null) selectedTime = LocalTime.now().withSecond(0).withNano(0)
+        // Set default date/time (18/05/1993, 10:30 PM) if not provided
+        if (selectedDate == null) selectedDate = LocalDate.of(1993, 5, 18)
+        if (selectedTime == null) selectedTime = LocalTime.of(22, 30)
         updateDateTimeSummary()
 
         // Default city: Bengaluru (fallback to Bangalore capitalization/alias)

@@ -28,4 +28,18 @@
     <string name="none">None</string>
     <string name="overlay_nodes_title">Transit Overlay (Rahu/Ketu)</string>
     <string name="overlay_nodes_subtitle">Overlay of transit Rahu and Ketu on natal houses</string>
+    <string name="varga_title">Divisional Charts (Shodasha Vargas)</string>
+    <string name="view_vargas">View Divisional Charts</string>
+    <string name="d60_title">D60 Shashtiamsha</string>
+    <string name="d60_subtitle">Shashtiamsha (60th divisional) placements and amsha ranges</string>
+    <string name="d60_col_planet">Planet</string>
+    <string name="d60_col_sign">D60 Sign</string>
+    <string name="d60_col_house">D60 House</string>
+    <string name="d60_col_amsha">Amsha #</string>
+    <string name="d60_col_range">Range in sign</string>
+    <string name="d60_col_name">Amsha Name</string>
+    <string name="d60_col_nature">Nature</string>
+    <string name="benefic">Benefic</string>
+    <string name="malefic">Malefic</string>
+    <string name="view_d60">View D60 Amshas</string>
 </resources>
