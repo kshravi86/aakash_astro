@@ -21,4 +21,11 @@
     <string name="overlay_col_transit_sign">Transit Sign</string>
     <string name="overlay_col_transit_house">Transit House</string>
     <string name="overlay_col_impacted">Impacted Houses</string>
+    <string name="overlay_impacted_planets_title">Natal Planets In Impacted Houses</string>
+    <string name="overlay_col_transit_planet">Transit Planet</string>
+    <string name="overlay_col_impacted_house">Impacted House</string>
+    <string name="overlay_col_natal_planets">Natal Planets</string>
+    <string name="none">None</string>
+    <string name="overlay_nodes_title">Transit Overlay (Rahu/Ketu)</string>
+    <string name="overlay_nodes_subtitle">Overlay of transit Rahu and Ketu on natal houses</string>
 </resources>

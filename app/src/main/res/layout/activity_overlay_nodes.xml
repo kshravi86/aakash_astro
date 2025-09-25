@@ -9,7 +9,7 @@
         android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        app:title="@string/overlay_title"
+        app:title="@string/overlay_nodes_title"
         app:navigationIcon="@drawable/ic_home_black_24dp" />
 
     <ScrollView
@@ -26,7 +26,7 @@
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/overlay_title"
+                android:text="@string/overlay_nodes_title"
                 android:textAppearance="@style/TextAppearance.Material3.TitleLarge" />
 
             <TextView
@@ -34,7 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="@string/overlay_subtitle"
+                android:text="@string/overlay_nodes_subtitle"
                 android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
 
             <com.google.android.material.card.MaterialCardView
@@ -143,7 +143,9 @@
                         android:textStyle="bold" />
                 </TableRow>
             </TableLayout>
+
         </LinearLayout>
     </ScrollView>
 
 </LinearLayout>
+
