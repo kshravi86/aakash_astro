@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Aakash Astro</string>
+    <string name="app_name">Vedic Light</string>
     <string name="house_content_description">House %1$d contains %2$s. Positioned planets: %3$s</string>
     <string name="house_placeholder_content_description">House %1$d awaiting calculation</string>
     <string name="missing_birth_details">Please provide date, time, and birth place.</string>
