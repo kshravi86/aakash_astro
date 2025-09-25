@@ -62,6 +62,37 @@ object DashaCalculator {
         return list
     }
 
+    fun antardashaFor(ma: DashaPeriod): List<DashaPeriod> {
+        val totalDays = Duration.between(ma.start, ma.end).toDays().toDouble()
+        val startIndex = indexOf(ma.lord)
+        var t = ma.start
+        val list = mutableListOf<DashaPeriod>()
+        for (i in 0 until order.size) {
+            val (lord, years) = order[(startIndex + i) % order.size]
+            val days = totalDays * (years / 120.0)
+            val end = t.plusSeconds((days * 86400).toLong())
+            list += DashaPeriod(lord, t, end)
+            t = end
+        }
+        return list
+    }
+
+    fun pratyantarFor(antar: DashaPeriod): List<DashaPeriod> {
+        val totalDays = Duration.between(antar.start, antar.end).toDays().toDouble()
+        val startIndex = indexOf(antar.lord)
+        var t = antar.start
+        val list = mutableListOf<DashaPeriod>()
+        for (i in 0 until order.size) {
+            val (lord, years) = order[(startIndex + i) % order.size]
+            val days = totalDays * (years / 120.0)
+            val end = t.plusSeconds((days * 86400).toLong())
+            list += DashaPeriod(lord, t, end)
+            t = end
+        }
+        return list
+    }
+
+    private fun indexOf(lord: String): Int = order.indexOfFirst { it.first.equals(lord, ignoreCase = true) }.let { if (it >= 0) it else 0 }
+
     private fun normalize(v: Double): Double { var x = v % 360.0; if (x < 0) x += 360.0; return x }
 }
-
