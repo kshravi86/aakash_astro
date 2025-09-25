@@ -182,6 +182,8 @@ class MainActivity : AppCompatActivity() {
                 degreeText,
                 "House 1"
             )
+            val (nakNameA, padaA) = com.aakash.astro.astrology.NakshatraCalc.fromLongitude(chart.ascendantDegree)
+            itemBinding.planetNakshatra.text = getString(R.string.nakshatra_format, nakNameA, padaA)
             binding.planetContainer.addView(itemBinding.root)
         }
 
@@ -196,6 +198,8 @@ class MainActivity : AppCompatActivity() {
                 degreeText,
                 "House ${planet.house}"
             )
+            val (nakName, pada) = com.aakash.astro.astrology.NakshatraCalc.fromLongitude(planet.degree)
+            itemBinding.planetNakshatra.text = getString(R.string.nakshatra_format, nakName, pada)
             binding.planetContainer.addView(itemBinding.root)
         }
 

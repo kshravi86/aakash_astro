@@ -33,6 +33,16 @@
             android:textAppearance="@style/TextAppearance.Material3.BodySmall"
             android:textColor="@color/secondaryText"
             tools:text="Sign - 12 deg 30' - House" />
+
+        <TextView
+            android:id="@+id/planetNakshatra"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text=""
+            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+            android:textColor="@color/secondaryText"
+            tools:text="Nakshatra: Rohini • Pada 2" />
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>
 
