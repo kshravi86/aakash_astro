@@ -7,8 +7,10 @@
     <path
         android:fillColor="#FFFFFF"
         android:pathData="M54,24a30,30 0 1,0 0,60a22,22 0 1,1 0,-60z"/>
-    <!-- Star (white) -->
+    
+
+    <!-- Centered star (white) -->
     <path
         android:fillColor="#FFFFFF"
-        android:pathData="M78,36l2.6,5.3l5.8,0.8l-4.2,4.1l1,5.8l-5.2,-2.7l-5.2,2.7l1,-5.8l-4.2,-4.1l5.8,-0.8z"/>
+        android:pathData="M54,36 l8,16 18,2 -13,12 3,18 -16,-8 -16,8 3,-18 -13,-12 18,-2 z"/>
 </vector>

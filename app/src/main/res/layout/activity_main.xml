@@ -10,7 +10,7 @@
         android:id="@+id/topAppBar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        app:title="Aakash Astro"
+        app:title="@string/app_name"
         app:subtitle="Vedic chart generator"
         app:titleCentered="false"
         app:navigationIcon="@drawable/ic_home_black_24dp"
@@ -190,6 +190,22 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="View Dasha" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/transitButton"
+                    style="@style/Widget.Material3.Button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="View Transit" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/transitOverlayButton"
+                    style="@style/Widget.Material3.Button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Transit Overlay (Sa/Ju)" />
 
                 <TextView
                     android:id="@+id/sectionResults"

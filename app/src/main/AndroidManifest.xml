@@ -15,6 +15,12 @@
             android:name=".DashaActivity"
             android:exported="false" />
         <activity
+            android:name=".TransitActivity"
+            android:exported="false" />
+        <activity
+            android:name=".OverlayActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name">

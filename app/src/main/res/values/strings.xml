@@ -10,4 +10,15 @@
     <string name="dasha_title">Vimshottari Dasha</string>
     <string name="dasha_engine_missing">Swiss Ephemeris is required to compute dasha.</string>
     <string name="dasha_range_format">%1$s  •  %2$s</string>
+    <string name="transit_title">Transit Chart</string>
+    <string name="transit_engine_missing">Swiss Ephemeris is required to compute transit chart.</string>
+    <string name="overlay_title">Transit Overlay</string>
+    <string name="overlay_engine_missing">Swiss Ephemeris is required to compute overlay.</string>
+    <string name="overlay_subtitle">Overlay of transit Saturn and Jupiter on natal houses</string>
+    <string name="overlay_line">%1$s in %2$s → House %3$d</string>
+    <string name="overlay_impacts_title">Impacted Natal Houses (1, 5, 9 from transit)</string>
+    <string name="overlay_col_planet">Planet</string>
+    <string name="overlay_col_transit_sign">Transit Sign</string>
+    <string name="overlay_col_transit_house">Transit House</string>
+    <string name="overlay_col_impacted">Impacted Houses</string>
 </resources>
