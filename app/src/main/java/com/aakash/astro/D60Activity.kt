@@ -59,9 +59,12 @@ class D60Activity : AppCompatActivity() {
             table.addView(row)
         }
 
+        val natalByPlanet = natal.planets.associateBy { it.planet }
         d60.planets.forEach { p ->
-            val signIndex = p.sign.ordinal
-            val inSign = ((p.degree - signIndex * 30.0) % 30.0 + 30.0) % 30.0
+            val natalPos = natalByPlanet[p.planet]
+            val natalDegree = natalPos?.degree ?: p.degree
+            val natalSignIndex = natalPos?.sign?.ordinal ?: (natalDegree / 30.0).toInt()
+            val inSign = ((natalDegree - natalSignIndex * 30.0) % 30.0 + 30.0) % 30.0
             val size = 30.0 / 60.0 // 0.5 degree per amsha
             val amsha = floor(inSign / size).toInt() + 1
             val start = floor(inSign / size) * size

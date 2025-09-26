@@ -68,6 +68,11 @@ class MainActivity : AppCompatActivity() {
         binding.transitOverlayNodesButton.setOnClickListener { openTransitOverlayNodes() }
         binding.vargaButton.setOnClickListener { openVargas() }
         binding.d60Button.setOnClickListener { openD60() }
+        binding.yogasButton.setOnClickListener { openYogas() }
+        binding.panchangaButton.setOnClickListener { openPanchanga() }
+        binding.shadbalaButton.setOnClickListener { openShadbala() }
+        binding.jaiminiKarakasButton.setOnClickListener { openJaiminiKarakas() }
+        binding.ishtaDevataButton.setOnClickListener { openIshtaDevata() }
         prepareEphemeris()
 
         // Defaults: current date/time and Bengaluru as birthplace
@@ -272,6 +277,96 @@ class MainActivity : AppCompatActivity() {
             putExtra(D60Activity.EXTRA_ZONE_ID, zone.id)
             putExtra(D60Activity.EXTRA_LAT, city.latitude)
             putExtra(D60Activity.EXTRA_LON, city.longitude)
+        }
+        startActivity(intent)
+    }
+
+    private fun openShadbala() {
+        val date = selectedDate ?: return
+        val time = selectedTime ?: return
+        val city = selectedCity
+            ?: CityDatabase.findByName(binding.placeInput.text?.toString()?.trim().orEmpty())
+            ?: return
+        val zone = ZoneId.systemDefault()
+        val birthDateTime = LocalDateTime.of(date, time).atZone(zone)
+        val intent = android.content.Intent(this, ShadbalaActivity::class.java).apply {
+            putExtra(ShadbalaActivity.EXTRA_NAME, binding.nameInput.text?.toString())
+            putExtra(ShadbalaActivity.EXTRA_EPOCH_MILLIS, birthDateTime.toInstant().toEpochMilli())
+            putExtra(ShadbalaActivity.EXTRA_ZONE_ID, zone.id)
+            putExtra(ShadbalaActivity.EXTRA_LAT, city.latitude)
+            putExtra(ShadbalaActivity.EXTRA_LON, city.longitude)
+        }
+        startActivity(intent)
+    }
+
+    private fun openJaiminiKarakas() {
+        val date = selectedDate ?: return
+        val time = selectedTime ?: return
+        val city = selectedCity
+            ?: CityDatabase.findByName(binding.placeInput.text?.toString()?.trim().orEmpty())
+            ?: return
+        val zone = ZoneId.systemDefault()
+        val birthDateTime = LocalDateTime.of(date, time).atZone(zone)
+        val intent = android.content.Intent(this, JaiminiKarakasActivity::class.java).apply {
+            putExtra(JaiminiKarakasActivity.EXTRA_NAME, binding.nameInput.text?.toString())
+            putExtra(JaiminiKarakasActivity.EXTRA_EPOCH_MILLIS, birthDateTime.toInstant().toEpochMilli())
+            putExtra(JaiminiKarakasActivity.EXTRA_ZONE_ID, zone.id)
+            putExtra(JaiminiKarakasActivity.EXTRA_LAT, city.latitude)
+            putExtra(JaiminiKarakasActivity.EXTRA_LON, city.longitude)
+        }
+        startActivity(intent)
+    }
+
+    private fun openIshtaDevata() {
+        val date = selectedDate ?: return
+        val time = selectedTime ?: return
+        val city = selectedCity
+            ?: CityDatabase.findByName(binding.placeInput.text?.toString()?.trim().orEmpty())
+            ?: return
+        val zone = ZoneId.systemDefault()
+        val birthDateTime = LocalDateTime.of(date, time).atZone(zone)
+        val intent = android.content.Intent(this, IshtaDevataActivity::class.java).apply {
+            putExtra(IshtaDevataActivity.EXTRA_NAME, binding.nameInput.text?.toString())
+            putExtra(IshtaDevataActivity.EXTRA_EPOCH_MILLIS, birthDateTime.toInstant().toEpochMilli())
+            putExtra(IshtaDevataActivity.EXTRA_ZONE_ID, zone.id)
+            putExtra(IshtaDevataActivity.EXTRA_LAT, city.latitude)
+            putExtra(IshtaDevataActivity.EXTRA_LON, city.longitude)
+        }
+        startActivity(intent)
+    }
+
+    private fun openYogas() {
+        val date = selectedDate ?: return
+        val time = selectedTime ?: return
+        val city = selectedCity
+            ?: CityDatabase.findByName(binding.placeInput.text?.toString()?.trim().orEmpty())
+            ?: return
+        val zone = ZoneId.systemDefault()
+        val birthDateTime = LocalDateTime.of(date, time).atZone(zone)
+        val intent = android.content.Intent(this, YogasActivity::class.java).apply {
+            putExtra(YogasActivity.EXTRA_NAME, binding.nameInput.text?.toString())
+            putExtra(YogasActivity.EXTRA_EPOCH_MILLIS, birthDateTime.toInstant().toEpochMilli())
+            putExtra(YogasActivity.EXTRA_ZONE_ID, zone.id)
+            putExtra(YogasActivity.EXTRA_LAT, city.latitude)
+            putExtra(YogasActivity.EXTRA_LON, city.longitude)
+        }
+        startActivity(intent)
+    }
+
+    private fun openPanchanga() {
+        val date = selectedDate ?: return
+        val time = selectedTime ?: return
+        val city = selectedCity
+            ?: CityDatabase.findByName(binding.placeInput.text?.toString()?.trim().orEmpty())
+            ?: return
+        val zone = ZoneId.systemDefault()
+        val birthDateTime = LocalDateTime.of(date, time).atZone(zone)
+        val intent = android.content.Intent(this, PanchangaActivity::class.java).apply {
+            putExtra(PanchangaActivity.EXTRA_NAME, binding.nameInput.text?.toString())
+            putExtra(PanchangaActivity.EXTRA_EPOCH_MILLIS, birthDateTime.toInstant().toEpochMilli())
+            putExtra(PanchangaActivity.EXTRA_ZONE_ID, zone.id)
+            putExtra(PanchangaActivity.EXTRA_LAT, city.latitude)
+            putExtra(PanchangaActivity.EXTRA_LON, city.longitude)
         }
         startActivity(intent)
     }

@@ -59,22 +59,27 @@
                 android:text="Planetary Shashtiamsha Placements"
                 android:textAppearance="@style/TextAppearance.Material3.TitleSmall" />
 
-            <TableLayout
-                android:id="@+id/d60Table"
+            <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:stretchColumns="1,2,3,4,5,6">
-                <TableRow>
-                    <TextView android:text="@string/d60_col_planet" android:textStyle="bold" />
-                    <TextView android:text="@string/d60_col_sign" android:textStyle="bold" />
-                    <TextView android:text="@string/d60_col_house" android:textStyle="bold" />
-                    <TextView android:text="@string/d60_col_amsha" android:textStyle="bold" />
-                    <TextView android:text="@string/d60_col_range" android:textStyle="bold" />
-                    <TextView android:text="@string/d60_col_name" android:textStyle="bold" />
-                    <TextView android:text="@string/d60_col_nature" android:textStyle="bold" />
-                </TableRow>
-            </TableLayout>
+                android:fillViewport="true"
+                android:layout_marginTop="8dp">
+                <TableLayout
+                    android:id="@+id/d60Table"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:stretchColumns="1,2,3,4,5,6">
+                    <TableRow>
+                        <TextView android:text="@string/d60_col_planet" android:textStyle="bold" />
+                        <TextView android:text="@string/d60_col_sign" android:textStyle="bold" />
+                        <TextView android:text="@string/d60_col_house" android:textStyle="bold" />
+                        <TextView android:text="@string/d60_col_amsha" android:textStyle="bold" />
+                        <TextView android:text="@string/d60_col_range" android:textStyle="bold" />
+                        <TextView android:text="@string/d60_col_name" android:textStyle="bold" />
+                        <TextView android:text="@string/d60_col_nature" android:textStyle="bold" />
+                    </TableRow>
+                </TableLayout>
+            </HorizontalScrollView>
 
         </LinearLayout>
     </ScrollView>

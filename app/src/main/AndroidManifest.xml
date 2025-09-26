@@ -30,6 +30,21 @@
             android:name=".D60Activity"
             android:exported="false" />
         <activity
+            android:name=".ShadbalaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".JaiminiKarakasActivity"
+            android:exported="false" />
+        <activity
+            android:name=".IshtaDevataActivity"
+            android:exported="false" />
+        <activity
+            android:name=".YogasActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PanchangaActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name">

@@ -231,6 +231,46 @@
                     android:layout_marginTop="8dp"
                     android:text="@string/view_d60" />
 
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/yogasButton"
+                    style="@style/Widget.Material3.Button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/view_yogas" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/panchangaButton"
+                    style="@style/Widget.Material3.Button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/view_panchanga" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/shadbalaButton"
+                    style="@style/Widget.Material3.Button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/view_shadbala" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/jaiminiKarakasButton"
+                    style="@style/Widget.Material3.Button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/view_karakas" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/ishtaDevataButton"
+                    style="@style/Widget.Material3.Button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/view_ishta" />
+
                 <TextView
                     android:id="@+id/sectionResults"
                     android:layout_width="wrap_content"

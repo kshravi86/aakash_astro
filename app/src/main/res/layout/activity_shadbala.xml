@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:title="@string/shadbala_title"
+        app:navigationIcon="@drawable/ic_home_black_24dp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/shadbala_title"
+                android:textAppearance="@style/TextAppearance.Material3.TitleLarge" />
+
+            <TextView
+                android:id="@+id/subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/shadbala_subtitle"
+                android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fillViewport="true"
+                android:layout_marginTop="12dp">
+                <TableLayout
+                    android:id="@+id/shadbalaTable"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:stretchColumns="1,2,3,4,5,6,7,8">
+                    <TableRow>
+                        <TextView android:text="@string/col_planet" android:textStyle="bold" />
+                        <TextView android:text="@string/col_pos" android:textStyle="bold" />
+                        <TextView android:text="@string/col_naisargika" android:textStyle="bold" />
+                        <TextView android:text="@string/col_sthana" android:textStyle="bold" />
+                        <TextView android:text="@string/col_dig" android:textStyle="bold" />
+                        <TextView android:text="@string/col_kala" android:textStyle="bold" />
+                        <TextView android:text="@string/col_cheshta" android:textStyle="bold" />
+                        <TextView android:text="@string/col_drik" android:textStyle="bold" />
+                        <TextView android:text="@string/col_total" android:textStyle="bold" />
+                    </TableRow>
+                </TableLayout>
+            </HorizontalScrollView>
+
+            <TextView
+                android:id="@+id/note"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/shadbala_note"
+                android:textAppearance="@style/TextAppearance.Material3.BodySmall" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
+
