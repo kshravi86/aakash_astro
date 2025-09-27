@@ -13,4 +13,8 @@
     <color name="secondaryText">#B6B0A0</color>
     <color name="accent_orange">#F4A261</color>
     <color name="accent_blue">#2A9D8F</color>
-    <color name="background_gradient_mid">#0F172A</color>`n    <color name="card_bg">#1F2638</color>`n    <color name="surface_variant">#222A3D</color>`n</resources>
+    <color name="background_gradient_mid">#0F172A</color>
+    <color name="card_bg">#1F2638</color>
+    <color name="surface_variant">#222A3D</color>
+    <color name="divider">#33FFFFFF</color>
+</resources>

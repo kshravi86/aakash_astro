@@ -58,33 +58,12 @@ class PanchangaActivity : AppCompatActivity() {
 
         val p = PanchangaCalc.compute(chart, zdt.dayOfWeek)
 
-        // Headline summary
-        binding.summaryLine.text = listOf(p.tithi, p.vara, p.nakshatra).joinToString(" • ")
-
-        // Tiles
+        // Table values
         binding.tithiValue.text = p.tithi
         binding.varaValue.text = p.vara
         binding.nakshatraValue.text = p.nakshatra
         binding.yogaValue.text = p.yoga
         binding.karanaValue.text = p.karana
-
-        // Chips row
-        val ctx = this
-        fun addChip(text: String, @androidx.annotation.ColorRes color: Int? = null) {
-            val chip = com.google.android.material.chip.Chip(ctx).apply {
-                this.text = text
-                isCheckable = false
-                isClickable = false
-                color?.let { setChipBackgroundColorResource(it) }
-            }
-            binding.chipGroup.addView(chip)
-        }
-        val tithiColor = if (p.tithi.startsWith("Shukla")) R.color.accent_orange else R.color.accent_blue
-        addChip(p.tithi, tithiColor)
-        addChip(p.vara)
-        addChip(p.nakshatra)
-        addChip(p.yoga)
-        addChip(p.karana)
 
         binding.engineNote.text = "Engine: Swiss Ephemeris"
     }

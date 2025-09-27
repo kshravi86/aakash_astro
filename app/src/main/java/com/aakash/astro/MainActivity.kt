@@ -2,6 +2,8 @@ package com.aakash.astro
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -40,6 +42,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setSupportActionBar(binding.topAppBar)
 
         WindowCompat.setDecorFitsSystemWindows(window, false)
         val startPaddingLeft = binding.root.paddingLeft
@@ -80,6 +83,48 @@ class MainActivity : AppCompatActivity() {
 
         // Defaults: current date/time and Bengaluru as birthplace
         initializeDefaultsAndGenerate()
+        applyPrefillFromIntent(intent)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_save -> {
+                saveCurrentHoroscope()
+                true
+            }
+            R.id.action_saved -> {
+                startActivity(android.content.Intent(this, SavedHoroscopesActivity::class.java))
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun saveCurrentHoroscope() {
+        val date = selectedDate
+        val time = selectedTime
+        val city = selectedCity ?: CityDatabase.findByName(binding.placeInput.text?.toString()?.trim().orEmpty())
+        if (date == null || time == null || city == null) {
+            Snackbar.make(binding.root, getString(R.string.missing_birth_details), Snackbar.LENGTH_LONG).show()
+            return
+        }
+        val zone = ZoneId.systemDefault()
+        val birthDateTime = LocalDateTime.of(date, time).atZone(zone)
+        val name = binding.nameInput.text?.toString()
+        val saved = com.aakash.astro.storage.SavedStore.save(
+            this,
+            name,
+            birthDateTime.toInstant().toEpochMilli(),
+            zone.id,
+            city.latitude,
+            city.longitude
+        )
+        Snackbar.make(binding.root, "Saved: ${saved.id}", Snackbar.LENGTH_LONG).show()
     }
     private fun prepareEphemeris() {
         val dir = EphemerisPreparer.prepare(this)
@@ -507,6 +552,27 @@ class MainActivity : AppCompatActivity() {
 
         // Auto-generate chart once defaults are set
         generateChart()
+    }
+
+    private fun applyPrefillFromIntent(intent: android.content.Intent?) {
+        if (intent == null) return
+        val epoch = intent.getLongExtra("prefill_epochMillis", -1L)
+        val zoneId = intent.getStringExtra("prefill_zoneId")
+        val name = intent.getStringExtra("prefill_name")
+        val lat = intent.getDoubleExtra("prefill_lat", Double.NaN)
+        val lon = intent.getDoubleExtra("prefill_lon", Double.NaN)
+        if (epoch > 0 && zoneId != null && !lat.isNaN() && !lon.isNaN()) {
+            val zone = java.time.ZoneId.of(zoneId)
+            val zdt = java.time.Instant.ofEpochMilli(epoch).atZone(zone)
+            selectedDate = zdt.toLocalDate()
+            selectedTime = zdt.toLocalTime()
+            name?.let { binding.nameInput.setText(it) }
+            selectedCity = com.aakash.astro.geo.City("Custom", lat, lon)
+            binding.placeInput.setText("Custom", false)
+            updateDateTimeSummary()
+            updatePlaceCoords()
+            generateChart()
+        }
     }
 
     private fun updatePlaceCoords() {

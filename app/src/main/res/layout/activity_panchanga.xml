@@ -27,22 +27,7 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <TextView
-                android:id="@+id/summaryLine"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
-                android:textColor="@color/primaryText"
-                android:text="" />
-
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/chipGroup"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                app:singleLine="true"
-                app:chipSpacingHorizontal="6dp"
-                app:chipSpacingVertical="6dp" />
+            
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
@@ -53,21 +38,20 @@
                 app:cardElevation="6dp"
                 app:strokeWidth="0dp">
 
-                <GridLayout
+                <TableLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:columnCount="2"
-                    android:useDefaultMargins="true"
-                    android:padding="12dp">
+                    android:padding="12dp"
+                    android:stretchColumns="1">
 
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_columnWeight="1"
-                        android:orientation="vertical">
+                    <TableRow
+                        android:paddingTop="12dp"
+                        android:paddingBottom="12dp">
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
                             android:text="Tithi"
                             android:textColor="@color/secondaryText"
                             android:textStyle="bold" />
@@ -76,17 +60,23 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-                            android:textColor="@color/primaryText" />
-                    </LinearLayout>
+                            android:textColor="@color/primaryText"
+                            android:gravity="end" />
+                    </TableRow>
 
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_columnWeight="1"
-                        android:orientation="vertical">
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/divider" />
+
+                    <TableRow
+                        android:paddingTop="12dp"
+                        android:paddingBottom="12dp">
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
                             android:text="Vara"
                             android:textColor="@color/secondaryText"
                             android:textStyle="bold" />
@@ -95,17 +85,23 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-                            android:textColor="@color/primaryText" />
-                    </LinearLayout>
+                            android:textColor="@color/primaryText"
+                            android:gravity="end" />
+                    </TableRow>
 
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_columnWeight="1"
-                        android:orientation="vertical">
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/divider" />
+
+                    <TableRow
+                        android:paddingTop="12dp"
+                        android:paddingBottom="12dp">
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
                             android:text="Nakshatra"
                             android:textColor="@color/secondaryText"
                             android:textStyle="bold" />
@@ -114,17 +110,23 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-                            android:textColor="@color/primaryText" />
-                    </LinearLayout>
+                            android:textColor="@color/primaryText"
+                            android:gravity="end" />
+                    </TableRow>
 
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_columnWeight="1"
-                        android:orientation="vertical">
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/divider" />
+
+                    <TableRow
+                        android:paddingTop="12dp"
+                        android:paddingBottom="12dp">
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
                             android:text="Yoga"
                             android:textColor="@color/secondaryText"
                             android:textStyle="bold" />
@@ -133,17 +135,23 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-                            android:textColor="@color/primaryText" />
-                    </LinearLayout>
+                            android:textColor="@color/primaryText"
+                            android:gravity="end" />
+                    </TableRow>
 
-                    <LinearLayout
+                    <View
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_columnSpan="2"
-                        android:orientation="vertical">
+                        android:layout_height="1dp"
+                        android:background="@color/divider" />
+
+                    <TableRow
+                        android:paddingTop="12dp"
+                        android:paddingBottom="12dp">
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
                             android:text="Karana"
                             android:textColor="@color/secondaryText"
                             android:textStyle="bold" />
@@ -152,9 +160,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-                            android:textColor="@color/primaryText" />
-                    </LinearLayout>
-                </GridLayout>
+                            android:textColor="@color/primaryText"
+                            android:gravity="end" />
+                    </TableRow>
+                </TableLayout>
             </com.google.android.material.card.MaterialCardView>
 
             <TextView

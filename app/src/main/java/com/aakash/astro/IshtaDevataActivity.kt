@@ -17,6 +17,8 @@ class IshtaDevataActivity : AppCompatActivity() {
         binding = ActivityIshtaDevataBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.topBar.setNavigationOnClickListener { finish() }
+
         EphemerisPreparer.prepare(this)?.let { accurate.setEphePath(it.absolutePath) }
 
         val name = intent.getStringExtra(EXTRA_NAME)
@@ -41,23 +43,64 @@ class IshtaDevataActivity : AppCompatActivity() {
             return
         }
 
-        val sb = StringBuilder()
-        sb.appendLine("Atmakaraka: ${res.atmakaraka.displayName} (Rasi: ${res.akRasiSign.displayName})")
-        sb.appendLine("AK in Navamsha: ${res.akNavamsaSign.displayName}")
-        sb.appendLine("12th from AK (Navamsha): ${res.twelfthFromAKNavamsaSign.displayName}")
-        res.twelfthOccupant?.let { sb.appendLine("Planet in 12th from AK (Navamsha): ${it.displayName}") }
-        sb.appendLine("12th Lord: ${res.twelfthLord.displayName}")
-        sb.appendLine("Ishta Devata (by ${if (res.twelfthOccupant!=null) "occupant" else "lord"}): ${res.deity}")
-        sb.appendLine("Practice: ${res.suggestion}")
-        sb.appendLine("")
-        sb.appendLine("Amatyakaraka: ${res.amatyakaraka.displayName} (Rasi: ${res.amkRasiSign.displayName})")
-        sb.appendLine("AMK in Navamsha: ${res.amkNavamsaSign.displayName}")
-        sb.appendLine("6th from AMK (Navamsha): ${res.sixthFromAMKNavamsaSign.displayName}")
-        res.sixthOccupant?.let { sb.appendLine("Planet in 6th from AMK (Navamsha): ${it.displayName}") }
-        sb.appendLine("6th Lord: ${res.sixthLord.displayName}")
-        sb.appendLine("Palana Devata (by ${if (res.sixthOccupant!=null) "occupant" else "lord"}): ${res.palanaDeity}")
-        sb.appendLine("Practice: ${res.palanaSuggestion}")
-        binding.details.text = sb.toString()
+        fun addRow(table: android.widget.TableLayout, label: String, value: String, highlight: Boolean = false) {
+            val row = android.widget.TableRow(this)
+            val tvLabel = TextView(this)
+            val tvValue = TextView(this)
+            tvLabel.text = label
+            tvValue.text = value
+            tvLabel.setPadding(8, 8, 16, 8)
+            tvValue.setPadding(8, 8, 8, 8)
+            if (highlight) {
+                tvValue.setTypeface(tvValue.typeface, android.graphics.Typeface.BOLD)
+                tvValue.setBackgroundColor(getColor(com.aakash.astro.R.color.surface_variant))
+            }
+            row.addView(tvLabel)
+            row.addView(tvValue)
+            table.addView(row)
+        }
+
+        binding.ishtaTable.removeAllViews()
+        run {
+            val header = android.widget.TableRow(this)
+            val h1 = TextView(this); h1.text = "Field"; h1.setTypeface(h1.typeface, android.graphics.Typeface.BOLD)
+            val h2 = TextView(this); h2.text = "Value"; h2.setTypeface(h2.typeface, android.graphics.Typeface.BOLD)
+            header.addView(h1); header.addView(h2); binding.ishtaTable.addView(header)
+        }
+        addRow(binding.ishtaTable, "Atmakaraka", "${res.atmakaraka.displayName} (Rasi: ${res.akRasiSign.displayName})")
+        addRow(binding.ishtaTable, "AK in Navamsha", res.akNavamsaSign.displayName)
+        addRow(binding.ishtaTable, "12th from AK (D9)", res.twelfthFromAKNavamsaSign.displayName)
+        addRow(binding.ishtaTable, "12th Lord", res.twelfthLord.displayName)
+        addRow(binding.ishtaTable, "Occupant in 12th (D9)", res.twelfthOccupant?.displayName ?: getString(R.string.none))
+        addRow(
+            binding.ishtaTable,
+            "Ishta Devata (by ${if (res.twelfthOccupant!=null) "occupant" else "lord"})",
+            res.deity,
+            highlight = true
+        )
+        addRow(binding.ishtaTable, "Practice", res.suggestion)
+
+        binding.palanaTable.removeAllViews()
+        run {
+            val header = android.widget.TableRow(this)
+            val h1 = TextView(this); h1.text = "Field"; h1.setTypeface(h1.typeface, android.graphics.Typeface.BOLD)
+            val h2 = TextView(this); h2.text = "Value"; h2.setTypeface(h2.typeface, android.graphics.Typeface.BOLD)
+            header.addView(h1); header.addView(h2); binding.palanaTable.addView(header)
+        }
+        addRow(binding.palanaTable, "Amatyakaraka", "${res.amatyakaraka.displayName} (Rasi: ${res.amkRasiSign.displayName})")
+        addRow(binding.palanaTable, "AMK in Navamsha", res.amkNavamsaSign.displayName)
+        addRow(binding.palanaTable, "6th from AMK (D9)", res.sixthFromAMKNavamsaSign.displayName)
+        addRow(binding.palanaTable, "6th Lord", res.sixthLord.displayName)
+        addRow(binding.palanaTable, "Occupant in 6th (D9)", res.sixthOccupant?.displayName ?: getString(R.string.none))
+        addRow(
+            binding.palanaTable,
+            "Palana Devata (by ${if (res.sixthOccupant!=null) "occupant" else "lord"})",
+            res.palanaDeity,
+            highlight = true
+        )
+        addRow(binding.palanaTable, "Practice", res.palanaSuggestion)
+
+        binding.details.text = "" // optional legacy text; keep empty now
     }
 
     companion object {

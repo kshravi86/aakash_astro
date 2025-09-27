@@ -38,6 +38,56 @@
                 android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="Ishta Devata"
+                android:textStyle="bold"
+                android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fillViewport="true"
+                android:layout_marginTop="4dp">
+                <TableLayout
+                    android:id="@+id/ishtaTable"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:stretchColumns="1">
+                    <TableRow>
+                        <TextView android:text="Field" android:textStyle="bold" />
+                        <TextView android:text="Value" android:textStyle="bold" />
+                    </TableRow>
+                </TableLayout>
+            </HorizontalScrollView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Palana Devata"
+                android:textStyle="bold"
+                android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fillViewport="true"
+                android:layout_marginTop="4dp">
+                <TableLayout
+                    android:id="@+id/palanaTable"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:stretchColumns="1">
+                    <TableRow>
+                        <TextView android:text="Field" android:textStyle="bold" />
+                        <TextView android:text="Value" android:textStyle="bold" />
+                    </TableRow>
+                </TableLayout>
+            </HorizontalScrollView>
+
+            <TextView
                 android:id="@+id/details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -48,4 +98,3 @@
     </ScrollView>
 
 </LinearLayout>
-
