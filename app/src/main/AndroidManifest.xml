@@ -36,10 +36,19 @@
             android:name=".JaiminiKarakasActivity"
             android:exported="false" />
         <activity
+            android:name=".ArudhaPadasActivity"
+            android:exported="false" />
+        <activity
             android:name=".IshtaDevataActivity"
             android:exported="false" />
         <activity
             android:name=".YogasActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SarvaAshtakavargaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AshtakavargaBavActivity"
             android:exported="false" />
         <activity
             android:name=".PanchangaActivity"

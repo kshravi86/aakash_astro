@@ -71,7 +71,10 @@ class MainActivity : AppCompatActivity() {
         binding.yogasButton.setOnClickListener { openYogas() }
         binding.panchangaButton.setOnClickListener { openPanchanga() }
         binding.shadbalaButton.setOnClickListener { openShadbala() }
+        binding.savButton.setOnClickListener { openSAV() }
+        binding.ashtakavargaBavButton.setOnClickListener { openAshtakavargaBAV() }
         binding.jaiminiKarakasButton.setOnClickListener { openJaiminiKarakas() }
+        binding.arudhaButton.setOnClickListener { openArudha() }
         binding.ishtaDevataButton.setOnClickListener { openIshtaDevata() }
         prepareEphemeris()
 
@@ -299,6 +302,42 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    private fun openSAV() {
+        val date = selectedDate ?: return
+        val time = selectedTime ?: return
+        val city = selectedCity
+            ?: CityDatabase.findByName(binding.placeInput.text?.toString()?.trim().orEmpty())
+            ?: return
+        val zone = ZoneId.systemDefault()
+        val birthDateTime = LocalDateTime.of(date, time).atZone(zone)
+        val intent = android.content.Intent(this, SarvaAshtakavargaActivity::class.java).apply {
+            putExtra(SarvaAshtakavargaActivity.EXTRA_NAME, binding.nameInput.text?.toString())
+            putExtra(SarvaAshtakavargaActivity.EXTRA_EPOCH_MILLIS, birthDateTime.toInstant().toEpochMilli())
+            putExtra(SarvaAshtakavargaActivity.EXTRA_ZONE_ID, zone.id)
+            putExtra(SarvaAshtakavargaActivity.EXTRA_LAT, city.latitude)
+            putExtra(SarvaAshtakavargaActivity.EXTRA_LON, city.longitude)
+        }
+        startActivity(intent)
+    }
+
+    private fun openAshtakavargaBAV() {
+        val date = selectedDate ?: return
+        val time = selectedTime ?: return
+        val city = selectedCity
+            ?: CityDatabase.findByName(binding.placeInput.text?.toString()?.trim().orEmpty())
+            ?: return
+        val zone = ZoneId.systemDefault()
+        val birthDateTime = LocalDateTime.of(date, time).atZone(zone)
+        val intent = android.content.Intent(this, AshtakavargaBavActivity::class.java).apply {
+            putExtra(AshtakavargaBavActivity.EXTRA_NAME, binding.nameInput.text?.toString())
+            putExtra(AshtakavargaBavActivity.EXTRA_EPOCH_MILLIS, birthDateTime.toInstant().toEpochMilli())
+            putExtra(AshtakavargaBavActivity.EXTRA_ZONE_ID, zone.id)
+            putExtra(AshtakavargaBavActivity.EXTRA_LAT, city.latitude)
+            putExtra(AshtakavargaBavActivity.EXTRA_LON, city.longitude)
+        }
+        startActivity(intent)
+    }
+
     private fun openJaiminiKarakas() {
         val date = selectedDate ?: return
         val time = selectedTime ?: return
@@ -313,6 +352,24 @@ class MainActivity : AppCompatActivity() {
             putExtra(JaiminiKarakasActivity.EXTRA_ZONE_ID, zone.id)
             putExtra(JaiminiKarakasActivity.EXTRA_LAT, city.latitude)
             putExtra(JaiminiKarakasActivity.EXTRA_LON, city.longitude)
+        }
+        startActivity(intent)
+    }
+
+    private fun openArudha() {
+        val date = selectedDate ?: return
+        val time = selectedTime ?: return
+        val city = selectedCity
+            ?: CityDatabase.findByName(binding.placeInput.text?.toString()?.trim().orEmpty())
+            ?: return
+        val zone = ZoneId.systemDefault()
+        val birthDateTime = LocalDateTime.of(date, time).atZone(zone)
+        val intent = android.content.Intent(this, ArudhaPadasActivity::class.java).apply {
+            putExtra(ArudhaPadasActivity.EXTRA_NAME, binding.nameInput.text?.toString())
+            putExtra(ArudhaPadasActivity.EXTRA_EPOCH_MILLIS, birthDateTime.toInstant().toEpochMilli())
+            putExtra(ArudhaPadasActivity.EXTRA_ZONE_ID, zone.id)
+            putExtra(ArudhaPadasActivity.EXTRA_LAT, city.latitude)
+            putExtra(ArudhaPadasActivity.EXTRA_LON, city.longitude)
         }
         startActivity(intent)
     }

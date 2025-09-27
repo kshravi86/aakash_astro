@@ -2,6 +2,9 @@ package com.aakash.astro
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
 import com.aakash.astro.astrology.AccurateCalculator
 import com.aakash.astro.astrology.BirthDetails
 import com.aakash.astro.astrology.PanchangaCalc
@@ -18,6 +21,23 @@ class PanchangaActivity : AppCompatActivity() {
         binding = ActivityPanchangaBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.topBar.setNavigationOnClickListener { finish() }
+
+        // Edge-to-edge + apply system bar insets as padding
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+        val startPaddingLeft = binding.root.paddingLeft
+        val startPaddingTop = binding.root.paddingTop
+        val startPaddingRight = binding.root.paddingRight
+        val startPaddingBottom = binding.root.paddingBottom
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { view, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            view.setPadding(
+                startPaddingLeft + systemBars.left,
+                startPaddingTop + systemBars.top,
+                startPaddingRight + systemBars.right,
+                startPaddingBottom + systemBars.bottom
+            )
+            insets
+        }
 
         // Prepare Swiss Ephemeris (if bundled)
         EphemerisPreparer.prepare(this)?.let { accurate.setEphePath(it.absolutePath) }

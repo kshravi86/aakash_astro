@@ -256,12 +256,36 @@
                     android:text="@string/view_shadbala" />
 
                 <com.google.android.material.button.MaterialButton
+                    android:id="@+id/savButton"
+                    style="@style/Widget.Material3.Button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/view_sav" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/ashtakavargaBavButton"
+                    style="@style/Widget.Material3.Button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/view_ashtakavarga_bav" />
+
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/jaiminiKarakasButton"
                     style="@style/Widget.Material3.Button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="@string/view_karakas" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/arudhaButton"
+                    style="@style/Widget.Material3.Button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/view_arudha" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/ishtaDevataButton"
