@@ -29,20 +29,12 @@
 
             
 
-            <com.google.android.material.card.MaterialCardView
+            <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                app:cardBackgroundColor="@color/card_bg"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="6dp"
-                app:strokeWidth="0dp">
-
-                <TableLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="12dp"
-                    android:stretchColumns="1">
+                android:padding="12dp"
+                android:stretchColumns="1">
 
                     <TableRow
                         android:paddingTop="12dp"
@@ -57,8 +49,9 @@
                             android:textStyle="bold" />
                         <TextView
                             android:id="@+id/tithiValue"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
                             android:textColor="@color/primaryText"
                             android:gravity="end" />
@@ -82,8 +75,9 @@
                             android:textStyle="bold" />
                         <TextView
                             android:id="@+id/varaValue"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
                             android:textColor="@color/primaryText"
                             android:gravity="end" />
@@ -107,8 +101,9 @@
                             android:textStyle="bold" />
                         <TextView
                             android:id="@+id/nakshatraValue"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
                             android:textColor="@color/primaryText"
                             android:gravity="end" />
@@ -132,8 +127,9 @@
                             android:textStyle="bold" />
                         <TextView
                             android:id="@+id/yogaValue"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
                             android:textColor="@color/primaryText"
                             android:gravity="end" />
@@ -157,14 +153,14 @@
                             android:textStyle="bold" />
                         <TextView
                             android:id="@+id/karanaValue"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
                             android:textColor="@color/primaryText"
                             android:gravity="end" />
                     </TableRow>
-                </TableLayout>
-            </com.google.android.material.card.MaterialCardView>
+            </TableLayout>
 
             <TextView
                 android:id="@+id/engineNote"

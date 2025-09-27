@@ -33,6 +33,14 @@ object SavedStore {
         lat: Double,
         lon: Double
     ): SavedHoroscope {
+        // Deduplicate: if any record has the same exact epochMillis (same date+time),
+        // remove those and keep only this latest one.
+        runCatching {
+            list(ctx).filter { it.epochMillis == epochMillis }.forEach { old ->
+                File(dir(ctx), "${old.id}.json").delete()
+            }
+        }
+
         val safeName = sanitizeName(name ?: "Unnamed")
         val datePart = formatDate(epochMillis)
         val id = "${safeName}_${datePart}"

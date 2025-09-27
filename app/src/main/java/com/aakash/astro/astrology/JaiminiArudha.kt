@@ -44,12 +44,17 @@ object JaiminiArudha {
             val same = lordHouse == h
             val seventh = lordHouse == advance(h, 6) // 7th from house
 
-            val padaHouse = if (same || seventh) {
+            var padaHouse = if (same || seventh) {
                 // Exception: if lord is in same or 7th house, pada is 10th from the house
                 advance(h, 9)
             } else {
                 val distanceInclusive = ((lordHouse - h + 12) % 12) + 1 // 1..12
                 advance(lordHouse, distanceInclusive - 1)
+            }
+            // Additional exception: if computed pada falls in the same house as the reference
+            // house, or the 7th from it, shift to the 10th from the computed pada.
+            if (padaHouse == h || padaHouse == advance(h, 6)) {
+                padaHouse = advance(padaHouse, 9)
             }
             val padaSign = houseToSign[padaHouse] ?: ZodiacSign.fromDegree(((padaHouse - 1) * 30).toDouble())
             list += ArudhaEntry(
@@ -65,4 +70,3 @@ object JaiminiArudha {
         return list
     }
 }
-
