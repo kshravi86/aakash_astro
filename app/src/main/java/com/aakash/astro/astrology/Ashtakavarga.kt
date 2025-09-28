@@ -12,27 +12,26 @@ object AshtakavargaCalc {
 
     private fun h(vararg v: Int): Set<Int> = v.toSet()
 
-    // Bhinnashtakavarga house sets for each reference planet, by contributor. Houses are 1..12 from the reference planet.
-    // Note: These sets are a commonly used classical scheme. Subtle traditions may vary; this is a practical implementation for SAV.
+    // Bhinnashtakavarga house sets per Parashara (as provided), houses are 1..12 counted from the source (contributor) position.
     private val BAV_SUN = mapOf(
         Contributor.SUN to h(1,2,4,7,8,9,10,11),
         Contributor.MOON to h(3,6,10,11),
         Contributor.MARS to h(1,2,4,7,8,9,10,11),
-        Contributor.MERCURY to h(3,5,6,9,10,11),
+        Contributor.MERCURY to h(3,5,6,9,10,11,12),
         Contributor.JUPITER to h(5,6,9,11),
         Contributor.VENUS to h(6,7,12),
-        Contributor.SATURN to h(3,4,6,10,11),
-        Contributor.LAGNA to h(3,6,10,11),
+        Contributor.SATURN to h(1,2,4,7,8,9,10,11),
+        Contributor.LAGNA to h(3,4,6,10,11,12),
     )
 
     private val BAV_MOON = mapOf(
-        Contributor.SUN to h(3,6,7,10,11),
+        Contributor.SUN to h(3,6,7,8,10,11),
         Contributor.MOON to h(1,3,6,7,10,11),
-        Contributor.MARS to h(3,6,11),
+        Contributor.MARS to h(2,3,5,6,9,10,11),
         Contributor.MERCURY to h(1,3,4,5,7,8,10,11),
-        Contributor.JUPITER to h(1,2,4,7,8,10,11,12),
+        Contributor.JUPITER to h(1,4,7,8,10,11,12),
         Contributor.VENUS to h(3,4,5,7,9,10,11),
-        Contributor.SATURN to h(3,6,11,12),
+        Contributor.SATURN to h(3,5,6,11),
         Contributor.LAGNA to h(3,6,10,11),
     )
 
@@ -40,55 +39,55 @@ object AshtakavargaCalc {
         Contributor.SUN to h(1,2,4,7,8,10,11),
         Contributor.MOON to h(3,6,11),
         Contributor.MARS to h(1,2,4,7,8,10,11),
-        Contributor.MERCURY to h(3,5,6,9,10,11),
-        Contributor.JUPITER to h(5,6,9,11),
-        Contributor.VENUS to h(6,7,12),
-        Contributor.SATURN to h(3,4,6,10,11),
-        Contributor.LAGNA to h(3,6,10,11),
+        Contributor.MERCURY to h(3,5,6,11),
+        Contributor.JUPITER to h(6,10,11,12),
+        Contributor.VENUS to h(6,8,11,12),
+        Contributor.SATURN to h(1,4,7,8,9,10,11),
+        Contributor.LAGNA to h(1,3,6,10,11),
     )
 
     private val BAV_MERCURY = mapOf(
-        Contributor.SUN to h(2,4,6,8,10,11),
-        Contributor.MOON to h(1,2,3,4,5,7,8,10,11,12),
-        Contributor.MARS to h(3,6,9,11),
-        Contributor.MERCURY to h(1,2,4,5,6,8,9,10,11),
-        Contributor.JUPITER to h(1,2,4,5,7,8,10,11,12),
-        Contributor.VENUS to h(1,2,3,4,5,8,9,11,12),
-        Contributor.SATURN to h(3,4,6,10,11,12),
-        Contributor.LAGNA to h(3,6,10,11),
+        Contributor.SUN to h(5,6,9,11,12),
+        Contributor.MOON to h(2,4,6,8,10,11),
+        Contributor.MARS to h(1,2,4,7,8,9,10,11),
+        Contributor.MERCURY to h(1,3,5,6,9,10,11,12),
+        Contributor.JUPITER to h(6,8,11,12),
+        Contributor.VENUS to h(1,2,3,4,5,8,9,11),
+        Contributor.SATURN to h(1,2,4,7,8,9,10,11),
+        Contributor.LAGNA to h(1,2,4,6,8,10,11),
     )
 
     private val BAV_JUPITER = mapOf(
-        Contributor.SUN to h(5,6,9,11),
-        Contributor.MOON to h(1,2,4,7,8,10,11,12),
-        Contributor.MARS to h(3,6,11),
-        Contributor.MERCURY to h(1,2,4,5,6,8,9,10,11),
-        Contributor.JUPITER to h(1,2,4,5,6,8,9,10,11,12),
-        Contributor.VENUS to h(1,2,3,4,5,8,9,11,12),
-        Contributor.SATURN to h(3,4,6,10,11,12),
-        Contributor.LAGNA to h(3,6,10,11),
+        Contributor.SUN to h(1,2,3,4,7,8,9,10,11),
+        Contributor.MOON to h(2,5,7,9,11),
+        Contributor.MARS to h(1,2,4,7,8,10,11),
+        Contributor.MERCURY to h(1,2,4,5,6,9,10,11),
+        Contributor.JUPITER to h(1,2,3,4,7,8,10,11),
+        Contributor.VENUS to h(2,5,6,9,10,11),
+        Contributor.SATURN to h(3,5,6,12),
+        Contributor.LAGNA to h(1,2,4,5,6,7,9,10,11),
     )
 
     private val BAV_VENUS = mapOf(
-        Contributor.SUN to h(6,7,12),
-        Contributor.MOON to h(1,2,3,4,5,7,8,10,11,12),
-        Contributor.MARS to h(3,6,9,11),
-        Contributor.MERCURY to h(1,2,4,5,6,8,9,10,11,12),
-        Contributor.JUPITER to h(1,2,4,5,7,8,10,11,12),
-        Contributor.VENUS to h(1,2,3,4,5,8,9,11,12),
-        Contributor.SATURN to h(3,4,6,10,11,12),
-        Contributor.LAGNA to h(3,6,10,11),
+        Contributor.SUN to h(8,11,12),
+        Contributor.MOON to h(1,2,3,4,5,8,9,11,12),
+        Contributor.MARS to h(3,5,6,9,11,12),
+        Contributor.MERCURY to h(3,5,6,9,11),
+        Contributor.JUPITER to h(5,8,9,10,11),
+        Contributor.VENUS to h(1,2,3,4,5,8,9,10,11),
+        Contributor.SATURN to h(3,4,5,8,9,10,11),
+        Contributor.LAGNA to h(1,2,3,4,5,8,9,11),
     )
 
     private val BAV_SATURN = mapOf(
-        Contributor.SUN to h(3,4,6,10,11),
-        Contributor.MOON to h(3,6,11,12),
-        Contributor.MARS to h(3,4,6,10,11),
-        Contributor.MERCURY to h(1,2,4,5,6,8,9,10,11),
-        Contributor.JUPITER to h(1,2,4,5,6,8,9,10,11,12),
-        Contributor.VENUS to h(1,2,3,4,5,8,9,11,12),
-        Contributor.SATURN to h(1,2,4,7,8,9,10,11),
-        Contributor.LAGNA to h(3,6,10,11),
+        Contributor.SUN to h(1,2,4,7,8,10,11),
+        Contributor.MOON to h(3,6,11),
+        Contributor.MARS to h(3,5,6,10,11,12),
+        Contributor.MERCURY to h(6,8,9,10,11,12),
+        Contributor.JUPITER to h(5,6,11,12),
+        Contributor.VENUS to h(6,11,12),
+        Contributor.SATURN to h(3,5,6,11),
+        Contributor.LAGNA to h(1,3,4,6,10,11),
     )
 
     private val tableByRef: Map<Planet, Map<Contributor, Set<Int>>> = mapOf(
@@ -110,9 +109,13 @@ object AshtakavargaCalc {
     private fun signIndexOf(planet: Planet, byPlanet: Map<Planet, PlanetPosition>): Int? =
         byPlanet[planet]?.sign?.ordinal
 
+    // Dynamic (position-dependent) BAV per Parashara rule
+    // For reference P and contributor C: d = distance from P->C (1..12).
+    // If table[P][C] contains d, add 1 bindu to target sign = P + d (which equals C's sign).
     fun computeBAVFor(ref: Planet, chart: ChartResult): Binnashtakavarga {
         val byPlanet = chart.planets.associateBy { it.planet }
         val ascIndex = chart.ascendantSign.ordinal
+        val refIndex = signIndexOf(ref, byPlanet) ?: return Binnashtakavarga(ref, IntArray(12))
         val bav = IntArray(12)
         val table = tableByRef[ref] ?: return Binnashtakavarga(ref, bav)
 
@@ -127,10 +130,14 @@ object AshtakavargaCalc {
             Contributor.SATURN -> signIndexOf(Planet.SATURN, byPlanet)
         }
 
-        for ((contrib, houses) in table) {
-            val idx = contribIndex(contrib) ?: continue
-            for (h in houses) { // Place bindu in each listed house counted from contributor's sign
-                val target = (idx + (h - 1)) % 12
+        for ((contrib, allowed) in table) {
+            val cIdx = contribIndex(contrib) ?: continue
+            var d = (cIdx - refIndex) % 12
+            if (d < 0) d += 12
+            if (d == 0) d = 12
+            if (allowed.contains(d)) {
+                // target = ref + d == contributor's sign
+                val target = (refIndex + d) % 12
                 bav[target] += 1
             }
         }
@@ -147,10 +154,92 @@ object AshtakavargaCalc {
         return SarvaAshtakavarga(sav)
     }
 
-    // Common practice: Lagnashtakavarga uses the Saturn row house-sets with reference = Lagna.
+    // Static (table-based) patterns and rotated outputs (optional display mode)
+    private val overridePatterns: Map<Planet, IntArray> = mapOf(
+        // House 1..12 for MOON BAV (sum = 49) per provided standard
+        Planet.MOON to intArrayOf(7, 2, 4, 3, 4, 4, 4, 5, 2, 6, 4, 4)
+    )
+
+    private fun patternFromTables(ref: Planet): IntArray {
+        val table = tableByRef[ref] ?: return IntArray(12)
+        val arr = IntArray(12)
+        for (h in 1..12) {
+            var c = 0
+            for ((_, set) in table) if (set.contains(h)) c++
+            arr[h - 1] = c
+        }
+        return arr
+    }
+
+    private fun bavPattern(ref: Planet): IntArray = overridePatterns[ref] ?: patternFromTables(ref)
+
+    private fun rotateToZodiac(patternHouse1To12: IntArray, refIndex: Int): IntArray {
+        val out = IntArray(12)
+        for (offset in 0 until 12) {
+            val absIndex = (refIndex + offset) % 12
+            out[absIndex] = patternHouse1To12[offset]
+        }
+        return out
+    }
+
+    fun computeBAVStaticFor(ref: Planet, chart: ChartResult): Binnashtakavarga {
+        val byPlanet = chart.planets.associateBy { it.planet }
+        val refIndex = signIndexOf(ref, byPlanet) ?: return Binnashtakavarga(ref, IntArray(12))
+        val pattern = bavPattern(ref)
+        val rotated = rotateToZodiac(pattern, refIndex)
+        return Binnashtakavarga(ref, rotated)
+    }
+
+    // Parashara contributor-based multi-placement (exact workflow): houses counted from each source
+    fun computeBAVParashara(ref: Planet, chart: ChartResult): Binnashtakavarga {
+        val bav = IntArray(12)
+        val rules = tableByRef[ref] ?: return Binnashtakavarga(ref, bav)
+        val byPlanet = chart.planets.associateBy { it.planet }
+        val ascIndex = chart.ascendantSign.ordinal
+
+        fun sourceIndex(c: Contributor): Int? = when (c) {
+            Contributor.LAGNA -> ascIndex
+            Contributor.SUN -> byPlanet[Planet.SUN]?.sign?.ordinal
+            Contributor.MOON -> byPlanet[Planet.MOON]?.sign?.ordinal
+            Contributor.MARS -> byPlanet[Planet.MARS]?.sign?.ordinal
+            Contributor.MERCURY -> byPlanet[Planet.MERCURY]?.sign?.ordinal
+            Contributor.JUPITER -> byPlanet[Planet.JUPITER]?.sign?.ordinal
+            Contributor.VENUS -> byPlanet[Planet.VENUS]?.sign?.ordinal
+            Contributor.SATURN -> byPlanet[Planet.SATURN]?.sign?.ordinal
+        }
+
+        for ((contrib, houseSet) in rules) {
+            val sIdx = sourceIndex(contrib) ?: continue
+            for (h in houseSet) {
+                val t = (sIdx + (h - 1)) % 12
+                bav[t] += 1
+            }
+        }
+        return Binnashtakavarga(ref, bav)
+    }
+
+    fun computeSAVParashara(chart: ChartResult): SarvaAshtakavarga {
+        val sav = IntArray(12)
+        val refs = listOf(Planet.SUN, Planet.MOON, Planet.MARS, Planet.MERCURY, Planet.JUPITER, Planet.VENUS, Planet.SATURN)
+        refs.forEach { ref ->
+            val bav = computeBAVParashara(ref, chart)
+            for (i in 0 until 12) sav[i] += bav.values[i]
+        }
+        return SarvaAshtakavarga(sav)
+    }
+
+    fun computeSarvaStatic(chart: ChartResult): SarvaAshtakavarga {
+        val refs = listOf(Planet.SUN, Planet.MOON, Planet.MARS, Planet.MERCURY, Planet.JUPITER, Planet.VENUS, Planet.SATURN)
+        val sav = IntArray(12)
+        refs.forEach { ref ->
+            val bav = computeBAVStaticFor(ref, chart).values
+            for (i in 0 until 12) sav[i] += bav[i]
+        }
+        return SarvaAshtakavarga(sav)
+    }
+
+    // Lagnashtakavarga (LAV) using Saturn table semantics with reference = Lagna (dynamic)
     fun computeLagnaBAV(chart: ChartResult): Binnashtakavarga {
-        // Reuse computeBAVFor with Saturn table semantics
-        // The computation uses contributor positions only, so the table choice is what matters.
         val byPlanet = chart.planets.associateBy { it.planet }
         val ascIndex = chart.ascendantSign.ordinal
         val bav = IntArray(12)
@@ -167,10 +256,13 @@ object AshtakavargaCalc {
             Contributor.SATURN -> byPlanet[Planet.SATURN]?.sign?.ordinal
         }
 
-        for ((contrib, houses) in table) {
-            val idx = contribIndex(contrib) ?: continue
-            for (h in houses) {
-                val target = (idx + (h - 1)) % 12
+        for ((contrib, allowed) in table) {
+            val cIdx = contribIndex(contrib) ?: continue
+            var d = (cIdx - ascIndex) % 12
+            if (d < 0) d += 12
+            if (d == 0) d = 12
+            if (allowed.contains(d)) {
+                val target = (ascIndex + d) % 12
                 bav[target] += 1
             }
         }

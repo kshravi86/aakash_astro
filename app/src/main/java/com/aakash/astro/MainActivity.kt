@@ -66,6 +66,8 @@ class MainActivity : AppCompatActivity() {
         binding.selectTimeButton.setOnClickListener { showTimePicker() }
         binding.generateButton.setOnClickListener { generateChart() }
         binding.dashaButton.setOnClickListener { openDasha() }
+        binding.yoginiDashaButton.setOnClickListener { openYoginiDasha() }
+        binding.yogiButton.setOnClickListener { openYogi() }
         binding.transitButton.setOnClickListener { openTransit() }
         binding.transitOverlayButton.setOnClickListener { openTransitOverlay() }
         binding.transitOverlayNodesButton.setOnClickListener { openTransitOverlayNodes() }
@@ -239,6 +241,38 @@ class MainActivity : AppCompatActivity() {
             putExtra(DashaActivity.EXTRA_ZONE_ID, zone.id)
             putExtra(DashaActivity.EXTRA_LAT, city.latitude)
             putExtra(DashaActivity.EXTRA_LON, city.longitude)
+        }
+        startActivity(intent)
+    }
+
+    private fun openYoginiDasha() {
+        val date = selectedDate ?: return
+        val time = selectedTime ?: return
+        val city = selectedCity ?: CityDatabase.findByName(binding.placeInput.text?.toString()?.trim().orEmpty()) ?: return
+        val zone = ZoneId.systemDefault()
+        val birthDateTime = LocalDateTime.of(date, time).atZone(zone)
+        val intent = android.content.Intent(this, YoginiDashaActivity::class.java).apply {
+            putExtra(YoginiDashaActivity.EXTRA_NAME, binding.nameInput.text?.toString())
+            putExtra(YoginiDashaActivity.EXTRA_EPOCH_MILLIS, birthDateTime.toInstant().toEpochMilli())
+            putExtra(YoginiDashaActivity.EXTRA_ZONE_ID, zone.id)
+            putExtra(YoginiDashaActivity.EXTRA_LAT, city.latitude)
+            putExtra(YoginiDashaActivity.EXTRA_LON, city.longitude)
+        }
+        startActivity(intent)
+    }
+
+    private fun openYogi() {
+        val date = selectedDate ?: return
+        val time = selectedTime ?: return
+        val city = selectedCity ?: CityDatabase.findByName(binding.placeInput.text?.toString()?.trim().orEmpty()) ?: return
+        val zone = ZoneId.systemDefault()
+        val birthDateTime = LocalDateTime.of(date, time).atZone(zone)
+        val intent = android.content.Intent(this, YogiActivity::class.java).apply {
+            putExtra(YogiActivity.EXTRA_NAME, binding.nameInput.text?.toString())
+            putExtra(YogiActivity.EXTRA_EPOCH_MILLIS, birthDateTime.toInstant().toEpochMilli())
+            putExtra(YogiActivity.EXTRA_ZONE_ID, zone.id)
+            putExtra(YogiActivity.EXTRA_LAT, city.latitude)
+            putExtra(YogiActivity.EXTRA_LON, city.longitude)
         }
         startActivity(intent)
     }

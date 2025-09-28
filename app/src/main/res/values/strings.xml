@@ -66,6 +66,15 @@
     <string name="col_total">Total</string>
     <string name="shadbala_note">Note: This page currently shows Naisargika Bala (fixed natural strength) and a Cheshta indicator. Other components will be added with precise BPHS formulas.</string>
     <string name="view_yogas">View Yogas</string>
+    <string name="view_yogini">View Yogini Dasha</string>
+    <string name="yogini_title">Yogini Dasha</string>
+    <string name="view_yogi">View Yogi/Sahayogi/Avayogi</string>
+    <string name="yogi_title">Yogi • Sahayogi • Avayogi</string>
+    <string name="yogi_point_label">Yogi Point</string>
+    <string name="yogi_planet_label">Yogi Planet</string>
+    <string name="sahayogi_label">Sahayogi (Sign Lord)</string>
+    <string name="avayogi_point_label">Avayogi Point</string>
+    <string name="avayogi_planet_label">Avayogi Planet</string>
     <string name="yogas_title">Yogas</string>
     <string name="yogas_subtitle">Detected yogas from the natal chart</string>
     <string name="yogas_none">No supported yogas detected (basic set).</string>

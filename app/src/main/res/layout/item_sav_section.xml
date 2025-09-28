@@ -15,9 +15,10 @@
         android:text="Section"
         android:paddingBottom="4dp" />
 
-    <com.aakash.astro.ui.SavChartView
-        android:id="@+id/sectionChart"
+    <LinearLayout
+        android:id="@+id/sectionList"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical" />
 
 </LinearLayout>

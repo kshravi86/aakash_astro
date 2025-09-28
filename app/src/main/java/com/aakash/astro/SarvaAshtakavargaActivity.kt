@@ -2,6 +2,9 @@ package com.aakash.astro
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import android.view.LayoutInflater
+import android.widget.LinearLayout
+import android.widget.TextView
 import com.aakash.astro.astrology.AccurateCalculator
 import com.aakash.astro.astrology.AshtakavargaCalc
 import com.aakash.astro.astrology.BirthDetails
@@ -35,12 +38,20 @@ class SarvaAshtakavargaActivity : AppCompatActivity() {
             return
         }
 
-        val sav = AshtakavargaCalc.computeSarva(chart)
+        val sav = AshtakavargaCalc.computeSAVParashara(chart)
         val total = sav.total()
         binding.summary.text = getString(R.string.sav_summary_format, total)
 
-        // Show SAV values on a Vedic chart layout
-        binding.savChart.setSav(sav.values)
+        val list: LinearLayout = findViewById(R.id.savList)
+        list.removeAllViews()
+        val inflater = LayoutInflater.from(this)
+        for (i in 0 until 12) {
+            val row = inflater.inflate(R.layout.item_sign_value, list, false)
+            val sign = com.aakash.astro.astrology.ZodiacSign.entries[i]
+            row.findViewById<TextView>(R.id.signName).text = sign.displayName
+            row.findViewById<TextView>(R.id.signValue).text = sav.values[i].toString()
+            list.addView(row)
+        }
     }
 
     companion object {

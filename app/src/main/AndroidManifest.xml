@@ -15,6 +15,12 @@
             android:name=".DashaActivity"
             android:exported="false" />
         <activity
+            android:name=".YoginiDashaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".YogiActivity"
+            android:exported="false" />
+        <activity
             android:name=".TransitActivity"
             android:exported="false" />
         <activity

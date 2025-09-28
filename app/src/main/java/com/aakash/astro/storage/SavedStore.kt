@@ -43,7 +43,10 @@ object SavedStore {
 
         val safeName = sanitizeName(name ?: "Unnamed")
         val datePart = formatDate(epochMillis)
-        val id = "${safeName}_${datePart}"
+        // Use only the date-time as the stable ID so saving the same
+        // date+time always targets the same filename and truly overrides.
+        // We still store the (possibly updated) name inside the JSON.
+        val id = datePart
         val obj = JSONObject()
             .put("id", id)
             .put("name", safeName)

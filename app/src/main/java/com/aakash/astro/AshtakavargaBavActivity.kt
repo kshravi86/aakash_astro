@@ -50,20 +50,19 @@ class AshtakavargaBavActivity : AppCompatActivity() {
             Planet.SUN, Planet.MOON, Planet.MARS, Planet.MERCURY, Planet.JUPITER, Planet.VENUS, Planet.SATURN
         )
 
-        // Compute current transit positions for highlighting using current time and provided location
-        val nowZdt = ZonedDateTime.now(zoneIdExtra)
-        val transitChart = accurate.generateChart(BirthDetails("Transit", nowZdt, latExtra, lonExtra))
-
         refs.forEach { ref ->
             val section = inflater.inflate(R.layout.item_sav_section, container, false)
             val title = section.findViewById<TextView>(R.id.sectionTitle)
             title.text = ref.displayName + " BAV"
-            val chartView = section.findViewById<com.aakash.astro.ui.SavChartView>(R.id.sectionChart)
-            val bav = AshtakavargaCalc.computeBAVFor(ref, chart).values
-            chartView.setSav(bav)
-            // Highlight the transit sign of this planet if available
-            transitChart?.planets?.firstOrNull { it.planet == ref }?.let { pos ->
-                chartView.setHighlight(pos.sign)
+            val list = section.findViewById<android.widget.LinearLayout>(R.id.sectionList)
+            list.removeAllViews()
+            val bav = AshtakavargaCalc.computeBAVParashara(ref, chart).values
+            for (i in 0 until 12) {
+                val row = inflater.inflate(R.layout.item_sign_value, list, false)
+                val sign = ZodiacSign.entries[i]
+                row.findViewById<TextView>(R.id.signName).text = sign.displayName
+                row.findViewById<TextView>(R.id.signValue).text = bav[i].toString()
+                list.addView(row)
             }
             container.addView(section)
         }
@@ -73,10 +72,15 @@ class AshtakavargaBavActivity : AppCompatActivity() {
             val section = inflater.inflate(R.layout.item_sav_section, container, false)
             val title = section.findViewById<TextView>(R.id.sectionTitle)
             title.text = getString(R.string.lagna_bav_title)
-            val chartView = section.findViewById<com.aakash.astro.ui.SavChartView>(R.id.sectionChart)
+            val list = section.findViewById<android.widget.LinearLayout>(R.id.sectionList)
+            list.removeAllViews()
             val bav = AshtakavargaCalc.computeLagnaBAV(chart).values
-            chartView.setSav(bav)
-            // No transit highlight for Lagna BAV per request (planets only)
+            for (i in 0 until 12) {
+                val row = inflater.inflate(R.layout.item_sign_value, list, false)
+                row.findViewById<TextView>(R.id.signName).text = ZodiacSign.entries[i].displayName
+                row.findViewById<TextView>(R.id.signValue).text = bav[i].toString()
+                list.addView(row)
+            }
             container.addView(section)
         }
     }
