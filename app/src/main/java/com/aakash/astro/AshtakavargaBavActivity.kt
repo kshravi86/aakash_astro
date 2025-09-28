@@ -8,11 +8,15 @@ import androidx.appcompat.app.AppCompatActivity
 import com.aakash.astro.astrology.*
 import com.aakash.astro.databinding.ActivityAshtakavargaBavBinding
 import java.time.Instant
+import java.time.ZonedDateTime
 import java.time.ZoneId
 
 class AshtakavargaBavActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAshtakavargaBavBinding
     private val accurate = AccurateCalculator()
+    private lateinit var zoneIdExtra: ZoneId
+    private var latExtra: Double = 0.0
+    private var lonExtra: Double = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,12 +29,12 @@ class AshtakavargaBavActivity : AppCompatActivity() {
 
         val name = intent.getStringExtra(EXTRA_NAME)
         val epochMillis = intent.getLongExtra(EXTRA_EPOCH_MILLIS, 0L)
-        val zoneId = intent.getStringExtra(EXTRA_ZONE_ID)?.let { ZoneId.of(it) } ?: ZoneId.systemDefault()
-        val lat = intent.getDoubleExtra(EXTRA_LAT, 0.0)
-        val lon = intent.getDoubleExtra(EXTRA_LON, 0.0)
+        zoneIdExtra = intent.getStringExtra(EXTRA_ZONE_ID)?.let { ZoneId.of(it) } ?: ZoneId.systemDefault()
+        latExtra = intent.getDoubleExtra(EXTRA_LAT, 0.0)
+        lonExtra = intent.getDoubleExtra(EXTRA_LON, 0.0)
 
-        val zdt = Instant.ofEpochMilli(epochMillis).atZone(zoneId)
-        val chart = accurate.generateChart(BirthDetails(name, zdt, lat, lon))
+        val zdt = Instant.ofEpochMilli(epochMillis).atZone(zoneIdExtra)
+        val chart = accurate.generateChart(BirthDetails(name, zdt, latExtra, lonExtra))
         if (chart == null) {
             binding.subtitle.append("\n" + getString(R.string.transit_engine_missing))
             return
@@ -46,18 +50,20 @@ class AshtakavargaBavActivity : AppCompatActivity() {
             Planet.SUN, Planet.MOON, Planet.MARS, Planet.MERCURY, Planet.JUPITER, Planet.VENUS, Planet.SATURN
         )
 
+        // Compute current transit positions for highlighting using current time and provided location
+        val nowZdt = ZonedDateTime.now(zoneIdExtra)
+        val transitChart = accurate.generateChart(BirthDetails("Transit", nowZdt, latExtra, lonExtra))
+
         refs.forEach { ref ->
             val section = inflater.inflate(R.layout.item_sav_section, container, false)
             val title = section.findViewById<TextView>(R.id.sectionTitle)
-            val grid = section.findViewById<android.widget.GridLayout>(R.id.sectionGrid)
             title.text = ref.displayName + " BAV"
-            grid.removeAllViews()
+            val chartView = section.findViewById<com.aakash.astro.ui.SavChartView>(R.id.sectionChart)
             val bav = AshtakavargaCalc.computeBAVFor(ref, chart).values
-            for (i in 0 until 12) {
-                val cell = inflater.inflate(R.layout.item_sav_cell, grid, false)
-                cell.findViewById<TextView>(R.id.savSign).text = ZodiacSign.entries[i].displayName
-                cell.findViewById<TextView>(R.id.savValue).text = bav[i].toString()
-                grid.addView(cell)
+            chartView.setSav(bav)
+            // Highlight the transit sign of this planet if available
+            transitChart?.planets?.firstOrNull { it.planet == ref }?.let { pos ->
+                chartView.setHighlight(pos.sign)
             }
             container.addView(section)
         }
@@ -66,16 +72,11 @@ class AshtakavargaBavActivity : AppCompatActivity() {
         run {
             val section = inflater.inflate(R.layout.item_sav_section, container, false)
             val title = section.findViewById<TextView>(R.id.sectionTitle)
-            val grid = section.findViewById<android.widget.GridLayout>(R.id.sectionGrid)
             title.text = getString(R.string.lagna_bav_title)
-            grid.removeAllViews()
+            val chartView = section.findViewById<com.aakash.astro.ui.SavChartView>(R.id.sectionChart)
             val bav = AshtakavargaCalc.computeLagnaBAV(chart).values
-            for (i in 0 until 12) {
-                val cell = inflater.inflate(R.layout.item_sav_cell, grid, false)
-                cell.findViewById<TextView>(R.id.savSign).text = ZodiacSign.entries[i].displayName
-                cell.findViewById<TextView>(R.id.savValue).text = bav[i].toString()
-                grid.addView(cell)
-            }
+            chartView.setSav(bav)
+            // No transit highlight for Lagna BAV per request (planets only)
             container.addView(section)
         }
     }
@@ -88,4 +89,3 @@ class AshtakavargaBavActivity : AppCompatActivity() {
         const val EXTRA_LON = "lon"
     }
 }
-

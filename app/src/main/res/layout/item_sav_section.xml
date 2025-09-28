@@ -15,12 +15,9 @@
         android:text="Section"
         android:paddingBottom="4dp" />
 
-    <GridLayout
-        android:id="@+id/sectionGrid"
+    <com.aakash.astro.ui.SavChartView
+        android:id="@+id/sectionChart"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:columnCount="3"
-        android:rowCount="4" />
+        android:layout_height="wrap_content" />
 
 </LinearLayout>
-

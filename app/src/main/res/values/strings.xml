@@ -80,6 +80,7 @@
     <string name="sav_subtitle">Sum of bindus across all planets</string>
     <string name="view_sav">View Ashtakavarga</string>
     <string name="sav_summary_format">Total Bindus: %1$d</string>
+    <string name="sav_value_content_desc">SAV value: %1$d</string>
     <string name="ashtakavarga_bav_title">Ashtakavarga Details (BAV)</string>
     <string name="ashtakavarga_bav_subtitle">Bhinnashtakavarga for Sun..Saturn and Lagna BAV</string>
     <string name="view_ashtakavarga_bav">View Ashtakavarga Details</string>

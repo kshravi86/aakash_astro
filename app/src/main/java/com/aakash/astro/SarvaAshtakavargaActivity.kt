@@ -1,14 +1,10 @@
 package com.aakash.astro
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.widget.GridLayout
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.aakash.astro.astrology.AccurateCalculator
 import com.aakash.astro.astrology.AshtakavargaCalc
 import com.aakash.astro.astrology.BirthDetails
-import com.aakash.astro.astrology.ZodiacSign
 import com.aakash.astro.databinding.ActivitySarvaAshtakavargaBinding
 import java.time.Instant
 import java.time.ZoneId
@@ -43,18 +39,8 @@ class SarvaAshtakavargaActivity : AppCompatActivity() {
         val total = sav.total()
         binding.summary.text = getString(R.string.sav_summary_format, total)
 
-        val grid: GridLayout = binding.grid
-        grid.removeAllViews()
-        val inflater = LayoutInflater.from(this)
-        for (i in 0 until 12) {
-            val item = inflater.inflate(R.layout.item_sav_cell, grid, false)
-            val signName = item.findViewById<TextView>(R.id.savSign)
-            val value = item.findViewById<TextView>(R.id.savValue)
-            val sign = ZodiacSign.entries[i]
-            signName.text = sign.displayName
-            value.text = sav.values[i].toString()
-            grid.addView(item)
-        }
+        // Show SAV values on a Vedic chart layout
+        binding.savChart.setSav(sav.values)
     }
 
     companion object {
@@ -65,4 +51,3 @@ class SarvaAshtakavargaActivity : AppCompatActivity() {
         const val EXTRA_LON = "lon"
     }
 }
-
