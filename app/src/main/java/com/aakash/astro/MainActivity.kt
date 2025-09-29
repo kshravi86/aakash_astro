@@ -20,6 +20,7 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
+import androidx.recyclerview.widget.GridLayoutManager
 import java.time.format.DateTimeFormatter
 import java.time.Instant
 import java.time.LocalDate
@@ -69,32 +70,62 @@ class MainActivity : AppCompatActivity() {
         binding.timeInput.setOnClickListener { showTimePicker() }
         binding.timeInputLayout.setEndIconOnClickListener { showTimePicker() }
         binding.generateButton.setOnClickListener { generateChart() }
-        binding.dashaButton.setOnClickListener { openDasha() }
-        binding.charaDashaButton.setOnClickListener { openCharaDasha() }
-        binding.yoginiDashaButton.setOnClickListener { openYoginiDasha() }
-        binding.pushkaraButton.setOnClickListener { openPushkara() }
-        binding.yogiButton.setOnClickListener { openYogi() }
-        binding.transitButton.setOnClickListener { openTransit() }
-        binding.transitOverlayButton.setOnClickListener { openTransitOverlay() }
-        binding.transitOverlayNodesButton.setOnClickListener { openTransitOverlayNodes() }
-        binding.vargaButton.setOnClickListener { openVargas() }
-        binding.d60Button.setOnClickListener { openD60() }
-        binding.yogasButton.setOnClickListener { openYogas() }
-        binding.panchangaButton.setOnClickListener { openPanchanga() }
-        binding.taraBalaButton.setOnClickListener { openTaraBala() }
-        binding.shadbalaButton.setOnClickListener { openShadbala() }
-        binding.savButton.setOnClickListener { openSAV() }
-        binding.ashtakavargaBavButton.setOnClickListener { openAshtakavargaBAV() }
-        binding.jaiminiKarakasButton.setOnClickListener { openJaiminiKarakas() }
-        binding.arudhaButton.setOnClickListener { openArudha() }
-        binding.ishtaDevataButton.setOnClickListener { openIshtaDevata() }
-        findViewById<com.google.android.material.button.MaterialButton>(R.id.pushkaraButton).setOnClickListener { openPushkara() }
-        findViewById<com.google.android.material.button.MaterialButton>(R.id.ikhButton).setOnClickListener { openIKH() }
+        setupActionGrid()
         prepareEphemeris()
 
         // Defaults: current date/time and Bengaluru as birthplace
         initializeDefaultsAndGenerate()
         applyPrefillFromIntent(intent)
+    }
+    private fun setupActionGrid() {
+        val grid = binding.actionGrid
+        grid.layoutManager = GridLayoutManager(this, 2)
+        val items = listOf(
+            com.aakash.astro.ui.ActionTile("dasha", "Vimshottari Dasha", "Mahadasha/Antar periods"),
+            com.aakash.astro.ui.ActionTile("chara", "Chara Dasha", "Jaimini periods"),
+            com.aakash.astro.ui.ActionTile("yogini", "Yogini Dasha", "8-yogini cycle"),
+            com.aakash.astro.ui.ActionTile("panchanga", "Panchanga", "Tithi, Vara, Nakshatra, Yoga, Karana"),
+            com.aakash.astro.ui.ActionTile("transit", "Transit Chart", "Current transits"),
+            com.aakash.astro.ui.ActionTile("overlay_sa_ju", "Transit Overlay (Sa/Ju)", "Overlay on natal houses"),
+            com.aakash.astro.ui.ActionTile("overlay_nodes", "Transit Overlay (Ra/Ke)", "Overlay on natal houses"),
+            com.aakash.astro.ui.ActionTile("vargas", "Divisional Charts", "Shodasha Vargas"),
+            com.aakash.astro.ui.ActionTile("d60", "D60 Shashtiamsha", "60th divisional placements"),
+            com.aakash.astro.ui.ActionTile("yogas", "Yogas", "Detected yogas"),
+            com.aakash.astro.ui.ActionTile("pushkara", "Pushkara Navamsha", "Elemental pushkara bands"),
+            com.aakash.astro.ui.ActionTile("yogi", "Yogi / Sahayogi / Avayogi", "Yogi point and lords"),
+            com.aakash.astro.ui.ActionTile("shadbala", "Shadbala", "Sixfold strength"),
+            com.aakash.astro.ui.ActionTile("sav", "Sarva Ashtakavarga", "Total bindus"),
+            com.aakash.astro.ui.ActionTile("bav", "Ashtakavarga Details (BAV)", "Bhinnashtakavarga"),
+            com.aakash.astro.ui.ActionTile("karakas", "Jaimini Karakas", "Atmakaraka … Darakaraka"),
+            com.aakash.astro.ui.ActionTile("arudha", "Arudha Padas", "Padas for all houses"),
+            com.aakash.astro.ui.ActionTile("ishta", "Ishta Devata", "Karakamsa based"),
+            com.aakash.astro.ui.ActionTile("ikh", "Ishta/Kashta/Harsha", "IKH metrics"),
+            com.aakash.astro.ui.ActionTile("tara", "Tara Bala", "Favorable by nakshatra")
+        )
+        grid.adapter = com.aakash.astro.ui.ActionTileAdapter(items) { item ->
+            when (item.id) {
+                "dasha" -> openDasha()
+                "chara" -> openCharaDasha()
+                "yogini" -> openYoginiDasha()
+                "panchanga" -> openPanchanga()
+                "transit" -> openTransit()
+                "overlay_sa_ju" -> openTransitOverlay()
+                "overlay_nodes" -> openTransitOverlayNodes()
+                "vargas" -> openVargas()
+                "d60" -> openD60()
+                "yogas" -> openYogas()
+                "pushkara" -> openPushkara()
+                "yogi" -> openYogi()
+                "shadbala" -> openShadbala()
+                "sav" -> openSAV()
+                "bav" -> openAshtakavargaBAV()
+                "karakas" -> openJaiminiKarakas()
+                "arudha" -> openArudha()
+                "ishta" -> openIshtaDevata()
+                "ikh" -> openIKH()
+                "tara" -> openTaraBala()
+            }
+        }
     }
     private fun openTaraBala() {
         val date = selectedDate ?: return
