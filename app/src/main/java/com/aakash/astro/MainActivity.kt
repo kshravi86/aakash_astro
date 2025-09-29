@@ -81,6 +81,7 @@ class MainActivity : AppCompatActivity() {
         binding.d60Button.setOnClickListener { openD60() }
         binding.yogasButton.setOnClickListener { openYogas() }
         binding.panchangaButton.setOnClickListener { openPanchanga() }
+        binding.taraBalaButton.setOnClickListener { openTaraBala() }
         binding.shadbalaButton.setOnClickListener { openShadbala() }
         binding.savButton.setOnClickListener { openSAV() }
         binding.ashtakavargaBavButton.setOnClickListener { openAshtakavargaBAV() }
@@ -94,6 +95,21 @@ class MainActivity : AppCompatActivity() {
         // Defaults: current date/time and Bengaluru as birthplace
         initializeDefaultsAndGenerate()
         applyPrefillFromIntent(intent)
+    }
+    private fun openTaraBala() {
+        val date = selectedDate ?: return
+        val time = selectedTime ?: return
+        val city = selectedCity ?: CityDatabase.findByName(binding.placeInput.text?.toString()?.trim().orEmpty()) ?: return
+        val zone = ZoneId.systemDefault()
+        val birthDateTime = LocalDateTime.of(date, time).atZone(zone)
+        val intent = android.content.Intent(this, TaraBalaActivity::class.java).apply {
+            putExtra(TaraBalaActivity.EXTRA_NAME, binding.nameInput.text?.toString())
+            putExtra(TaraBalaActivity.EXTRA_EPOCH_MILLIS, birthDateTime.toInstant().toEpochMilli())
+            putExtra(TaraBalaActivity.EXTRA_ZONE_ID, zone.id)
+            putExtra(TaraBalaActivity.EXTRA_LAT, city.latitude)
+            putExtra(TaraBalaActivity.EXTRA_LON, city.longitude)
+        }
+        startActivity(intent)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
