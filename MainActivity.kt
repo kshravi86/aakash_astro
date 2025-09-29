@@ -17,6 +17,7 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
+import java.time.format.DateTimeFormatter
 import java.time.Instant
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -57,8 +58,11 @@ class MainActivity : AppCompatActivity() {
 
         setupPlaceInput()
 
-        binding.selectDateButton.setOnClickListener { showDatePicker() }
-        binding.selectTimeButton.setOnClickListener { showTimePicker() }
+        // Date/time inputs look like fields; make the whole field and end icons open pickers
+        binding.dateInput.setOnClickListener { showDatePicker() }
+        binding.dateInputLayout.setEndIconOnClickListener { showDatePicker() }
+        binding.timeInput.setOnClickListener { showTimePicker() }
+        binding.timeInputLayout.setEndIconOnClickListener { showTimePicker() }
         binding.generateButton.setOnClickListener { generateChart() }
 
         binding.vedicChartView.setChart(null)
@@ -119,11 +123,20 @@ class MainActivity : AppCompatActivity() {
     private fun updateDateTimeSummary() {
         val date = selectedDate
         val time = selectedTime
+        val dateFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy")
+        val timeFormatter = DateTimeFormatter.ofPattern("HH:mm")
+
+        val dateText = date?.format(dateFormatter) ?: ""
+        val timeText = time?.format(timeFormatter) ?: ""
+
+        binding.dateInput.setText(dateText)
+        binding.timeInput.setText(timeText)
+
         binding.dateTimeValue.text = when {
             date == null && time == null -> "No date and time selected"
-            date != null && time == null -> "Date: $date"
-            date == null && time != null -> "Time: $time"
-            else -> "$date • $time"
+            date != null && time == null -> "Date: $dateText"
+            date == null && time != null -> "Time: $timeText"
+            else -> "$dateText • $timeText"
         }
     }
 

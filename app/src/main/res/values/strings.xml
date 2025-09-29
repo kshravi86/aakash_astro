@@ -7,6 +7,10 @@
     <string name="chart_generated_for">Chart generated for %1$s</string>
     <string name="planet_position_format">%1$s - %2$s - %3$s</string>
     <string name="nakshatra_format">%1$s - Pada %2$d</string>
+    <string name="uttama_drekkana_format">Uttama Drekkana: %1$s</string>
+    <string name="vargottama_format">Vargottama: %1$s</string>
+    <string name="yes_label">Yes</string>
+    <string name="no_label">No</string>
     <string name="dasha_title">Vimshottari Dasha</string>
     <string name="dasha_engine_missing">Swiss Ephemeris is required to compute dasha.</string>
     <string name="dasha_range_format">%1$s - %2$s</string>
@@ -68,6 +72,8 @@
     <string name="view_yogas">View Yogas</string>
     <string name="view_yogini">View Yogini Dasha</string>
     <string name="yogini_title">Yogini Dasha</string>
+    <string name="view_chara_dasha">View Chara Dasha</string>
+    <string name="chara_dasha_title">Chara Dasha (Jaimini)</string>
     <string name="view_yogi">View Yogi/Sahayogi/Avayogi</string>
     <string name="yogi_title">Yogi • Sahayogi • Avayogi</string>
     <string name="yogi_point_label">Yogi Point</string>
@@ -101,6 +107,22 @@
     <string name="saved_title">Saved Horoscopes</string>
     <string name="action_load">Load</string>
     <string name="saved_empty">No saved horoscopes yet</string>
-</resources>
+    <string name="indu_title">Indu Lagna (Dhana Lagna)</string>
+    <string name="indu_info_format">From Moon: %1$d • 9L(Lagna): %2$s, 9L(Moon): %3$s</string>
+    <string name="hora_title">Hora Lagna</string>
+    <string name="hora_info_format">Ishta: %1$.2f h • Sun@rise: %2$s</string>
+    <string name="view_pushkara">View Pushkara Navamsha</string>
+    <string name="pushkara_title">Pushkara Navamsha</string>
+    <string name="pushkara_note">If a planet\'s degree within its sign lies in the element\'s Pushkara bands, it is in Pushkara Navamsha.</string>
+    <string name="pushkara_pos_format">%1$s - %2$s</string>
+    <string name="pushkara_yes">Pushkara: Yes</string>
+    <string name="pushkara_no">Pushkara: No</string>    <string name="ikh_title">Ishta/Kashta/Harsha Bala</string>
+    <string name="ikh_note">Ishta = (Uccha � Che)/60; Kashta = [(60-Uccha) � (60-Che)]/60. Harsha Bala (Tajika) is 4 checks of 5 points each. Sun\'s Che uses neutral 30; Moon\'s Che uses Paksha Bala.</string>
+    <string name="ikh_day_label">Varapravesha by day</string>
+    <string name="ikh_value_format">%1$.1f</string>
+    <string name="ikh_harsha_format">%1$d/20</string>    <string name="view_ikh">View Ishta/Kashta/Harsha</string></resources>
+
+
+
 
 

@@ -43,6 +43,26 @@
             android:textAppearance="@style/TextAppearance.Material3.BodySmall"
             android:textColor="@color/secondaryText"
             tools:text="Nakshatra: Rohini • Pada 2" />
+
+        <TextView
+            android:id="@+id/uttamaStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text=""
+            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+            android:textColor="@color/secondaryText"
+            tools:text="Uttama Drekkana: Yes" />
+
+        <TextView
+            android:id="@+id/vargottamaStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text=""
+            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+            android:textColor="@color/secondaryText"
+            tools:text="Vargottama: Yes" />
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>
 

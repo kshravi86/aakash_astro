@@ -20,6 +20,7 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
+import java.time.format.DateTimeFormatter
 import java.time.Instant
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -62,11 +63,16 @@ class MainActivity : AppCompatActivity() {
 
         setupPlaceInput()
 
-        binding.selectDateButton.setOnClickListener { showDatePicker() }
-        binding.selectTimeButton.setOnClickListener { showTimePicker() }
+        // Make date/time fields and end icons open pickers
+        binding.dateInput.setOnClickListener { showDatePicker() }
+        binding.dateInputLayout.setEndIconOnClickListener { showDatePicker() }
+        binding.timeInput.setOnClickListener { showTimePicker() }
+        binding.timeInputLayout.setEndIconOnClickListener { showTimePicker() }
         binding.generateButton.setOnClickListener { generateChart() }
         binding.dashaButton.setOnClickListener { openDasha() }
+        binding.charaDashaButton.setOnClickListener { openCharaDasha() }
         binding.yoginiDashaButton.setOnClickListener { openYoginiDasha() }
+        binding.pushkaraButton.setOnClickListener { openPushkara() }
         binding.yogiButton.setOnClickListener { openYogi() }
         binding.transitButton.setOnClickListener { openTransit() }
         binding.transitOverlayButton.setOnClickListener { openTransitOverlay() }
@@ -81,6 +87,8 @@ class MainActivity : AppCompatActivity() {
         binding.jaiminiKarakasButton.setOnClickListener { openJaiminiKarakas() }
         binding.arudhaButton.setOnClickListener { openArudha() }
         binding.ishtaDevataButton.setOnClickListener { openIshtaDevata() }
+        findViewById<com.google.android.material.button.MaterialButton>(R.id.pushkaraButton).setOnClickListener { openPushkara() }
+        findViewById<com.google.android.material.button.MaterialButton>(R.id.ikhButton).setOnClickListener { openIKH() }
         prepareEphemeris()
 
         // Defaults: current date/time and Bengaluru as birthplace
@@ -186,12 +194,19 @@ class MainActivity : AppCompatActivity() {
     private fun updateDateTimeSummary() {
         val date = selectedDate
         val time = selectedTime
-        val timeText = time?.let { java.time.format.DateTimeFormatter.ofPattern("hh:mm a").format(it) }
+        val dateText = date?.format(DateTimeFormatter.ofPattern("dd MMM yyyy")) ?: ""
+        val timeText = time?.format(DateTimeFormatter.ofPattern("hh:mm a")) ?: ""
+
+        // Reflect selection in the input fields
+        binding.dateInput.setText(dateText)
+        binding.timeInput.setText(timeText)
+
+        // Keep a compact summary below
         binding.dateTimeValue.text = when {
             date == null && time == null -> "No date and time selected"
-            date != null && time == null -> "Date: $date"
+            date != null && time == null -> "Date: $dateText"
             date == null && time != null -> "Time: $timeText"
-            else -> "$date - $timeText"
+            else -> "$dateText • $timeText"
         }
     }
 
@@ -257,6 +272,54 @@ class MainActivity : AppCompatActivity() {
             putExtra(YoginiDashaActivity.EXTRA_ZONE_ID, zone.id)
             putExtra(YoginiDashaActivity.EXTRA_LAT, city.latitude)
             putExtra(YoginiDashaActivity.EXTRA_LON, city.longitude)
+        }
+        startActivity(intent)
+    }
+
+    private fun openPushkara() {
+        val date = selectedDate ?: return
+        val time = selectedTime ?: return
+        val city = selectedCity ?: CityDatabase.findByName(binding.placeInput.text?.toString()?.trim().orEmpty()) ?: return
+        val zone = ZoneId.systemDefault()
+        val birthDateTime = LocalDateTime.of(date, time).atZone(zone)
+        val intent = android.content.Intent(this, PushkaraNavamshaActivity::class.java).apply {
+            putExtra(PushkaraNavamshaActivity.EXTRA_NAME, binding.nameInput.text?.toString())
+            putExtra(PushkaraNavamshaActivity.EXTRA_EPOCH_MILLIS, birthDateTime.toInstant().toEpochMilli())
+            putExtra(PushkaraNavamshaActivity.EXTRA_ZONE_ID, zone.id)
+            putExtra(PushkaraNavamshaActivity.EXTRA_LAT, city.latitude)
+            putExtra(PushkaraNavamshaActivity.EXTRA_LON, city.longitude)
+        }
+        startActivity(intent)
+    }
+
+    private fun openIKH() {
+        val date = selectedDate ?: return
+        val time = selectedTime ?: return
+        val city = selectedCity ?: CityDatabase.findByName(binding.placeInput.text?.toString()?.trim().orEmpty()) ?: return
+        val zone = ZoneId.systemDefault()
+        val birthDateTime = LocalDateTime.of(date, time).atZone(zone)
+        val intent = android.content.Intent(this, IshtaKashtaHarshaActivity::class.java).apply {
+            putExtra(IshtaKashtaHarshaActivity.EXTRA_NAME, binding.nameInput.text?.toString())
+            putExtra(IshtaKashtaHarshaActivity.EXTRA_EPOCH_MILLIS, birthDateTime.toInstant().toEpochMilli())
+            putExtra(IshtaKashtaHarshaActivity.EXTRA_ZONE_ID, zone.id)
+            putExtra(IshtaKashtaHarshaActivity.EXTRA_LAT, city.latitude)
+            putExtra(IshtaKashtaHarshaActivity.EXTRA_LON, city.longitude)
+        }
+        startActivity(intent)
+    }
+
+    private fun openCharaDasha() {
+        val date = selectedDate ?: return
+        val time = selectedTime ?: return
+        val city = selectedCity ?: CityDatabase.findByName(binding.placeInput.text?.toString()?.trim().orEmpty()) ?: return
+        val zone = ZoneId.systemDefault()
+        val birthDateTime = LocalDateTime.of(date, time).atZone(zone)
+        val intent = android.content.Intent(this, CharaDashaActivity::class.java).apply {
+            putExtra(CharaDashaActivity.EXTRA_NAME, binding.nameInput.text?.toString())
+            putExtra(CharaDashaActivity.EXTRA_EPOCH_MILLIS, birthDateTime.toInstant().toEpochMilli())
+            putExtra(CharaDashaActivity.EXTRA_ZONE_ID, zone.id)
+            putExtra(CharaDashaActivity.EXTRA_LAT, city.latitude)
+            putExtra(CharaDashaActivity.EXTRA_LON, city.longitude)
         }
         startActivity(intent)
     }
@@ -524,6 +587,17 @@ class MainActivity : AppCompatActivity() {
             )
             val (nakNameA, padaA) = com.aakash.astro.astrology.NakshatraCalc.fromLongitude(chart.ascendantDegree)
             itemBinding.planetNakshatra.text = getString(R.string.nakshatra_format, nakNameA, padaA)
+            val lagnaUttama = com.aakash.astro.astrology.DrekkanaUtils.isUttamaDrekkana(chart.ascendantSign, chart.ascendantDegree)
+            itemBinding.uttamaStatus.text = getString(
+                R.string.uttama_drekkana_format,
+                if (lagnaUttama) getString(R.string.yes_label) else getString(R.string.no_label)
+            )
+            val lagnaDegInSign = ((chart.ascendantDegree % 30.0) + 30.0) % 30.0
+            val lagnaVarg = com.aakash.astro.astrology.Vargottama.isVargottama(chart.ascendantSign, lagnaDegInSign)
+            itemBinding.vargottamaStatus.text = getString(
+                R.string.vargottama_format,
+                if (lagnaVarg) getString(R.string.yes_label) else getString(R.string.no_label)
+            )
             binding.planetContainer.addView(itemBinding.root)
         }
 
@@ -540,7 +614,76 @@ class MainActivity : AppCompatActivity() {
             )
             val (nakName, pada) = com.aakash.astro.astrology.NakshatraCalc.fromLongitude(planet.degree)
             itemBinding.planetNakshatra.text = getString(R.string.nakshatra_format, nakName, pada)
+            val isUttama = com.aakash.astro.astrology.DrekkanaUtils.isUttamaDrekkana(planet.sign, planet.degree)
+            itemBinding.uttamaStatus.text = getString(
+                R.string.uttama_drekkana_format,
+                if (isUttama) getString(R.string.yes_label) else getString(R.string.no_label)
+            )
+            val degInSign = ((planet.degree % 30.0) + 30.0) % 30.0
+            val isVarg = com.aakash.astro.astrology.Vargottama.isVargottama(planet.sign, degInSign)
+            itemBinding.vargottamaStatus.text = getString(
+                R.string.vargottama_format,
+                if (isVarg) getString(R.string.yes_label) else getString(R.string.no_label)
+            )
             binding.planetContainer.addView(itemBinding.root)
+        }
+
+        // Compute and show Indu Lagna (Dhana Lagna)
+        com.aakash.astro.astrology.InduLagnaCalc.compute(chart)?.let { indu ->
+            val itemBinding = ItemPlanetPositionBinding.inflate(inflater, binding.planetContainer, false)
+            itemBinding.planetName.text = getString(R.string.indu_title)
+            // No specific degree defined; show sign and house from ascendant
+            itemBinding.planetDetails.text = getString(
+                R.string.planet_position_format,
+                indu.sign.displayName,
+                "—",
+                "House ${indu.houseFromAsc}"
+            )
+            itemBinding.planetNakshatra.text = getString(
+                R.string.indu_info_format,
+                indu.remainder,
+                indu.ninthLordFromAsc.displayName,
+                indu.ninthLordFromMoon.displayName
+            )
+            // Hide Uttama status row for Indu context
+            itemBinding.uttamaStatus.text = ""
+            binding.planetContainer.addView(itemBinding.root)
+        }
+
+        // Compute and show Hora Lagna
+        run {
+            val date = selectedDate
+            val time = selectedTime
+            val city = selectedCity ?: CityDatabase.findByName(binding.placeInput.text?.toString()?.trim().orEmpty())
+            if (date != null && time != null && city != null) {
+                val zone = java.time.ZoneId.systemDefault()
+                val birthZdt = java.time.LocalDateTime.of(date, time).atZone(zone)
+                com.aakash.astro.astrology.HoraLagnaCalc.compute(
+                    chart,
+                    birthZdt,
+                    city.latitude,
+                    city.longitude,
+                    zone
+                )?.let { hora ->
+                    val itemBinding = ItemPlanetPositionBinding.inflate(inflater, binding.planetContainer, false)
+                    itemBinding.planetName.text = getString(R.string.hora_title)
+                    val degText = formatDegreeWithSign(hora.longitude)
+                    itemBinding.planetDetails.text = getString(
+                        R.string.planet_position_format,
+                        hora.sign.displayName,
+                        degText,
+                        "House ${hora.houseFromAsc}"
+                    )
+                    val sunRiseText = "${hora.sunSignAtSunrise.displayName} - ${formatDegreeWithSign(hora.sunDegreeAtSunrise)}"
+                    itemBinding.planetNakshatra.text = getString(
+                        R.string.hora_info_format,
+                        hora.ishtaHours,
+                        sunRiseText
+                    )
+                    itemBinding.uttamaStatus.text = ""
+                    binding.planetContainer.addView(itemBinding.root)
+                }
+            }
         }
 
         // Finally, render the Vedic chart (South Indian style) at the end

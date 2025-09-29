@@ -18,6 +18,9 @@
             android:name=".YoginiDashaActivity"
             android:exported="false" />
         <activity
+            android:name=".CharaDashaActivity"
+            android:exported="false" />
+        <activity
             android:name=".YogiActivity"
             android:exported="false" />
         <activity
@@ -55,6 +58,12 @@
             android:exported="false" />
         <activity
             android:name=".AshtakavargaBavActivity"
+            android:exported="false" />
+        <activity
+            android:name=".IshtaKashtaHarshaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PushkaraNavamshaActivity"
             android:exported="false" />
         <activity
             android:name=".PanchangaActivity"
