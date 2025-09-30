@@ -470,12 +470,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun openTransit() {
+        val date = selectedDate ?: return
+        val time = selectedTime ?: return
         val city = selectedCity
             ?: CityDatabase.findByName(binding.placeInput.text?.toString()?.trim().orEmpty())
             ?: return
         val zone = ZoneId.systemDefault()
+        val birthDateTime = LocalDateTime.of(date, time).atZone(zone)
         val intent = android.content.Intent(this, TransitActivity::class.java).apply {
             putExtra(TransitActivity.EXTRA_NAME, binding.nameInput.text?.toString())
+            putExtra(TransitActivity.EXTRA_EPOCH_MILLIS, birthDateTime.toInstant().toEpochMilli())
             putExtra(TransitActivity.EXTRA_ZONE_ID, zone.id)
             putExtra(TransitActivity.EXTRA_LAT, city.latitude)
             putExtra(TransitActivity.EXTRA_LON, city.longitude)

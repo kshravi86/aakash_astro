@@ -1,12 +1,17 @@
 package com.aakash.astro
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import com.aakash.astro.astrology.AccurateCalculator
 import com.aakash.astro.astrology.BirthDetails
+import com.aakash.astro.astrology.ZodiacSign
 import com.aakash.astro.databinding.ActivityTransitBinding
+import com.aakash.astro.databinding.ItemTransitPlanetBinding
 import java.time.Instant
 import java.time.ZoneId
+import kotlin.math.floor
+import kotlin.math.roundToInt
 
 class TransitActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTransitBinding
@@ -23,24 +28,95 @@ class TransitActivity : AppCompatActivity() {
         val zoneId = intent.getStringExtra(EXTRA_ZONE_ID)?.let { ZoneId.of(it) } ?: ZoneId.systemDefault()
         val lat = intent.getDoubleExtra(EXTRA_LAT, 0.0)
         val lon = intent.getDoubleExtra(EXTRA_LON, 0.0)
+        val birthEpochMillis = intent.getLongExtra(EXTRA_EPOCH_MILLIS, -1L)
+
+        // Generate natal chart from birth details
+        val natalChart = if (birthEpochMillis > 0) {
+            val birthInstant = Instant.ofEpochMilli(birthEpochMillis).atZone(zoneId)
+            val birthDetails = BirthDetails(name, birthInstant, lat, lon)
+            accurate.generateChart(birthDetails)
+        } else null
 
         // Transit time: current instant in provided/system zone
         val now = Instant.now().atZone(zoneId)
-        val details = BirthDetails(name, now, lat, lon)
+        val transitDetails = BirthDetails(name, now, lat, lon)
+        val transitChart = accurate.generateChart(transitDetails)
 
-        val chart = accurate.generateChart(details)
         binding.title.text = getString(R.string.transit_title)
         binding.subtitle.text = name?.let { getString(R.string.chart_generated_for, it) } ?: ""
-        if (chart == null) {
+
+        if (transitChart == null) {
             binding.subtitle.append("\n" + getString(R.string.transit_engine_missing))
             return
         }
 
-        binding.vedicChartView.setChart(chart)
+        binding.vedicChartView.setChart(transitChart)
+
+        // Display transit planets with their natal house positions
+        if (natalChart != null) {
+            renderTransitPlanets(transitChart, natalChart)
+        } else {
+            renderTransitPlanets(transitChart, null)
+        }
+    }
+
+    private fun renderTransitPlanets(
+        transitChart: com.aakash.astro.astrology.ChartResult,
+        natalChart: com.aakash.astro.astrology.ChartResult?
+    ) {
+        binding.transitPlanetContainer.removeAllViews()
+        val inflater = LayoutInflater.from(this)
+
+        transitChart.planets.forEach { transitPlanet ->
+            val itemBinding = ItemTransitPlanetBinding.inflate(inflater, binding.transitPlanetContainer, false)
+
+            val nameWithRetro = if (transitPlanet.isRetrograde) "${transitPlanet.name} (R)" else transitPlanet.name
+            itemBinding.planetName.text = nameWithRetro
+
+            // Transit position
+            val degreeText = formatDegreeWithSign(transitPlanet.degree)
+            itemBinding.transitPosition.text = "Transit: ${transitPlanet.sign.displayName} $degreeText (House ${transitPlanet.house})"
+
+            // Calculate natal house this transit planet is occupying
+            if (natalChart != null) {
+                val natalHouse = calculateNatalHouse(transitPlanet.degree, natalChart.ascendantSign)
+                itemBinding.natalHouseInfo.text = "Transiting through Natal House $natalHouse"
+            } else {
+                itemBinding.natalHouseInfo.text = "Natal chart not available"
+            }
+
+            binding.transitPlanetContainer.addView(itemBinding.root)
+        }
+    }
+
+    private fun calculateNatalHouse(transitDegree: Double, natalAscSign: ZodiacSign): Int {
+        // Convert transit degree to sign
+        val transitSign = ZodiacSign.fromDegree(transitDegree)
+        // Calculate house based on whole sign system from natal ascendant
+        return 1 + (transitSign.ordinal - natalAscSign.ordinal + 12) % 12
+    }
+
+    private fun formatDegree(value: Double): String {
+        val normalized = ((value % 360.0) + 360.0) % 360.0
+        var degrees = floor(normalized).toInt()
+        var minutes = ((normalized - degrees) * 60).roundToInt()
+        if (minutes == 60) {
+            minutes = 0
+            degrees = (degrees + 1) % 360
+        }
+        return String.format("%02d\u00B0 %02d'", degrees, minutes)
+    }
+
+    private fun formatDegreeWithSign(value: Double): String {
+        val absText = formatDegree(value)
+        val inSign = ((value % 30.0) + 30.0) % 30.0
+        val inSignText = formatDegree(inSign)
+        return "$absText ($inSignText)"
     }
 
     companion object {
         const val EXTRA_NAME = "name"
+        const val EXTRA_EPOCH_MILLIS = "epochMillis"
         const val EXTRA_ZONE_ID = "zoneId"
         const val EXTRA_LAT = "lat"
         const val EXTRA_LON = "lon"
