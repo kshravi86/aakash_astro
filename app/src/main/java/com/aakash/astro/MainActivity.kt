@@ -5,6 +5,11 @@ import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ArrayAdapter
+import android.location.Geocoder
+import android.text.Editable
+import android.text.TextWatcher
+import android.os.Handler
+import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
@@ -35,6 +40,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val fallbackCalculator = AstrologyCalculator()
     private val accurateCalculator = AccurateCalculator()
+    private val uiHandler = Handler(Looper.getMainLooper())
+    private var placeSearchRunnable: Runnable? = null
+    private val dynamicCityMap: MutableMap<String, City> = mutableMapOf()
 
     private var selectedDate: LocalDate? = null
     private var selectedTime: LocalTime? = null
@@ -188,20 +196,94 @@ class MainActivity : AppCompatActivity() {
         dir?.let { accurateCalculator.setEphePath(it.absolutePath) }
     }
     private fun setupPlaceInput() {
-        val names = CityDatabase.names()
-        val adapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, names)
+        val baseNames = CityDatabase.names().toMutableList()
+        val adapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, baseNames)
+        adapter.setNotifyOnChange(true)
         binding.placeInput.setAdapter(adapter)
         binding.placeInput.threshold = 1
+
         binding.placeInput.setOnItemClickListener { _, _, position, _ ->
             val name = adapter.getItem(position)
-            selectedCity = name?.let { CityDatabase.findByName(it) }; updatePlaceCoords()
+            selectedCity = when {
+                name.isNullOrBlank() -> null
+                dynamicCityMap.containsKey(name) -> dynamicCityMap[name]
+                else -> CityDatabase.findByName(name)
+            }
+            updatePlaceCoords()
         }
+
+        // Debounced online geocoding suggestions within India
+        binding.placeInput.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable?) {
+                val query = s?.toString()?.trim().orEmpty()
+                placeSearchRunnable?.let { uiHandler.removeCallbacks(it) }
+                if (query.length < 3) return
+                val runnable = Runnable {
+                    fetchIndiaSuggestions(query)?.let { results ->
+                        // Merge: dynamic results first, then base names that match
+                        dynamicCityMap.clear()
+                        val dynamicNames = results.map { city ->
+                            dynamicCityMap[city.name] = city
+                            city.name
+                        }
+                        val fallbackMatches = CityDatabase.names().filter { it.contains(query, ignoreCase = true) }
+                        val merged = (dynamicNames + fallbackMatches).distinct().take(20)
+                        runOnUiThread {
+                            adapter.clear()
+                            adapter.addAll(merged)
+                            adapter.notifyDataSetChanged()
+                            if (!binding.placeInput.isPopupShowing) binding.placeInput.showDropDown()
+                        }
+                    }
+                }
+                placeSearchRunnable = runnable
+                uiHandler.postDelayed(runnable, 300)
+            }
+        })
+
+        // Resolve to a city when focus leaves the field
         binding.placeInput.setOnFocusChangeListener { _, hasFocus ->
             if (!hasFocus) {
                 val text = binding.placeInput.text?.toString()?.trim().orEmpty()
-                selectedCity = CityDatabase.findByName(text); updatePlaceCoords()
+                selectedCity = when {
+                    text.isBlank() -> null
+                    dynamicCityMap.containsKey(text) -> dynamicCityMap[text]
+                    CityDatabase.findByName(text) != null -> CityDatabase.findByName(text)
+                    else -> geocodeFirstIndia(text)
+                }
+                updatePlaceCoords()
             }
         }
+    }
+
+    private fun fetchIndiaSuggestions(query: String): List<City>? {
+        return runCatching {
+            if (!Geocoder.isPresent()) return null
+            val geocoder = Geocoder(this)
+            // Rough India bounding box: lat 6..37, lon 68..97
+            val list = geocoder.getFromLocationName("$query, India", 10, 6.0, 68.0, 37.0, 97.0)
+            list?.mapNotNull { addr ->
+                val lat = addr.latitude
+                val lon = addr.longitude
+                val locality = listOfNotNull(addr.locality, addr.subAdminArea, addr.adminArea).joinToString(", ")
+                val name = if (locality.isNotBlank()) locality else addr.featureName ?: return@mapNotNull null
+                City(name, lat, lon)
+            }?.distinctBy { it.name }
+        }.getOrNull()
+    }
+
+    private fun geocodeFirstIndia(query: String): City? {
+        return runCatching {
+            if (!Geocoder.isPresent()) return null
+            val geocoder = Geocoder(this)
+            val list = geocoder.getFromLocationName("$query, India", 1, 6.0, 68.0, 37.0, 97.0)
+            val a = list?.firstOrNull() ?: return null
+            val locality = listOfNotNull(a.locality, a.subAdminArea, a.adminArea).joinToString(", ")
+            val name = if (locality.isNotBlank()) locality else a.featureName ?: query
+            City(name, a.latitude, a.longitude)
+        }.getOrNull()
     }
 
     private fun showDatePicker() {
