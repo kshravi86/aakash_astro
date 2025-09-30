@@ -8,8 +8,10 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import com.aakash.astro.astrology.AccurateCalculator
 import com.aakash.astro.astrology.BirthDetails
+import com.aakash.astro.astrology.NakshatraCalc
 import com.aakash.astro.astrology.TaraBalaCalc
 import com.aakash.astro.databinding.ItemTaraRowBinding
+import com.aakash.astro.databinding.ItemTransitTaraBinding
 import java.time.Instant
 import java.time.ZoneId
 
@@ -48,15 +50,20 @@ class TaraBalaActivity : AppCompatActivity() {
         val lat = intent.getDoubleExtra(EXTRA_LAT, 0.0)
         val lon = intent.getDoubleExtra(EXTRA_LON, 0.0)
 
-        val zdt = Instant.ofEpochMilli(epochMillis).atZone(zoneId)
-        val chart = accurate.generateChart(BirthDetails(name, zdt, lat, lon))
-        if (chart == null) {
+        // Generate natal chart
+        val birthZdt = Instant.ofEpochMilli(epochMillis).atZone(zoneId)
+        val natalChart = accurate.generateChart(BirthDetails(name, birthZdt, lat, lon))
+        if (natalChart == null) {
             findViewById<android.widget.TextView>(R.id.engineNote).text = getString(R.string.transit_engine_missing)
             return
         }
 
-        val rows = TaraBalaCalc.compute(chart)
+        // Generate transit chart (current time)
+        val nowZdt = Instant.now().atZone(zoneId)
+        val transitChart = accurate.generateChart(BirthDetails(name, nowZdt, lat, lon))
 
+        // Display natal tara bala
+        val rows = TaraBalaCalc.compute(natalChart)
         val inflater = LayoutInflater.from(this)
         val container = findViewById<android.widget.LinearLayout>(R.id.rowContainer)
         container.removeAllViews()
@@ -68,10 +75,53 @@ class TaraBalaActivity : AppCompatActivity() {
             container.addView(item.root)
         }
 
-        findViewById<android.widget.TextView>(R.id.engineNote).text = "Reference: Moon of natal D-1"
+        findViewById<android.widget.TextView>(R.id.engineNote).text = "Natal Chart - Reference: Moon of natal D-1"
+
+        // Display transit tara bala
+        if (transitChart != null) {
+            renderTransitTaraBala(transitChart, natalChart, inflater)
+        }
     }
 
-    // No longer needed; keeping for possible future use
+    private fun renderTransitTaraBala(
+        transitChart: com.aakash.astro.astrology.ChartResult,
+        natalChart: com.aakash.astro.astrology.ChartResult,
+        inflater: LayoutInflater
+    ) {
+        val transitContainer = findViewById<android.widget.LinearLayout>(R.id.transitRowContainer)
+        transitContainer.removeAllViews()
+
+        // Get natal moon's nakshatra for tara calculation
+        val natalMoonDeg = natalChart.planets.find { it.planet == com.aakash.astro.astrology.Planet.MOON }?.degree ?: 0.0
+        val natalMoonNak = TaraBalaCalc.nakshatraNumber1Based(natalMoonDeg)
+
+        transitChart.planets.forEach { transitPlanet ->
+            val item = ItemTransitTaraBinding.inflate(inflater, transitContainer, false)
+
+            val nameWithRetro = if (transitPlanet.isRetrograde) "${transitPlanet.name} (R)" else transitPlanet.name
+            item.planetName.text = nameWithRetro
+
+            // Get nakshatra for transit planet
+            val (nakName, pada) = NakshatraCalc.fromLongitude(transitPlanet.degree)
+            item.nakshatraInfo.text = "$nakName (Pada $pada)"
+
+            // Calculate tara bala
+            val transitNak = TaraBalaCalc.nakshatraNumber1Based(transitPlanet.degree)
+            val taraClass = TaraBalaCalc.tClass(natalMoonNak, transitNak)
+            val taraName = TaraBalaCalc.taraNames[taraClass - 1]
+            val taraNote = TaraBalaCalc.taraNotes[taraClass] ?: ""
+            val taraResult = when (taraClass) {
+                2, 4, 6, 8, 9 -> "Favorable"
+                3, 5, 7 -> "Unfavorable"
+                else -> "Neutral"
+            }
+
+            item.taraValue.text = "$taraName ($taraNote)"
+            item.resultValue.text = taraResult
+
+            transitContainer.addView(item.root)
+        }
+    }
 
     companion object {
         const val EXTRA_NAME = "name"

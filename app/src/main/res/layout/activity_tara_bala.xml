@@ -50,6 +50,29 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="Current Transit Tara Bala"
+                android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                android:textColor="@color/primaryText" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Transit planets and their Tara Bala relative to natal Moon"
+                android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                android:textColor="@color/secondaryText" />
+
+            <LinearLayout
+                android:id="@+id/transitRowContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical" />
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

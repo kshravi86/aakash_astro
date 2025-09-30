@@ -10,11 +10,11 @@ data class TaraEntry(
 object TaraBalaCalc {
     private const val NAK_LEN = 360.0 / 27.0
 
-    private val taraNames = listOf(
+    val taraNames = listOf(
         "Janma", "Sampat", "Vipat", "Kema", "Pratyak", "Sadhana", "Naidhana", "Mitra", "Paramamitra"
     )
 
-    private val taraNotes = mapOf(
+    val taraNotes = mapOf(
         1 to "Birth",
         2 to "Wealth",
         3 to "Danger",
@@ -26,14 +26,14 @@ object TaraBalaCalc {
         9 to "Very friendly"
     )
 
-    private fun nakshatraNumber1Based(deg: Double): Int {
+    fun nakshatraNumber1Based(deg: Double): Int {
         var d = deg % 360.0
         if (d < 0) d += 360.0
         val idx0 = kotlin.math.floor(d / NAK_LEN).toInt().coerceIn(0, 26)
         return idx0 + 1 // 1..27
     }
 
-    private fun tClass(j: Int, p: Int): Int {
+    fun tClass(j: Int, p: Int): Int {
         val n = ((p - j) mod 27) + 1
         return ((n - 1) mod 9) + 1
     }
