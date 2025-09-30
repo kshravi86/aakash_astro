@@ -150,18 +150,24 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/placeInputLayout"
-                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    style="@style/Widget.Material3.TextInputLayout.FilledBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:hint="Birth place (India)"
-                    app:placeholderText="Start typing city name">
+                    app:placeholderText="Start typing any Indian place"
+                    app:startIconDrawable="@drawable/ic_place_24"
+                    app:startIconContentDescription="Location"
+                    app:endIconMode="clear_text">
 
                     <com.google.android.material.textfield.MaterialAutoCompleteTextView
                         android:id="@+id/placeInput"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textPersonName"
+                        android:minHeight="56dp"
+                        android:paddingVertical="14dp"
+                        android:textSize="18sp"
+                        android:inputType="textCapWords|textPostalAddress"
                         android:imeOptions="actionDone" />
                 </com.google.android.material.textfield.TextInputLayout>
                 <TextView
@@ -189,6 +195,21 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     android:text="Generate Chart" />
+
+                <TextView
+                    android:id="@+id/sectionChart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Vedic Chart (South Indian)"
+                    android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
+                    android:textColor="@color/primaryText" />
+
+                <com.aakash.astro.ui.VedicChartView
+                    android:id="@+id/vedicChartView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp" />
 
                 <TextView
                     android:id="@+id/actionsHeader"
@@ -233,20 +254,7 @@
                         android:padding="16dp" />
                 </com.google.android.material.card.MaterialCardView>
 
-                <TextView
-                    android:id="@+id/sectionChart"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:text="Vedic Chart (South Indian)"
-                    android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
-                    android:textColor="@color/primaryText" />
-
-                <com.aakash.astro.ui.VedicChartView
-                    android:id="@+id/vedicChartView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp" />
+                
 
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
