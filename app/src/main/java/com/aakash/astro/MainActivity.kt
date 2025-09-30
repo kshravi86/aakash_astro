@@ -757,29 +757,10 @@ class MainActivity : AppCompatActivity() {
             binding.planetContainer.addView(itemBinding.root)
         }
 
-        // Compute and show Indu Lagna (Dhana Lagna)
-        com.aakash.astro.astrology.InduLagnaCalc.compute(chart)?.let { indu ->
-            val itemBinding = ItemPlanetPositionBinding.inflate(inflater, binding.planetContainer, false)
-            itemBinding.planetName.text = getString(R.string.indu_title)
-            // No specific degree defined; show sign and house from ascendant
-            itemBinding.planetDetails.text = getString(
-                R.string.planet_position_format,
-                indu.sign.displayName,
-                "—",
-                "House ${indu.houseFromAsc}"
-            )
-            itemBinding.planetNakshatra.text = getString(
-                R.string.indu_info_format,
-                indu.remainder,
-                indu.ninthLordFromAsc.displayName,
-                indu.ninthLordFromMoon.displayName
-            )
-            // Hide Uttama status row for Indu context
-            itemBinding.uttamaStatus.text = ""
-            binding.planetContainer.addView(itemBinding.root)
-        }
+        // Removed: Indu Lagna and Hora Lagna per user request
 
-        // Compute and show Hora Lagna
+        // Finally, render the Vedic chart (South Indian style) at the end
+        // Compute and show Ghatika Lagna (Jaimini) using exact steps
         run {
             val date = selectedDate
             val time = selectedTime
@@ -787,35 +768,51 @@ class MainActivity : AppCompatActivity() {
             if (date != null && time != null && city != null) {
                 val zone = java.time.ZoneId.systemDefault()
                 val birthZdt = java.time.LocalDateTime.of(date, time).atZone(zone)
-                com.aakash.astro.astrology.HoraLagnaCalc.compute(
-                    chart,
+                com.aakash.astro.astrology.GhatikaLagnaCalc.compute(
                     birthZdt,
                     city.latitude,
                     city.longitude,
-                    zone
-                )?.let { hora ->
+                    zone,
+                    accurateCalculator
+                )?.let { gl ->
                     val itemBinding = ItemPlanetPositionBinding.inflate(inflater, binding.planetContainer, false)
-                    itemBinding.planetName.text = getString(R.string.hora_title)
-                    val degText = formatDegreeWithSign(hora.longitude)
+                    itemBinding.planetName.text = "Ghatika Lagna (Jaimini)"
+                    val degText = formatDegreeWithSign(gl.longitude)
                     itemBinding.planetDetails.text = getString(
                         R.string.planet_position_format,
-                        hora.sign.displayName,
+                        gl.sign.displayName,
                         degText,
-                        "House ${hora.houseFromAsc}"
+                        "—"
                     )
-                    val sunRiseText = "${hora.sunSignAtSunrise.displayName} - ${formatDegreeWithSign(hora.sunDegreeAtSunrise)}"
-                    itemBinding.planetNakshatra.text = getString(
-                        R.string.hora_info_format,
-                        hora.ishtaHours,
-                        sunRiseText
+                    itemBinding.planetNakshatra.text = ""
+                    itemBinding.uttamaStatus.text = ""
+                    binding.planetContainer.addView(itemBinding.root)
+                }
+
+                // Immediately below GL, show Hora Lagna (Jaimini)
+                com.aakash.astro.astrology.HoraLagnaJaiminiCalc.compute(
+                    birthZdt,
+                    city.latitude,
+                    city.longitude,
+                    zone,
+                    accurateCalculator
+                )?.let { hl ->
+                    val itemBinding = ItemPlanetPositionBinding.inflate(inflater, binding.planetContainer, false)
+                    itemBinding.planetName.text = "Hora Lagna (Jaimini)"
+                    val degText = formatDegreeWithSign(hl.longitude)
+                    itemBinding.planetDetails.text = getString(
+                        R.string.planet_position_format,
+                        hl.sign.displayName,
+                        degText,
+                        "—"
                     )
+                    itemBinding.planetNakshatra.text = ""
                     itemBinding.uttamaStatus.text = ""
                     binding.planetContainer.addView(itemBinding.root)
                 }
             }
         }
 
-        // Finally, render the Vedic chart (South Indian style) at the end
         binding.vedicChartView.setChart(chart)
     }
 
