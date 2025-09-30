@@ -18,6 +18,7 @@ class YogiActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDashaBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.topBar.setNavigationOnClickListener { finish() }
 
         binding.topBar.title = getString(R.string.yogi_title)
 

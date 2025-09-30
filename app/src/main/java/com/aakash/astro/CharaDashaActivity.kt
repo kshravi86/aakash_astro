@@ -21,6 +21,7 @@ class CharaDashaActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityCharaDashaBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.topBar.setNavigationOnClickListener { finish() }
 
         val name = intent.getStringExtra(EXTRA_NAME)
         val epochMillis = intent.getLongExtra(EXTRA_EPOCH_MILLIS, 0L)

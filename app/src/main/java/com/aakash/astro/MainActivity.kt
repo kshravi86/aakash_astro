@@ -340,6 +340,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun generateChart() {
+        // Hide keyboard and clear focus
+        hideKeyboard()
+        binding.root.clearFocus()
+
         val date = selectedDate
         val time = selectedTime
         val city = selectedCity ?: CityDatabase.findByName(binding.placeInput.text?.toString()?.trim().orEmpty())
@@ -890,5 +894,12 @@ class MainActivity : AppCompatActivity() {
             "${c.name}: ${lat}, ${lon}"
         } else ""
         binding.placeCoords.text = summary
+    }
+
+    private fun hideKeyboard() {
+        val imm = getSystemService(android.content.Context.INPUT_METHOD_SERVICE) as? android.view.inputmethod.InputMethodManager
+        currentFocus?.let { view ->
+            imm?.hideSoftInputFromWindow(view.windowToken, 0)
+        }
     }
 }

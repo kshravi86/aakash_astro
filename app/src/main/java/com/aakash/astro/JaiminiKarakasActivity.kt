@@ -17,6 +17,7 @@ class JaiminiKarakasActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityJaiminiKarakasBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.topBar.setNavigationOnClickListener { finish() }
 
         EphemerisPreparer.prepare(this)?.let { accurate.setEphePath(it.absolutePath) }
 
