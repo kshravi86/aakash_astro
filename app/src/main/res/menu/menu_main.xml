@@ -8,5 +8,8 @@
         android:id="@+id/action_saved"
         android:title="@string/menu_saved"
         android:showAsAction="never" />
+    <item
+        android:id="@+id/action_privacy"
+        android:title="Privacy Policy"
+        android:showAsAction="never" />
 </menu>
-

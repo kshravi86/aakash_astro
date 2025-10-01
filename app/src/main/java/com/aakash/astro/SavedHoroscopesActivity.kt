@@ -31,6 +31,7 @@ class SavedHoroscopesActivity : AppCompatActivity() {
             val title = item.findViewById<TextView>(R.id.title)
             val subtitle = item.findViewById<TextView>(R.id.subtitle)
             val loadBtn = item.findViewById<com.google.android.material.button.MaterialButton>(R.id.loadButton)
+            val deleteBtn = item.findViewById<com.google.android.material.button.MaterialButton>(R.id.deleteButton)
             val z = ZoneId.of(s.zoneId)
             val zdt = java.time.Instant.ofEpochMilli(s.epochMillis).atZone(z)
             title.text = s.name
@@ -47,8 +48,15 @@ class SavedHoroscopesActivity : AppCompatActivity() {
                 }
                 startActivity(intent)
             }
+            deleteBtn.setOnClickListener {
+                if (SavedStore.delete(this, s.id)) {
+                    android.widget.Toast.makeText(this, "Deleted", android.widget.Toast.LENGTH_SHORT).show()
+                    recreate()
+                } else {
+                    android.widget.Toast.makeText(this, "Delete failed", android.widget.Toast.LENGTH_SHORT).show()
+                }
+            }
             binding.listContainer.addView(item)
         }
     }
 }
-

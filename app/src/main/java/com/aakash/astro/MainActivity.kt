@@ -90,51 +90,70 @@ class MainActivity : AppCompatActivity() {
         val grid = binding.actionGrid
         grid.layoutManager = GridLayoutManager(this, 2)
         val items = listOf(
-            com.aakash.astro.ui.ActionTile("dasha", "Vimshottari Dasha", "Mahadasha/Antar periods"),
-            com.aakash.astro.ui.ActionTile("chara", "Chara Dasha", "Jaimini periods"),
-            com.aakash.astro.ui.ActionTile("yogini", "Yogini Dasha", "8-yogini cycle"),
-            com.aakash.astro.ui.ActionTile("panchanga", "Panchanga", "Tithi, Vara, Nakshatra, Yoga, Karana"),
+            // Transit first
             com.aakash.astro.ui.ActionTile("transit", "Transit Chart", "Current transits"),
             com.aakash.astro.ui.ActionTile("overlay_sa_ju", "Transit Overlay (Sa/Ju)", "Overlay on natal houses"),
             com.aakash.astro.ui.ActionTile("overlay_nodes", "Transit Overlay (Ra/Ke)", "Overlay on natal houses"),
-            com.aakash.astro.ui.ActionTile("vargas", "Divisional Charts", "Shodasha Vargas"),
-            com.aakash.astro.ui.ActionTile("d60", "D60 Shashtiamsha", "60th divisional placements"),
+            // Essentials
+            com.aakash.astro.ui.ActionTile("panchanga", "Panchanga", "Tithi, Vara, Nakshatra, Yoga, Karana"),
+            com.aakash.astro.ui.ActionTile("tara", "Tara Bala", "Favorable by nakshatra"),
             com.aakash.astro.ui.ActionTile("yogas", "Yogas", "Detected yogas"),
-            com.aakash.astro.ui.ActionTile("pushkara", "Pushkara Navamsha", "Elemental pushkara bands"),
-            com.aakash.astro.ui.ActionTile("yogi", "Yogi / Sahayogi / Avayogi", "Yogi point and lords"),
-            com.aakash.astro.ui.ActionTile("shadbala", "Shadbala", "Sixfold strength"),
+            
+            // Ashtakavarga
             com.aakash.astro.ui.ActionTile("sav", "Sarva Ashtakavarga", "Total bindus"),
             com.aakash.astro.ui.ActionTile("bav", "Ashtakavarga Details (BAV)", "Bhinnashtakavarga"),
+            // Jaimini
             com.aakash.astro.ui.ActionTile("karakas", "Jaimini Karakas", "Atmakaraka … Darakaraka"),
             com.aakash.astro.ui.ActionTile("arudha", "Arudha Padas", "Padas for all houses"),
+            // Utilities
+            com.aakash.astro.ui.ActionTile("pushkara", "Pushkara Navamsha", "Elemental pushkara bands"),
+            com.aakash.astro.ui.ActionTile("yogi", "Yogi / Sahayogi / Avayogi", "Yogi point and lords"),
+            // Put Dasha later to declutter
+            com.aakash.astro.ui.ActionTile("dasha", "Vimshottari Dasha", "Mahadasha/Antar periods"),
             com.aakash.astro.ui.ActionTile("ishta", "Ishta Devata", "Karakamsa based"),
-            com.aakash.astro.ui.ActionTile("ikh", "Ishta/Kashta/Harsha", "IKH metrics"),
-            com.aakash.astro.ui.ActionTile("tara", "Tara Bala", "Favorable by nakshatra")
+            // New: Sarvatobhadra Chakra
+            com.aakash.astro.ui.ActionTile("sbc", "Sarvatobhadra Chakra", "28-star vedha map")
         )
         grid.adapter = com.aakash.astro.ui.ActionTileAdapter(items) { item ->
             when (item.id) {
                 "dasha" -> openDasha()
-                "chara" -> openCharaDasha()
-                "yogini" -> openYoginiDasha()
+                
+                
                 "panchanga" -> openPanchanga()
                 "transit" -> openTransit()
                 "overlay_sa_ju" -> openTransitOverlay()
                 "overlay_nodes" -> openTransitOverlayNodes()
-                "vargas" -> openVargas()
-                "d60" -> openD60()
+                
+                
                 "yogas" -> openYogas()
                 "pushkara" -> openPushkara()
                 "yogi" -> openYogi()
-                "shadbala" -> openShadbala()
+                
                 "sav" -> openSAV()
                 "bav" -> openAshtakavargaBAV()
                 "karakas" -> openJaiminiKarakas()
                 "arudha" -> openArudha()
                 "ishta" -> openIshtaDevata()
-                "ikh" -> openIKH()
+                "sbc" -> openSBC()
+                
                 "tara" -> openTaraBala()
             }
         }
+    }
+    private fun openSBC() {
+        val date = selectedDate ?: return
+        val time = selectedTime ?: return
+        val city = selectedCity ?: CityDatabase.findByName(binding.placeInput.text?.toString()?.trim().orEmpty()) ?: return
+        val zone = ZoneId.systemDefault()
+        val birthDateTime = LocalDateTime.of(date, time).atZone(zone)
+        val intent = android.content.Intent(this, SarvatobhadraActivity::class.java).apply {
+            putExtra(SarvatobhadraActivity.EXTRA_NAME, binding.nameInput.text?.toString())
+            putExtra(SarvatobhadraActivity.EXTRA_EPOCH_MILLIS, birthDateTime.toInstant().toEpochMilli())
+            putExtra(SarvatobhadraActivity.EXTRA_ZONE_ID, zone.id)
+            putExtra(SarvatobhadraActivity.EXTRA_LAT, city.latitude)
+            putExtra(SarvatobhadraActivity.EXTRA_LON, city.longitude)
+        }
+        startActivity(intent)
     }
     private fun openTaraBala() {
         val date = selectedDate ?: return
@@ -165,6 +184,10 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.action_saved -> {
                 startActivity(android.content.Intent(this, SavedHoroscopesActivity::class.java))
+                true
+            }
+            R.id.action_privacy -> {
+                startActivity(android.content.Intent(this, PrivacyActivity::class.java))
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -810,10 +833,38 @@ class MainActivity : AppCompatActivity() {
                         degText,
                         "—"
                     )
-                    itemBinding.planetNakshatra.text = ""
-                    itemBinding.uttamaStatus.text = ""
+                    val (nakName, pada) = com.aakash.astro.astrology.NakshatraCalc.fromLongitude(gl.longitude)
+                    itemBinding.planetNakshatra.text = getString(R.string.nakshatra_format, nakName, pada)
+                    val isUttama = com.aakash.astro.astrology.DrekkanaUtils.isUttamaDrekkana(gl.sign, gl.longitude)
+                    itemBinding.uttamaStatus.text = getString(
+                        R.string.uttama_drekkana_format,
+                        if (isUttama) getString(R.string.yes_label) else getString(R.string.no_label)
+                    )
+                    val degInSignGl = ((gl.longitude % 30.0) + 30.0) % 30.0
+                    val isVarg = com.aakash.astro.astrology.Vargottama.isVargottama(gl.sign, degInSignGl)
+                    itemBinding.vargottamaStatus.text = getString(
+                        R.string.vargottama_format,
+                        if (isVarg) getString(R.string.yes_label) else getString(R.string.no_label)
+                    )
                     binding.planetContainer.addView(itemBinding.root)
                 }
+
+                // Immediately below GL, show Arudha Lagna (A1) per Jaimini
+                com.aakash.astro.astrology.JaiminiArudha.compute(chart)
+                    .firstOrNull { it.house == 1 }
+                    ?.let { al ->
+                        val itemBinding = ItemPlanetPositionBinding.inflate(inflater, binding.planetContainer, false)
+                        itemBinding.planetName.text = "Arudha Lagna (Jaimini)"
+                        itemBinding.planetDetails.text = getString(
+                            R.string.planet_position_format,
+                            al.padaSign.displayName,
+                            "—",
+                            "House ${al.padaHouse}"
+                        )
+                        itemBinding.planetNakshatra.text = ""
+                        itemBinding.uttamaStatus.text = ""
+                        binding.planetContainer.addView(itemBinding.root)
+                    }
 
                 // Immediately below GL, show Hora Lagna (Jaimini)
                 com.aakash.astro.astrology.HoraLagnaJaiminiCalc.compute(
@@ -832,8 +883,19 @@ class MainActivity : AppCompatActivity() {
                         degText,
                         "—"
                     )
-                    itemBinding.planetNakshatra.text = ""
-                    itemBinding.uttamaStatus.text = ""
+                    val (nakName, pada) = com.aakash.astro.astrology.NakshatraCalc.fromLongitude(hl.longitude)
+                    itemBinding.planetNakshatra.text = getString(R.string.nakshatra_format, nakName, pada)
+                    val isUttama = com.aakash.astro.astrology.DrekkanaUtils.isUttamaDrekkana(hl.sign, hl.longitude)
+                    itemBinding.uttamaStatus.text = getString(
+                        R.string.uttama_drekkana_format,
+                        if (isUttama) getString(R.string.yes_label) else getString(R.string.no_label)
+                    )
+                    val degInSignHl = ((hl.longitude % 30.0) + 30.0) % 30.0
+                    val isVarg = com.aakash.astro.astrology.Vargottama.isVargottama(hl.sign, degInSignHl)
+                    itemBinding.vargottamaStatus.text = getString(
+                        R.string.vargottama_format,
+                        if (isVarg) getString(R.string.yes_label) else getString(R.string.no_label)
+                    )
                     binding.planetContainer.addView(itemBinding.root)
                 }
             }

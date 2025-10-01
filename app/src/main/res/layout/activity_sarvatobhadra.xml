@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:navigationIcon="@drawable/ic_home_black_24dp"
+        app:title="Sarvatobhadra Chakra"
+        app:titleCentered="false"
+        app:titleTextColor="@color/primaryText" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="9×9 grid — outer: 28 nakshatras (incl. Abhijit)"
+                android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                android:textColor="@color/secondaryText" />
+
+            <GridLayout
+                android:id="@+id/gridSbc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:useDefaultMargins="false" />
+
+            <TextView
+                android:id="@+id/summaryText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text=""
+                android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                android:textColor="@color/primaryText" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Legend: Blue = Janma, Gold = Sensitive Tara stars, Red = Transit Moon"
+                android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+                android:textColor="@color/secondaryText" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

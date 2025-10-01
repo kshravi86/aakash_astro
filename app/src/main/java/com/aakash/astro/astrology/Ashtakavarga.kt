@@ -238,34 +238,7 @@ object AshtakavargaCalc {
         return SarvaAshtakavarga(sav)
     }
 
-    // Lagnashtakavarga (LAV) using Saturn table semantics with reference = Lagna (dynamic)
-    fun computeLagnaBAV(chart: ChartResult): Binnashtakavarga {
-        val byPlanet = chart.planets.associateBy { it.planet }
-        val ascIndex = chart.ascendantSign.ordinal
-        val bav = IntArray(12)
-        val table = tableByRef[Planet.SATURN] ?: return Binnashtakavarga(Planet.SATURN, bav)
-
-        fun contribIndex(c: Contributor): Int? = when (c) {
-            Contributor.LAGNA -> ascIndex
-            Contributor.SUN -> byPlanet[Planet.SUN]?.sign?.ordinal
-            Contributor.MOON -> byPlanet[Planet.MOON]?.sign?.ordinal
-            Contributor.MARS -> byPlanet[Planet.MARS]?.sign?.ordinal
-            Contributor.MERCURY -> byPlanet[Planet.MERCURY]?.sign?.ordinal
-            Contributor.JUPITER -> byPlanet[Planet.JUPITER]?.sign?.ordinal
-            Contributor.VENUS -> byPlanet[Planet.VENUS]?.sign?.ordinal
-            Contributor.SATURN -> byPlanet[Planet.SATURN]?.sign?.ordinal
-        }
-
-        for ((contrib, allowed) in table) {
-            val cIdx = contribIndex(contrib) ?: continue
-            var d = (cIdx - ascIndex) % 12
-            if (d < 0) d += 12
-            if (d == 0) d = 12
-            if (allowed.contains(d)) {
-                val target = (ascIndex + d) % 12
-                bav[target] += 1
-            }
-        }
-        return Binnashtakavarga(Planet.SATURN, bav)
-    }
+    // Lagnashtakavarga (LAV): use Saturn's BAV house sets, applied from each contributor's sign.
+    // This mirrors the Parashara-style computation used for other planets, but with the Saturn rule table.
+    fun computeLagnaBAV(chart: ChartResult): Binnashtakavarga = computeBAVParashara(Planet.SATURN, chart)
 }

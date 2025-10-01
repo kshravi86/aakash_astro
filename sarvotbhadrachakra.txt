@@ -1,0 +1,121 @@
+awesome—here’s a clean, do-it-once recipe you can reuse anytime.
+
+# How to create a Sarvatobhadra Chakra (SBC)
+
+**What it contains (classical version):** a 9×9 grid (81 cells) that carries the **28 nakshatras (incl. Abhijit)** on the outer ring, plus inner rings for **Sanskrit letters (name syllable), 12 signs, and the 7 weekdays**. SBC is then used with **vedha** rules (forward / opposite / backward) to judge transits against your marked points. ([Wikipedia][1])
+
+## Step-by-step construction
+
+1. **Draw the grid**
+
+* Make a perfect **9×9** square grid (10 lines each way). Think of it as **4 concentric “rings”**:
+  outer ring (32 cells) → two letter rings → sign ring → central 3×3 for weekdays/planets. ([Saptarishis Astrology][2])
+
+2. **Reserve the four corners (outer ring) for vowels**
+
+* The **four outer corners** are **vowel (swara) cells**, not nakshatras. The remaining **28 edge cells** carry the **28 nakshatras**. ([Wikipedia][1])
+
+3. **Place the 28 nakshatras around the outer ring (clockwise)**
+
+* Use one standard orientation **consistently**. Classical instruction says: **start at the auspicious NE edge (Ishāna kona) and count clockwise** (some traditions start at NW; either is okay if you keep it consistent). **Abhijit is placed between Uttarāṣāḍhā and Śravaṇa.** ([Wikipedia][1])
+* A commonly used **clockwise sequence** (starting at the **NE edge** after the corner) is:
+  **Kṛttikā → Rohiṇī → Mṛgaśīrṣa → Ārdrā → Punarvasu → Puṣya → Āśleṣā → Maghā → Pūrvaphalgunī → Uttaraphalgunī → Hastā → Citrā → Svātī → Viśākhā → Anurādhā → Jyeṣṭhā → Mūlā → Pūrvāṣāḍhā → Uttarāṣāḍhā → Abhijit → Śravaṇa → Dhaniṣṭhā → Śatabhiṣā → Pūrvabhādrapadā → Uttarabhādrapadā → Revatī → Aśvinī → Bharanī → (back to Kṛttikā).**
+  (If your school/book uses the NW-start template, keep that template—but **never mix orientations**.) ([Wikipedia][1])
+
+4. **Fill the two inner “letter” rings (akṣara)**
+
+* The **two rings just inside the nakshatras** hold the **Sanskrit alphabet** (vowels + consonants). These are used for **name-syllable (nāma-akṣara) vedha**—you’ll mark the first syllable/letter of the native’s name here. Exact letter layout varies by lineage; the key is that **all 50 letters are accommodated across those two rings.** ([Wikipedia][1])
+
+5. **Place the 12 rāśis (signs)**
+
+* The **next inner ring** carries the **12 signs** in order (one per cell, continuing clockwise). You’ll use these for **rāśi-vedha** checks. ([Wikipedia][1])
+
+6. **Fill the central 3×3 (weekdays/planets)**
+
+* Put **Śani (Saturn) in the exact center**. Around it, follow the classical SBC weekday layout: **Jupiter left, Sun/Mars right, Venus top, Moon & Mercury bottom** (these central 7 also correspond to **vāra** cells). ([saravali.github.io][3])
+
+> At this point your static SBC “template” is ready for any native or event.
+
+---
+
+# How to plot for a given person (using their Moon’s nakshatra)
+
+You’ll mark **five things** on the ready SBC: **Janma nakshatra**, the **Tara-counted sensitive nakshatras**, **name akṣara**, (optionally) **Lagna sign**, and **birth weekday**.
+
+1. **Mark Janma (birth) nakshatra**
+
+* Find the native’s **Moon’s nakshatra** at birth (your panchāṅga/astro-software).
+* On the SBC outer ring, **shade/mark that exact nakshatra cell**—this is **Janma**.
+
+2. **Mark the key Tara points (by counting through the 28-star belt)**
+
+* From Janma, **count clockwise** through the **full 28-nakshatra cycle (including Abhijit)** and mark:
+
+  * **Karma** = **10th** from Janma
+  * **Saṅghātika** = **16th**
+  * **Samudāyika** = **18th**
+  * **Ādhāna** = **21st**
+  * **Vināśa** = **23rd**
+    (These are the **sensitive targets**: if a transit hits/vedhas these, expect notable results.) ([Wikipedia][1])
+
+3. **Mark the name-letter (Akṣara)**
+
+* Take the **first syllable/letter** of the person’s **usual name** (the one they’re commonly addressed by).
+* Mark that **letter’s cell** in the **letter rings**—this enables **akṣara-vedha** readings. ([Wikipedia][1])
+
+4. **Optionally mark Lagna & weekday**
+
+* In the **sign ring**, mark the person’s **Lagna sign**.
+* In the **central 3×3**, mark the **weekday** of birth (vāra cell). These enhance rāśi/vāra checks. ([saravali.github.io][3])
+
+---
+
+# Using it with transits (the quick operating rules)
+
+1. **Where to look:** On any date/time, note each **transiting planet’s nakshatra** (Moon’s nakshatra changes daily; others move slower). When a transit lands on a nakshatra that makes a **vedha** to your **Janma/Karma/…** marked stars, you’ll read results.
+
+2. **Vedha directions (how a star “aspects” in SBC):**
+
+* **Opposite vedha:** straight across (vertical/horizontal).
+* **Forward vedha:** the **diagonal ahead** (clockwise) to the next border star.
+* **Backward vedha:** the **diagonal behind** (counter-clockwise).
+  (Think of **opposite = stationary**, **forward = direct motion**, **backward = retrograde** logic.) ([saravali.github.io][4])
+
+3. **What gets affected (by which ring) when that Janma star is hit:**
+
+* **Akṣara-vedha (name-letter):** loss/setbacks;
+* **Swara-vedha (vowel corner):** illness;
+* **Tithi/Weekday-vedha:** fear/anxiety;
+* **Rāśi-vedha:** strong opposition/obstacle;
+* **Multi-vedha (many rings hit at once):** progressively severe (four = life-threat per classics). ([Wikipedia][1])
+
+4. **Planet causing the vedha matters:**
+
+* **Sun:** grief; **Mars:** loss of wealth; **Saturn:** pain/ailments; **Rāhu/Ketu:** obstructions;
+* **Moon:** mixed happenings; **Venus:** fear from foes; **Mercury:** sharpens intellect; **Jupiter:** gains/relief. ([Wikipedia][1])
+
+---
+
+## Minimal checklist you can follow each time
+
+1. Build the 9×9; corners = vowels; outer ring = 28 nakshatras (with Abhijit), **clockwise**. ([Wikipedia][1])
+2. Inside: two **letter** rings → **12 signs** ring → **weekday/planet** 3×3 (Saturn center). ([saravali.github.io][3])
+3. For a person: mark **Janma star**, **10/16/18/21/23** from it, **name-letter**, (opt.) **Lagna** & **weekday**. ([Wikipedia][1])
+4. For any day: check if transits make **forward / opposite / backward vedha** to your marks; **read ring-type + planet-type** for effects. ([saravali.github.io][4])
+
+---
+
+### Notes & variations you’ll see in books/software
+
+* **Start corner/orientation differs** across traditions (NE vs. NW start). That’s fine—**be consistent** within one method. ([Wikipedia][1])
+* Some authors show slightly different **letter layouts**; what matters is that **all 50 akṣaras** are present for name-vedha. ([Wikipedia][1])
+
+---
+
+If you want, tell me your **Moon’s nakshatra** (and the **first letter** you commonly go by). I’ll mark the exact SB-points for you and show how today’s Moon and slow-moving planets interact with them.
+
+[1]: https://en.wikipedia.org/wiki/Sarvatobhadra_Chakra "Sarvatobhadra Chakra - Wikipedia"
+[2]: https://saptarishisshop.com/sarvatobhadra-cakra/?srsltid=AfmBOoqn1OOpyJlZXuGzIt2DCd2gIuqwoQA7_9LanJPAj5qt9BvgTOZ-&utm_source=chatgpt.com "Sarvatobhadra Cakra"
+[3]: https://saravali.github.io/astrology/sbc_chakra.html "Saravali: Completing the Chakra"
+[4]: https://saravali.github.io/astrology/sbc_vedhas.html "Saravali: Vedhas"
+
