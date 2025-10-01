@@ -1,0 +1,32 @@
+Admin@DESKTOP-LHI0EJ7 MINGW64 ~/AndroidStudioProjects/aakash_astro (main)
+$ ./gradlew installDebug
+
+> Task :app:compileDebugKotlin FAILED
+e: file:///C:/Users/Admin/AndroidStudioProjects/aakash_astro/app/src/main/java/com/aakash/astro/TaraCalculatorActivity.kt:78:36 Unresolved reference 'computeForMoonNakshatra'.
+e: file:///C:/Users/Admin/AndroidStudioProjects/aakash_astro/app/src/main/java/com/aakash/astro/TaraCalculatorActivity.kt:83:34 Cannot infer type for this parameter. Please specify it explicitly.
+e: file:///C:/Users/Admin/AndroidStudioProjects/aakash_astro/app/src/main/java/com/aakash/astro/TaraCalculatorActivity.kt:83:41 Cannot infer type for this parameter. Please specify it explicitly.
+e: file:///C:/Users/Admin/AndroidStudioProjects/aakash_astro/app/src/main/java/com/aakash/astro/TaraCalculatorActivity.kt:85:42 Unresolved reference 'nakshatraName'.
+e: file:///C:/Users/Admin/AndroidStudioProjects/aakash_astro/app/src/main/java/com/aakash/astro/TaraCalculatorActivity.kt:86:41 Unresolved reference 'tara'.
+e: file:///C:/Users/Admin/AndroidStudioProjects/aakash_astro/app/src/main/java/com/aakash/astro/TaraCalculatorActivity.kt:87:43 Unresolved reference 'result'.
+e: file:///C:/Users/Admin/AndroidStudioProjects/aakash_astro/app/src/main/java/com/aakash/astro/TaraCalculatorActivity.kt:89:43 Unresolved reference 'taraNumber'.
+e: file:///C:/Users/Admin/AndroidStudioProjects/aakash_astro/app/src/main/java/com/aakash/astro/TaraCalculatorActivity.kt:90:51 Unresolved reference 'planet_favorable'.
+e: file:///C:/Users/Admin/AndroidStudioProjects/aakash_astro/app/src/main/java/com/aakash/astro/TaraCalculatorActivity.kt:91:45 Unresolved reference 'planet_unfavorable'.
+e: file:///C:/Users/Admin/AndroidStudioProjects/aakash_astro/app/src/main/java/com/aakash/astro/TaraCalculatorActivity.kt:92:42 Unresolved reference 'planet_neutral'.
+e: file:///C:/Users/Admin/AndroidStudioProjects/aakash_astro/app/src/main/java/com/aakash/astro/YogasActivity.kt:21:17 Unresolved reference 'topBar'.
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':app:compileDebugKotlin'.
+> A failure occurred while executing org.jetbrains.kotlin.compilerRunner.GradleCompilerRunnerWithWorkers$GradleKotlinCompilerWorkAction
+   > Compilation error. See log for more details
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights.
+> Get more help at https://help.gradle.org.
+
+BUILD FAILED in 47s
+31 actionable tasks: 31 executed
+
