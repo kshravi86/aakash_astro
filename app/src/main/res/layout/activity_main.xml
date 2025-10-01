@@ -18,6 +18,7 @@
         app:titleTextColor="@color/primaryText" />
 
     <ScrollView
+        android:id="@+id/mainScroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background_gradient_start"
@@ -154,19 +155,35 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:hint="Birth place (India)"
-                    app:placeholderText="Start typing any Indian place"
+                    android:hint="Birth place (city, India)"
+                    app:placeholderText="Type city name"
                     app:startIconDrawable="@drawable/ic_place_24"
                     app:startIconContentDescription="Location"
-                    app:endIconMode="clear_text">
+                    app:startIconTint="@color/accent_teal"
+                    app:endIconMode="clear_text"
+                    app:endIconTint="@color/secondaryText"
+                    app:boxBackgroundColor="@color/card_bg"
+                    app:boxStrokeColor="@color/accent_teal"
+                    app:boxStrokeWidth="1dp"
+                    app:boxStrokeWidthFocused="2dp"
+                    app:boxCornerRadiusTopStart="14dp"
+                    app:boxCornerRadiusTopEnd="14dp"
+                    app:boxCornerRadiusBottomStart="14dp"
+                    app:boxCornerRadiusBottomEnd="14dp">
 
                     <com.google.android.material.textfield.MaterialAutoCompleteTextView
                         android:id="@+id/placeInput"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:minHeight="56dp"
-                        android:paddingVertical="14dp"
-                        android:textSize="18sp"
+                        android:paddingVertical="12dp"
+                        android:textSize="16sp"
+                        android:textColor="@color/primaryText"
+                        android:textColorHint="@color/secondaryText"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:scrollHorizontally="false"
+                        android:gravity="start|center_vertical"
                         android:inputType="textCapWords|textPostalAddress"
                         android:imeOptions="actionDone" />
                 </com.google.android.material.textfield.TextInputLayout>

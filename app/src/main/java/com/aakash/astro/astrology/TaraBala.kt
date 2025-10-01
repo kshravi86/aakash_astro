@@ -7,6 +7,13 @@ data class TaraEntry(
     val note: String
 )
 
+data class TaraTableEntry(
+    val nakshatraName: String,
+    val tara: String,
+    val result: String,
+    val taraNumber: Int
+)
+
 object TaraBalaCalc {
     private const val NAK_LEN = 360.0 / 27.0
 
@@ -24,6 +31,14 @@ object TaraBalaCalc {
         7 to "Destructive",
         8 to "Friendly",
         9 to "Very friendly"
+    )
+
+    private val nakshatraNames = listOf(
+        "Ashwini", "Bharani", "Krittika", "Rohini", "Mrigashira", "Ardra", "Punarvasu",
+        "Pushya", "Ashlesha", "Magha", "Purva Phalguni", "Uttara Phalguni", "Hasta",
+        "Chitra", "Swati", "Vishakha", "Anuradha", "Jyeshtha", "Mula", "Purva Ashadha",
+        "Uttara Ashadha", "Shravana", "Dhanishta", "Shatabhisha", "Purva Bhadrapada",
+        "Uttara Bhadrapada", "Revati"
     )
 
     fun nakshatraNumber1Based(deg: Double): Int {
@@ -59,6 +74,27 @@ object TaraBalaCalc {
                 else -> "Neutral"
             }
             TaraEntry(planet = planet, tara = name, result = result, note = note)
+        }
+    }
+
+    // Builds a 27-row table of Tara Bala for each nakshatra relative to a given Moon nakshatra index (1..27)
+    fun computeForMoonNakshatra(moonNakshatraIndex: Int): List<TaraTableEntry> {
+        val j = moonNakshatraIndex.coerceIn(1, 27)
+        return (1..27).map { p ->
+            val cls = tClass(j, p)
+            val taraName = taraNames[cls - 1]
+            val result = when (cls) {
+                2, 4, 6, 8, 9 -> "Favorable"
+                3, 5, 7 -> "Unfavorable"
+                else -> "Neutral"
+            }
+            val nakName = nakshatraNames[p - 1]
+            TaraTableEntry(
+                nakshatraName = nakName,
+                tara = taraName,
+                result = result,
+                taraNumber = cls
+            )
         }
     }
 }

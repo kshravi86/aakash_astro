@@ -72,6 +72,15 @@ class TaraBalaActivity : AppCompatActivity() {
             item.planetName.text = r.planet.displayName
             item.taraValue.text = "${r.tara} (${r.note})"
             item.resultValue.text = r.result
+            // Apply red/green color for favorable/unfavorable (neutral is gray)
+            val colorRes = when (r.result) {
+                "Favorable" -> R.color.planet_favorable
+                "Unfavorable" -> R.color.planet_unfavorable
+                else -> R.color.planet_neutral
+            }
+            val c = androidx.core.content.ContextCompat.getColor(this, colorRes)
+            item.resultValue.setTextColor(c)
+            item.taraValue.setTextColor(c)
             container.addView(item.root)
         }
 
@@ -118,6 +127,16 @@ class TaraBalaActivity : AppCompatActivity() {
 
             item.taraValue.text = "$taraName ($taraNote)"
             item.resultValue.text = taraResult
+
+            // Apply red/green color for favorable/unfavorable (neutral is gray)
+            val colorRes = when (taraResult) {
+                "Favorable" -> R.color.planet_favorable
+                "Unfavorable" -> R.color.planet_unfavorable
+                else -> R.color.planet_neutral
+            }
+            val c = androidx.core.content.ContextCompat.getColor(this, colorRes)
+            item.resultValue.setTextColor(c)
+            item.taraValue.setTextColor(c)
 
             transitContainer.addView(item.root)
         }

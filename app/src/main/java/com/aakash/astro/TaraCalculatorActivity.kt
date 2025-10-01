@@ -1,6 +1,7 @@
 package com.aakash.astro
 
 import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -13,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.android.material.snackbar.Snackbar
 import com.aakash.astro.astrology.TaraBalaCalc
 import com.aakash.astro.databinding.ActivityTaraCalculatorBinding
 import com.aakash.astro.databinding.ItemTaraRowBinding
@@ -118,19 +120,52 @@ class TaraCalculatorActivity : AppCompatActivity() {
             binding.calculateButton.isEnabled = true
             binding.calculateButton.text = "Calculate Tara Bala"
 
-            // Show success message and scroll to results
-            Toast.makeText(this@TaraCalculatorActivity, "✅ Chart generated successfully!", Toast.LENGTH_LONG).show()
-            
-            // Scroll to results with smooth animation
-            binding.scrollView.post {
-                binding.scrollView.smoothScrollTo(0, binding.resultCard.top)
-            }
+            // Success feedback and guided focus to results
+            Toast.makeText(this@TaraCalculatorActivity, "✅ Chart generated successfully!", Toast.LENGTH_SHORT).show()
+            Snackbar.make(binding.root, "Tara Bala chart generated", Snackbar.LENGTH_LONG)
+                .setAction("View") { scrollAndHighlightResults() }
+                .show()
 
-            // Add highlight animation to result card
-            val highlightAnimation = ObjectAnimator.ofFloat(binding.resultCard, "alpha", 0.3f, 1.0f)
-            highlightAnimation.duration = 1000
-            highlightAnimation.start()
+            // Auto navigate and highlight
+            scrollAndHighlightResults()
 
         }, 500) // 500ms delay for better UX
+    }
+
+    private fun scrollAndHighlightResults() {
+        // Ensure results are visible
+        binding.resultCard.visibility = View.VISIBLE
+
+        // Smooth scroll to the result card position
+        binding.scrollView.post {
+            val y = binding.resultCard.top - dp(12)
+            binding.scrollView.smoothScrollTo(0, if (y > 0) y else 0)
+        }
+
+        // Briefly accent the result card stroke and fade-in pulse
+        val originalStroke = resources.getColor(R.color.divider, theme)
+        val accent = resources.getColor(R.color.accent_teal, theme)
+        if (binding.resultCard is com.google.android.material.card.MaterialCardView) {
+            val card = binding.resultCard as com.google.android.material.card.MaterialCardView
+            card.strokeWidth = dp(2)
+            card.strokeColor = accent
+
+            // Fade pulse
+            ObjectAnimator.ofFloat(card, "alpha", 0.6f, 1.0f).apply {
+                duration = 800
+                start()
+            }
+
+            // Revert stroke after delay
+            Handler(Looper.getMainLooper()).postDelayed({
+                card.strokeColor = originalStroke
+                card.strokeWidth = dp(1)
+            }, 1600)
+        }
+    }
+
+    private fun dp(value: Int): Int {
+        val density = resources.displayMetrics.density
+        return (value * density).toInt()
     }
 }

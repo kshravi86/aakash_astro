@@ -17,4 +17,15 @@
     <color name="card_bg">#1F2638</color>
     <color name="surface_variant">#222A3D</color>
     <color name="divider">#33FFFFFF</color>
+    
+    <!-- Tara Bala result colors -->
+    <color name="planet_favorable">#2E7D32</color>
+    <color name="planet_unfavorable">#C62828</color>
+    <color name="planet_neutral">#9E9E9E</color>
+
+    <!-- Additional accents used by calculator UI -->
+    <color name="card_bg_elevated">#252D42</color>
+    <color name="accent_gold">#F4A261</color>
+    <color name="accent_teal">#2A9D8F</color>
+    <color name="accent_purple">#B39DDB</color>
 </resources>

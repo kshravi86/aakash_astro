@@ -43,6 +43,7 @@ class MainActivity : AppCompatActivity() {
     private val uiHandler = Handler(Looper.getMainLooper())
     private var placeSearchRunnable: Runnable? = null
     private val dynamicCityMap: MutableMap<String, City> = mutableMapOf()
+    private var suppressPlaceSuggestions: Boolean = false
 
     private var selectedDate: LocalDate? = null
     private var selectedTime: LocalTime? = null
@@ -210,6 +211,15 @@ class MainActivity : AppCompatActivity() {
                 else -> CityDatabase.findByName(name)
             }
             updatePlaceCoords()
+
+            // Stop showing suggestions once a selection is made
+            suppressPlaceSuggestions = true
+            placeSearchRunnable?.let { uiHandler.removeCallbacks(it) }
+            binding.placeInput.dismissDropDown()
+            binding.placeInput.clearFocus()
+            hideKeyboard()
+            // Ensure long names show from the start
+            binding.placeInput.setSelection(0)
         }
 
         // Debounced online geocoding suggestions within India
@@ -217,6 +227,11 @@ class MainActivity : AppCompatActivity() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable?) {
+                if (suppressPlaceSuggestions) {
+                    // Skip one cycle after programmatic or selection-driven text change
+                    suppressPlaceSuggestions = false
+                    return
+                }
                 val query = s?.toString()?.trim().orEmpty()
                 placeSearchRunnable?.let { uiHandler.removeCallbacks(it) }
                 if (query.length < 3) return
@@ -234,7 +249,9 @@ class MainActivity : AppCompatActivity() {
                             adapter.clear()
                             adapter.addAll(merged)
                             adapter.notifyDataSetChanged()
-                            if (!binding.placeInput.isPopupShowing) binding.placeInput.showDropDown()
+                            if (binding.placeInput.hasFocus() && !binding.placeInput.isPopupShowing) {
+                                binding.placeInput.showDropDown()
+                            }
                         }
                     }
                 }
@@ -246,6 +263,7 @@ class MainActivity : AppCompatActivity() {
         // Resolve to a city when focus leaves the field
         binding.placeInput.setOnFocusChangeListener { _, hasFocus ->
             if (!hasFocus) {
+                binding.placeInput.dismissDropDown()
                 val text = binding.placeInput.text?.toString()?.trim().orEmpty()
                 selectedCity = when {
                     text.isBlank() -> null
@@ -822,6 +840,12 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.vedicChartView.setChart(chart)
+
+        // Notify and guide the user to the chart
+        Snackbar.make(binding.root, "Chart generated", Snackbar.LENGTH_LONG)
+            .setAction("View") { scrollAndHighlightChart() }
+            .show()
+        scrollAndHighlightChart()
     }
 
     private fun formatDegree(value: Double): String {
@@ -858,6 +882,8 @@ class MainActivity : AppCompatActivity() {
         selectedCity?.let {
             // Avoid triggering filtering when setting text programmatically
             binding.placeInput.setText(it.name, false)
+            // Show start of long city names
+            binding.placeInput.setSelection(0)
         }
         updatePlaceCoords()
 
@@ -880,6 +906,7 @@ class MainActivity : AppCompatActivity() {
             name?.let { binding.nameInput.setText(it) }
             selectedCity = com.aakash.astro.geo.City("Custom", lat, lon)
             binding.placeInput.setText("Custom", false)
+            binding.placeInput.setSelection(0)
             updateDateTimeSummary()
             updatePlaceCoords()
             generateChart()
@@ -901,5 +928,38 @@ class MainActivity : AppCompatActivity() {
         currentFocus?.let { view ->
             imm?.hideSoftInputFromWindow(view.windowToken, 0)
         }
+    }
+
+    private fun scrollAndHighlightChart() {
+        // Smooth scroll to the chart section
+        binding.mainScroll.post {
+            val y = (binding.sectionChart.top - dp(12)).coerceAtLeast(0)
+            binding.mainScroll.smoothScrollTo(0, y)
+        }
+
+        // Briefly accent the section header color
+        val original = binding.sectionChart.currentTextColor
+        val accent = resources.getColor(R.color.accent_teal, theme)
+        binding.sectionChart.setTextColor(accent)
+        uiHandler.postDelayed({ binding.sectionChart.setTextColor(original) }, 1600)
+
+        // Pulse the chart view for visibility
+        binding.vedicChartView.animate()
+            .scaleX(1.03f)
+            .scaleY(1.03f)
+            .setDuration(160)
+            .withEndAction {
+                binding.vedicChartView.animate().scaleX(1f).scaleY(1f).setDuration(160).start()
+            }
+            .start()
+        android.animation.ObjectAnimator.ofFloat(binding.vedicChartView, "alpha", 0.6f, 1.0f).apply {
+            duration = 700
+            start()
+        }
+    }
+
+    private fun dp(value: Int): Int {
+        val density = resources.displayMetrics.density
+        return (value * density).toInt()
     }
 }
