@@ -1,8 +1,9 @@
-package com.aakash.astro
+﻿package com.aakash.astro
 
 import android.os.Bundle
 import android.view.Gravity
 import android.widget.TextView
+import androidx.core.graphics.ColorUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.aakash.astro.astrology.*
@@ -13,6 +14,7 @@ import java.time.ZoneId
 class SarvatobhadraActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySarvatobhadraBinding
     private val accurate = AccurateCalculator()
+    private val cellViews: Array<Array<TextView?>> = Array(9) { arrayOfNulls<TextView>(9) }
 
     // Outer ring: 28 nakshatras (clockwise), starting NE edge after the corner
     private val ringNakshatras = listOf(
@@ -23,7 +25,7 @@ class SarvatobhadraActivity : AppCompatActivity() {
         "Abhijit", "Shravana", "Dhanishta", "Shatabhisha", "Purva Bhadrapada",
         "Uttara Bhadrapada", "Revati", "Ashwini", "Bharani"
     )
-    // Inner letter rings (akshara) – transliterated placeholders to match the style
+    // Inner letter rings (akshara) Ã¢â‚¬â€œ transliterated placeholders to match the style
     private val ringLetters1 = listOf(
         // 7 + 7 + 7 + 7 = 28 items
         "rii","g","s","d","ch","l","u",
@@ -62,8 +64,11 @@ class SarvatobhadraActivity : AppCompatActivity() {
         val natalChart = accurate.generateChart(BirthDetails(name, Instant.ofEpochMilli(epochMillis).atZone(zoneId), lat, lon))
         val transitChart = accurate.generateChart(BirthDetails(name, Instant.now().atZone(zoneId), lat, lon))
 
-        // Build a complete static SBC template per the provided image
-        buildTemplateGrid()
+        // Build SBC template and overlay current transit planets on outer ring
+        val overlays = computeTransitOverlays(transitChart)
+        buildTemplateGrid(overlays)
+        // Start with no lines; user will tap a planet cell to reveal vedha lines
+        findViewById<com.aakash.astro.ui.SbcOverlayView>(R.id.gridOverlay).setLines(emptyList())
         binding.summaryText.text = ""
     }
 
@@ -75,7 +80,7 @@ class SarvatobhadraActivity : AppCompatActivity() {
 
     private fun advanceRing(from: Int, steps: Int): Int = (from + steps) % ringNakshatras.size
 
-    private fun buildTemplateGrid() {
+    private fun buildTemplateGrid(outerOverlays: Map<Int, List<String>>) {
         val grid = binding.gridSbc
         grid.removeAllViews()
         grid.columnCount = 9
@@ -84,21 +89,6 @@ class SarvatobhadraActivity : AppCompatActivity() {
         val primary = ContextCompat.getColor(this, R.color.primaryText)
         val secondary = ContextCompat.getColor(this, R.color.secondaryText)
         val cardBg = ContextCompat.getColor(this, R.color.card_bg)
-
-        fun perimeterCoords(offset: Int): List<Pair<Int, Int>> {
-            val min = offset
-            val max = 8 - offset
-            val list = mutableListOf<Pair<Int, Int>>()
-            // top edge, from NE to NW (excluding corners)
-            for (c in (max - 1) downTo (min + 1)) list += min to c
-            // left edge, NW to SW
-            for (r in (min + 1)..(max - 1)) list += r to min
-            // bottom edge, SW to SE
-            for (c in (min + 1)..(max - 1)) list += max to c
-            // right edge, SE to NE
-            for (r in (max - 1) downTo (min + 1)) list += r to max
-            return list
-        }
 
         val outer = perimeterCoords(0)
         val ring1 = perimeterCoords(1)
@@ -132,10 +122,10 @@ class SarvatobhadraActivity : AppCompatActivity() {
             for (c in 0 until 9) {
                 val tv = TextView(this)
                 tv.gravity = Gravity.CENTER
-                tv.setPadding(dp(4), dp(4), dp(4), dp(4))
+                tv.setPadding(dp(8), dp(8), dp(8), dp(8)); tv.minHeight = dp(64); tv.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 13f)
                 tv.setTextColor(primary)
                 tv.text = ""
-                tv.setBackgroundColor(cardBg)
+                tv.background = androidx.core.content.ContextCompat.getDrawable(this, R.drawable.bg_chart_highlight)
 
                 // Corners
                 cornerText[r to c]?.let {
@@ -146,7 +136,16 @@ class SarvatobhadraActivity : AppCompatActivity() {
                 // Outer ring
                 val idxOuter = outer.indexOf(r to c)
                 if (idxOuter >= 0 && idxOuter < outerAbbr.size) {
-                    tv.text = outerAbbr[idxOuter]
+                    val base = outerAbbr[idxOuter]
+                    val planets = outerOverlays[idxOuter]
+                    tv.text = if (planets != null && planets.isNotEmpty()) "$base\n${planets.joinToString(" ")}" else base
+                    if (planets != null && planets.isNotEmpty()) {
+                        tv.isClickable = true
+                        tv.setOnClickListener {
+                            val (r0, c0) = outer[idxOuter]
+                            clearHighlights(); highlightVedhaBoxes(r0, c0); findViewById<com.aakash.astro.ui.SbcOverlayView>(R.id.gridOverlay).setLines(emptyList())
+                        }
+                    }
                 }
 
                 // First letter ring (7x7 perimeter)
@@ -237,15 +236,147 @@ class SarvatobhadraActivity : AppCompatActivity() {
                     height = android.widget.GridLayout.LayoutParams.WRAP_CONTENT
                     columnSpec = android.widget.GridLayout.spec(c, 1f)
                     rowSpec = android.widget.GridLayout.spec(r, 1f)
-                    setMargins(dp(1), dp(1), dp(1), dp(1))
+                    setMargins(0, 0, 0, 0)
                 }
                 grid.addView(tv, p)
+                cellViews[r][c] = tv
             }
         }
     }
 
+    private fun perimeterCoords(offset: Int): List<Pair<Int, Int>> {
+        val min = offset
+        val max = 8 - offset
+        val list = mutableListOf<Pair<Int, Int>>()
+        for (c in (max - 1) downTo (min + 1)) list += min to c
+        for (r in (min + 1)..(max - 1)) list += r to min
+        for (c in (min + 1)..(max - 1)) list += max to c
+        for (r in (max - 1) downTo (min + 1)) list += r to max
+        return list
+    }
+
     private fun dp(v: Int): Int {
         return (resources.displayMetrics.density * v).toInt()
+    }
+
+    private fun clearHighlights() {
+        for (r in 0..8) for (c in 0..8) {
+            cellViews[r][c]?.foreground = null
+        }
+    }
+
+    private fun highlightVedhaBoxes(r: Int, c: Int) {
+        val red = ContextCompat.getColor(this, R.color.planet_unfavorable)
+        val color = ColorUtils.setAlphaComponent(red, 110)
+        fun mark(rr: Int, cc: Int) { cellViews[rr][cc]?.foreground = android.graphics.drawable.ColorDrawable(color) }
+        // Left diagonal: up-left until boundary
+        var rr = r; var cc = c
+        while (rr >= 0 && cc >= 0) { mark(rr, cc); rr--; cc-- }
+        // Right diagonal: up-right until boundary
+        rr = r; cc = c
+        while (rr >= 0 && cc <= 8) { mark(rr, cc); rr--; cc++ }
+        // Straight: vertical or horizontal depending on edge
+        if (r == 0 || r == 8) for (i in 0..8) mark(i, c)
+        if (c == 0 || c == 8) for (j in 0..8) mark(r, j)
+    }
+
+
+
+    private fun vedhaLinesFor(r: Int, c: Int): List<com.aakash.astro.ui.SbcLine> {
+        val primary = ContextCompat.getColor(this, R.color.accent_teal)
+        val diag1 = ContextCompat.getColor(this, R.color.accent_blue)
+        val diag2 = ContextCompat.getColor(this, R.color.accent_gold)
+        val out = mutableListOf<com.aakash.astro.ui.SbcLine>()
+
+        // Left diagonal: from top-left corner of tapped box towards top-left boundary
+        run {
+            val d = kotlin.math.min(r, c)
+            val sr = r - d; val sc = c - d
+            out += com.aakash.astro.ui.SbcLine(r.toFloat(), c.toFloat(), sr.toFloat(), sc.toFloat(), diag1)
+        }
+
+        // Right diagonal: from top-right corner of tapped box towards top-right boundary
+        run {
+            val d = kotlin.math.min(r, 8 - c)
+            val sr = r - d; val sc = c + 1 + d
+            out += com.aakash.astro.ui.SbcLine(r.toFloat(), (c + 1).toFloat(), sr.toFloat(), sc.toFloat(), diag2)
+        }
+
+        // Vertical/horizontal straight line across from center to edges (only needed on perimeter rows/cols)
+        if (r == 0 || r == 8) {
+            out += com.aakash.astro.ui.SbcLine(r + 0.5f, c + 0.5f, 8f, c + 0.5f, primary)
+            out += com.aakash.astro.ui.SbcLine(r + 0.5f, c + 0.5f, 0f, c + 0.5f, primary)
+        }
+        if (c == 0 || c == 8) {
+            out += com.aakash.astro.ui.SbcLine(r + 0.5f, c + 0.5f, r + 0.5f, 8f, primary)
+            out += com.aakash.astro.ui.SbcLine(r + 0.5f, c + 0.5f, r + 0.5f, 0f, primary)
+        }
+        return out
+    }
+
+    private fun computeTransitOverlays(transitChart: ChartResult?): Map<Int, List<String>> {
+        if (transitChart == null) return emptyMap()
+        // Abbreviation order must match the grid's outer ring order
+        val outerAbbr = listOf(
+            // Top (NE -> NW)
+            "Bhar", "Aswi", "Reva", "UBha", "PBha", "Sata", "Dhan",
+            // Left (NW -> SW)
+            "Srav", "Abhi", "USha", "PSha", "Mool", "Jye", "Anu",
+            // Bottom (SW -> SE)
+            "Visa", "Swat", "Chit", "Hast", "UPha", "PPha", "Magh",
+            // Right (SE -> NE)
+            "Asre", "Push", "Puna", "Ardr", "Mrig", "Roh", "Krit"
+        )
+        val nameToAbbr = mapOf(
+            "Ashwini" to "Aswi",
+            "Bharani" to "Bhar",
+            "Krittika" to "Krit",
+            "Rohini" to "Roh",
+            "Mrigashira" to "Mrig",
+            "Ardra" to "Ardr",
+            "Punarvasu" to "Puna",
+            "Pushya" to "Push",
+            "Ashlesha" to "Asre",
+            "Magha" to "Magh",
+            "Purva Phalguni" to "PPha",
+            "Uttara Phalguni" to "UPha",
+            "Hasta" to "Hast",
+            "Chitra" to "Chit",
+            "Swati" to "Swat",
+            "Vishakha" to "Visa",
+            "Anuradha" to "Anu",
+            "Jyeshtha" to "Jye",
+            "Mula" to "Mool",
+            "Purva Ashadha" to "PSha",
+            "Uttara Ashadha" to "USha",
+            "Shravana" to "Srav",
+            "Dhanishta" to "Dhan",
+            "Shatabhisha" to "Sata",
+            "Purva Bhadrapada" to "PBha",
+            "Uttara Bhadrapada" to "UBha",
+            "Revati" to "Reva",
+        )
+        val abbrToIndex = outerAbbr.withIndex().associate { it.value to it.index }
+        val planetAbbr = mapOf(
+            Planet.SUN to "Su",
+            Planet.MOON to "Mo",
+            Planet.MARS to "Ma",
+            Planet.MERCURY to "Me",
+            Planet.JUPITER to "Ju",
+            Planet.VENUS to "Ve",
+            Planet.SATURN to "Sa",
+            Planet.RAHU to "Ra",
+            Planet.KETU to "Ke",
+        )
+        val out = mutableMapOf<Int, MutableList<String>>()
+        transitChart.planets.forEach { p ->
+            val (nakName, _) = NakshatraCalc.fromLongitude(p.degree)
+            val abbr = nameToAbbr[nakName] ?: return@forEach
+            val idx = abbrToIndex[abbr] ?: return@forEach
+            val tag = planetAbbr[p.planet] ?: p.planet.name.take(2)
+            out.getOrPut(idx) { mutableListOf() }.add(tag)
+        }
+        return out.mapValues { it.value.sorted() }
     }
 
     companion object {
@@ -256,3 +387,18 @@ class SarvatobhadraActivity : AppCompatActivity() {
         const val EXTRA_LON = "lon"
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

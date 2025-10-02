@@ -32,12 +32,23 @@
                 android:textAppearance="@style/TextAppearance.Material3.BodySmall"
                 android:textColor="@color/secondaryText" />
 
-            <GridLayout
-                android:id="@+id/gridSbc"
+            <FrameLayout
+                android:id="@+id/sbcFrame"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:useDefaultMargins="false" />
+                android:layout_marginTop="12dp">
+                <GridLayout
+                    android:id="@+id/gridSbc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:useDefaultMargins="false" />
+                <com.aakash.astro.ui.SbcOverlayView
+                    android:id="@+id/gridOverlay"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="false"
+                    android:focusable="false" />
+            </FrameLayout>
 
             <TextView
                 android:id="@+id/summaryText"
