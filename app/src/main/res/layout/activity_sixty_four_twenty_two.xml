@@ -67,7 +67,7 @@
                         android:orientation="horizontal"
                         android:layout_marginTop="12dp">
                         <TextView android:text="@string/label_64th_navamsa_lagna" android:textStyle="bold" style="@style/TextAppearance.Material3.BodyMedium" android:textColor="@color/secondaryText" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" />
-                        <TextView android:id="@+id/valueNavamsaLagna" style="@style/TextAppearance.Material3.TitleSmall" android:textColor="@color/primaryText" android:gravity="end" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" />
+                        <TextView android:id="@+id/valueNavamsaLagna" style="@style/TextAppearance.Material3.TitleSmall" android:textColor="@color/primaryText" android:textStyle="bold" android:gravity="end" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:paddingLeft="6dp" android:paddingRight="6dp" android:background="@drawable/bg_pill_amber" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -76,7 +76,7 @@
                         android:orientation="horizontal"
                         android:layout_marginTop="8dp">
                         <TextView android:text="@string/label_64th_navamsa_moon" android:textStyle="bold" style="@style/TextAppearance.Material3.BodyMedium" android:textColor="@color/secondaryText" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" />
-                        <TextView android:id="@+id/valueNavamsaMoon" style="@style/TextAppearance.Material3.TitleSmall" android:textColor="@color/primaryText" android:gravity="end" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" />
+                        <TextView android:id="@+id/valueNavamsaMoon" style="@style/TextAppearance.Material3.TitleSmall" android:textColor="@color/primaryText" android:textStyle="bold" android:gravity="end" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:paddingLeft="6dp" android:paddingRight="6dp" android:background="@drawable/bg_pill_amber" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -90,7 +90,7 @@
                 app:cardElevation="2dp"
                 app:cardBackgroundColor="@color/card_bg_elevated"
                 app:strokeColor="@color/planet_unfavorable"
-                app:strokeWidth="2dp">
+                app:strokeWidth="3dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -112,7 +112,7 @@
                         android:orientation="horizontal"
                         android:layout_marginTop="12dp">
                         <TextView android:text="@string/label_22nd_drekkana_moon" android:textStyle="bold" style="@style/TextAppearance.Material3.BodyMedium" android:textColor="@color/secondaryText" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" />
-                        <TextView android:id="@+id/valueDrekkanaMoon" style="@style/TextAppearance.Material3.TitleSmall" android:textColor="@color/primaryText" android:gravity="end" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" />
+                        <TextView android:id="@+id/valueDrekkanaMoon" style="@style/TextAppearance.Material3.TitleSmall" android:textColor="@color/primaryText" android:textStyle="bold" android:gravity="end" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:paddingLeft="6dp" android:paddingRight="6dp" android:background="@drawable/bg_pill_red" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -121,7 +121,7 @@
                         android:orientation="horizontal"
                         android:layout_marginTop="8dp">
                         <TextView android:text="@string/label_22nd_drekkana_lagna" android:textStyle="bold" style="@style/TextAppearance.Material3.BodyMedium" android:textColor="@color/secondaryText" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" />
-                        <TextView android:id="@+id/valueDrekkanaLagna" style="@style/TextAppearance.Material3.TitleSmall" android:textColor="@color/primaryText" android:gravity="end" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" />
+                        <TextView android:id="@+id/valueDrekkanaLagna" style="@style/TextAppearance.Material3.TitleSmall" android:textColor="@color/primaryText" android:textStyle="bold" android:gravity="end" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:paddingLeft="6dp" android:paddingRight="6dp" android:background="@drawable/bg_pill_red" />
                     </LinearLayout>
 
                 </LinearLayout>

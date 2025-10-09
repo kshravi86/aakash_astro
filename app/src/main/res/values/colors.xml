@@ -28,4 +28,8 @@
     <color name="accent_gold">#F4A261</color>
     <color name="accent_teal">#2A9D8F</color>
     <color name="accent_purple">#B39DDB</color>
+
+    <!-- Alert accents for 64th/22nd page -->
+    <color name="alert_orange_translucent">#26F4A261</color>
+    <color name="alert_red_translucent">#26C62828</color>
 </resources>
