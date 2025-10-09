@@ -66,84 +66,21 @@ class D60Activity : AppCompatActivity() {
             val natalDegree = natalPos?.degree ?: p.degree
             val natalSignIndex = natalPos?.sign?.ordinal ?: (natalDegree / 30.0).toInt()
             val inSign = ((natalDegree - natalSignIndex * 30.0) % 30.0 + 30.0) % 30.0
-            val size = 30.0 / 60.0 // 0.5 degree per amsha
-            val amsha = floor(inSign / size).toInt() + 1
-            val start = floor(inSign / size) * size
-            val end = start + size
+
+            val amsha = D60Shashtiamsa.amshaNumber(inSign)
+            val start = floor((amsha - 1).toDouble()) * (30.0 / 60.0)
+            val end = start + (30.0 / 60.0)
             val range = String.format("%05.2f°–%05.2f°", start, end)
-            val (amshaName, isBenefic) = amshaInfo(amsha)
+
+            val isOddSign = (natalSignIndex % 2 == 0) // Aries(0) odd, Taurus(1) even, etc.
+            val amshaName = D60Shashtiamsa.amshaName(amsha, isOddSign)
+            val isBenefic = D60Shashtiamsa.isBenefic(amsha, isOddSign)
             val nature = if (isBenefic) getString(R.string.benefic) else getString(R.string.malefic)
             addRow(p.name, p.sign.displayName, p.house.toString(), amsha.toString(), range, amshaName, nature)
         }
     }
 
-    private fun amshaInfo(amsha: Int): Pair<String, Boolean> {
-        // Names and nature parsed from Shashtyamsha table (Wikipedia)
-        val list = arrayOf(
-            "Ghorānsh" to false,
-            "Rākshasa" to false,
-            "Deva" to true,
-            "Kuber" to true,
-            "Rakshogana" to true,
-            "Kinnar" to true,
-            "Bhrshta" to false,
-            "Kulaghna" to false,
-            "Garala" to false,
-            "Agni" to false,
-            "Māyā" to false,
-            "Yama" to false,
-            "Varuna" to true,
-            "Indra" to true,
-            "Kāla" to false,
-            "Ahibhāga" to true,
-            "Amrtānshu" to true,
-            "Chandra" to true,
-            "Madu" to true,
-            "Komala" to true,
-            "Padma" to true,
-            "Vishnu" to true,
-            "Vāgāsh" to true,
-            "Dingchar" to true,
-            "Dava" to true,
-            "Ārdra" to true,
-            "Kālanāsha" to false,
-            "Kshitish" to true,
-            "Kamalākar" to true,
-            "Manda" to false,
-            "Mrtyu" to false,
-            "Kāla" to false,
-            "Dāvagni" to false,
-            "Ghora" to false,
-            "Maya" to false,
-            "Kantaka" to false,
-            "Sudhā" to true,
-            "Amrta" to true,
-            "Poornachandra" to true,
-            "Vishpradimā" to false,
-            "Kulanāsha" to false,
-            "Mukhya" to true,
-            "Vanshakshya" to false,
-            "Utpāta" to false,
-            "Kālroopa" to true,
-            "Saomaya" to true,
-            "Mrdu" to true,
-            "Sheetala" to true,
-            "Danshtrākarā" to false,
-            "Indumukha" to false,
-            "Praveena" to true,
-            "Kālagni" to false,
-            "Dandayudha" to true,
-            "Nirmala" to true,
-            "Shubha" to true,
-            "Ashubha" to true,
-            "Atisheeta" to true,
-            "Sudhāyoga" to true,
-            "Bhramana" to false,
-            "Indurekhā" to true,
-        )
-        val idx = (amsha - 1).coerceIn(0, list.size - 1)
-        return list[idx]
-    }
+    // amshaInfo no longer needed; naming and nature now use Phaladipika-style rules from D60Shashtiamsa
 
     companion object {
         const val EXTRA_NAME = "name"

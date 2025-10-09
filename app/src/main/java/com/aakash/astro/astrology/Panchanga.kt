@@ -8,7 +8,9 @@ data class PanchangaResult(
     val vara: String,
     val nakshatra: String,
     val yoga: String,
-    val karana: String
+    val karana: String,
+    val yogaLord: String,
+    val karanaLord: String
 )
 
 object PanchangaCalc {
@@ -95,13 +97,47 @@ object PanchangaCalc {
     fun compute(chart: ChartResult, dayOfWeek: java.time.DayOfWeek): PanchangaResult {
         val sun = chart.planets.find { it.planet == Planet.SUN }?.degree ?: 0.0
         val moon = chart.planets.find { it.planet == Planet.MOON }?.degree ?: 0.0
+        val tithiText = tithiName(moon, sun)
+        val yogaText = yogaName(moon, sun)
+        val karanaText = karanaName(moon, sun)
         return PanchangaResult(
-            tithi = tithiName(moon, sun),
+            tithi = tithiText,
             tithiGroup = tithiGroupName(moon, sun),
             vara = varaName(dayOfWeek),
             nakshatra = nakshatraDisplay(moon),
-            yoga = yogaName(moon, sun),
-            karana = karanaName(moon, sun)
+            yoga = yogaText,
+            karana = karanaText,
+            yogaLord = yogaLordOf(yogaText),
+            karanaLord = karanaLordOf(karanaText)
         )
+    }
+
+    private val weekdayPlanets = listOf("Sun", "Moon", "Mars", "Mercury", "Jupiter", "Venus", "Saturn")
+
+    fun yogaLordOf(yoga: String): String {
+        val idx = yogaNames.indexOf(yoga)
+        if (idx < 0) return "—"
+        return weekdayPlanets[idx % weekdayPlanets.size]
+    }
+
+    fun karanaLordOf(karana: String): String {
+        // Traditional mapping (weekday order) for 7 movable karanas; fixed karanas vary by source
+        val movableMap = mapOf(
+            "Bava" to "Sun",
+            "Balava" to "Moon",
+            "Kaulava" to "Mars",
+            "Taitila" to "Mercury",
+            "Gara" to "Jupiter",
+            "Vanija" to "Venus",
+            "Vishti" to "Saturn"
+        )
+        movableMap[karana]?.let { return it }
+        return when (karana) {
+            "Kimstughna" -> "—"
+            "Shakuni" -> "—"
+            "Chatushpada" -> "—"
+            "Naga" -> "—"
+            else -> "—"
+        }
     }
 }

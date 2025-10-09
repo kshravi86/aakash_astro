@@ -113,7 +113,8 @@ class MainActivity : AppCompatActivity() {
             com.aakash.astro.ui.ActionTile("dasha", "Vimshottari Dasha", "Mahadasha/Antar periods"),
             com.aakash.astro.ui.ActionTile("ishta", "Ishta Devata", "Karakamsa based"),
             // New: Sarvatobhadra Chakra
-            com.aakash.astro.ui.ActionTile("sbc", "Sarvatobhadra Chakra", "28-star vedha map")
+            com.aakash.astro.ui.ActionTile("sbc", "Sarvatobhadra Chakra", "28-star vedha map"),
+            com.aakash.astro.ui.ActionTile("sixtyfour_twenty_two", "64th D9 & 22nd D3", "From Lagna and Moon")
         )
         grid.adapter = com.aakash.astro.ui.ActionTileAdapter(items) { item ->
             when (item.id) {
@@ -137,8 +138,9 @@ class MainActivity : AppCompatActivity() {
                 "arudha" -> openArudha()
                 "ishta" -> openIshtaDevata()
                 "sbc" -> openSBC()
-                
+
                 "tara" -> openTaraBala()
+                "sixtyfour_twenty_two" -> openSixtyFourTwentyTwo()
             }
         }
     }
@@ -746,6 +748,24 @@ class MainActivity : AppCompatActivity() {
             putExtra(PanchangaActivity.EXTRA_ZONE_ID, zone.id)
             putExtra(PanchangaActivity.EXTRA_LAT, city.latitude)
             putExtra(PanchangaActivity.EXTRA_LON, city.longitude)
+        }
+        startActivity(intent)
+    }
+
+    private fun openSixtyFourTwentyTwo() {
+        val date = selectedDate ?: return
+        val time = selectedTime ?: return
+        val city = selectedCity
+            ?: CityDatabase.findByName(binding.placeInput.text?.toString()?.trim().orEmpty())
+            ?: return
+        val zone = ZoneId.systemDefault()
+        val birthDateTime = LocalDateTime.of(date, time).atZone(zone)
+        val intent = android.content.Intent(this, SixtyFourTwentyTwoActivity::class.java).apply {
+            putExtra(SixtyFourTwentyTwoActivity.EXTRA_NAME, binding.nameInput.text?.toString())
+            putExtra(SixtyFourTwentyTwoActivity.EXTRA_EPOCH_MILLIS, birthDateTime.toInstant().toEpochMilli())
+            putExtra(SixtyFourTwentyTwoActivity.EXTRA_ZONE_ID, zone.id)
+            putExtra(SixtyFourTwentyTwoActivity.EXTRA_LAT, city.latitude)
+            putExtra(SixtyFourTwentyTwoActivity.EXTRA_LON, city.longitude)
         }
         startActivity(intent)
     }

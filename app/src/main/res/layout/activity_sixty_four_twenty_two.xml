@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:navigationIcon="@drawable/ic_home_black_24dp"
+        app:title="@string/sixtyfour_twenty_two_title" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sixtyfour_twenty_two_title"
+                android:textAppearance="@style/TextAppearance.Material3.TitleLarge" />
+
+            <TextView
+                android:id="@+id/subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/sixtyfour_twenty_two_subtitle"
+                android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="From Lagna"
+                android:textAppearance="@style/TextAppearance.Material3.TitleSmall" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp">
+                <TextView android:text="22nd Drekkana" style="@style/TextAppearance.Material3.BodySmall" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" />
+                <TextView android:id="@+id/lagnaDrekkanaSign" style="@style/TextAppearance.Material3.BodySmall" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" />
+                <TextView android:id="@+id/lagnaDrekkanaLord" style="@style/TextAppearance.Material3.BodySmall" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="4dp">
+                <TextView android:text="64th Navamsha" style="@style/TextAppearance.Material3.BodySmall" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" />
+                <TextView android:id="@+id/lagnaNavamsaSign" style="@style/TextAppearance.Material3.BodySmall" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" />
+                <TextView android:id="@+id/lagnaNavamsaLord" style="@style/TextAppearance.Material3.BodySmall" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" />
+            </LinearLayout>
+
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginTop="16dp" android:background="@color/divider" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="From Moon"
+                android:textAppearance="@style/TextAppearance.Material3.TitleSmall" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp">
+                <TextView android:text="22nd Drekkana" style="@style/TextAppearance.Material3.BodySmall" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" />
+                <TextView android:id="@+id/moonDrekkanaSign" style="@style/TextAppearance.Material3.BodySmall" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" />
+                <TextView android:id="@+id/moonDrekkanaLord" style="@style/TextAppearance.Material3.BodySmall" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="4dp">
+                <TextView android:text="64th Navamsha" style="@style/TextAppearance.Material3.BodySmall" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" />
+                <TextView android:id="@+id/moonNavamsaSign" style="@style/TextAppearance.Material3.BodySmall" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" />
+                <TextView android:id="@+id/moonNavamsaLord" style="@style/TextAppearance.Material3.BodySmall" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
+

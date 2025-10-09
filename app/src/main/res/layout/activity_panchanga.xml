@@ -70,6 +70,32 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                            android:text="@string/label_yoga_lord"
+                            android:textColor="@color/secondaryText"
+                            android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/yogaLordValue"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                            android:textColor="@color/primaryText"
+                            android:gravity="end" />
+                    </TableRow>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/divider" />
+
+                    <TableRow
+                        android:paddingTop="12dp"
+                        android:paddingBottom="12dp">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
                             android:text="Tithi Group"
                             android:textColor="@color/secondaryText"
                             android:textStyle="bold" />
@@ -179,6 +205,84 @@
                             android:textStyle="bold" />
                         <TextView
                             android:id="@+id/karanaValue"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                            android:textColor="@color/primaryText"
+                            android:gravity="end" />
+                    </TableRow>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/divider" />
+
+                    <TableRow
+                        android:paddingTop="12dp"
+                        android:paddingBottom="12dp">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                            android:text="@string/label_karana_lord"
+                            android:textColor="@color/secondaryText"
+                            android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/karanaLordValue"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                            android:textColor="@color/primaryText"
+                            android:gravity="end" />
+                    </TableRow>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/divider" />
+
+                    <TableRow
+                        android:paddingTop="12dp"
+                        android:paddingBottom="12dp">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                            android:text="@string/label_sunrise"
+                            android:textColor="@color/secondaryText"
+                            android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/sunriseValue"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                            android:textColor="@color/primaryText"
+                            android:gravity="end" />
+                    </TableRow>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/divider" />
+
+                    <TableRow
+                        android:paddingTop="12dp"
+                        android:paddingBottom="12dp">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                            android:text="@string/label_sunset"
+                            android:textColor="@color/secondaryText"
+                            android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/sunsetValue"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"

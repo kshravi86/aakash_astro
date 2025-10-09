@@ -27,30 +27,6 @@
             android:padding="16dp">
 
             <TextView
-                android:id="@+id/engineNote"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:textAppearance="@style/TextAppearance.Material3.BodySmall"
-                android:textColor="@color/secondaryText" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:orientation="horizontal">
-                <TextView style="@style/TextAppearance.Material3.BodySmall" android:textColor="@color/secondaryText" android:text="Planet" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"/>
-                <TextView style="@style/TextAppearance.Material3.BodySmall" android:textColor="@color/secondaryText" android:text="Tara" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="2"/>
-                <TextView style="@style/TextAppearance.Material3.BodySmall" android:textColor="@color/secondaryText" android:text="Result" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/rowContainer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" />
-
-            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
@@ -71,6 +47,45 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:orientation="vertical" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="24dp"
+                android:background="@color/divider" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Natal Tara Bala (Reference)"
+                android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                android:textColor="@color/primaryText" />
+
+            <TextView
+                android:id="@+id/engineNote"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text=""
+                android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                android:textColor="@color/secondaryText" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+                <TextView style="@style/TextAppearance.Material3.BodySmall" android:textColor="@color/secondaryText" android:text="Planet" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"/>
+                <TextView style="@style/TextAppearance.Material3.BodySmall" android:textColor="@color/secondaryText" android:text="Tara" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="2"/>
+                <TextView style="@style/TextAppearance.Material3.BodySmall" android:textColor="@color/secondaryText" android:text="Result" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/rowContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical" />
 
         </LinearLayout>

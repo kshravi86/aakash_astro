@@ -83,9 +83,32 @@ class PanchangaActivity : AppCompatActivity() {
         binding.varaValue.text = p.vara
         binding.nakshatraValue.text = p.nakshatra
         binding.yogaValue.text = p.yoga
+        binding.yogaLordValue.text = p.yogaLord
         binding.karanaValue.text = p.karana
+        binding.karanaLordValue.text = p.karanaLord
 
         binding.engineNote.text = "Engine: Swiss Ephemeris"
+
+        // Tooltips for yoga/karana
+        if (p.yogaLord.isNotBlank() && p.yogaLord != "—") {
+            val tip = "Lord: ${p.yogaLord}"
+            androidx.core.view.ViewCompat.setTooltipText(binding.yogaValue, tip)
+            binding.yogaValue.contentDescription = "${binding.yogaValue.text}. ${tip}"
+            androidx.core.view.ViewCompat.setTooltipText(binding.yogaLordValue, tip)
+        }
+        if (p.karanaLord.isNotBlank() && p.karanaLord != "—") {
+            val tip = "Lord: ${p.karanaLord}"
+            androidx.core.view.ViewCompat.setTooltipText(binding.karanaValue, tip)
+            binding.karanaValue.contentDescription = "${binding.karanaValue.text}. ${tip}"
+            androidx.core.view.ViewCompat.setTooltipText(binding.karanaLordValue, tip)
+        }
+
+        // Sunrise/Sunset for that date and place
+        val sr = com.aakash.astro.astrology.SunriseCalc.sunrise(zdt.toLocalDate(), lat, lon, zoneId)
+        val ss = com.aakash.astro.astrology.SunriseCalc.sunset(zdt.toLocalDate(), lat, lon, zoneId)
+        val tf = java.time.format.DateTimeFormatter.ofPattern("hh:mm a")
+        binding.sunriseValue.text = sr?.format(tf) ?: "—"
+        binding.sunsetValue.text = ss?.format(tf) ?: "—"
     }
 
     companion object {
