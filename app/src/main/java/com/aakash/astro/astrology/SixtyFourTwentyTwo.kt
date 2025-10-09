@@ -6,16 +6,24 @@ data class SixtyFourTwentyTwoResult(
     val fromLagnaDrekkanaSign: ZodiacSign,
     val fromLagnaDrekkanaNo: Int,
     val fromLagnaDrekkanaLord: Planet,
+    val fromLagnaDrekkanaStartMin: Int,
+    val fromLagnaDrekkanaEndMin: Int,
     val fromLagnaNavamsaSign: ZodiacSign,
     val fromLagnaNavamsaNo: Int,
     val fromLagnaNavamsaLord: Planet,
+    val fromLagnaNavamsaStartMin: Int,
+    val fromLagnaNavamsaEndMin: Int,
 
     val fromMoonDrekkanaSign: ZodiacSign,
     val fromMoonDrekkanaNo: Int,
     val fromMoonDrekkanaLord: Planet,
+    val fromMoonDrekkanaStartMin: Int,
+    val fromMoonDrekkanaEndMin: Int,
     val fromMoonNavamsaSign: ZodiacSign,
     val fromMoonNavamsaNo: Int,
     val fromMoonNavamsaLord: Planet,
+    val fromMoonNavamsaStartMin: Int,
+    val fromMoonNavamsaEndMin: Int,
 )
 
 object SixtyFourTwentyTwoCalc {
@@ -73,6 +81,10 @@ object SixtyFourTwentyTwoCalc {
         val ascDrekkanaLord = drekkanaLordFor(ascEighth, ascDrekkanaNo)
         val ascNavSign = navamsaSignFor(ascEighth, ascNavNo)
         val ascNavLord = signLordOf(ascNavSign)
+        val ascDrekStartMin = (ascDrekkanaNo - 1) * 600
+        val ascDrekEndMin = ascDrekkanaNo * 600
+        val ascNavStartMin = (ascNavNo - 1) * 200
+        val ascNavEndMin = ascNavNo * 200
 
         val moonPos = chart.planets.find { it.planet == Planet.MOON }
         val moonSign = moonPos?.sign ?: ascSign
@@ -83,22 +95,33 @@ object SixtyFourTwentyTwoCalc {
         val moonDrekkanaLord = drekkanaLordFor(moonEighth, moonDrekkanaNo)
         val moonNavSign = navamsaSignFor(moonEighth, moonNavNo)
         val moonNavLord = signLordOf(moonNavSign)
+        val moonDrekStartMin = (moonDrekkanaNo - 1) * 600
+        val moonDrekEndMin = moonDrekkanaNo * 600
+        val moonNavStartMin = (moonNavNo - 1) * 200
+        val moonNavEndMin = moonNavNo * 200
 
         return SixtyFourTwentyTwoResult(
             fromLagnaDrekkanaSign = ascEighth,
             fromLagnaDrekkanaNo = ascDrekkanaNo,
             fromLagnaDrekkanaLord = ascDrekkanaLord,
+            fromLagnaDrekkanaStartMin = ascDrekStartMin,
+            fromLagnaDrekkanaEndMin = ascDrekEndMin,
             fromLagnaNavamsaSign = ascNavSign,
             fromLagnaNavamsaNo = ascNavNo,
             fromLagnaNavamsaLord = ascNavLord,
+            fromLagnaNavamsaStartMin = ascNavStartMin,
+            fromLagnaNavamsaEndMin = ascNavEndMin,
 
             fromMoonDrekkanaSign = moonEighth,
             fromMoonDrekkanaNo = moonDrekkanaNo,
             fromMoonDrekkanaLord = moonDrekkanaLord,
+            fromMoonDrekkanaStartMin = moonDrekStartMin,
+            fromMoonDrekkanaEndMin = moonDrekEndMin,
             fromMoonNavamsaSign = moonNavSign,
             fromMoonNavamsaNo = moonNavNo,
             fromMoonNavamsaLord = moonNavLord,
+            fromMoonNavamsaStartMin = moonNavStartMin,
+            fromMoonNavamsaEndMin = moonNavEndMin,
         )
     }
 }
-

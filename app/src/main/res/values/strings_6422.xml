@@ -1,0 +1,9 @@
+<resources>
+    <string name="label_64th_navamsa_lagna">64th Navamsha Lord (from Lagna)</string>
+    <string name="label_64th_navamsa_moon">64th Navamsha Lord (from Moon)</string>
+    <string name="label_22nd_drekkana_moon">22nd Drekkana Lord (from Moon)</string>
+    <string name="label_22nd_drekkana_lagna">22nd Drekkana Lord (from Lagna)</string>
+    <string name="section_64th_navamsa">64th Navamsha Lords</string>
+    <string name="section_22nd_drekkana">22nd Drekkana Lords</string>
+    <string name="section_note_6422">Both points fall in the 8th sign from the reference (Lagna or Moon) and keep the same part number within that sign.</string>
+</resources>

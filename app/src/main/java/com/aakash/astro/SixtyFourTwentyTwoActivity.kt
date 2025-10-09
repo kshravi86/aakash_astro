@@ -39,18 +39,17 @@ class SixtyFourTwentyTwoActivity : AppCompatActivity() {
 
         val res = SixtyFourTwentyTwoCalc.compute(chart)
 
-        // From Lagna
-        binding.lagnaDrekkanaSign.text = res.fromLagnaDrekkanaSign.displayName + " (Drekkana #${res.fromLagnaDrekkanaNo})"
-        binding.lagnaDrekkanaLord.text = res.fromLagnaDrekkanaLord.displayName
-        binding.lagnaNavamsaSign.text = res.fromLagnaNavamsaSign.displayName + " (Navamsha #${res.fromLagnaNavamsaNo})"
-        binding.lagnaNavamsaLord.text = res.fromLagnaNavamsaLord.displayName
-
-        // From Moon
-        binding.moonDrekkanaSign.text = res.fromMoonDrekkanaSign.displayName + " (Drekkana #${res.fromMoonDrekkanaNo})"
-        binding.moonDrekkanaLord.text = res.fromMoonDrekkanaLord.displayName
-        binding.moonNavamsaSign.text = res.fromMoonNavamsaSign.displayName + " (Navamsha #${res.fromMoonNavamsaNo})"
-        binding.moonNavamsaLord.text = res.fromMoonNavamsaLord.displayName
+        // Values shown as requested labels
+        val navLagna = "${res.fromLagnaNavamsaLord.displayName} — ${res.fromLagnaNavamsaSign.displayName} (#${res.fromLagnaNavamsaNo})"
+        val navMoon = "${res.fromMoonNavamsaLord.displayName} — ${res.fromMoonNavamsaSign.displayName} (#${res.fromMoonNavamsaNo})"
+        val drMoon = "${res.fromMoonDrekkanaLord.displayName} — ${res.fromMoonDrekkanaSign.displayName} (Drekkana #${res.fromMoonDrekkanaNo})"
+        val drLagna = "${res.fromLagnaDrekkanaLord.displayName} — ${res.fromLagnaDrekkanaSign.displayName} (Drekkana #${res.fromLagnaDrekkanaNo})"
+        binding.valueNavamsaLagna.text = navLagna
+        binding.valueNavamsaMoon.text = navMoon
+        binding.valueDrekkanaMoon.text = drMoon
+        binding.valueDrekkanaLagna.text = drLagna
     }
+
 
     companion object {
         const val EXTRA_NAME = "name"
@@ -60,4 +59,3 @@ class SixtyFourTwentyTwoActivity : AppCompatActivity() {
         const val EXTRA_LON = "lon"
     }
 }
-
