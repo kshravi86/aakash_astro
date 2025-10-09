@@ -96,6 +96,7 @@ class MainActivity : AppCompatActivity() {
             com.aakash.astro.ui.ActionTile("overlay_nodes", "Transit Overlay (Ra/Ke)", "Overlay on natal houses"),
             // Essentials
             com.aakash.astro.ui.ActionTile("panchanga", "Panchanga", "Tithi, Vara, Nakshatra, Yoga, Karana"),
+            com.aakash.astro.ui.ActionTile("today_panchanga", "Today's Panchanga", "For current date"),
             com.aakash.astro.ui.ActionTile("tara", "Tara Bala", "Favorable by nakshatra"),
             com.aakash.astro.ui.ActionTile("yogas", "Yogas", "Detected yogas"),
             
@@ -120,6 +121,7 @@ class MainActivity : AppCompatActivity() {
                 
                 
                 "panchanga" -> openPanchanga()
+                "today_panchanga" -> openTodayPanchanga()
                 "transit" -> openTransit()
                 "overlay_sa_ju" -> openTransitOverlay()
                 "overlay_nodes" -> openTransitOverlayNodes()
@@ -744,6 +746,23 @@ class MainActivity : AppCompatActivity() {
             putExtra(PanchangaActivity.EXTRA_ZONE_ID, zone.id)
             putExtra(PanchangaActivity.EXTRA_LAT, city.latitude)
             putExtra(PanchangaActivity.EXTRA_LON, city.longitude)
+        }
+        startActivity(intent)
+    }
+
+    private fun openTodayPanchanga() {
+        val city = selectedCity
+            ?: CityDatabase.findByName(binding.placeInput.text?.toString()?.trim().orEmpty())
+            ?: return
+        val zone = ZoneId.systemDefault()
+        val now = Instant.now().atZone(zone)
+        val intent = android.content.Intent(this, PanchangaActivity::class.java).apply {
+            putExtra(PanchangaActivity.EXTRA_NAME, binding.nameInput.text?.toString())
+            putExtra(PanchangaActivity.EXTRA_EPOCH_MILLIS, now.toInstant().toEpochMilli())
+            putExtra(PanchangaActivity.EXTRA_ZONE_ID, zone.id)
+            putExtra(PanchangaActivity.EXTRA_LAT, city.latitude)
+            putExtra(PanchangaActivity.EXTRA_LON, city.longitude)
+            putExtra(PanchangaActivity.EXTRA_IS_TODAY, true)
         }
         startActivity(intent)
     }

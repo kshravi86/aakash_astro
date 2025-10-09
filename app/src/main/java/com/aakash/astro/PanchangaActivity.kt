@@ -47,6 +47,11 @@ class PanchangaActivity : AppCompatActivity() {
         val zoneId = intent.getStringExtra(EXTRA_ZONE_ID)?.let { ZoneId.of(it) } ?: ZoneId.systemDefault()
         val lat = intent.getDoubleExtra(EXTRA_LAT, 0.0)
         val lon = intent.getDoubleExtra(EXTRA_LON, 0.0)
+        val isToday = intent.getBooleanExtra(EXTRA_IS_TODAY, false)
+
+        if (isToday) {
+            binding.topBar.title = getString(R.string.todays_panchanga_title)
+        }
 
         // Compute natal chart (Sun/Moon longitudes, Asc, etc.)
         val zdt = Instant.ofEpochMilli(epochMillis).atZone(zoneId)
@@ -60,6 +65,21 @@ class PanchangaActivity : AppCompatActivity() {
 
         // Table values
         binding.tithiValue.text = p.tithi
+        binding.tithiGroupValue.text = p.tithiGroup
+        // Tooltip: brief meaning per tithi group
+        val tgMeaningRes = when (p.tithiGroup) {
+            "Nanda" -> R.string.tithi_group_meaning_nanda
+            "Bhadra" -> R.string.tithi_group_meaning_bhadra
+            "Jaya" -> R.string.tithi_group_meaning_jaya
+            "Rikta" -> R.string.tithi_group_meaning_rikta
+            "Poorna" -> R.string.tithi_group_meaning_poorna
+            else -> 0
+        }
+        if (tgMeaningRes != 0) {
+            val tip = getString(R.string.tithi_group_tooltip_format, p.tithiGroup, getString(tgMeaningRes))
+            androidx.core.view.ViewCompat.setTooltipText(binding.tithiGroupValue, tip)
+            binding.tithiGroupValue.contentDescription = tip
+        }
         binding.varaValue.text = p.vara
         binding.nakshatraValue.text = p.nakshatra
         binding.yogaValue.text = p.yoga
@@ -74,5 +94,6 @@ class PanchangaActivity : AppCompatActivity() {
         const val EXTRA_ZONE_ID = "zoneId"
         const val EXTRA_LAT = "lat"
         const val EXTRA_LON = "lon"
+        const val EXTRA_IS_TODAY = "isToday"
     }
 }

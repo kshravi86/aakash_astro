@@ -269,13 +269,20 @@ class SarvatobhadraActivity : AppCompatActivity() {
         val red = ContextCompat.getColor(this, R.color.planet_unfavorable)
         val color = ColorUtils.setAlphaComponent(red, 110)
         fun mark(rr: Int, cc: Int) { cellViews[rr][cc]?.foreground = android.graphics.drawable.ColorDrawable(color) }
-        // Left diagonal: up-left until boundary
+
+        // Left-diagonal (NW <-> SE): cover both directions from (r,c)
         var rr = r; var cc = c
-        while (rr >= 0 && cc >= 0) { mark(rr, cc); rr--; cc-- }
-        // Right diagonal: up-right until boundary
+        while (rr >= 0 && cc >= 0) { mark(rr, cc); rr--; cc-- } // up-left
+        rr = r + 1; cc = c + 1
+        while (rr <= 8 && cc <= 8) { mark(rr, cc); rr++; cc++ } // down-right
+
+        // Right-diagonal (NE <-> SW): cover both directions from (r,c)
         rr = r; cc = c
-        while (rr >= 0 && cc <= 8) { mark(rr, cc); rr--; cc++ }
-        // Straight: vertical or horizontal depending on edge
+        while (rr >= 0 && cc <= 8) { mark(rr, cc); rr--; cc++ } // up-right
+        rr = r + 1; cc = c - 1
+        while (rr <= 8 && cc >= 0) { mark(rr, cc); rr++; cc-- } // down-left
+
+        // Straight: full column if on top/bottom edge; full row if on left/right edge
         if (r == 0 || r == 8) for (i in 0..8) mark(i, c)
         if (c == 0 || c == 8) for (j in 0..8) mark(r, j)
     }
@@ -387,6 +394,8 @@ class SarvatobhadraActivity : AppCompatActivity() {
         const val EXTRA_LON = "lon"
     }
 }
+
+
 
 
 

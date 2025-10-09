@@ -1,0 +1,8 @@
+<resources>
+    <string name="tithi_group_tooltip_format">%1$s — %2$s</string>
+    <string name="tithi_group_meaning_nanda">Joy, prosperity; good for beginnings</string>
+    <string name="tithi_group_meaning_bhadra">Auspicious; good for stable works</string>
+    <string name="tithi_group_meaning_jaya">Victory; good for competition and challenges</string>
+    <string name="tithi_group_meaning_rikta">Empty; avoid major starts and commitments</string>
+    <string name="tithi_group_meaning_poorna">Completion; good for finishing and celebrating</string>
+</resources>

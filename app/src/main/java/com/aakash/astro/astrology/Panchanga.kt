@@ -4,6 +4,7 @@ import java.time.DayOfWeek
 
 data class PanchangaResult(
     val tithi: String,
+    val tithiGroup: String,
     val vara: String,
     val nakshatra: String,
     val yoga: String,
@@ -63,6 +64,19 @@ object PanchangaCalc {
         }
     }
 
+    fun tithiGroupName(moonSidereal: Double, sunSidereal: Double): String {
+        val diff = normalize(moonSidereal - sunSidereal)
+        val index = kotlin.math.floor(diff / 12.0).toInt().coerceIn(0, 29) // 30 tithis
+        val inPaksha = index % 15 // 0..14
+        return when ((inPaksha + 1) % 5) {
+            1 -> "Nanda"
+            2 -> "Bhadra"
+            3 -> "Jaya"
+            4 -> "Rikta"
+            else -> "Poorna"
+        }
+    }
+
     fun varaName(dow: DayOfWeek): String = when (dow) {
         DayOfWeek.SUNDAY -> "Ravivara"
         DayOfWeek.MONDAY -> "Somavara"
@@ -83,6 +97,7 @@ object PanchangaCalc {
         val moon = chart.planets.find { it.planet == Planet.MOON }?.degree ?: 0.0
         return PanchangaResult(
             tithi = tithiName(moon, sun),
+            tithiGroup = tithiGroupName(moon, sun),
             vara = varaName(dayOfWeek),
             nakshatra = nakshatraDisplay(moon),
             yoga = yogaName(moon, sun),
@@ -90,4 +105,3 @@ object PanchangaCalc {
         )
     }
 }
-
