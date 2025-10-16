@@ -27,6 +27,9 @@
             android:name=".TransitActivity"
             android:exported="false" />
         <activity
+            android:name=".TransitAnyActivity"
+            android:exported="false" />
+        <activity
             android:name=".OverlayActivity"
             android:exported="false" />
         <activity
@@ -70,6 +73,9 @@
             android:exported="false" />
         <activity
             android:name=".TaraBalaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TaraBalaAnyActivity"
             android:exported="false" />
         <activity
             android:name=".SavedHoroscopesActivity"

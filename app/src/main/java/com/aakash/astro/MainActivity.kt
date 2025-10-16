@@ -73,11 +73,10 @@ class MainActivity : AppCompatActivity() {
 
         setupPlaceInput()
 
-        // Make date/time fields and end icons open pickers
+        // Date picker via icon; time is manual HH:MM entry (no clock widget)
         binding.dateInput.setOnClickListener { showDatePicker() }
         binding.dateInputLayout.setEndIconOnClickListener { showDatePicker() }
-        binding.timeInput.setOnClickListener { showTimePicker() }
-        binding.timeInputLayout.setEndIconOnClickListener { showTimePicker() }
+        setupManualTimeInput()
         binding.generateButton.setOnClickListener { generateChart() }
         setupActionGrid()
         prepareEphemeris()
@@ -92,6 +91,8 @@ class MainActivity : AppCompatActivity() {
         val items = listOf(
             // Transit first
             com.aakash.astro.ui.ActionTile("transit", "Transit Chart", "Current transits"),
+            com.aakash.astro.ui.ActionTile("transit_any", "Transit (Any Date)", "Use selected date/time/place"),
+            com.aakash.astro.ui.ActionTile("tara_any", "Tara Bala (Any Date)", "Transit tara for chosen instant"),
             com.aakash.astro.ui.ActionTile("overlay_sa_ju", "Transit Overlay (Sa/Ju)", "Overlay on natal houses"),
             com.aakash.astro.ui.ActionTile("overlay_nodes", "Transit Overlay (Ra/Ke)", "Overlay on natal houses"),
             // Essentials
@@ -124,6 +125,7 @@ class MainActivity : AppCompatActivity() {
                 "panchanga" -> openPanchanga()
                 "today_panchanga" -> openTodayPanchanga()
                 "transit" -> openTransit()
+                "transit_any" -> openTransitAny()
                 "overlay_sa_ju" -> openTransitOverlay()
                 "overlay_nodes" -> openTransitOverlayNodes()
                 
@@ -140,6 +142,7 @@ class MainActivity : AppCompatActivity() {
                 "sbc" -> openSBC()
 
                 "tara" -> openTaraBala()
+                "tara_any" -> openTaraBalaAny()
                 "sixtyfour_twenty_two" -> openSixtyFourTwentyTwo()
             }
         }
@@ -171,6 +174,24 @@ class MainActivity : AppCompatActivity() {
             putExtra(TaraBalaActivity.EXTRA_ZONE_ID, zone.id)
             putExtra(TaraBalaActivity.EXTRA_LAT, city.latitude)
             putExtra(TaraBalaActivity.EXTRA_LON, city.longitude)
+        }
+        startActivity(intent)
+    }
+    private fun openTaraBalaAny() {
+        // Pass natal context for Moon reference; user picks transit inputs on the next page
+        val date = selectedDate
+        val time = selectedTime
+        val city = selectedCity ?: CityDatabase.findByName(binding.placeInput.text?.toString()?.trim().orEmpty())
+        val zone = ZoneId.systemDefault()
+        val intent = android.content.Intent(this, TaraBalaAnyActivity::class.java).apply {
+            if (date != null && time != null && city != null) {
+                val natalZdt = java.time.LocalDateTime.of(date, time).atZone(zone)
+                putExtra(TaraBalaActivity.EXTRA_NAME, binding.nameInput.text?.toString())
+                putExtra(TaraBalaActivity.EXTRA_EPOCH_MILLIS, natalZdt.toInstant().toEpochMilli())
+                putExtra(TaraBalaActivity.EXTRA_ZONE_ID, zone.id)
+                putExtra(TaraBalaActivity.EXTRA_LAT, city.latitude)
+                putExtra(TaraBalaActivity.EXTRA_LON, city.longitude)
+            }
         }
         startActivity(intent)
     }
@@ -350,19 +371,57 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showTimePicker() {
-        val initialTime = selectedTime ?: LocalTime.of(12, 0)
-        val picker = MaterialTimePicker.Builder()
-            .setTitleText("Select birth time")
-            .setTimeFormat(TimeFormat.CLOCK_12H)
-            .setHour(initialTime.hour)
-            .setMinute(initialTime.minute)
-            .build()
+        // Deprecated path: retained for reference; not used as time is manual now
+    }
 
-        picker.addOnPositiveButtonClickListener {
-            selectedTime = LocalTime.of(picker.hour, picker.minute)
+    private fun setupManualTimeInput() {
+        val edit = binding.timeInput
+        val layout = binding.timeInputLayout
+        fun parseAndApply(text: String?): Boolean {
+            val s = text?.trim().orEmpty()
+            if (s.isEmpty()) {
+                layout.error = null
+                return false
+            }
+            // Accept formats: HH:MM, H:MM, optionally with am/pm
+            val regex = Regex("^\\s*(\\d{1,2})[:.](\\d{2})\\s*([AaPp][Mm])?\\s*$")
+            val m = regex.matchEntire(s) ?: run {
+                layout.error = "Use HH:MM (24h or add AM/PM)"
+                return false
+            }
+            val (hStr, mStr, ampm) = m.destructured
+            var h = hStr.toInt()
+            val min = mStr.toInt()
+            if (min !in 0..59) {
+                layout.error = "Minutes 00–59"
+                return false
+            }
+            if (ampm.isNotEmpty()) {
+                val pm = ampm.startsWith('P', true)
+                h = when {
+                    h == 12 && !pm -> 0
+                    h in 1..11 && pm -> h + 12
+                    else -> h % 24
+                }
+            }
+            if (h !in 0..23) {
+                layout.error = "Hour 00–23"
+                return false
+            }
+            selectedTime = LocalTime.of(h, min)
+            layout.error = null
             updateDateTimeSummary()
+            return true
         }
-        picker.show(supportFragmentManager, "birth-time-picker")
+
+        edit.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus) parseAndApply(edit.text?.toString())
+        }
+        edit.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == android.view.inputmethod.EditorInfo.IME_ACTION_DONE) {
+                parseAndApply(edit.text?.toString())
+            } else false
+        }
     }
 
     private fun updateDateTimeSummary() {
@@ -532,6 +591,26 @@ class MainActivity : AppCompatActivity() {
             putExtra(TransitActivity.EXTRA_ZONE_ID, zone.id)
             putExtra(TransitActivity.EXTRA_LAT, city.latitude)
             putExtra(TransitActivity.EXTRA_LON, city.longitude)
+        }
+        startActivity(intent)
+    }
+
+    private fun openTransitAny() {
+        // Open a clean page that asks for date/time/place and computes transit only after user input.
+        // Pass natal details so the page can judge houses against the natal ascendant.
+        val date = selectedDate
+        val time = selectedTime
+        val city = selectedCity ?: CityDatabase.findByName(binding.placeInput.text?.toString()?.trim().orEmpty())
+        val zone = ZoneId.systemDefault()
+        val intent = android.content.Intent(this, TransitAnyActivity::class.java).apply {
+            if (date != null && time != null && city != null) {
+                val natalZdt = java.time.LocalDateTime.of(date, time).atZone(zone)
+                putExtra(TransitActivity.EXTRA_NAME, binding.nameInput.text?.toString())
+                putExtra(TransitActivity.EXTRA_EPOCH_MILLIS, natalZdt.toInstant().toEpochMilli())
+                putExtra(TransitActivity.EXTRA_ZONE_ID, zone.id)
+                putExtra(TransitActivity.EXTRA_LAT, city.latitude)
+                putExtra(TransitActivity.EXTRA_LON, city.longitude)
+            }
         }
         startActivity(intent)
     }

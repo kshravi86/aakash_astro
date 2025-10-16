@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="transit_any_title">Transit (Any Date)</string>
+    <string name="pick_date">Pick date</string>
+    <string name="pick_time">Pick time</string>
+    <string name="enter_place_hint">Enter place</string>
+    <string name="compute_transit">Compute Transit</string>
+    <string name="transit_natal_house_verdict">Natal House %1$d — %2$s</string>
+    <string name="transit_verdict_good">Good</string>
+    <string name="transit_verdict_bad">Not Good</string>
+    <string name="transit_verdict_neutral">Neutral</string>
+    <string name="transit_natal_missing">Natal chart not available</string>
+    <string name="retro_caution">Be cautious (retrograde)</string>
+</resources>

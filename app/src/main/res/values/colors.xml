@@ -22,6 +22,7 @@
     <color name="planet_favorable">#2E7D32</color>
     <color name="planet_unfavorable">#C62828</color>
     <color name="planet_neutral">#9E9E9E</color>
+    <color name="planet_retrograde">#FBC02D</color>
 
     <!-- Additional accents used by calculator UI -->
     <color name="card_bg_elevated">#252D42</color>

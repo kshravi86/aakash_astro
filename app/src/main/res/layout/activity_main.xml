@@ -126,17 +126,17 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:hint="Birth time"
-                    app:endIconMode="custom"
-                    app:endIconDrawable="@drawable/ic_notifications_black_24dp">
+                    app:endIconMode="clear_text">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/timeInput"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:focusable="false"
+                        android:focusable="true"
                         android:clickable="true"
-                        android:inputType="none"
-                        android:hint="Select time" />
+                        android:inputType="time"
+                        android:imeOptions="actionDone"
+                        android:hint="HH:MM" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView

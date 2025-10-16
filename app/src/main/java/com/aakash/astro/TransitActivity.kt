@@ -39,13 +39,18 @@ class TransitActivity : AppCompatActivity() {
             accurate.generateChart(birthDetails)
         } else null
 
-        // Transit time: current instant in provided/system zone
-        val now = Instant.now().atZone(zoneId)
-        val transitDetails = BirthDetails(name, now, lat, lon)
+        // Transit time: either provided via extras or current instant in provided/system zone
+        val transitZdt = intent.getLongExtra(EXTRA_TRANSIT_EPOCH_MILLIS, -1L)
+            .takeIf { it > 0L }
+            ?.let { Instant.ofEpochMilli(it).atZone(zoneId) }
+            ?: Instant.now().atZone(zoneId)
+        val transitDetails = BirthDetails(name, transitZdt, lat, lon)
         val transitChart = accurate.generateChart(transitDetails)
 
         binding.title.text = getString(R.string.transit_title)
-        binding.subtitle.text = name?.let { getString(R.string.chart_generated_for, it) } ?: ""
+        val who = name?.let { getString(R.string.chart_generated_for, it) } ?: ""
+        val whenText = "@ " + transitZdt.toLocalDate().toString() + " " + transitZdt.toLocalTime().withSecond(0).withNano(0).toString() + " (" + zoneId.id + ")"
+        binding.subtitle.text = (who + if (who.isNotEmpty()) "\n" else "") + whenText
 
         if (transitChart == null) {
             binding.subtitle.append("\n" + getString(R.string.transit_engine_missing))
@@ -122,6 +127,7 @@ class TransitActivity : AppCompatActivity() {
         const val EXTRA_ZONE_ID = "zoneId"
         const val EXTRA_LAT = "lat"
         const val EXTRA_LON = "lon"
+        const val EXTRA_TRANSIT_EPOCH_MILLIS = "transitEpochMillis"
     }
 }
 
