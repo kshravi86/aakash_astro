@@ -11,4 +11,5 @@
     <string name="transit_verdict_neutral">Neutral</string>
     <string name="transit_natal_missing">Natal chart not available</string>
     <string name="retro_caution">Be cautious (retrograde)</string>
+    <string name="combust_caution">Be cautious (combust)</string>
 </resources>

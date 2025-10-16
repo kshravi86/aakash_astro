@@ -151,6 +151,9 @@ class TransitAnyActivity : AppCompatActivity() {
     private fun renderTransitPlanets(transitChart: com.aakash.astro.astrology.ChartResult) {
         binding.transitPlanetContainer.removeAllViews()
         val inflater = LayoutInflater.from(this)
+        // Cache Sun degree for combustion check
+        val sunDegree = transitChart.planets.find { it.planet == Planet.SUN }?.degree
+
         transitChart.planets.forEach { transitPlanet ->
             val itemBinding = ItemTransitPlanetBinding.inflate(inflater, binding.transitPlanetContainer, false)
             val nameWithRetro = if (transitPlanet.isRetrograde) "${transitPlanet.name} (R)" else transitPlanet.name
@@ -171,8 +174,13 @@ class TransitAnyActivity : AppCompatActivity() {
                     HouseVerdict.Bad -> resources.getColor(R.color.planet_unfavorable, theme)
                     HouseVerdict.Neutral -> resources.getColor(R.color.planet_neutral, theme)
                 }
-                val caution = if (transitPlanet.isRetrograde) " \u2022 " + getString(R.string.retro_caution) else ""
-                if (transitPlanet.isRetrograde) {
+                // Cautions: retrograde and combustion (+/- 10 degrees from Sun)
+                val combust = sunDegree?.let { isCombust(transitPlanet.planet, transitPlanet.degree, it) } ?: false
+                val cautionParts = mutableListOf<String>()
+                if (transitPlanet.isRetrograde) cautionParts += getString(R.string.retro_caution)
+                if (combust) cautionParts += getString(R.string.combust_caution)
+                val caution = if (cautionParts.isNotEmpty()) " \u2022 " + cautionParts.joinToString(", ") else ""
+                if (transitPlanet.isRetrograde || combust) {
                     color = resources.getColor(R.color.planet_retrograde, theme)
                 }
                 itemBinding.natalHouseInfo.text = getString(R.string.transit_natal_house_verdict, natalHouse, verdictText) + caution
@@ -217,6 +225,18 @@ class TransitAnyActivity : AppCompatActivity() {
                 else -> HouseVerdict.Neutral // e.g., 3
             }
         }
+    }
+
+    private fun isCombust(planet: Planet, planetDegree: Double, sunDegree: Double): Boolean {
+        if (planet == Planet.SUN) return false
+        // Within +/- 10 degrees of Sun (circular distance)
+        val diff = angularSeparation(planetDegree, sunDegree)
+        return diff <= 10.0
+    }
+
+    private fun angularSeparation(a: Double, b: Double): Double {
+        val diff = kotlin.math.abs(((a - b) % 360.0 + 540.0) % 360.0 - 180.0)
+        return diff
     }
 
     private fun updatePlaceCoords() {
