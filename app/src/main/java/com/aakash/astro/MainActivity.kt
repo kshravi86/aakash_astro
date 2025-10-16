@@ -92,6 +92,7 @@ class MainActivity : AppCompatActivity() {
             // Transit first
             com.aakash.astro.ui.ActionTile("transit", "Transit Chart", "Current transits"),
             com.aakash.astro.ui.ActionTile("transit_any", "Transit (Any Date)", "Use selected date/time/place"),
+            com.aakash.astro.ui.ActionTile("transit_combo_any", "Transit + Tara (Any Date)", "Verdicts + Tara Bala"),
             com.aakash.astro.ui.ActionTile("tara_any", "Tara Bala (Any Date)", "Transit tara for chosen instant"),
             com.aakash.astro.ui.ActionTile("overlay_sa_ju", "Transit Overlay (Sa/Ju)", "Overlay on natal houses"),
             com.aakash.astro.ui.ActionTile("overlay_nodes", "Transit Overlay (Ra/Ke)", "Overlay on natal houses"),
@@ -143,6 +144,7 @@ class MainActivity : AppCompatActivity() {
 
                 "tara" -> openTaraBala()
                 "tara_any" -> openTaraBalaAny()
+                "transit_combo_any" -> openTransitComboAny()
                 "sixtyfour_twenty_two" -> openSixtyFourTwentyTwo()
             }
         }
@@ -191,6 +193,25 @@ class MainActivity : AppCompatActivity() {
                 putExtra(TaraBalaActivity.EXTRA_ZONE_ID, zone.id)
                 putExtra(TaraBalaActivity.EXTRA_LAT, city.latitude)
                 putExtra(TaraBalaActivity.EXTRA_LON, city.longitude)
+            }
+        }
+        startActivity(intent)
+    }
+
+    private fun openTransitComboAny() {
+        // Combined page: pass natal context; user picks transit inputs on the next page
+        val date = selectedDate
+        val time = selectedTime
+        val city = selectedCity ?: CityDatabase.findByName(binding.placeInput.text?.toString()?.trim().orEmpty())
+        val zone = ZoneId.systemDefault()
+        val intent = android.content.Intent(this, TransitComboAnyActivity::class.java).apply {
+            if (date != null && time != null && city != null) {
+                val natalZdt = java.time.LocalDateTime.of(date, time).atZone(zone)
+                putExtra(TransitActivity.EXTRA_NAME, binding.nameInput.text?.toString())
+                putExtra(TransitActivity.EXTRA_EPOCH_MILLIS, natalZdt.toInstant().toEpochMilli())
+                putExtra(TransitActivity.EXTRA_ZONE_ID, zone.id)
+                putExtra(TransitActivity.EXTRA_LAT, city.latitude)
+                putExtra(TransitActivity.EXTRA_LON, city.longitude)
             }
         }
         startActivity(intent)

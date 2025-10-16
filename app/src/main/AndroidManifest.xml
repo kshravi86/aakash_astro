@@ -36,6 +36,9 @@
             android:name=".OverlayNodesActivity"
             android:exported="false" />
         <activity
+            android:name=".TransitComboAnyActivity"
+            android:exported="false" />
+        <activity
             android:name=".DivisionalChartsActivity"
             android:exported="false" />
         <activity
