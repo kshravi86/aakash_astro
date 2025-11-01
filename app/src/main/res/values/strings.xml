@@ -1,5 +1,21 @@
 <resources>
     <string name="app_name">Vedic Light</string>
+    <string name="label_birth_date">Birth date</string>
+    <string name="hint_select_date">Select date</string>
+    <string name="quick_date_today">Today</string>
+    <string name="quick_date_yesterday">Yesterday</string>
+    <string name="quick_date_custom">Custom date...</string>
+    <string name="label_birth_time">Birth time</string>
+    <string name="hint_select_time">Select time</string>
+    <string name="quick_time_now">Now</string>
+    <string name="quick_time_morning">06:00</string>
+    <string name="quick_time_noon">Noon</string>
+    <string name="quick_time_evening">18:00</string>
+    <string name="quick_time_custom">Custom time...</string>
+    <string name="content_desc_pick_date">Pick birth date</string>
+    <string name="content_desc_pick_time">Pick birth time</string>
+    <string name="date_time_summary_label">Selected instant</string>
+    <string name="date_time_summary_empty">No date and time selected</string>
     <string name="house_content_description">House %1$d contains %2$s. Positioned planets: %3$s</string>
     <string name="house_placeholder_content_description">House %1$d awaiting calculation</string>
     <string name="missing_birth_details">Please provide date, time, and birth place.</string>
@@ -75,7 +91,7 @@
     <string name="view_chara_dasha">View Chara Dasha</string>
     <string name="chara_dasha_title">Chara Dasha (Jaimini)</string>
     <string name="view_yogi">View Yogi/Sahayogi/Avayogi</string>
-    <string name="yogi_title">Yogi • Sahayogi • Avayogi</string>
+    <string name="yogi_title">Yogi â¢ Sahayogi â¢ Avayogi</string>
     <string name="yogi_point_label">Yogi Point</string>
     <string name="yogi_planet_label">Yogi Planet</string>
     <string name="sahayogi_label">Sahayogi (Sign Lord)</string>
@@ -108,20 +124,19 @@
     <string name="action_load">Load</string>
     <string name="saved_empty">No saved horoscopes yet</string>
     <string name="indu_title">Indu Lagna (Dhana Lagna)</string>
-    <string name="indu_info_format">From Moon: %1$d • 9L(Lagna): %2$s, 9L(Moon): %3$s</string>
+    <string name="indu_info_format">From Moon: %1$d â¢ 9L(Lagna): %2$s, 9L(Moon): %3$s</string>
     <string name="hora_title">Hora Lagna</string>
-    <string name="hora_info_format">Ishta: %1$.2f h • Sun@rise: %2$s</string>
+    <string name="hora_info_format">Ishta: %1$.2f h â¢ Sun@rise: %2$s</string>
     <string name="view_pushkara">View Pushkara Navamsha</string>
     <string name="pushkara_title">Pushkara Navamsha</string>
     <string name="pushkara_note">If a planet\'s degree within its sign lies in the element\'s Pushkara bands, it is in Pushkara Navamsha.</string>
     <string name="pushkara_pos_format">%1$s - %2$s</string>
     <string name="pushkara_yes">Pushkara: Yes</string>
     <string name="pushkara_no">Pushkara: No</string>    <string name="ikh_title">Ishta/Kashta/Harsha Bala</string>
-    <string name="ikh_note">Ishta = (Uccha � Che)/60; Kashta = [(60-Uccha) � (60-Che)]/60. Harsha Bala (Tajika) is 4 checks of 5 points each. Sun\'s Che uses neutral 30; Moon\'s Che uses Paksha Bala.</string>
+    <string name="ikh_note">Ishta = (Uccha × Che)/60; Kashta = [(60-Uccha) × (60-Che)]/60. Harsha Bala (Tajika) is 4 checks of 5 points each. Sun\'s Che uses neutral 30; Moon\'s Che uses Paksha Bala.</string>
     <string name="ikh_day_label">Varapravesha by day</string>
     <string name="ikh_value_format">%1$.1f</string>
     <string name="ikh_harsha_format">%1$d/20</string>    <string name="view_ikh">View Ishta/Kashta/Harsha</string></resources>
-
 
 
 

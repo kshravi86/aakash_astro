@@ -105,9 +105,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:hint="Birth date"
+                    android:hint="@string/label_birth_date"
                     app:endIconMode="custom"
-                    app:endIconDrawable="@drawable/ic_dashboard_black_24dp">
+                    app:endIconDrawable="@drawable/ic_calendar_event_24"
+                    app:endIconContentDescription="@string/content_desc_pick_date">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/dateInput"
@@ -115,9 +116,45 @@
                         android:layout_height="wrap_content"
                         android:focusable="false"
                         android:clickable="true"
+                        android:cursorVisible="false"
                         android:inputType="none"
-                        android:hint="Select date" />
+                        android:hint="@string/hint_select_date" />
                 </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/dateQuickChips"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:singleLine="false"
+                    app:singleSelection="true">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipDateToday"
+                        style="@style/Widget.Material3.Chip.Filter"
+                        android:checkable="true"
+                        android:text="@string/quick_date_today"
+                        app:chipIcon="@drawable/ic_calendar_event_24"
+                        app:chipIconTint="@color/accent_teal"
+                        app:checkedIconVisible="true" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipDateYesterday"
+                        style="@style/Widget.Material3.Chip.Filter"
+                        android:checkable="true"
+                        android:text="@string/quick_date_yesterday"
+                        app:chipIcon="@drawable/ic_calendar_event_24"
+                        app:chipIconTint="@color/accent_orange"
+                        app:checkedIconVisible="true" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipDateCustom"
+                        style="@style/Widget.Material3.Chip.Assist"
+                        android:checkable="false"
+                        android:text="@string/quick_date_custom"
+                        app:chipIcon="@drawable/ic_calendar_event_24"
+                        app:chipIconTint="@color/secondaryText" />
+                </com.google.android.material.chip.ChipGroup>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/timeInputLayout"
@@ -125,29 +162,123 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:hint="Birth time"
-                    app:endIconMode="clear_text">
+                    android:hint="@string/label_birth_time"
+                    app:endIconMode="custom"
+                    app:endIconDrawable="@drawable/ic_clock_outline_24"
+                    app:endIconContentDescription="@string/content_desc_pick_time">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/timeInput"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:focusable="true"
+                        android:focusable="false"
                         android:clickable="true"
-                        android:inputType="time"
-                        android:imeOptions="actionDone"
-                        android:hint="HH:MM" />
+                        android:cursorVisible="false"
+                        android:inputType="none"
+                        android:hint="@string/hint_select_time" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <TextView
-                    android:id="@+id/dateTimeValue"
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/timeQuickChips"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:gravity="center_horizontal"
-                    android:text="No date and time selected"
-                    android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
-                    android:textColor="@color/secondaryText" />
+                    app:singleLine="false"
+                    app:singleSelection="true">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipTimeNow"
+                        style="@style/Widget.Material3.Chip.Filter"
+                        android:checkable="true"
+                        android:text="@string/quick_time_now"
+                        app:chipIcon="@drawable/ic_clock_outline_24"
+                        app:chipIconTint="@color/accent_teal"
+                        app:checkedIconVisible="true" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipTimeMorning"
+                        style="@style/Widget.Material3.Chip.Filter"
+                        android:checkable="true"
+                        android:text="@string/quick_time_morning"
+                        app:chipIcon="@drawable/ic_clock_outline_24"
+                        app:checkedIconVisible="true" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipTimeNoon"
+                        style="@style/Widget.Material3.Chip.Filter"
+                        android:checkable="true"
+                        android:text="@string/quick_time_noon"
+                        app:chipIcon="@drawable/ic_clock_outline_24"
+                        app:checkedIconVisible="true" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipTimeEvening"
+                        style="@style/Widget.Material3.Chip.Filter"
+                        android:checkable="true"
+                        android:text="@string/quick_time_evening"
+                        app:chipIcon="@drawable/ic_clock_outline_24"
+                        app:checkedIconVisible="true" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipTimeCustom"
+                        style="@style/Widget.Material3.Chip.Assist"
+                        android:checkable="false"
+                        android:text="@string/quick_time_custom"
+                        app:chipIcon="@drawable/ic_clock_outline_24"
+                        app:chipIconTint="@color/secondaryText" />
+                </com.google.android.material.chip.ChipGroup>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/dateTimeSummaryCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    app:cardBackgroundColor="@color/card_bg_elevated"
+                    app:cardCornerRadius="18dp"
+                    app:cardElevation="0dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="16dp"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/bg_circle_orange"
+                            android:padding="8dp"
+                            android:src="@drawable/ic_clock_outline_24"
+                            android:contentDescription="@null"
+                            android:tint="@color/accent_orange" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/dateTimeLabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/date_time_summary_label"
+                                android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                                android:textColor="@color/secondaryText" />
+
+                            <TextView
+                                android:id="@+id/dateTimeValue"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:text="@string/date_time_summary_empty"
+                                android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+                                android:textColor="@color/primaryText" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/placeInputLayout"

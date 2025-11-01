@@ -8,8 +8,10 @@ import android.widget.ArrayAdapter
 import android.location.Geocoder
 import android.text.Editable
 import android.text.TextWatcher
+import android.text.format.DateFormat
 import android.os.Handler
 import android.os.Looper
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
@@ -32,6 +34,7 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.ZoneId
+import java.time.temporal.ChronoUnit
 import kotlin.math.floor
 import kotlin.math.roundToInt
 
@@ -44,6 +47,11 @@ class MainActivity : AppCompatActivity() {
     private var placeSearchRunnable: Runnable? = null
     private val dynamicCityMap: MutableMap<String, City> = mutableMapOf()
     private var suppressPlaceSuggestions: Boolean = false
+    private var suppressDateChipCallback = false
+    private var suppressTimeChipCallback = false
+    private var lastQuickNowTime: LocalTime? = null
+    private val morningPreset: LocalTime = LocalTime.of(6, 0)
+    private val eveningPreset: LocalTime = LocalTime.of(18, 0)
 
     private var selectedDate: LocalDate? = null
     private var selectedTime: LocalTime? = null
@@ -72,11 +80,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         setupPlaceInput()
-
-        // Date picker via icon; time is manual HH:MM entry (no clock widget)
-        binding.dateInput.setOnClickListener { showDatePicker() }
-        binding.dateInputLayout.setEndIconOnClickListener { showDatePicker() }
-        setupManualTimeInput()
+        setupDateInput()
+        setupTimeInput()
         binding.generateButton.setOnClickListener { generateChart() }
         setupActionGrid()
         prepareEphemeris()
@@ -345,6 +350,90 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun setupDateInput() {
+        binding.dateInputLayout.setEndIconOnClickListener { showDatePicker() }
+        binding.dateInput.setOnClickListener { showDatePicker() }
+        binding.chipDateCustom.setOnClickListener {
+            updateDateQuickChipSelection(View.NO_ID)
+            showDatePicker()
+        }
+        binding.dateQuickChips.setOnCheckedChangeListener { _, checkedId ->
+            if (suppressDateChipCallback) return@setOnCheckedChangeListener
+            when (checkedId) {
+                R.id.chipDateToday -> setSelectedDate(LocalDate.now(), R.id.chipDateToday)
+                R.id.chipDateYesterday -> setSelectedDate(LocalDate.now().minusDays(1), R.id.chipDateYesterday)
+            }
+        }
+    }
+
+    private fun setupTimeInput() {
+        binding.timeInputLayout.setEndIconOnClickListener { showTimePicker() }
+        binding.timeInput.setOnClickListener { showTimePicker() }
+        binding.chipTimeCustom.setOnClickListener {
+            updateTimeQuickChipSelection(View.NO_ID)
+            showTimePicker()
+        }
+        binding.timeQuickChips.setOnCheckedChangeListener { _, checkedId ->
+            if (suppressTimeChipCallback) return@setOnCheckedChangeListener
+            when (checkedId) {
+                R.id.chipTimeNow -> {
+                    val now = LocalTime.now().truncatedTo(ChronoUnit.MINUTES)
+                    setSelectedTime(now, R.id.chipTimeNow)
+                }
+                R.id.chipTimeMorning -> setSelectedTime(morningPreset, R.id.chipTimeMorning)
+                R.id.chipTimeNoon -> setSelectedTime(LocalTime.NOON, R.id.chipTimeNoon)
+                R.id.chipTimeEvening -> setSelectedTime(eveningPreset, R.id.chipTimeEvening)
+            }
+        }
+    }
+
+    private fun setSelectedDate(date: LocalDate?, preferredChipId: Int? = null) {
+        selectedDate = date
+        updateDateTimeSummary()
+        updateDateQuickChipSelection(preferredChipId)
+    }
+
+    private fun updateDateQuickChipSelection(preferredChipId: Int? = null) {
+        suppressDateChipCallback = true
+        val targetId = preferredChipId?.takeUnless { it == View.NO_ID } ?: when (selectedDate) {
+            LocalDate.now() -> R.id.chipDateToday
+            LocalDate.now().minusDays(1) -> R.id.chipDateYesterday
+            else -> View.NO_ID
+        }
+        val current = binding.dateQuickChips.checkedChipId
+        if (targetId == View.NO_ID) {
+            binding.dateQuickChips.clearCheck()
+        } else if (current != targetId) {
+            binding.dateQuickChips.check(targetId)
+        }
+        suppressDateChipCallback = false
+    }
+
+    private fun setSelectedTime(time: LocalTime?, preferredChipId: Int? = null) {
+        selectedTime = time
+        lastQuickNowTime = if (preferredChipId == R.id.chipTimeNow) time else null
+        updateDateTimeSummary()
+        updateTimeQuickChipSelection(preferredChipId)
+    }
+
+    private fun updateTimeQuickChipSelection(preferredChipId: Int? = null) {
+        suppressTimeChipCallback = true
+        val targetId = preferredChipId?.takeUnless { it == View.NO_ID } ?: when (selectedTime) {
+            lastQuickNowTime -> R.id.chipTimeNow
+            morningPreset -> R.id.chipTimeMorning
+            LocalTime.NOON -> R.id.chipTimeNoon
+            eveningPreset -> R.id.chipTimeEvening
+            else -> View.NO_ID
+        }
+        val current = binding.timeQuickChips.checkedChipId
+        if (targetId == View.NO_ID) {
+            binding.timeQuickChips.clearCheck()
+        } else if (current != targetId) {
+            binding.timeQuickChips.check(targetId)
+        }
+        suppressTimeChipCallback = false
+    }
+
     private fun fetchIndiaSuggestions(query: String): List<City>? {
         return runCatching {
             if (!Geocoder.isPresent()) return null
@@ -379,77 +468,40 @@ class MainActivity : AppCompatActivity() {
             ?: MaterialDatePicker.todayInUtcMilliseconds()
 
         val picker = MaterialDatePicker.Builder.datePicker()
-            .setTitleText("Select birth date")
+            .setTitleText(getString(R.string.label_birth_date))
+            .setInputMode(MaterialDatePicker.INPUT_MODE_CALENDAR)
             .setSelection(selection)
             .build()
 
         picker.addOnPositiveButtonClickListener { millis ->
             val instant = Instant.ofEpochMilli(millis)
-            selectedDate = instant.atZone(zone).toLocalDate()
-            updateDateTimeSummary()
+            val date = instant.atZone(zone).toLocalDate()
+            setSelectedDate(date)
         }
         picker.show(supportFragmentManager, "birth-date-picker")
     }
 
     private fun showTimePicker() {
-        // Deprecated path: retained for reference; not used as time is manual now
-    }
-
-    private fun setupManualTimeInput() {
-        val edit = binding.timeInput
-        val layout = binding.timeInputLayout
-        fun parseAndApply(text: String?): Boolean {
-            val s = text?.trim().orEmpty()
-            if (s.isEmpty()) {
-                layout.error = null
-                return false
-            }
-            // Accept formats: HH:MM, H:MM, optionally with am/pm
-            val regex = Regex("^\\s*(\\d{1,2})[:.](\\d{2})\\s*([AaPp][Mm])?\\s*$")
-            val m = regex.matchEntire(s) ?: run {
-                layout.error = "Use HH:MM (24h or add AM/PM)"
-                return false
-            }
-            val (hStr, mStr, ampm) = m.destructured
-            var h = hStr.toInt()
-            val min = mStr.toInt()
-            if (min !in 0..59) {
-                layout.error = "Minutes 00–59"
-                return false
-            }
-            if (ampm.isNotEmpty()) {
-                val pm = ampm.startsWith('P', true)
-                h = when {
-                    h == 12 && !pm -> 0
-                    h in 1..11 && pm -> h + 12
-                    else -> h % 24
-                }
-            }
-            if (h !in 0..23) {
-                layout.error = "Hour 00–23"
-                return false
-            }
-            selectedTime = LocalTime.of(h, min)
-            layout.error = null
-            updateDateTimeSummary()
-            return true
+        val initial = selectedTime ?: LocalTime.now().truncatedTo(ChronoUnit.MINUTES)
+        val picker = MaterialTimePicker.Builder()
+            .setTimeFormat(if (DateFormat.is24HourFormat(this)) TimeFormat.CLOCK_24H else TimeFormat.CLOCK_12H)
+            .setHour(initial.hour)
+            .setMinute(initial.minute)
+            .setTitleText(getString(R.string.label_birth_time))
+            .build()
+        picker.addOnPositiveButtonClickListener {
+            val time = LocalTime.of(picker.hour, picker.minute)
+            setSelectedTime(time)
         }
-
-        edit.setOnFocusChangeListener { _, hasFocus ->
-            if (!hasFocus) parseAndApply(edit.text?.toString())
-        }
-        edit.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == android.view.inputmethod.EditorInfo.IME_ACTION_DONE) {
-                parseAndApply(edit.text?.toString())
-            } else false
-        }
+        picker.show(supportFragmentManager, "birth-time-picker")
     }
 
     private fun updateDateTimeSummary() {
         val date = selectedDate
         val time = selectedTime
         val dateText = date?.format(DateTimeFormatter.ofPattern("dd MMM yyyy")) ?: ""
-        val timeText = time?.format(DateTimeFormatter.ofPattern("hh:mm a")) ?: ""
+        val timePattern = if (DateFormat.is24HourFormat(this)) "HH:mm" else "hh:mm a"
+        val timeText = time?.format(DateTimeFormatter.ofPattern(timePattern)) ?: ""
 
         // Reflect selection in the input fields
         binding.dateInput.setText(dateText)
@@ -1071,9 +1123,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun initializeDefaultsAndGenerate() {
         // Set default date/time (18/05/1993, 10:30 PM) if not provided
-        if (selectedDate == null) selectedDate = LocalDate.of(1993, 5, 18)
-        if (selectedTime == null) selectedTime = LocalTime.of(22, 30)
-        updateDateTimeSummary()
+        val effectiveDate = selectedDate ?: LocalDate.of(1993, 5, 18)
+        val effectiveTime = selectedTime ?: LocalTime.of(22, 30)
+        setSelectedDate(effectiveDate)
+        setSelectedTime(effectiveTime)
 
         // Default city: Bengaluru (fallback to Bangalore capitalization/alias)
         if (selectedCity == null) {
@@ -1102,13 +1155,12 @@ class MainActivity : AppCompatActivity() {
         if (epoch > 0 && zoneId != null && !lat.isNaN() && !lon.isNaN()) {
             val zone = java.time.ZoneId.of(zoneId)
             val zdt = java.time.Instant.ofEpochMilli(epoch).atZone(zone)
-            selectedDate = zdt.toLocalDate()
-            selectedTime = zdt.toLocalTime()
+            setSelectedDate(zdt.toLocalDate())
+            setSelectedTime(zdt.toLocalTime())
             name?.let { binding.nameInput.setText(it) }
             selectedCity = com.aakash.astro.geo.City("Custom", lat, lon)
             binding.placeInput.setText("Custom", false)
             binding.placeInput.setSelection(0)
-            updateDateTimeSummary()
             updatePlaceCoords()
             generateChart()
         }
