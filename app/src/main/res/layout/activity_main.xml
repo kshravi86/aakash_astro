@@ -132,6 +132,8 @@
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chipDateToday"
                         style="@style/Widget.Material3.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:checkable="true"
                         android:text="@string/quick_date_today"
                         app:chipIcon="@drawable/ic_calendar_event_24"
@@ -141,6 +143,8 @@
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chipDateYesterday"
                         style="@style/Widget.Material3.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:checkable="true"
                         android:text="@string/quick_date_yesterday"
                         app:chipIcon="@drawable/ic_calendar_event_24"
@@ -150,6 +154,8 @@
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chipDateCustom"
                         style="@style/Widget.Material3.Chip.Assist"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:checkable="false"
                         android:text="@string/quick_date_custom"
                         app:chipIcon="@drawable/ic_calendar_event_24"
@@ -189,6 +195,8 @@
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chipTimeNow"
                         style="@style/Widget.Material3.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:checkable="true"
                         android:text="@string/quick_time_now"
                         app:chipIcon="@drawable/ic_clock_outline_24"
@@ -198,6 +206,8 @@
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chipTimeMorning"
                         style="@style/Widget.Material3.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:checkable="true"
                         android:text="@string/quick_time_morning"
                         app:chipIcon="@drawable/ic_clock_outline_24"
@@ -206,6 +216,8 @@
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chipTimeNoon"
                         style="@style/Widget.Material3.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:checkable="true"
                         android:text="@string/quick_time_noon"
                         app:chipIcon="@drawable/ic_clock_outline_24"
@@ -214,6 +226,8 @@
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chipTimeEvening"
                         style="@style/Widget.Material3.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:checkable="true"
                         android:text="@string/quick_time_evening"
                         app:chipIcon="@drawable/ic_clock_outline_24"
@@ -222,6 +236,8 @@
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chipTimeCustom"
                         style="@style/Widget.Material3.Chip.Assist"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:checkable="false"
                         android:text="@string/quick_time_custom"
                         app:chipIcon="@drawable/ic_clock_outline_24"

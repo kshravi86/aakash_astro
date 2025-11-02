@@ -43,6 +43,36 @@ class IshtaDevataActivity : AppCompatActivity() {
             return
         }
 
+        // Populate summary cards
+        binding.ishtaResult.text = res.deity
+        binding.ishtaPractice.text = getString(R.string.practice_prefix, res.suggestion)
+        binding.palanaResult.text = res.palanaDeity
+        binding.palanaPractice.text = getString(R.string.practice_prefix, res.palanaSuggestion)
+
+        // Share actions
+        fun shareText(text: String) {
+            val intent = android.content.Intent(android.content.Intent.ACTION_SEND)
+            intent.type = "text/plain"
+            intent.putExtra(android.content.Intent.EXTRA_TEXT, text)
+            startActivity(android.content.Intent.createChooser(intent, getString(R.string.share_result)))
+        }
+        binding.shareIshta.setOnClickListener {
+            val text = buildString {
+                appendLine(getString(R.string.ishta_title))
+                appendLine("Ishta Devata: ${res.deity}")
+                appendLine("Practice: ${res.suggestion}")
+            }
+            shareText(text)
+        }
+        binding.sharePalana.setOnClickListener {
+            val text = buildString {
+                appendLine("Palana Devata")
+                appendLine("Deity: ${res.palanaDeity}")
+                appendLine("Practice: ${res.palanaSuggestion}")
+            }
+            shareText(text)
+        }
+
         fun addRow(table: android.widget.TableLayout, label: String, value: String, highlight: Boolean = false) {
             val row = android.widget.TableRow(this)
             val tvLabel = TextView(this)

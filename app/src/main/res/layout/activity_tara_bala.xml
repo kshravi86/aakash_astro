@@ -43,11 +43,52 @@
                 android:textColor="@color/secondaryText" />
 
             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+                <com.google.android.material.chip.Chip
+                    style="@style/Widget.Material3.Chip.Assist"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Favorable"
+                    app:chipBackgroundColor="@color/planet_favorable"
+                    android:textColor="@android:color/white"
+                    app:chipStrokeWidth="0dp"
+                    android:layout_marginEnd="8dp" />
+                <com.google.android.material.chip.Chip
+                    style="@style/Widget.Material3.Chip.Assist"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Neutral"
+                    app:chipBackgroundColor="@color/planet_neutral"
+                    android:textColor="@color/primaryText"
+                    app:chipStrokeWidth="0dp"
+                    android:layout_marginEnd="8dp" />
+                <com.google.android.material.chip.Chip
+                    style="@style/Widget.Material3.Chip.Assist"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Unfavorable"
+                    app:chipBackgroundColor="@color/planet_unfavorable"
+                    android:textColor="@android:color/white"
+                    app:chipStrokeWidth="0dp" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/transitRowContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:orientation="vertical" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/shareTransit"
+                style="@style/Widget.Material3.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/share_transit_tara" />
 
             <View
                 android:layout_width="match_parent"
@@ -87,6 +128,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/shareNatal"
+                style="@style/Widget.Material3.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/share_natal_tara" />
 
         </LinearLayout>
     </ScrollView>

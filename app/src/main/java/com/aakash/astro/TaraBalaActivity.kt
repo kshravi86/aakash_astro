@@ -17,6 +17,8 @@ import java.time.ZoneId
 
 class TaraBalaActivity : AppCompatActivity() {
     private val accurate = AccurateCalculator()
+    private var lastNatalChart: com.aakash.astro.astrology.ChartResult? = null
+    private var lastTransitChart: com.aakash.astro.astrology.ChartResult? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,6 +63,8 @@ class TaraBalaActivity : AppCompatActivity() {
         // Generate transit chart (current time)
         val nowZdt = Instant.now().atZone(zoneId)
         val transitChart = accurate.generateChart(BirthDetails(name, nowZdt, lat, lon))
+        lastNatalChart = natalChart
+        lastTransitChart = transitChart
 
         // Display natal tara bala
         val rows = TaraBalaCalc.compute(natalChart)
@@ -89,6 +93,14 @@ class TaraBalaActivity : AppCompatActivity() {
         // Display transit tara bala
         if (transitChart != null) {
             renderTransitTaraBala(transitChart, natalChart, inflater)
+        }
+
+        // Share buttons
+        findViewById<com.google.android.material.button.MaterialButton>(R.id.shareTransit).setOnClickListener {
+            shareTransitTara()
+        }
+        findViewById<com.google.android.material.button.MaterialButton>(R.id.shareNatal).setOnClickListener {
+            shareNatalTara()
         }
     }
 
@@ -140,6 +152,48 @@ class TaraBalaActivity : AppCompatActivity() {
 
             transitContainer.addView(item.root)
         }
+    }
+
+    private fun shareTransitTara() {
+        val natal = lastNatalChart ?: return
+        val transit = lastTransitChart ?: return
+        val sb = StringBuilder()
+        sb.appendLine("Transit Tara Bala")
+        val natalMoonDeg = natal.planets.find { it.planet == com.aakash.astro.astrology.Planet.MOON }?.degree ?: 0.0
+        val natalMoonNak = TaraBalaCalc.nakshatraNumber1Based(natalMoonDeg)
+        transit.planets.forEach { tp ->
+            val (nakName, pada) = com.aakash.astro.astrology.NakshatraCalc.fromLongitude(tp.degree)
+            val transitNak = TaraBalaCalc.nakshatraNumber1Based(tp.degree)
+            val tClass = TaraBalaCalc.tClass(natalMoonNak, transitNak)
+            val tName = TaraBalaCalc.taraNames[tClass - 1]
+            val tNote = TaraBalaCalc.taraNotes[tClass] ?: ""
+            val result = when (tClass) {
+                2, 4, 6, 8, 9 -> "Favorable"
+                3, 5, 7 -> "Unfavorable"
+                else -> "Neutral"
+            }
+            val nameWithRetro = if (tp.isRetrograde) "${tp.name} (R)" else tp.name
+            sb.appendLine("$nameWithRetro — $nakName (Pada $pada) — $tName ($tNote) — $result")
+        }
+        shareText(sb.toString())
+    }
+
+    private fun shareNatalTara() {
+        val natal = lastNatalChart ?: return
+        val rows = TaraBalaCalc.compute(natal)
+        val sb = StringBuilder()
+        sb.appendLine("Natal Tara Bala (ref. Moon)")
+        rows.forEach { r ->
+            sb.appendLine("${r.planet.displayName} — ${r.tara} (${r.note}) — ${r.result}")
+        }
+        shareText(sb.toString())
+    }
+
+    private fun shareText(text: String) {
+        val intent = android.content.Intent(android.content.Intent.ACTION_SEND)
+        intent.type = "text/plain"
+        intent.putExtra(android.content.Intent.EXTRA_TEXT, text)
+        startActivity(android.content.Intent.createChooser(intent, getString(R.string.share_result)))
     }
 
     companion object {

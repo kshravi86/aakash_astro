@@ -109,6 +109,8 @@
     <string name="ishta_title">Ishta Devata</string>
     <string name="ishta_subtitle">12th from Atmakaraka in Navamsha (Karakamsa) and suggested deity</string>
     <string name="ishta_noresult">Unable to compute Ishta Devata (missing chart data).</string>
+    <string name="share_result">Share result</string>
+    <string name="practice_prefix">Practice: %1$s</string>
     <string name="sav_title">Sarva Ashtakavarga</string>
     <string name="sav_subtitle">Sum of bindus across all planets</string>
     <string name="view_sav">View Ashtakavarga</string>
@@ -129,6 +131,8 @@
     <string name="indu_info_format">From Moon: %1$d â¢ 9L(Lagna): %2$s, 9L(Moon): %3$s</string>
     <string name="hora_title">Hora Lagna</string>
     <string name="hora_info_format">Ishta: %1$.2f h â¢ Sun@rise: %2$s</string>
+    <string name="share_transit_tara">Share transit tara</string>
+    <string name="share_natal_tara">Share natal tara</string>
     <string name="view_pushkara">View Pushkara Navamsha</string>
     <string name="pushkara_title">Pushkara Navamsha</string>
     <string name="pushkara_note">If a planet\'s degree within its sign lies in the element\'s Pushkara bands, it is in Pushkara Navamsha.</string>

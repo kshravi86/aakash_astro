@@ -41,6 +41,8 @@ class SarvaAshtakavargaActivity : AppCompatActivity() {
         val sav = AshtakavargaCalc.computeSAVParashara(chart)
         val total = sav.total()
         binding.summary.text = getString(R.string.sav_summary_format, total)
+        // Set chart values
+        binding.savChartView.setSav(sav.values)
 
         val list: LinearLayout = findViewById(R.id.savList)
         list.removeAllViews()
@@ -50,6 +52,9 @@ class SarvaAshtakavargaActivity : AppCompatActivity() {
             val sign = com.aakash.astro.astrology.ZodiacSign.entries[i]
             row.findViewById<TextView>(R.id.signName).text = sign.displayName
             row.findViewById<TextView>(R.id.signValue).text = sav.values[i].toString()
+            row.setOnClickListener {
+                binding.savChartView.setHighlight(sign)
+            }
             list.addView(row)
         }
     }

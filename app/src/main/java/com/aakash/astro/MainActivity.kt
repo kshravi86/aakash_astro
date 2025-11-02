@@ -94,32 +94,33 @@ class MainActivity : AppCompatActivity() {
         val grid = binding.actionGrid
         grid.layoutManager = GridLayoutManager(this, 2)
         val items = listOf(
-            // Transit first
+            // Requested: put Vimshottari Dasha first
+            com.aakash.astro.ui.ActionTile("dasha", "Vimshottari Dasha", "Mahadasha/Antar periods"),
+
+            // Transit and essentials
             com.aakash.astro.ui.ActionTile("transit", "Transit Chart", "Current transits"),
             com.aakash.astro.ui.ActionTile("transit_any", "Transit (Any Date)", "Use selected date/time/place"),
             com.aakash.astro.ui.ActionTile("transit_combo_any", "Transit + Tara (Any Date)", "Verdicts + Tara Bala"),
             com.aakash.astro.ui.ActionTile("tara_any", "Tara Bala (Any Date)", "Transit tara for chosen instant"),
             com.aakash.astro.ui.ActionTile("overlay_sa_ju", "Transit Overlay (Sa/Ju)", "Overlay on natal houses"),
             com.aakash.astro.ui.ActionTile("overlay_nodes", "Transit Overlay (Ra/Ke)", "Overlay on natal houses"),
-            // Essentials
             com.aakash.astro.ui.ActionTile("panchanga", "Panchanga", "Tithi, Vara, Nakshatra, Yoga, Karana"),
             com.aakash.astro.ui.ActionTile("today_panchanga", "Today's Panchanga", "For current date"),
             com.aakash.astro.ui.ActionTile("tara", "Tara Bala", "Favorable by nakshatra"),
             com.aakash.astro.ui.ActionTile("yogas", "Yogas", "Detected yogas"),
-            
+
             // Ashtakavarga
             com.aakash.astro.ui.ActionTile("sav", "Sarva Ashtakavarga", "Total bindus"),
             com.aakash.astro.ui.ActionTile("bav", "Ashtakavarga Details (BAV)", "Bhinnashtakavarga"),
+
             // Jaimini
             com.aakash.astro.ui.ActionTile("karakas", "Jaimini Karakas", "Atmakaraka … Darakaraka"),
             com.aakash.astro.ui.ActionTile("arudha", "Arudha Padas", "Padas for all houses"),
-            // Utilities
+
+            // Utilities and other
             com.aakash.astro.ui.ActionTile("pushkara", "Pushkara Navamsha", "Elemental pushkara bands"),
             com.aakash.astro.ui.ActionTile("yogi", "Yogi / Sahayogi / Avayogi", "Yogi point and lords"),
-            // Put Dasha later to declutter
-            com.aakash.astro.ui.ActionTile("dasha", "Vimshottari Dasha", "Mahadasha/Antar periods"),
             com.aakash.astro.ui.ActionTile("ishta", "Ishta Devata", "Karakamsa based"),
-            // New: Sarvatobhadra Chakra
             com.aakash.astro.ui.ActionTile("sbc", "Sarvatobhadra Chakra", "28-star vedha map"),
             com.aakash.astro.ui.ActionTile("sixtyfour_twenty_two", "64th D9 & 22nd D3", "From Lagna and Moon")
         )

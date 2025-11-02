@@ -14,7 +14,8 @@
         app:subtitle="@string/sav_subtitle"
         app:titleTextColor="@color/primaryText"
         app:subtitleTextColor="@color/secondaryText"
-        app:navigationIcon="@drawable/ic_home_black_24dp" />
+        app:navigationIcon="@drawable/ic_home_black_24dp"
+        app:navigationIconTint="@color/primaryText" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -25,6 +26,38 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="16dp">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/savCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/card_bg"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="6dp"
+                app:strokeWidth="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+
+                    <TextView
+                        android:id="@+id/savCardTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/sav_title"
+                        android:textColor="@color/primaryText"
+                        android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
+
+                    <com.aakash.astro.ui.SavChartView
+                        android:id="@+id/savChartView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp" />
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
             <TextView
                 android:id="@+id/summary"
@@ -47,7 +80,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="12dp" />
+                    android:padding="12dp"
+                    android:showDividers="middle"
+                    android:divider="@drawable/divider_line" />
             </com.google.android.material.card.MaterialCardView>
 
             <TextView
