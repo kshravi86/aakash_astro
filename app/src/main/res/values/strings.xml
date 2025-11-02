@@ -97,6 +97,8 @@
     <string name="sahayogi_label">Sahayogi (Sign Lord)</string>
     <string name="avayogi_point_label">Avayogi Point</string>
     <string name="avayogi_planet_label">Avayogi Planet</string>
+    <string name="yogi_summary_title">Yogi Overview</string>
+    <string name="yogi_summary_line">Yogi: %1$s  •  Sahayogi: %2$s  •  Avayogi: %3$s</string>
     <string name="yogas_title">Yogas</string>
     <string name="yogas_subtitle">Detected yogas from the natal chart</string>
     <string name="yogas_none">No supported yogas detected (basic set).</string>

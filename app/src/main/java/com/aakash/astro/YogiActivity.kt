@@ -1,6 +1,9 @@
 package com.aakash.astro
 
 import android.os.Bundle
+import android.content.res.ColorStateList
+import android.graphics.Color
+import android.view.View
 import android.view.LayoutInflater
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -58,18 +61,41 @@ class YogiActivity : AppCompatActivity() {
         list.removeAllViews()
         val inflater = LayoutInflater.from(this)
 
-        fun addRow(label: String, value: String) {
-            val row = inflater.inflate(R.layout.item_sign_value, list, false)
+        // Brief summary card at top
+        binding.todaysCard.visibility = View.VISIBLE
+        binding.todaysTitle.text = getString(R.string.yogi_summary_title)
+        binding.todaysLine.text = getString(
+            R.string.yogi_summary_line,
+            yogiLord,
+            sahayogi.displayName,
+            avayogiLord
+        )
+
+        // Helper to add a chip-styled row
+        fun addRow(label: String, value: String, colorRes: Int) {
+            val row = inflater.inflate(R.layout.item_label_chip, list, false)
             row.findViewById<TextView>(R.id.signName).text = label
-            row.findViewById<TextView>(R.id.signValue).text = value
+            val valueView = row.findViewById<TextView>(R.id.signValue)
+            valueView.text = value
+            val color = resources.getColor(colorRes, theme)
+            valueView.backgroundTintList = ColorStateList.valueOf(color)
+            valueView.setTextColor(Color.WHITE)
             list.addView(row)
         }
 
-        addRow(getString(R.string.yogi_point_label), formatDegree(yogiPoint) + "  •  " + yogiNak)
-        addRow(getString(R.string.yogi_planet_label), yogiLord)
-        addRow(getString(R.string.sahayogi_label), sahayogi.displayName)
-        addRow(getString(R.string.avayogi_point_label), formatDegree(avayogiPoint))
-        addRow(getString(R.string.avayogi_planet_label), avayogiLord + "  (6th: " + avayogiVia6th + ")")
+        addRow(
+            getString(R.string.yogi_point_label),
+            formatDegree(yogiPoint) + "  •  " + yogiNak,
+            R.color.accent_purple
+        )
+        addRow(getString(R.string.yogi_planet_label), yogiLord, R.color.accent_gold)
+        addRow(getString(R.string.sahayogi_label), sahayogi.displayName, R.color.accent_teal)
+        addRow(getString(R.string.avayogi_point_label), formatDegree(avayogiPoint), R.color.accent_purple)
+        addRow(
+            getString(R.string.avayogi_planet_label),
+            avayogiLord + "  (6th: " + avayogiVia6th + ")",
+            R.color.accent_gold
+        )
     }
 
     private fun formatDegree(value: Double): String {
