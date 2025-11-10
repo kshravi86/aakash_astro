@@ -130,7 +130,7 @@ class AshtakavargaBavActivity : AppCompatActivity() {
             this.text = text
             isCheckable = false
             isClickable = false
-            ensureMinTouchTargetSize = false
+            setEnsureMinTouchTargetSize(false)
             chipBackgroundColor = ColorStateList.valueOf(ContextCompat.getColor(context, R.color.card_bg_elevated))
             setTextColor(ContextCompat.getColor(context, R.color.primaryText))
             chipIcon = AppCompatResources.getDrawable(context, R.drawable.ic_chip_star)
