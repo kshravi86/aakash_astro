@@ -5,8 +5,11 @@ import android.view.LayoutInflater
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import com.aakash.astro.astrology.*
 import com.aakash.astro.databinding.ActivityYogasBinding
+import com.google.android.material.chip.Chip
 import java.time.Instant
 import java.time.ZoneId
 
@@ -35,6 +38,7 @@ class YogasActivity : AppCompatActivity() {
         val natal = accurate.generateChart(BirthDetails(name, Instant.ofEpochMilli(epochMillis).atZone(zoneId), lat, lon))
         if (natal == null) {
             binding.subtitle.append("\n" + getString(R.string.transit_engine_missing))
+            showEmptyState()
             return
         }
 
@@ -42,26 +46,67 @@ class YogasActivity : AppCompatActivity() {
     }
 
     private fun renderYogas(natal: ChartResult) {
+        val yogas = YogaDetector.detect(natal)
+        renderSummary(yogas)
+
         val container: LinearLayout = binding.yogaList
         container.removeAllViews()
         val inflater = LayoutInflater.from(this)
 
-        val yogas = YogaDetector.detect(natal)
         if (yogas.isEmpty()) {
-            val tv = TextView(this)
-            tv.text = getString(R.string.yogas_none)
-            container.addView(tv)
+            showEmptyState()
+            return
+        }
+        binding.emptyState.isVisible = false
+
+        yogas.forEachIndexed { index, yoga ->
+            val item = inflater.inflate(R.layout.item_yoga, container, false)
+            item.findViewById<TextView>(R.id.yogaTitle).text = yoga.name
+            item.findViewById<TextView>(R.id.yogaDescription).text = yoga.description
+            item.findViewById<TextView>(R.id.yogaBadge).text = getString(R.string.yogas_badge_format, index + 1)
+            item.findViewById<TextView>(R.id.yogaCategory).text = extractCategory(yoga.name)
+            container.addView(item)
+        }
+    }
+
+    private fun renderSummary(yogas: List<YogaResult>) {
+        if (yogas.isEmpty()) {
+            binding.summaryCount.text = getString(R.string.yogas_total_placeholder)
+            binding.summaryLine.text = getString(R.string.yogas_summary_none)
+            binding.highlightChips.isVisible = false
             return
         }
 
-        yogas.forEach { y ->
-            val item = inflater.inflate(R.layout.item_yoga, container, false)
-            val title = item.findViewById<TextView>(R.id.yogaTitle)
-            val desc = item.findViewById<TextView>(R.id.yogaDescription)
-            title.text = y.name
-            desc.text = y.description
-            container.addView(item)
+        binding.summaryCount.text = getString(R.string.yogas_summary_count, yogas.size)
+        binding.summaryLine.text = getString(R.string.yogas_summary_hint)
+        val chips = binding.highlightChips
+        chips.removeAllViews()
+        chips.isVisible = true
+        yogas.take(3).forEach { chips.addView(createHighlightChip(it.name)) }
+    }
+
+    private fun showEmptyState() {
+        binding.emptyState.isVisible = true
+        binding.summaryCount.text = getString(R.string.yogas_total_placeholder)
+        binding.summaryLine.text = getString(R.string.yogas_summary_none)
+        binding.highlightChips.isVisible = false
+    }
+
+    private fun createHighlightChip(text: String): Chip {
+        return Chip(this).apply {
+            this.text = text
+            isCheckable = false
+            isClickable = false
+            setEnsureMinTouchTargetSize(false)
+            chipBackgroundColor = ContextCompat.getColorStateList(context, R.color.card_bg_elevated)
+            setTextColor(ContextCompat.getColor(context, R.color.primaryText))
         }
+    }
+
+    private fun extractCategory(name: String): String {
+        val token = name.split(" ", limit = 2)
+            .firstOrNull { it.isNotBlank() && !it.equals("Yoga", ignoreCase = true) }
+        return token ?: getString(R.string.yogas_category_generic)
     }
 
     companion object {

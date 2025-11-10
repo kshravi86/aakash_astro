@@ -54,6 +54,9 @@
             android:name=".ArudhaPadasActivity"
             android:exported="false" />
         <activity
+            android:name=".SpecialLagnasActivity"
+            android:exported="false" />
+        <activity
             android:name=".IshtaDevataActivity"
             android:exported="false" />
         <activity

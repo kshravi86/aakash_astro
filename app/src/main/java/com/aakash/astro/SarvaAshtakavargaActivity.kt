@@ -50,7 +50,8 @@ class SarvaAshtakavargaActivity : AppCompatActivity() {
         for (i in 0 until 12) {
             val row = inflater.inflate(R.layout.item_sign_value, list, false)
             val sign = com.aakash.astro.astrology.ZodiacSign.entries[i]
-            row.findViewById<TextView>(R.id.signName).text = sign.displayName
+            val house = 1 + (i - chart.ascendantSign.ordinal + 12) % 12
+            row.findViewById<TextView>(R.id.signName).text = "${sign.displayName} (" + ordinal(house) + " house)"
             row.findViewById<TextView>(R.id.signValue).text = sav.values[i].toString()
             row.setOnClickListener {
                 binding.savChartView.setHighlight(sign)
@@ -66,4 +67,12 @@ class SarvaAshtakavargaActivity : AppCompatActivity() {
         const val EXTRA_LAT = "lat"
         const val EXTRA_LON = "lon"
     }
+}
+
+private fun ordinal(n: Int): String = when {
+    n % 100 in 11..13 -> "${n}th"
+    n % 10 == 1 -> "${n}st"
+    n % 10 == 2 -> "${n}nd"
+    n % 10 == 3 -> "${n}rd"
+    else -> "${n}th"
 }

@@ -1,13 +1,24 @@
-package com.aakash.astro
+﻿package com.aakash.astro
 
 import android.os.Bundle
-import android.widget.TableRow
+import android.view.LayoutInflater
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.aakash.astro.astrology.*
+import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
+import com.aakash.astro.astrology.BirthDetails
+import com.aakash.astro.astrology.ChartResult
+import com.aakash.astro.astrology.JaiminiKarakas
+import com.aakash.astro.astrology.AccurateCalculator
+import com.aakash.astro.EphemerisPreparer
 import com.aakash.astro.databinding.ActivityJaiminiKarakasBinding
+import com.google.android.material.chip.Chip
 import java.time.Instant
 import java.time.ZoneId
+import java.util.Locale
+import kotlin.math.floor
+import kotlin.math.roundToInt
 
 class JaiminiKarakasActivity : AppCompatActivity() {
     private lateinit var binding: ActivityJaiminiKarakasBinding
@@ -34,6 +45,7 @@ class JaiminiKarakasActivity : AppCompatActivity() {
         val natal = accurate.generateChart(BirthDetails(name, Instant.ofEpochMilli(epochMillis).atZone(zoneId), lat, lon))
         if (natal == null) {
             binding.subtitle.append("\n" + getString(R.string.transit_engine_missing))
+            showEmptyState()
             return
         }
 
@@ -41,29 +53,72 @@ class JaiminiKarakasActivity : AppCompatActivity() {
     }
 
     private fun renderKarakas(natal: ChartResult) {
-        val table = binding.karakaTable
-        fun addRow(cells: List<String>) {
-            val row = TableRow(this)
-            cells.forEach { text ->
-                val tv = TextView(this)
-                tv.text = text
-                tv.setPadding(8, 8, 8, 8)
-                row.addView(tv)
-            }
-            table.addView(row)
+        val karakas = JaiminiKarakas.compute(natal, includeRahuKetu = false)
+        if (karakas.isEmpty()) {
+            showEmptyState()
+            return
         }
 
-        val list = JaiminiKarakas.compute(natal, includeRahuKetu = false)
-        list.forEach { e ->
-            addRow(
-                listOf(
-                    e.karakaName,
-                    e.planet.displayName,
-                    "${e.sign.displayName} (H${e.house})",
-                    String.format("%s", String.format("%.2f°", e.degreeInSign))
-                )
-            )
+        binding.emptyState.isVisible = false
+        val ak = karakas.firstOrNull()?.planet?.displayName ?: getString(R.string.karaka_summary_missing)
+        val amk = karakas.getOrNull(1)?.planet?.displayName ?: getString(R.string.karaka_summary_missing)
+        val bk = karakas.getOrNull(2)?.planet?.displayName ?: getString(R.string.karaka_summary_missing)
+        binding.summaryPrimary.text = getString(R.string.karaka_summary_primary, ak)
+        binding.summarySecondary.text = getString(R.string.karaka_summary_secondary, amk, bk)
+
+        binding.highlightChips.apply {
+            removeAllViews()
+            isVisible = true
+            karakas.take(3).forEach {
+                addView(createHighlightChip(getString(R.string.karaka_chip_format, it.karakaName, it.planet.displayName)))
+            }
         }
+
+        val container: LinearLayout = binding.karakaList
+        container.removeAllViews()
+        val inflater = LayoutInflater.from(this)
+        karakas.forEach { entry ->
+            val item = inflater.inflate(R.layout.item_karaka, container, false)
+            item.findViewById<TextView>(R.id.karakaName).text = entry.karakaName
+            item.findViewById<TextView>(R.id.karakaPlanet).text = entry.planet.displayName
+            item.findViewById<TextView>(R.id.karakaPosition).text =
+                getString(R.string.karaka_house_format, entry.sign.displayName, entry.house)
+            val absDegree = formatDegree(entry.absoluteDegree)
+            val signDegree = String.format(Locale.US, "%.2f°", entry.degreeInSign)
+            item.findViewById<TextView>(R.id.karakaDegree).text =
+                getString(R.string.karaka_degree_format, absDegree, signDegree)
+            container.addView(item)
+        }
+    }
+
+    private fun showEmptyState() {
+        binding.summaryPrimary.text = getString(R.string.karaka_summary_placeholder)
+        binding.summarySecondary.text = getString(R.string.karaka_summary_secondary_placeholder)
+        binding.highlightChips.isVisible = false
+        binding.emptyState.isVisible = true
+        binding.karakaList.removeAllViews()
+    }
+
+    private fun createHighlightChip(text: String): Chip {
+        return Chip(this).apply {
+            this.text = text
+            isClickable = false
+            isCheckable = false
+            setEnsureMinTouchTargetSize(false)
+            chipBackgroundColor = ContextCompat.getColorStateList(context, R.color.card_bg_elevated)
+            setTextColor(ContextCompat.getColor(context, R.color.primaryText))
+        }
+    }
+
+    private fun formatDegree(value: Double): String {
+        val normalized = ((value % 360.0) + 360.0) % 360.0
+        var degrees = floor(normalized).toInt()
+        var minutes = ((normalized - degrees) * 60).roundToInt()
+        if (minutes == 60) {
+            minutes = 0
+            degrees = (degrees + 1) % 360
+        }
+        return String.format(Locale.US, "%02d° %02d'", degrees, minutes)
     }
 
     companion object {
@@ -74,4 +129,5 @@ class JaiminiKarakasActivity : AppCompatActivity() {
         const val EXTRA_LON = "lon"
     }
 }
+
 
