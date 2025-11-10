@@ -119,6 +119,23 @@
     <string name="ashtakavarga_bav_title">Ashtakavarga Details (BAV)</string>
     <string name="ashtakavarga_bav_subtitle">Bhinnashtakavarga for Sun..Saturn and Lagna BAV</string>
     <string name="view_ashtakavarga_bav">View Ashtakavarga Details</string>
+    <string name="ashtakavarga_native_placeholder">Awaiting birth profile</string>
+    <string name="ashtakavarga_birth_placeholder">Add date &amp; time to start the calculation</string>
+    <string name="ashtakavarga_location_placeholder">Lat • Lon</string>
+    <string name="ashtakavarga_anonymous_native">Unnamed native</string>
+    <string name="ashtakavarga_location_format">%1$s • %2$s</string>
+    <string name="ashtakavarga_house_badge_format">%1$s house</string>
+    <string name="ashtakavarga_value_points">%1$d pts</string>
+    <string name="ashtakavarga_legend_title">How to read BAV</string>
+    <string name="ashtakavarga_legend_body">Each card holds bindus for a reference planet. Track which houses receive the most support.</string>
+    <string name="ashtakavarga_legend_point_one">- 6+ points: highly favorable strength</string>
+    <string name="ashtakavarga_legend_point_two">- 4-5 points: balanced, dependable results</string>
+    <string name="ashtakavarga_legend_point_three">- &lt;=3 points: needs remedial focus</string>
+    <string name="ashtakavarga_sections_title">Planet-wise bindu distribution</string>
+    <string name="ashtakavarga_sav_peak_chip">Strongest SAV: %1$s (%2$d)</string>
+    <string name="ashtakavarga_sav_low_chip">Lowest SAV: %1$s (%2$d)</string>
+    <string name="ashtakavarga_bav_peak_chip">%1$s BAV tops at %2$d</string>
+    <string name="ashtakavarga_lagna_chip">Lagna boosted in %1$s (%2$d)</string>
     <string name="lagna_bav_title">Lagna BAV</string>
     <string name="view_arudha">View Arudha (Jaimini)</string>
     <string name="todays_period_title">Today\'s Period</string>

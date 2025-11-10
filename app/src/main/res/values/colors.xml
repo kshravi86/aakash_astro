@@ -17,6 +17,9 @@
     <color name="card_bg">#1F2638</color>
     <color name="surface_variant">#222A3D</color>
     <color name="divider">#33FFFFFF</color>
+    <color name="value_chip_high_bg">#332A9D8F</color>
+    <color name="value_chip_neutral_bg">#33252D42</color>
+    <color name="value_chip_low_bg">#33F4A261</color>
     
     <!-- Tara Bala result colors -->
     <color name="planet_favorable">#2E7D32</color>
