@@ -1,14 +1,19 @@
 package com.aakash.astro
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import com.aakash.astro.astrology.AccurateCalculator
 import com.aakash.astro.astrology.AshtakavargaCalc
 import com.aakash.astro.astrology.BirthDetails
+import com.aakash.astro.astrology.ZodiacSign
 import com.aakash.astro.databinding.ActivitySarvaAshtakavargaBinding
+import com.google.android.material.chip.Chip
+import com.google.android.material.progressindicator.LinearProgressIndicator
 import java.time.Instant
 import java.time.ZoneId
 
@@ -34,30 +39,102 @@ class SarvaAshtakavargaActivity : AppCompatActivity() {
         val zdt = Instant.ofEpochMilli(epochMillis).atZone(zoneId)
         val chart = accurate.generateChart(BirthDetails(name, zdt, lat, lon))
         if (chart == null) {
-            binding.engineNote.text = getString(R.string.transit_engine_missing)
+            showEmptyState(getString(R.string.transit_engine_missing))
             return
         }
 
+        binding.emptyState.isVisible = false
         val sav = AshtakavargaCalc.computeSAVParashara(chart)
-        val total = sav.total()
-        binding.summary.text = getString(R.string.sav_summary_format, total)
-        // Set chart values
-        binding.savChartView.setSav(sav.values)
+        val savValues = sav.values
+        binding.savChartView.setSav(savValues)
 
-        val list: LinearLayout = findViewById(R.id.savList)
-        list.removeAllViews()
-        val inflater = LayoutInflater.from(this)
-        for (i in 0 until 12) {
-            val row = inflater.inflate(R.layout.item_sign_value, list, false)
-            val sign = com.aakash.astro.astrology.ZodiacSign.entries[i]
-            val house = 1 + (i - chart.ascendantSign.ordinal + 12) % 12
-            row.findViewById<TextView>(R.id.signName).text = "${sign.displayName} (" + ordinal(house) + " house)"
-            row.findViewById<TextView>(R.id.signValue).text = sav.values[i].toString()
-            row.setOnClickListener {
-                binding.savChartView.setHighlight(sign)
-            }
-            list.addView(row)
+        renderSummary(savValues, chart)
+        renderList(savValues, chart)
+    }
+
+    private fun renderSummary(values: IntArray, chart: com.aakash.astro.astrology.ChartResult) {
+        if (values.isEmpty()) {
+            showEmptyState(null)
+            return
         }
+        val total = values.sum()
+        val average = values.average()
+        binding.summaryPrimary.text = getString(R.string.sav_summary_primary, total)
+        binding.summarySecondary.text = getString(R.string.sav_summary_secondary, average)
+
+        val peakIndex = values.indices.maxByOrNull { values[it] }
+        val lowIndex = values.indices.minByOrNull { values[it] }
+        val ascHouse = 1 + chart.ascendantSign.ordinal
+
+        binding.highlightChips.apply {
+            removeAllViews()
+            isVisible = true
+            peakIndex?.let {
+                addView(createHighlightChip(getString(R.string.sav_highlight_peak, ZodiacSign.entries[it].displayName, values[it])))
+            }
+            lowIndex?.let {
+                addView(createHighlightChip(getString(R.string.sav_highlight_low, ZodiacSign.entries[it].displayName, values[it])))
+            }
+            addView(createHighlightChip(getString(R.string.sav_highlight_reference, ordinal(ascHouse))))
+        }
+    }
+
+    private fun renderList(values: IntArray, chart: com.aakash.astro.astrology.ChartResult) {
+        val container: LinearLayout = binding.savList
+        container.removeAllViews()
+        val inflater = LayoutInflater.from(this)
+        val ascOrdinal = chart.ascendantSign.ordinal
+
+        values.forEachIndexed { index, value ->
+            val row = inflater.inflate(R.layout.item_sav_house, container, false)
+            val sign = ZodiacSign.entries[index]
+            val house = 1 + (index - ascOrdinal + 12) % 12
+
+            row.findViewById<TextView>(R.id.signName).text = sign.displayName
+            row.findViewById<TextView>(R.id.houseBadge).text =
+                getString(R.string.ashtakavarga_house_badge_format, ordinal(house))
+            val valueView = row.findViewById<TextView>(R.id.signValue).apply {
+                text = getString(R.string.ashtakavarga_value_points, value)
+            }
+            row.findViewById<TextView>(R.id.valueHint).text =
+                getString(R.string.sav_value_hint, house, value)
+            val progress = row.findViewById<LinearProgressIndicator>(R.id.valueProgress)
+            progress.max = 60
+            progress.setProgressCompat(value, true)
+            styleValue(value, valueView, progress)
+            row.setOnClickListener { binding.savChartView.setHighlight(sign) }
+            container.addView(row)
+        }
+    }
+
+    private fun createHighlightChip(text: String): Chip =
+        Chip(this).apply {
+            this.text = text
+            isCheckable = false
+            isClickable = false
+            setEnsureMinTouchTargetSize(false)
+            chipBackgroundColor = ContextCompat.getColorStateList(context, R.color.card_bg_elevated)
+            setTextColor(ContextCompat.getColor(context, R.color.primaryText))
+        }
+
+    private fun styleValue(value: Int, valueView: TextView, progress: LinearProgressIndicator) {
+        val (bgRes, colorRes) = when {
+            value >= 40 -> R.drawable.bg_value_chip_high to R.color.accent_teal
+            value <= 20 -> R.drawable.bg_value_chip_low to R.color.accent_orange
+            else -> R.drawable.bg_value_chip_neutral to R.color.primaryText
+        }
+        valueView.setBackgroundResource(bgRes)
+        valueView.setTextColor(ContextCompat.getColor(this, colorRes))
+        progress.setIndicatorColor(ContextCompat.getColor(this, colorRes))
+    }
+
+    private fun showEmptyState(message: String?) {
+        binding.summaryPrimary.text = getString(R.string.sav_summary_primary_placeholder)
+        binding.summarySecondary.text = getString(R.string.sav_summary_secondary_placeholder)
+        binding.highlightChips.isVisible = false
+        binding.emptyState.isVisible = true
+        binding.emptyState.text = message ?: getString(R.string.sav_empty_state)
+        binding.savList.removeAllViews()
     }
 
     companion object {
