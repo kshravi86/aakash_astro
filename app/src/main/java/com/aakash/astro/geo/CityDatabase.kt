@@ -1,5 +1,7 @@
 ﻿package com.aakash.astro.geo
 
+import java.util.Locale
+
 data class City(val name: String, val latitude: Double, val longitude: Double)
 
 object CityDatabase {
@@ -76,8 +78,16 @@ object CityDatabase {
         City("Port Blair", 11.6234, 92.7265)
     )
 
-    fun names(): List<String> = cities.map { it.name }
+    private val cityIndex: Map<String, City> = cities.associateBy { it.name.lowercase(Locale.ROOT) }
 
-    fun findByName(name: String): City? = cities.firstOrNull { it.name.equals(name, ignoreCase = true) }
+    private val cityNames: List<String> = cities.map { it.name }
+
+    fun names(): List<String> = cityNames
+
+    fun findByName(name: String): City? {
+        val normalized = name.trim().lowercase(Locale.ROOT)
+        if (normalized.isEmpty()) return null
+        return cityIndex[normalized]
+    }
 }
 

@@ -79,9 +79,138 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="Birth Details"
+                    android:text="@string/birth_card_title"
                     android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
                     android:textColor="@color/primaryText" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/birthAssistCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:cardBackgroundColor="@color/card_bg"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="4dp"
+                    app:strokeWidth="0dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:id="@+id/birthAssistSubtitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/birth_card_subtitle"
+                            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                            android:textColor="@color/secondaryText" />
+
+                        <TextView
+                            android:id="@+id/birthSmartActionsTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:text="@string/birth_smart_actions_title"
+                            android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+                            android:textColor="@color/secondaryText" />
+
+                        <com.google.android.material.chip.ChipGroup
+                            android:id="@+id/smartActionChips"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            app:singleLine="false">
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/chipSmartNow"
+                                style="@style/Widget.Material3.Chip.Assist"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:checkable="false"
+                                android:text="@string/birth_action_now"
+                                app:chipIcon="@drawable/ic_clock_outline_24"
+                                app:chipIconTint="@color/accent_teal" />
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/chipSmartLast"
+                                style="@style/Widget.Material3.Chip.Assist"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:checkable="false"
+                                android:text="@string/birth_action_last"
+                                app:chipIcon="@drawable/ic_history_24"
+                                app:chipIconTint="@color/accent_orange" />
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/chipSmartSample"
+                                style="@style/Widget.Material3.Chip.Assist"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:checkable="false"
+                                android:text="@string/birth_action_sample"
+                                app:chipIcon="@drawable/ic_star_24"
+                                app:chipIconTint="@color/accent_purple" />
+
+                        </com.google.android.material.chip.ChipGroup>
+
+                        <TextView
+                            android:id="@+id/placeQuickTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:text="@string/place_quick_title"
+                            android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+                            android:textColor="@color/secondaryText" />
+
+                        <com.google.android.material.chip.ChipGroup
+                            android:id="@+id/placeQuickChips"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            app:singleLine="false">
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/chipPlaceBengaluru"
+                                style="@style/Widget.Material3.Chip.Assist"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/place_chip_bengaluru"
+                                app:chipIcon="@drawable/ic_location_pin_24"
+                                app:chipIconTint="@color/accent_teal" />
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/chipPlaceDelhi"
+                                style="@style/Widget.Material3.Chip.Assist"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/place_chip_delhi"
+                                app:chipIcon="@drawable/ic_location_pin_24"
+                                app:chipIconTint="@color/accent_orange" />
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/chipPlaceMumbai"
+                                style="@style/Widget.Material3.Chip.Assist"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/place_chip_mumbai"
+                                app:chipIcon="@drawable/ic_location_pin_24"
+                                app:chipIconTint="@color/accent_purple" />
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/chipPlaceChennai"
+                                style="@style/Widget.Material3.Chip.Assist"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/place_chip_chennai"
+                                app:chipIcon="@drawable/ic_location_pin_24"
+                                app:chipIconTint="@color/accent_teal" />
+
+                        </com.google.android.material.chip.ChipGroup>
+
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/nameInputLayout"
@@ -267,7 +396,7 @@
                             android:padding="8dp"
                             android:src="@drawable/ic_clock_outline_24"
                             android:contentDescription="@null"
-                            android:tint="@color/accent_orange" />
+                            app:tint="@color/accent_orange" />
 
                         <LinearLayout
                             android:layout_width="0dp"

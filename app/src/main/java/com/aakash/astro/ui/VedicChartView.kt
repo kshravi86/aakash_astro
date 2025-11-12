@@ -83,19 +83,4 @@ class VedicChartView @JvmOverloads constructor(
             textView.contentDescription = resources.getString(R.string.house_placeholder_content_description, 0)
         }
     }
-
-    private fun signAbbrev(sign: ZodiacSign): String = when (sign) {
-        ZodiacSign.ARIES -> "Ar"
-        ZodiacSign.TAURUS -> "Ta"
-        ZodiacSign.GEMINI -> "Ge"
-        ZodiacSign.CANCER -> "Cn"
-        ZodiacSign.LEO -> "Le"
-        ZodiacSign.VIRGO -> "Vi"
-        ZodiacSign.LIBRA -> "Li"
-        ZodiacSign.SCORPIO -> "Sc"
-        ZodiacSign.SAGITTARIUS -> "Sg"
-        ZodiacSign.CAPRICORN -> "Cp"
-        ZodiacSign.AQUARIUS -> "Aq"
-        ZodiacSign.PISCES -> "Pi"
-    }
 }

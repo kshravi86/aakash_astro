@@ -279,14 +279,6 @@ class AstrologyCalculator {
     )
 
     companion object {
-        private fun normalizeDegree(value: Double): Double {
-            var result = value % 360.0
-            if (result < 0) {
-                result += 360.0
-            }
-            return result
-        }
-
         private val EARTH_ELEMENTS = OrbitalElements(
             N0 = 0.0,
             NDot = 0.0,
