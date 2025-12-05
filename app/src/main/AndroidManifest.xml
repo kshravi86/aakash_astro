@@ -84,6 +84,9 @@
             android:name=".TaraBalaAnyActivity"
             android:exported="false" />
         <activity
+            android:name=".KundaliMatchingActivity"
+            android:exported="false" />
+        <activity
             android:name=".SavedHoroscopesActivity"
             android:exported="false" />
         <activity

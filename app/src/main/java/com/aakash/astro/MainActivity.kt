@@ -1,76 +1,56 @@
-package com.aakash.astro
+﻿package com.aakash.astro
 
 
 
-import android.os.Bundle
-
-import android.view.LayoutInflater
-
-import android.view.Menu
-
-import android.view.MenuItem
-
-import android.widget.ArrayAdapter
-
+import android.content.Intent
+import android.content.res.ColorStateList
+import android.location.Address
 import android.location.Geocoder
-
-import android.text.Editable
-
-import android.text.TextWatcher
-
-import android.text.format.DateFormat
-
+import android.os.Bundle
 import android.os.Handler
-
 import android.os.Looper
-
+import android.text.Editable
+import android.text.TextWatcher
+import android.text.format.DateFormat
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
-
+import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
-
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.ColorUtils
 import androidx.core.view.ViewCompat
-
 import androidx.core.view.WindowCompat
-
 import androidx.core.view.WindowInsetsCompat
-
+import androidx.recyclerview.widget.GridLayoutManager
+import com.aakash.astro.BirthIntentPayload
+import com.aakash.astro.putBirthPayload
 import com.aakash.astro.astrology.AccurateCalculator
-
 import com.aakash.astro.astrology.AstrologyCalculator
-
 import com.aakash.astro.astrology.BirthDetails
-
 import com.aakash.astro.databinding.ActivityMainBinding
-
 import com.aakash.astro.databinding.ItemPlanetPositionBinding
-
 import com.aakash.astro.geo.City
 import com.aakash.astro.geo.CityDatabase
+import com.aakash.astro.ui.ActionGridItem
+import com.aakash.astro.ui.ActionTile
+import com.aakash.astro.ui.ActionTileAdapter
 import com.google.android.material.chip.Chip
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
-import androidx.recyclerview.widget.GridLayoutManager
-
-import java.time.format.DateTimeFormatter
-
 import java.time.Instant
-
 import java.time.LocalDate
-
 import java.time.LocalDateTime
-
 import java.time.LocalTime
-
 import java.time.ZoneId
 import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
-
 import java.util.Locale
-
 import kotlin.math.floor
-
 import kotlin.math.roundToInt
 
 
@@ -91,6 +71,20 @@ class MainActivity : AppCompatActivity() {
 
     private val dynamicCityMap: MutableMap<String, City> = mutableMapOf()
 
+    private fun normalizedCityKey(name: String): String = name.trim().lowercase(Locale.ROOT)
+
+    private fun rememberDynamicCity(city: City) {
+        dynamicCityMap[normalizedCityKey(city.name)] = city
+    }
+
+    private fun resolveCityByName(rawName: String, allowGeocoder: Boolean = false): City? {
+        val normalized = normalizedCityKey(rawName)
+        if (normalized.isEmpty()) return null
+        dynamicCityMap[normalized]?.let { return it }
+        CityDatabase.findByName(rawName)?.let { return it }
+        return if (allowGeocoder) geocodeFirstIndia(rawName) else null
+    }
+
     private var suppressPlaceSuggestions: Boolean = false
 
     private var suppressDateChipCallback = false
@@ -109,11 +103,13 @@ class MainActivity : AppCompatActivity() {
     private var selectedTime: LocalTime? = null
     private var selectedCity: City? = null
     private val birthPrefs by lazy { getSharedPreferences("birth_defaults", MODE_PRIVATE) }
+    private val recentActionPrefs by lazy { getSharedPreferences("recent_actions", MODE_PRIVATE) }
     private val defaultCityFallback = City("Bengaluru", 12.9716, 77.5946)
     private val deviceZone: ZoneId by lazy { ZoneId.systemDefault() }
     private val dateFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy")
     private val timeFormatter24H: DateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm")
     private val timeFormatter12H: DateTimeFormatter = DateTimeFormatter.ofPattern("hh:mm a")
+    private val actionTileLookup: MutableMap<String, ActionTile> = linkedMapOf()
 
     private data class BirthContext(
         val date: LocalDate,
@@ -193,154 +189,148 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupActionGrid() {
 
-        val grid = binding.actionGrid
+        val foundationsLabel = getString(R.string.category_foundations)
+        val predictiveLabel = getString(R.string.category_predictive)
+        val utilitiesLabel = getString(R.string.category_utilities)
 
-        grid.layoutManager = GridLayoutManager(this, 2)
-
-        val items = listOf(
-
-            // Requested: put Vimshottari Dasha first
-
-            com.aakash.astro.ui.ActionTile("dasha", "Vimshottari Dasha", "Mahadasha/Antar periods"),
-
-
-
-            // Core analyses (moved up)
-
-            com.aakash.astro.ui.ActionTile("panchanga", "Panchanga", "Tithi, Vara, Nakshatra, Yoga, Karana"),
-
-            com.aakash.astro.ui.ActionTile("today_panchanga", "Today's Panchanga", "For current date"),
-
-            com.aakash.astro.ui.ActionTile("yogas", "Yogas", "Detected yogas"),
-
-
-
-            // Ashtakavarga
-
-            com.aakash.astro.ui.ActionTile("sav", "Sarva Ashtakavarga", "Total bindus"),
-
-            com.aakash.astro.ui.ActionTile("bav", "Ashtakavarga Details (BAV)", "Bhinnashtakavarga"),
-
-
-
-        // Jaimini
-        com.aakash.astro.ui.ActionTile("karakas", "Jaimini Karakas", "Atmakaraka … Darakaraka"),
-        com.aakash.astro.ui.ActionTile("arudha", "Arudha Padas", "Padas for all houses"),
-        com.aakash.astro.ui.ActionTile("special_lagna", "Special Lagnas", "Arudha, Ghatika, Hora"),
-
-
-            // Utilities and other
-
-            com.aakash.astro.ui.ActionTile("pushkara", "Pushkara Navamsha", "Elemental pushkara bands"),
-
-            com.aakash.astro.ui.ActionTile("yogi", "Yogi / Sahayogi / Avayogi", "Yogi point and lords"),
-
-            com.aakash.astro.ui.ActionTile("ishta", "Ishta Devata", "Karakamsa based"),
-
-            com.aakash.astro.ui.ActionTile("sbc", "Sarvatobhadra Chakra", "28-star vedha map"),
-
-            com.aakash.astro.ui.ActionTile("sixtyfour_twenty_two", "64th D9 & 22nd D3", "From Lagna and Moon"),
-
-
-
-            // Transit and Tara moved to bottom
-
-            com.aakash.astro.ui.ActionTile("transit", "Transit Chart", "Current transits"),
-
-            com.aakash.astro.ui.ActionTile("transit_any", "Transit (Any Date)", "Use selected date/time/place"),
-
-            com.aakash.astro.ui.ActionTile("transit_combo_any", "Transit + Tara (Any Date)", "Verdicts + Tara Bala"),
-
-            com.aakash.astro.ui.ActionTile("overlay_sa_ju", "Transit Overlay (Sa/Ju)", "Overlay on natal houses"),
-
-            com.aakash.astro.ui.ActionTile("overlay_nodes", "Transit Overlay (Ra/Ke)", "Overlay on natal houses"),
-
-            com.aakash.astro.ui.ActionTile("tara", "Tara Bala", "Favorable by nakshatra"),
-
-            com.aakash.astro.ui.ActionTile("tara_any", "Tara Bala (Any Date)", "Transit tara for chosen instant")
-
+        val foundations = listOf(
+            ActionTile("dasha", "Vimshottari Dasha", "Mahadasha/Antar periods", R.drawable.ic_clock_outline_24, R.color.accent_teal, foundationsLabel),
+            ActionTile("panchanga", "Panchanga", "Tithi, Vara, Nakshatra, Yoga, Karana", R.drawable.ic_calendar_event_24, R.color.accent_orange, foundationsLabel),
+            ActionTile("today_panchanga", "Today's Panchanga", "For current date", R.drawable.ic_calendar_event_24, R.color.accent_blue, foundationsLabel),
+            ActionTile("yogas", "Yogas", "Detected yogas", R.drawable.ic_star_24, R.color.accent_purple, foundationsLabel)
         )
 
-        grid.adapter = com.aakash.astro.ui.ActionTileAdapter(items) { item ->
+        val predictive = listOf(
+            ActionTile("sav", "Sarva Ashtakavarga", "Total bindus", R.drawable.ic_dashboard_black_24dp, R.color.accent_teal, predictiveLabel),
+            ActionTile("bav", "Ashtakavarga Details (BAV)", "Bhinnashtakavarga", R.drawable.ic_dashboard_black_24dp, R.color.accent_orange, predictiveLabel),
+            ActionTile("karakas", "Jaimini Karakas", "Atmakaraka → Darakaraka", R.drawable.ic_dashboard_black_24dp, R.color.accent_purple, predictiveLabel),
+            ActionTile("arudha", "Arudha Padas", "Padas for all houses", R.drawable.ic_dashboard_black_24dp, R.color.accent_blue, predictiveLabel),
+            ActionTile("special_lagna", "Special Lagnas", "Arudha, Ghatika, Hora", R.drawable.ic_dashboard_black_24dp, R.color.accent_teal, predictiveLabel),
+            ActionTile("tara", "Tara Bala", "Favorable by nakshatra", R.drawable.ic_chip_star, R.color.accent_orange, predictiveLabel),
+            ActionTile("tara_any", "Tara Bala (Any Date)", "Transit tara for chosen instant", R.drawable.ic_chip_star, R.color.accent_purple, predictiveLabel),
+            ActionTile("transit", "Transit Chart", "Current transits", R.drawable.ic_clock_outline_24, R.color.accent_blue, predictiveLabel),
+            ActionTile("transit_any", "Transit (Any Date)", "Use selected date/time/place", R.drawable.ic_clock_outline_24, R.color.accent_teal, predictiveLabel),
+            ActionTile("transit_combo_any", "Transit + Tara (Any Date)", "Verdicts + Tara Bala", R.drawable.ic_clock_outline_24, R.color.accent_orange, predictiveLabel),
+            ActionTile("overlay_sa_ju", "Transit Overlay (Sa/Ju)", "Overlay on natal houses", R.drawable.ic_clock_outline_24, R.color.accent_purple, predictiveLabel),
+            ActionTile("overlay_nodes", "Transit Overlay (Ra/Ke)", "Overlay on natal houses", R.drawable.ic_clock_outline_24, R.color.accent_blue, predictiveLabel)
+        )
 
-            when (item.id) {
+        val utilities = listOf(
+            ActionTile("pushkara", "Pushkara Navamsha", "Elemental pushkara bands", R.drawable.ic_location_pin_24, R.color.accent_teal, utilitiesLabel),
+            ActionTile("yogi", "Yogi / Sahayogi / Avayogi", "Yogi point and lords", R.drawable.ic_star_24, R.color.accent_orange, utilitiesLabel),
+            ActionTile("ishta", "Ishta Devata", "Karakamsa based", R.drawable.ic_star_24, R.color.accent_purple, utilitiesLabel),
+            ActionTile("sbc", "Sarvatobhadra Chakra", "28-star vedha map", R.drawable.ic_notifications_black_24dp, R.color.accent_blue, utilitiesLabel),
+            ActionTile("kundali_match", "Kundali Matching", "Ashta-koota (36 gun)", R.drawable.ic_star_24, R.color.accent_blue, utilitiesLabel),
+            ActionTile("sixtyfour_twenty_two", "64th D9 & 22nd D3", "From Lagna and Moon", R.drawable.ic_history_24, R.color.accent_teal, utilitiesLabel)
+        )
 
-                "dasha" -> openDasha()
+        val categories = listOf(
+            foundationsLabel to foundations,
+            predictiveLabel to predictive,
+            utilitiesLabel to utilities
+        )
 
-                
-
-                
-
-                "panchanga" -> openPanchanga()
-
-                "today_panchanga" -> openTodayPanchanga()
-
-                "transit" -> openTransit()
-
-                "transit_any" -> openTransitAny()
-
-                "overlay_sa_ju" -> openTransitOverlay()
-
-                "overlay_nodes" -> openTransitOverlayNodes()
-
-                
-
-                
-
-                "yogas" -> openYogas()
-
-                "pushkara" -> openPushkara()
-
-                "yogi" -> openYogi()
-
-                
-
-                "sav" -> openSAV()
-                "bav" -> openAshtakavargaBAV()
-                "karakas" -> openJaiminiKarakas()
-                "arudha" -> openArudha()
-                "special_lagna" -> openSpecialLagnas()
-                "ishta" -> openIshtaDevata()
-
-                "sbc" -> openSBC()
-
-
-
-                "tara" -> openTaraBala()
-
-                "tara_any" -> openTaraBalaAny()
-
-                "transit_combo_any" -> openTransitComboAny()
-
-                "sixtyfour_twenty_two" -> openSixtyFourTwentyTwo()
-
+        val entries = mutableListOf<ActionGridItem>()
+        actionTileLookup.clear()
+        categories.forEach { (header, tiles) ->
+            if (tiles.isEmpty()) return@forEach
+            entries.add(ActionGridItem.Header(header))
+            tiles.forEach { tile ->
+                actionTileLookup[tile.id] = tile
+                entries.add(ActionGridItem.Tile(tile))
             }
-
         }
 
+        val layoutManager = GridLayoutManager(this, 2)
+        val adapter = ActionTileAdapter(entries) { handleActionTileClick(it) }
+        layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+            override fun getSpanSize(position: Int): Int {
+                return if (entries[position] is ActionGridItem.Header) layoutManager.spanCount else 1
+            }
+        }
+
+        binding.actionGrid.layoutManager = layoutManager
+        binding.actionGrid.adapter = adapter
+
+        renderRecentActionsFromStorage()
     }
 
-    private fun openSBC() = withBirthContext(notifyOnMissing = true) { ctx ->
-        val intent = android.content.Intent(this, SarvatobhadraActivity::class.java).apply {
-            putExtra(SarvatobhadraActivity.EXTRA_NAME, ctx.rawName)
-            putExtra(SarvatobhadraActivity.EXTRA_EPOCH_MILLIS, ctx.epochMillis)
-            putExtra(SarvatobhadraActivity.EXTRA_ZONE_ID, ctx.zone.id)
-            putExtra(SarvatobhadraActivity.EXTRA_LAT, ctx.city.latitude)
-            putExtra(SarvatobhadraActivity.EXTRA_LON, ctx.city.longitude)
+    private fun handleActionTileClick(item: ActionTile) {
+        recordRecentAction(item.id)
+        when (item.id) {
+            "dasha" -> openDasha()
+            "panchanga" -> openPanchanga()
+            "today_panchanga" -> openTodayPanchanga()
+            "transit" -> openTransit()
+            "transit_any" -> openTransitAny()
+            "overlay_sa_ju" -> openTransitOverlay()
+            "overlay_nodes" -> openTransitOverlayNodes()
+            "yogas" -> openYogas()
+            "pushkara" -> openPushkara()
+            "yogi" -> openYogi()
+            "sav" -> openSAV()
+            "bav" -> openAshtakavargaBAV()
+            "karakas" -> openJaiminiKarakas()
+            "arudha" -> openArudha()
+            "special_lagna" -> openSpecialLagnas()
+            "ishta" -> openIshtaDevata()
+            "sbc" -> openSBC()
+            "tara" -> openTaraBala()
+            "tara_any" -> openTaraBalaAny()
+            "transit_combo_any" -> openTransitComboAny()
+            "kundali_match" -> openKundaliMatching()
+            "sixtyfour_twenty_two" -> openSixtyFourTwentyTwo()
         }
-        startActivity(intent)
     }
 
-    private fun openTaraBala() = withBirthContext(notifyOnMissing = true) { ctx ->
-        val intent = android.content.Intent(this, TaraBalaActivity::class.java).apply {
-            putExtra(TaraBalaActivity.EXTRA_NAME, ctx.rawName)
-            putExtra(TaraBalaActivity.EXTRA_EPOCH_MILLIS, ctx.epochMillis)
-            putExtra(TaraBalaActivity.EXTRA_ZONE_ID, ctx.zone.id)
-            putExtra(TaraBalaActivity.EXTRA_LAT, ctx.city.latitude)
-            putExtra(TaraBalaActivity.EXTRA_LON, ctx.city.longitude)
-        }
-        startActivity(intent)
+    private fun recordRecentAction(actionId: String) {
+        val ids = readRecentActionIds()
+        ids.remove(actionId)
+        ids.add(0, actionId)
+        val trimmed = ids.distinct().take(4)
+        recentActionPrefs.edit().putString(RECENT_ACTION_KEY, trimmed.joinToString(",")).apply()
+        renderRecentActionChips(trimmed.mapNotNull { actionTileLookup[it] })
     }
+
+    private fun renderRecentActionsFromStorage() {
+        val tiles = readRecentActionIds().mapNotNull { actionTileLookup[it] }
+        renderRecentActionChips(tiles)
+    }
+
+    private fun renderRecentActionChips(tiles: List<ActionTile>) {
+        val container = binding.recentActionsContainer
+        val chipGroup = binding.recentActionChips
+        chipGroup.removeAllViews()
+        if (tiles.isEmpty()) {
+            container.visibility = View.GONE
+            return
+        }
+        container.visibility = View.VISIBLE
+        tiles.forEach { tile ->
+            val chip = Chip(this).apply {
+                text = tile.title
+                isCheckable = false
+                setEnsureMinTouchTargetSize(false)
+                val accent = ContextCompat.getColor(context, tile.accentColor)
+                chipBackgroundColor = ColorStateList.valueOf(ColorUtils.setAlphaComponent(accent, 60))
+                chipIcon = ContextCompat.getDrawable(context, tile.iconRes)
+                chipIconTint = ColorStateList.valueOf(accent)
+            }
+            chip.setOnClickListener { handleActionTileClick(tile) }
+            chipGroup.addView(chip)
+        }
+    }
+
+    private fun readRecentActionIds(): MutableList<String> =
+        recentActionPrefs.getString(RECENT_ACTION_KEY, "")
+            ?.split(",")
+            ?.mapNotNull { it.trim().takeIf(String::isNotEmpty) }
+            ?.toMutableList()
+            ?: mutableListOf()
+
+    private fun openSBC() = launchBirthActivity<SarvatobhadraActivity>()
+
+    private fun openTaraBala() = launchBirthActivity<TaraBalaActivity>()
 
     private fun openTaraBalaAny() {
 
@@ -398,6 +388,10 @@ class MainActivity : AppCompatActivity() {
 
         startActivity(intent)
 
+    }
+
+    private fun openKundaliMatching() {
+        startActivity(android.content.Intent(this, KundaliMatchingActivity::class.java))
     }
 
 
@@ -491,18 +485,8 @@ class MainActivity : AppCompatActivity() {
 
 
         binding.placeInput.setOnItemClickListener { _, _, position, _ ->
-
             val name = adapter.getItem(position)
-
-            val resolved = when {
-
-                name.isNullOrBlank() -> null
-
-                dynamicCityMap.containsKey(name) -> dynamicCityMap[name]
-
-                else -> CityDatabase.findByName(name)
-
-            }
+            val resolved = resolveCityByName(name.orEmpty())
 
             if (resolved != null) {
                 setSelectedCity(resolved, updateInput = false)
@@ -564,13 +548,9 @@ class MainActivity : AppCompatActivity() {
                         // Merge: dynamic results first, then base names that match
 
                         dynamicCityMap.clear()
-
                         val dynamicNames = results.map { city ->
-
-                            dynamicCityMap[city.name] = city
-
+                            rememberDynamicCity(city)
                             city.name
-
                         }
 
                         val fallbackMatches = CityDatabase.names().filter { it.contains(query, ignoreCase = true) }
@@ -616,18 +596,7 @@ class MainActivity : AppCompatActivity() {
                 binding.placeInput.dismissDropDown()
 
                 val textValue = binding.placeInput.text?.toString()?.trim().orEmpty()
-
-                val resolved = when {
-
-                    textValue.isBlank() -> null
-
-                    dynamicCityMap.containsKey(textValue) -> dynamicCityMap[textValue]
-
-                    CityDatabase.findByName(textValue) != null -> CityDatabase.findByName(textValue)
-
-                    else -> geocodeFirstIndia(textValue)
-
-                }
+                val resolved = resolveCityByName(textValue, allowGeocoder = true)
 
                 if (resolved != null) {
                     setSelectedCity(resolved, updateInput = false)
@@ -822,31 +791,15 @@ class MainActivity : AppCompatActivity() {
 
     private fun fetchIndiaSuggestions(query: String): List<City>? {
 
-        return runCatching {
+        val addresses = geocodeInIndia(query, 10) ?: return null
 
-            if (!Geocoder.isPresent()) return null
+        return addresses.mapNotNull { addr ->
 
-            val geocoder = Geocoder(this)
+            val name = resolveDisplayName(addr) ?: return@mapNotNull null
 
-            // Rough India bounding box: lat 6..37, lon 68..97
+            City(name, addr.latitude, addr.longitude)
 
-            val list = geocoder.getFromLocationName("$query, India", 10, 6.0, 68.0, 37.0, 97.0)
-
-            list?.mapNotNull { addr ->
-
-                val lat = addr.latitude
-
-                val lon = addr.longitude
-
-                val locality = listOfNotNull(addr.locality, addr.subAdminArea, addr.adminArea).joinToString(", ")
-
-                val name = if (locality.isNotBlank()) locality else addr.featureName ?: return@mapNotNull null
-
-                City(name, lat, lon)
-
-            }?.distinctBy { it.name }
-
-        }.getOrNull()
+        }.distinctBy { it.name }
 
     }
 
@@ -854,23 +807,47 @@ class MainActivity : AppCompatActivity() {
 
     private fun geocodeFirstIndia(query: String): City? {
 
-        return runCatching {
+        val address = geocodeInIndia(query, 1)?.firstOrNull() ?: return null
 
-            if (!Geocoder.isPresent()) return null
+        val name = resolveDisplayName(address) ?: query
+
+        return City(name, address.latitude, address.longitude)
+
+    }
+
+    private fun geocodeInIndia(query: String, maxResults: Int): List<Address>? {
+
+        if (!Geocoder.isPresent()) return null
+
+        return runCatching {
 
             val geocoder = Geocoder(this)
 
-            val list = geocoder.getFromLocationName("$query, India", 1, 6.0, 68.0, 37.0, 97.0)
+            geocoder.getFromLocationName(
 
-            val a = list?.firstOrNull() ?: return null
+                "$query, India",
 
-            val locality = listOfNotNull(a.locality, a.subAdminArea, a.adminArea).joinToString(", ")
+                maxResults,
 
-            val name = if (locality.isNotBlank()) locality else a.featureName ?: query
+                INDIA_SOUTH_BOUND,
 
-            City(name, a.latitude, a.longitude)
+                INDIA_WEST_BOUND,
+
+                INDIA_NORTH_BOUND,
+
+                INDIA_EAST_BOUND
+
+            )
 
         }.getOrNull()
+
+    }
+
+    private fun resolveDisplayName(address: Address): String? {
+
+        val locality = listOfNotNull(address.locality, address.subAdminArea, address.adminArea).joinToString(", ")
+
+        return if (locality.isNotBlank()) locality else address.featureName
 
     }
 
@@ -990,6 +967,22 @@ class MainActivity : AppCompatActivity() {
         block(context)
     }
 
+    private inline fun <reified A : AppCompatActivity> launchBirthActivity(
+        notifyOnMissing: Boolean = true,
+        crossinline configure: Intent.(BirthContext) -> Unit = {}
+    ) {
+        withBirthContext(notifyOnMissing) { ctx ->
+            val intent = Intent(this, A::class.java).apply {
+                putBirthPayload(ctx.toIntentPayload())
+                configure(ctx)
+            }
+            startActivity(intent)
+        }
+    }
+
+    private fun BirthContext.toIntentPayload(): BirthIntentPayload =
+        BirthIntentPayload(rawName, epochMillis, zone, city.latitude, city.longitude)
+
     private fun buildBirthContext(notifyOnMissing: Boolean = false): BirthContext? {
         val date = selectedDate
         val time = selectedTime
@@ -1014,10 +1007,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun resolveCityInput(): City? {
-        val typed = binding.placeInput.text?.toString()?.trim().orEmpty()
-        return selectedCity
-            ?: dynamicCityMap[typed]
-            ?: CityDatabase.findByName(typed)
+        val typed = binding.placeInput.text?.toString().orEmpty()
+        return selectedCity ?: resolveCityByName(typed)
     }
 
     private fun showMissingBirthDetailsMessage() {
@@ -1061,94 +1052,19 @@ class MainActivity : AppCompatActivity() {
 
 
 
-    private fun openDasha() = withBirthContext(notifyOnMissing = true) { ctx ->
-        val intent = android.content.Intent(this, DashaActivity::class.java).apply {
-            putExtra(DashaActivity.EXTRA_NAME, ctx.rawName)
-            putExtra(DashaActivity.EXTRA_EPOCH_MILLIS, ctx.epochMillis)
-            putExtra(DashaActivity.EXTRA_ZONE_ID, ctx.zone.id)
-            putExtra(DashaActivity.EXTRA_LAT, ctx.city.latitude)
-            putExtra(DashaActivity.EXTRA_LON, ctx.city.longitude)
-        }
-        startActivity(intent)
-    }
+    private fun openDasha() = launchBirthActivity<DashaActivity>()
 
+    private fun openYoginiDasha() = launchBirthActivity<YoginiDashaActivity>()
 
+    private fun openPushkara() = launchBirthActivity<PushkaraNavamshaActivity>()
 
-    private fun openYoginiDasha() = withBirthContext(notifyOnMissing = true) { ctx ->
-        val intent = android.content.Intent(this, YoginiDashaActivity::class.java).apply {
-            putExtra(YoginiDashaActivity.EXTRA_NAME, ctx.rawName)
-            putExtra(YoginiDashaActivity.EXTRA_EPOCH_MILLIS, ctx.epochMillis)
-            putExtra(YoginiDashaActivity.EXTRA_ZONE_ID, ctx.zone.id)
-            putExtra(YoginiDashaActivity.EXTRA_LAT, ctx.city.latitude)
-            putExtra(YoginiDashaActivity.EXTRA_LON, ctx.city.longitude)
-        }
-        startActivity(intent)
-    }
+    private fun openIKH() = launchBirthActivity<IshtaKashtaHarshaActivity>()
 
+    private fun openCharaDasha() = launchBirthActivity<CharaDashaActivity>()
 
+    private fun openYogi() = launchBirthActivity<YogiActivity>()
 
-    private fun openPushkara() = withBirthContext(notifyOnMissing = true) { ctx ->
-        val intent = android.content.Intent(this, PushkaraNavamshaActivity::class.java).apply {
-            putExtra(PushkaraNavamshaActivity.EXTRA_NAME, ctx.rawName)
-            putExtra(PushkaraNavamshaActivity.EXTRA_EPOCH_MILLIS, ctx.epochMillis)
-            putExtra(PushkaraNavamshaActivity.EXTRA_ZONE_ID, ctx.zone.id)
-            putExtra(PushkaraNavamshaActivity.EXTRA_LAT, ctx.city.latitude)
-            putExtra(PushkaraNavamshaActivity.EXTRA_LON, ctx.city.longitude)
-        }
-        startActivity(intent)
-    }
-
-
-
-    private fun openIKH() = withBirthContext(notifyOnMissing = true) { ctx ->
-        val intent = android.content.Intent(this, IshtaKashtaHarshaActivity::class.java).apply {
-            putExtra(IshtaKashtaHarshaActivity.EXTRA_NAME, ctx.rawName)
-            putExtra(IshtaKashtaHarshaActivity.EXTRA_EPOCH_MILLIS, ctx.epochMillis)
-            putExtra(IshtaKashtaHarshaActivity.EXTRA_ZONE_ID, ctx.zone.id)
-            putExtra(IshtaKashtaHarshaActivity.EXTRA_LAT, ctx.city.latitude)
-            putExtra(IshtaKashtaHarshaActivity.EXTRA_LON, ctx.city.longitude)
-        }
-        startActivity(intent)
-    }
-
-
-
-    private fun openCharaDasha() = withBirthContext(notifyOnMissing = true) { ctx ->
-        val intent = android.content.Intent(this, CharaDashaActivity::class.java).apply {
-            putExtra(CharaDashaActivity.EXTRA_NAME, ctx.rawName)
-            putExtra(CharaDashaActivity.EXTRA_EPOCH_MILLIS, ctx.epochMillis)
-            putExtra(CharaDashaActivity.EXTRA_ZONE_ID, ctx.zone.id)
-            putExtra(CharaDashaActivity.EXTRA_LAT, ctx.city.latitude)
-            putExtra(CharaDashaActivity.EXTRA_LON, ctx.city.longitude)
-        }
-        startActivity(intent)
-    }
-
-
-
-    private fun openYogi() = withBirthContext(notifyOnMissing = true) { ctx ->
-        val intent = android.content.Intent(this, YogiActivity::class.java).apply {
-            putExtra(YogiActivity.EXTRA_NAME, ctx.rawName)
-            putExtra(YogiActivity.EXTRA_EPOCH_MILLIS, ctx.epochMillis)
-            putExtra(YogiActivity.EXTRA_ZONE_ID, ctx.zone.id)
-            putExtra(YogiActivity.EXTRA_LAT, ctx.city.latitude)
-            putExtra(YogiActivity.EXTRA_LON, ctx.city.longitude)
-        }
-        startActivity(intent)
-    }
-
-
-
-    private fun openTransit() = withBirthContext(notifyOnMissing = true) { ctx ->
-        val intent = android.content.Intent(this, TransitActivity::class.java).apply {
-            putExtra(TransitActivity.EXTRA_NAME, ctx.rawName)
-            putExtra(TransitActivity.EXTRA_EPOCH_MILLIS, ctx.epochMillis)
-            putExtra(TransitActivity.EXTRA_ZONE_ID, ctx.zone.id)
-            putExtra(TransitActivity.EXTRA_LAT, ctx.city.latitude)
-            putExtra(TransitActivity.EXTRA_LON, ctx.city.longitude)
-        }
-        startActivity(intent)
-    }
+    private fun openTransit() = launchBirthActivity<TransitActivity>()
 
 
 
@@ -1184,182 +1100,35 @@ class MainActivity : AppCompatActivity() {
 
 
 
-    private fun openTransitOverlay() = withBirthContext(notifyOnMissing = true) { ctx ->
-        val intent = android.content.Intent(this, OverlayActivity::class.java).apply {
-            putExtra(OverlayActivity.EXTRA_NAME, ctx.rawName)
-            putExtra(OverlayActivity.EXTRA_EPOCH_MILLIS, ctx.epochMillis)
-            putExtra(OverlayActivity.EXTRA_ZONE_ID, ctx.zone.id)
-            putExtra(OverlayActivity.EXTRA_LAT, ctx.city.latitude)
-            putExtra(OverlayActivity.EXTRA_LON, ctx.city.longitude)
-        }
-        startActivity(intent)
-    }
+    private fun openTransitOverlay() = launchBirthActivity<OverlayActivity>()
+
+    private fun openTransitOverlayNodes() = launchBirthActivity<OverlayNodesActivity>()
 
 
 
-    private fun openTransitOverlayNodes() = withBirthContext(notifyOnMissing = true) { ctx ->
-        val intent = android.content.Intent(this, OverlayNodesActivity::class.java).apply {
-            putExtra(OverlayNodesActivity.EXTRA_NAME, ctx.rawName)
-            putExtra(OverlayNodesActivity.EXTRA_EPOCH_MILLIS, ctx.epochMillis)
-            putExtra(OverlayNodesActivity.EXTRA_ZONE_ID, ctx.zone.id)
-            putExtra(OverlayNodesActivity.EXTRA_LAT, ctx.city.latitude)
-            putExtra(OverlayNodesActivity.EXTRA_LON, ctx.city.longitude)
-        }
-        startActivity(intent)
-    }
+    private fun openVargas() = launchBirthActivity<DivisionalChartsActivity>()
 
+    private fun openD60() = launchBirthActivity<D60Activity>()
 
+    private fun openShadbala() = launchBirthActivity<ShadbalaActivity>()
 
-    private fun openVargas() = withBirthContext(notifyOnMissing = true) { ctx ->
-        val intent = android.content.Intent(this, DivisionalChartsActivity::class.java).apply {
-            putExtra(DivisionalChartsActivity.EXTRA_NAME, ctx.rawName)
-            putExtra(DivisionalChartsActivity.EXTRA_EPOCH_MILLIS, ctx.epochMillis)
-            putExtra(DivisionalChartsActivity.EXTRA_ZONE_ID, ctx.zone.id)
-            putExtra(DivisionalChartsActivity.EXTRA_LAT, ctx.city.latitude)
-            putExtra(DivisionalChartsActivity.EXTRA_LON, ctx.city.longitude)
-        }
-        startActivity(intent)
-    }
+    private fun openSAV() = launchBirthActivity<SarvaAshtakavargaActivity>()
 
+    private fun openAshtakavargaBAV() = launchBirthActivity<AshtakavargaBavActivity>()
 
+    private fun openJaiminiKarakas() = launchBirthActivity<JaiminiKarakasActivity>()
 
-    private fun openD60() = withBirthContext(notifyOnMissing = true) { ctx ->
-        val intent = android.content.Intent(this, D60Activity::class.java).apply {
-            putExtra(D60Activity.EXTRA_NAME, ctx.rawName)
-            putExtra(D60Activity.EXTRA_EPOCH_MILLIS, ctx.epochMillis)
-            putExtra(D60Activity.EXTRA_ZONE_ID, ctx.zone.id)
-            putExtra(D60Activity.EXTRA_LAT, ctx.city.latitude)
-            putExtra(D60Activity.EXTRA_LON, ctx.city.longitude)
-        }
-        startActivity(intent)
-    }
+    private fun openArudha() = launchBirthActivity<ArudhaPadasActivity>()
 
+    private fun openSpecialLagnas() = launchBirthActivity<SpecialLagnasActivity>()
 
+    private fun openIshtaDevata() = launchBirthActivity<IshtaDevataActivity>()
 
-    private fun openShadbala() = withBirthContext(notifyOnMissing = true) { ctx ->
-        val intent = android.content.Intent(this, ShadbalaActivity::class.java).apply {
-            putExtra(ShadbalaActivity.EXTRA_NAME, ctx.rawName)
-            putExtra(ShadbalaActivity.EXTRA_EPOCH_MILLIS, ctx.epochMillis)
-            putExtra(ShadbalaActivity.EXTRA_ZONE_ID, ctx.zone.id)
-            putExtra(ShadbalaActivity.EXTRA_LAT, ctx.city.latitude)
-            putExtra(ShadbalaActivity.EXTRA_LON, ctx.city.longitude)
-        }
-        startActivity(intent)
-    }
+    private fun openYogas() = launchBirthActivity<YogasActivity>()
 
+    private fun openPanchanga() = launchBirthActivity<PanchangaActivity>()
 
-
-    private fun openSAV() = withBirthContext(notifyOnMissing = true) { ctx ->
-        val intent = android.content.Intent(this, SarvaAshtakavargaActivity::class.java).apply {
-            putExtra(SarvaAshtakavargaActivity.EXTRA_NAME, ctx.rawName)
-            putExtra(SarvaAshtakavargaActivity.EXTRA_EPOCH_MILLIS, ctx.epochMillis)
-            putExtra(SarvaAshtakavargaActivity.EXTRA_ZONE_ID, ctx.zone.id)
-            putExtra(SarvaAshtakavargaActivity.EXTRA_LAT, ctx.city.latitude)
-            putExtra(SarvaAshtakavargaActivity.EXTRA_LON, ctx.city.longitude)
-        }
-        startActivity(intent)
-    }
-
-
-
-    private fun openAshtakavargaBAV() = withBirthContext(notifyOnMissing = true) { ctx ->
-        val intent = android.content.Intent(this, AshtakavargaBavActivity::class.java).apply {
-            putExtra(AshtakavargaBavActivity.EXTRA_NAME, ctx.rawName)
-            putExtra(AshtakavargaBavActivity.EXTRA_EPOCH_MILLIS, ctx.epochMillis)
-            putExtra(AshtakavargaBavActivity.EXTRA_ZONE_ID, ctx.zone.id)
-            putExtra(AshtakavargaBavActivity.EXTRA_LAT, ctx.city.latitude)
-            putExtra(AshtakavargaBavActivity.EXTRA_LON, ctx.city.longitude)
-        }
-        startActivity(intent)
-    }
-
-
-
-    private fun openJaiminiKarakas() = withBirthContext(notifyOnMissing = true) { ctx ->
-        val intent = android.content.Intent(this, JaiminiKarakasActivity::class.java).apply {
-            putExtra(JaiminiKarakasActivity.EXTRA_NAME, ctx.rawName)
-            putExtra(JaiminiKarakasActivity.EXTRA_EPOCH_MILLIS, ctx.epochMillis)
-            putExtra(JaiminiKarakasActivity.EXTRA_ZONE_ID, ctx.zone.id)
-            putExtra(JaiminiKarakasActivity.EXTRA_LAT, ctx.city.latitude)
-            putExtra(JaiminiKarakasActivity.EXTRA_LON, ctx.city.longitude)
-        }
-        startActivity(intent)
-    }
-
-
-
-    private fun openArudha() = withBirthContext(notifyOnMissing = true) { ctx ->
-        val intent = android.content.Intent(this, ArudhaPadasActivity::class.java).apply {
-            putExtra(ArudhaPadasActivity.EXTRA_NAME, ctx.rawName)
-            putExtra(ArudhaPadasActivity.EXTRA_EPOCH_MILLIS, ctx.epochMillis)
-            putExtra(ArudhaPadasActivity.EXTRA_ZONE_ID, ctx.zone.id)
-            putExtra(ArudhaPadasActivity.EXTRA_LAT, ctx.city.latitude)
-            putExtra(ArudhaPadasActivity.EXTRA_LON, ctx.city.longitude)
-        }
-        startActivity(intent)
-    }
-
-    private fun openSpecialLagnas() = withBirthContext(notifyOnMissing = true) { ctx ->
-        val intent = android.content.Intent(this, SpecialLagnasActivity::class.java).apply {
-            putExtra(SpecialLagnasActivity.EXTRA_NAME, ctx.rawName)
-            putExtra(SpecialLagnasActivity.EXTRA_EPOCH_MILLIS, ctx.epochMillis)
-            putExtra(SpecialLagnasActivity.EXTRA_ZONE_ID, ctx.zone.id)
-            putExtra(SpecialLagnasActivity.EXTRA_LAT, ctx.city.latitude)
-            putExtra(SpecialLagnasActivity.EXTRA_LON, ctx.city.longitude)
-        }
-        startActivity(intent)
-    }
-
-
-    private fun openIshtaDevata() = withBirthContext(notifyOnMissing = true) { ctx ->
-        val intent = android.content.Intent(this, IshtaDevataActivity::class.java).apply {
-            putExtra(IshtaDevataActivity.EXTRA_NAME, ctx.rawName)
-            putExtra(IshtaDevataActivity.EXTRA_EPOCH_MILLIS, ctx.epochMillis)
-            putExtra(IshtaDevataActivity.EXTRA_ZONE_ID, ctx.zone.id)
-            putExtra(IshtaDevataActivity.EXTRA_LAT, ctx.city.latitude)
-            putExtra(IshtaDevataActivity.EXTRA_LON, ctx.city.longitude)
-        }
-        startActivity(intent)
-    }
-
-
-
-    private fun openYogas() = withBirthContext(notifyOnMissing = true) { ctx ->
-        val intent = android.content.Intent(this, YogasActivity::class.java).apply {
-            putExtra(YogasActivity.EXTRA_NAME, ctx.rawName)
-            putExtra(YogasActivity.EXTRA_EPOCH_MILLIS, ctx.epochMillis)
-            putExtra(YogasActivity.EXTRA_ZONE_ID, ctx.zone.id)
-            putExtra(YogasActivity.EXTRA_LAT, ctx.city.latitude)
-            putExtra(YogasActivity.EXTRA_LON, ctx.city.longitude)
-        }
-        startActivity(intent)
-    }
-
-
-
-    private fun openPanchanga() = withBirthContext(notifyOnMissing = true) { ctx ->
-        val intent = android.content.Intent(this, PanchangaActivity::class.java).apply {
-            putExtra(PanchangaActivity.EXTRA_NAME, ctx.rawName)
-            putExtra(PanchangaActivity.EXTRA_EPOCH_MILLIS, ctx.epochMillis)
-            putExtra(PanchangaActivity.EXTRA_ZONE_ID, ctx.zone.id)
-            putExtra(PanchangaActivity.EXTRA_LAT, ctx.city.latitude)
-            putExtra(PanchangaActivity.EXTRA_LON, ctx.city.longitude)
-        }
-        startActivity(intent)
-    }
-
-
-
-    private fun openSixtyFourTwentyTwo() = withBirthContext(notifyOnMissing = true) { ctx ->
-        val intent = android.content.Intent(this, SixtyFourTwentyTwoActivity::class.java).apply {
-            putExtra(SixtyFourTwentyTwoActivity.EXTRA_NAME, ctx.rawName)
-            putExtra(SixtyFourTwentyTwoActivity.EXTRA_EPOCH_MILLIS, ctx.epochMillis)
-            putExtra(SixtyFourTwentyTwoActivity.EXTRA_ZONE_ID, ctx.zone.id)
-            putExtra(SixtyFourTwentyTwoActivity.EXTRA_LAT, ctx.city.latitude)
-            putExtra(SixtyFourTwentyTwoActivity.EXTRA_LON, ctx.city.longitude)
-        }
-        startActivity(intent)
-    }
+    private fun openSixtyFourTwentyTwo() = launchBirthActivity<SixtyFourTwentyTwoActivity>()
 
 
 
@@ -1805,11 +1574,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
+        private const val INDIA_SOUTH_BOUND = 6.0
+        private const val INDIA_NORTH_BOUND = 37.0
+        private const val INDIA_WEST_BOUND = 68.0
+        private const val INDIA_EAST_BOUND = 97.0
         private const val PREF_LAST_DATE = "birth_last_date"
         private const val PREF_LAST_TIME = "birth_last_time"
         private const val PREF_LAST_CITY_NAME = "birth_last_city_name"
         private const val PREF_LAST_CITY_LAT = "birth_last_city_lat"
         private const val PREF_LAST_CITY_LON = "birth_last_city_lon"
+        private const val RECENT_ACTION_KEY = "recent.action.ids"
     }
 }
+
+
+
 
