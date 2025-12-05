@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:background="?attr/colorSurface"
         android:theme="@style/ThemeOverlay.Material3.Dark.ActionBar"
-        app:navigationIcon="@drawable/ic_arrow_back_24"
+        app:navigationIcon="@drawable/ic_home_black_24dp"
         app:title="@string/kundali_title" />
 
     <ScrollView
@@ -45,7 +45,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/kundali_bride"
-                    app:endIconMode="dropdown">
+                    app:endIconMode="dropdown_menu">
 
                     <AutoCompleteTextView
                         android:id="@+id/brideInput"
@@ -59,7 +59,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:hint="@string/kundali_groom"
-                    app:endIconMode="dropdown">
+                    app:endIconMode="dropdown_menu">
 
                     <AutoCompleteTextView
                         android:id="@+id/groomInput"
