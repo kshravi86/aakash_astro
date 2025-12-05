@@ -2,30 +2,47 @@
 
 Aakash Astro is a fully offline-first Vedic astrology toolkit written in Kotlin/Android. It bundles Swiss Ephemeris based calculations, a fallback astronomic solver, and more than twenty specialist screens that cover dasa timelines, panchanga, transit overlays, ashtakavarga, Jaimini techniques, Tara Bala, Sarvatobhadra, Shadbala, and divisional charts. The app is structured so the computational layer (`com.aakash.astro.astrology`) stays decoupled from Android UI code, which makes it easy to validate, extend, and reuse the calculators.
 
+## Documentation Map
+- `docs/PROJECT_DOCUMENTATION.md` - architecture, runtime flow, operations checklists.
+- `readmehowitworks.md` - Swiss Ephemeris + Lahiri ayanamsa accuracy deep dive.
+- `docs/SWISS_EPH.md` - Swiss Ephemeris license notice; keep in sync with releases.
+- `docs/GITHUB_WORKFLOWS.md` - CI build and screenshot pipelines.
+- `docs/PRIVACY_POLICY.md` / `docs/privacy-policy.html` - bundled policy copy (also in `vedic-light-policy/`).
+- `scripts/capture_screenshots.sh` - reproducible Play Store screenshot generator.
+
 ## Highlights
-- **Guided birth input** – `MainActivity` pairs Material date/time pickers with debounced Geocoder lookups and the bundled `CityDatabase` to capture full birth context before any calculation runs (`app/src/main/java/com/aakash/astro/MainActivity.kt`).
-- **Action grid navigation** – every analytical screen is exposed as an `ActionTile`, so adding a new feature means wiring just one adapter entry plus an activity (`app/src/main/java/com/aakash/astro/ui/ActionTileAdapter.kt`).
-- **Tiered calculation engines** – `AccurateCalculator` calls Swiss Ephemeris (if `swisseph.jar` and `.se1` assets are present) while `AstrologyCalculator` keeps the app usable with a pure-Kotlin fallback (`app/src/main/java/com/aakash/astro/astrology`).
-- **Rich domain layer** – standalone calculators exist for dasas, Jaimini karakas, varga extraction, yogas, shadbala, tara bala, yogi points, etc., letting feature screens focus on presentation logic.
-- **Self-contained data & privacy** – ephemeris files ship inside `app/src/main/assets/ephe`, saved horoscopes live in app-private storage via `SavedStore`, and an embedded privacy policy (`docs/privacy-policy.html` + `PrivacyActivity`) keeps compliance simple.
+- **Guided birth input** - `MainActivity` pairs Material date/time pickers with debounced Geocoder lookups and the bundled `CityDatabase` to capture full birth context before any calculation runs (`app/src/main/java/com/aakash/astro/MainActivity.kt`).
+- **Action grid navigation** - every analytical screen is exposed as an `ActionTile`, so adding a new feature means wiring just one adapter entry plus an activity (`app/src/main/java/com/aakash/astro/ui/ActionTileAdapter.kt`).
+- **Tiered calculation engines** - `AccurateCalculator` calls Swiss Ephemeris (if `swisseph.jar` and `.se1` assets are present) while `AstrologyCalculator` keeps the app usable with a pure-Kotlin fallback (`app/src/main/java/com/aakash/astro/astrology`).
+- **Rich domain layer** - standalone calculators exist for dasas, Jaimini karakas, varga extraction, yogas, shadbala, tara bala, yogi points, etc., letting feature screens focus on presentation logic.
+- **Self-contained data & privacy** - ephemeris files ship inside `app/src/main/assets/ephe`, saved horoscopes live in app-private storage via `SavedStore`, and an embedded privacy policy (`docs/privacy-policy.html` + `PrivacyActivity`) keeps compliance simple.
+
+## Developer Quickstart (10 minutes)
+1. Open the project in Android Studio (JDK 17+); let it download the right SDKs when prompted.
+2. Keep the bundled Swiss ephemeris (`app/libs/swisseph.jar` + `app/src/main/assets/ephe`) or remove them to validate the built-in solver; the engine label under the natal chart shows which path is active.
+3. Build and install: `./gradlew assembleDebug` then `adb install app/build/outputs/apk/debug/app-debug.apk`, or hit **Run** in Android Studio.
+4. Smoke test: enter any birth date/time/place (or tap **Quick now**), generate the chart, and open `Panchanga`, `Dasha`, `Tara Bala`, and `Sarvatobhadra` to confirm calculators wire up.
+5. Persistence check: use the overflow menu to **Save**, then open **Saved charts** to reload and delete a record—this exercises `SavedStore`.
+6. Need more depth? `docs/PROJECT_DOCUMENTATION.md` walks through every subsystem; `readmehowitworks.md` covers Swiss Ephemeris accuracy choices.
 
 ## Repository Layout
 
 ```text
 .
-├── app/
-│   ├── build.gradle.kts        # Android module configuration (minSdk 24, target/compile 36, Kotlin 2.0.21)
-│   ├── libs/swisseph.jar       # Optional Swiss Ephemeris runtime
-│   └── src/main/
-│       ├── java/com/aakash/astro/   # Activities, calculators, storage, geo helpers, UI widgets
-│       ├── res/                     # Layout XML, theming, drawables
-│       └── assets/ephe              # Bundled Swiss ephemeris data files
-├── docs/                           # Privacy policy, third-party notices, Swiss Ephemeris licensing notes
-├── scripts/capture_screenshots.sh  # Helper used to refresh Play Store imagery
-├── readmehowitworks.md             # Deep dive on Lahiri ayanamsa + Swiss Ephemeris accuracy choices
-├── build.gradle.kts / settings.gradle.kts / gradle/  # Gradle wrapper + version catalogs
-└── *.txt / *.json resources        # Domain datasets (tara table, Sarvatobhadra grid, etc.)
+app/
+  build.gradle.kts                  # Android module configuration (minSdk 24, target/compile 36, Kotlin 2.0.21)
+  libs/swisseph.jar                 # Optional Swiss Ephemeris runtime
+  src/main/
+    java/com/aakash/astro/          # Activities, calculators, storage, geo helpers, UI widgets
+    res/                            # Layout XML, theming, drawables
+    assets/ephe/                    # Bundled Swiss ephemeris data files
+docs/                               # Privacy policy, third-party notices, Swiss Ephemeris licensing notes
+scripts/capture_screenshots.sh      # Helper used to refresh Play Store imagery
+readmehowitworks.md                 # Deep dive on Lahiri ayanamsa + Swiss Ephemeris accuracy choices
+build.gradle.kts / settings.gradle.kts / gradle/  # Gradle wrapper + version catalogs
+*.txt / *.json resources            # Domain datasets (tara table, Sarvatobhadra grid, etc.)
 ```
+
 
 ## Architecture Diagram
 
@@ -89,12 +106,12 @@ graph LR
 ## Birth Data & Navigation Flow
 The dashboard screen (`MainActivity`) is responsible for collecting input, generating a chart, and routing to analysis screens:
 
-1. **Input widgets** – Material pickers (`MaterialDatePicker`, `MaterialTimePicker`) feed `selectedDate/selectedTime`. Quick-select chips (`Quick now`, `Morning`, `Evening`) keep `selectedTime` in sync with the form and shared preferences persist the last-used values.
-2. **Location helpers** – `CityDatabase` provides instant Indian metros while debounced `Geocoder` lookups (`fetchIndiaSuggestions` & `geocodeFirstIndia`) add remote suggestions once a user types ≥3 characters. Resolved `City` objects update both the latitude/longitude fields and the `BirthContext`.
-3. **BirthContext guard** – `withBirthContext` short-circuits every action if date/time/location are missing, ensuring downstream screens always receive `EXTRA_*` payloads (epochMillis, zoneId, lat, lon, name).
-4. **Chart generation** – tapping **Generate** invokes `AccurateCalculator.generateChart`; on failure (e.g., missing Swiss Ephemeris) a snackbar warns the user and `AstrologyCalculator` keeps the UI responsive. The resulting `ChartResult` fills `VedicChartView` plus the planet RecyclerView (`ItemPlanetPositionBinding` rows).
-5. **Action grid** – `RecyclerView` + `ActionTileAdapter` renders a two-column menu of analytics (Vimshottari Dasha, Panchanga, Yogas, SAV/BAV, Jaimini tools, transit overlays, Tara Bala, etc.). Selecting a tile launches the matching activity with the serialized birth context.
-6. **Overflow actions** – the top app bar exposes `Save` (persists via `SavedStore`) and `Saved charts`, `Share`, and `Privacy`. Saved charts reopen the dashboard with intent extras so users can immediately jump back into any downstream analyzer.
+1. **Input widgets** - Material pickers (`MaterialDatePicker`, `MaterialTimePicker`) feed `selectedDate/selectedTime`. Quick-select chips (`Quick now`, `Morning`, `Evening`) keep `selectedTime` in sync with the form and shared preferences persist the last-used values.
+2. **Location helpers** - `CityDatabase` provides instant Indian metros while debounced `Geocoder` lookups (`fetchIndiaSuggestions` & `geocodeFirstIndia`) add remote suggestions once a user types three or more characters. Resolved `City` objects update both the latitude/longitude fields and the `BirthContext`.
+3. **BirthContext guard** - `withBirthContext` short-circuits every action if date/time/location are missing, ensuring downstream screens always receive `EXTRA_*` payloads (epochMillis, zoneId, lat, lon, name).
+4. **Chart generation** - tapping **Generate** invokes `AccurateCalculator.generateChart`; on failure (e.g., missing Swiss Ephemeris) a snackbar warns the user and `AstrologyCalculator` keeps the UI responsive. The resulting `ChartResult` fills `VedicChartView` plus the planet RecyclerView (`ItemPlanetPositionBinding` rows).
+5. **Action grid** - `RecyclerView` + `ActionTileAdapter` renders a two-column menu of analytics (Vimshottari Dasha, Panchanga, Yogas, SAV/BAV, Jaimini tools, transit overlays, Tara Bala, etc.). Selecting a tile launches the matching activity with the serialized birth context.
+6. **Overflow actions** - the top app bar exposes `Save` (persists via `SavedStore`) and `Saved charts`, `Share`, and `Privacy`. Saved charts reopen the dashboard with intent extras so users can immediately jump back into any downstream analyzer.
 
 ## Feature Reference
 
@@ -116,10 +133,10 @@ Every activity follows the same contract: read the serialized birth context (`EX
 
 ## Astrology & Calculation Layer
 
-- **Ephemeris preparation** – `EphemerisPreparer` copies `.se1` files from `assets/ephe` to `files/ephe` on first launch so Swiss Ephemeris can read them from internal storage. `AccurateCalculator.setEphePath` points the library to that folder.
-- **Swiss Ephemeris bridge** – `AccurateCalculator` loads `swisseph.SwissEph` via reflection, enforces Lahiri ayanamsa (`SE_SIDM_LAHIRI`), toggles sidereal flags, and outputs `ChartResult` objects. When `swisseph.jar` is missing, it simply returns `null`.
-- **Built-in solver** – `AstrologyCalculator` implements simplified heliocentric orbital math (Kepler equations, ayanamsa, sidereal conversion) so the UI continues to function without external jars.
-- **Support calculators** – The `com.aakash.astro.astrology` package contains reusable engines for:
+- **Ephemeris preparation** - `EphemerisPreparer` copies `.se1` files from `assets/ephe` to `files/ephe` on first launch so Swiss Ephemeris can read them from internal storage. `AccurateCalculator.setEphePath` points the library to that folder.
+- **Swiss Ephemeris bridge** - `AccurateCalculator` loads `swisseph.SwissEph` via reflection, enforces Lahiri ayanamsa (`SE_SIDM_LAHIRI`), toggles sidereal flags, and outputs `ChartResult` objects. When `swisseph.jar` is missing, it simply returns `null`.
+- **Built-in solver** - `AstrologyCalculator` implements simplified heliocentric orbital math (Kepler equations, ayanamsa, sidereal conversion) so the UI continues to function without external jars.
+- **Support calculators** - The `com.aakash.astro.astrology` package contains reusable engines for:
   - divisional charts (`VargaCalculator`, `Vargottama`, `DrekkanaUtils`, `D60Shashtiamsa`)
   - dasas (`DashaCalculator`, `CharaDasha`, `YoginiDasha`)
   - strength and points (`Ashtakavarga`, `ShadbalaCalculator`, `YogiCalculator`, `PushkaraNavamsha`, `SixtyFourTwentyTwo`)
@@ -130,11 +147,11 @@ Every activity follows the same contract: read the serialized birth context (`EX
 Decoupling ensures each activity only imports the calculators it needs, which keeps UI classes readable and simplifies adding tests later.
 
 ## Data, Storage, and Assets
-- **City lookups** – `CityDatabase` ships with curated Indian metros and quick aliases (`Bengaluru`, `Bangalore`, etc.) while Geocoder extends coverage for online users.
-- **Saved charts** – `SavedStore` writes JSON records to `files/horoscopes/<timestamp>.json`, deduplicates by epoch, and exposes `list/load/delete` helpers consumed by `SavedHoroscopesActivity`.
-- **Ephemeris & lookup tables** – Domain text files in the repo root (`tara.txt`, `d60.txt`, `sarvotbhadrachakra.txt`, `tree.json`, etc.) feed calculators that need static mappings.
-- **Custom views** – `VedicChartView`, `SavChartView`, and `SbcOverlayView` encapsulate non-standard layouts so feature screens simply bind data.
-- **Privacy & notices** – `docs/privacy-policy.html`, `docs/PRIVACY_POLICY.md`, and `docs/THIRD_PARTY_NOTICES.md` are surfaced via `PrivacyActivity` and the in-app menu.
+- **City lookups** - `CityDatabase` ships with curated Indian metros and quick aliases (`Bengaluru`, `Bangalore`, etc.) while Geocoder extends coverage for online users.
+- **Saved charts** - `SavedStore` writes JSON records to `files/horoscopes/<timestamp>.json`, deduplicates by epoch, and exposes `list/load/delete` helpers consumed by `SavedHoroscopesActivity`.
+- **Ephemeris & lookup tables** - Domain text files in the repo root (`tara.txt`, `d60.txt`, `sarvotbhadrachakra.txt`, `tree.json`, etc.) feed calculators that need static mappings.
+- **Custom views** - `VedicChartView`, `SavChartView`, and `SbcOverlayView` encapsulate non-standard layouts so feature screens simply bind data.
+- **Privacy & notices** - `docs/privacy-policy.html`, `docs/PRIVACY_POLICY.md`, and `docs/THIRD_PARTY_NOTICES.md` are surfaced via `PrivacyActivity` and the in-app menu.
 
 ## Build & Run
 
@@ -166,28 +183,27 @@ Decoupling ensures each activity only imports the calculators it needs, which ke
 Create `keystore.properties` with `storeFile`, `storePassword`, `keyAlias`, `keyPassword`. `app/build.gradle.kts` automatically hooks it into the release build.
 
 ## Quality & Testing
-- The project currently ships without unit/UI tests; calculators are deterministic, so they are good candidates for JVM unit tests (`test/`) or parameterized instrumentation tests (`androidTest/`).
+- JVM tests exist for core calculators and helpers (`app/src/test/java/com/aakash/astro/astrology/*Test.kt`, `CityDatabaseTest.kt`); run them with `./gradlew test`.
+- Instrumented tests live under `app/src/androidTest`; run with `./gradlew connectedDebugAndroidTest` when a device/emulator is attached.
 - When touching calculators, prefer adding regression vectors (e.g., known horoscope vs expected ascendant) before refactoring.
-- Run `./gradlew lintDebug` and `./gradlew test` locally; the AGP 8.13 toolchain supports `lintVitalRelease` for CI gatekeeping.
+- Style and lint guardrails live in Gradle: run `./gradlew ktlintCheck` (automatically wired into `./gradlew check`) to enforce the `.editorconfig` rules, and `./gradlew ktlintFormat` to auto-fix formatting drifts.
+- Run `./gradlew lintDebug` locally; AGP 8.13 also supports `lintVitalRelease` if you add a CI gate.
 
 ## Extending the App
 1. **Add or update a calculator** under `com.aakash.astro.astrology` (keep pure Kotlin, no Android dependencies).
-2. **Create the UI** – add a layout under `res/layout`, generate a binding, and implement a new `Activity` or `Fragment` that consumes the calculator.
-3. **Register navigation** – add an `ActionTile` entry (or menu option) in `MainActivity.setupActionGrid()` and wire it to a launcher method that passes the standard extras.
-4. **Hook resources** – update `AndroidManifest.xml`, string resources, and (optionally) screenshot scripts if the feature targets Play Store imagery.
-5. **Document/new datasets** – drop supporting tables under `/` or `assets/` and mention them in `docs/THIRD_PARTY_NOTICES.md` if licensing applies.
+2. **Create the UI** - add a layout under `res/layout`, generate a binding, and implement a new `Activity` or `Fragment` that consumes the calculator.
+3. **Register navigation** - add an `ActionTile` entry (or menu option) in `MainActivity.setupActionGrid()` and wire it to a launcher method that passes the standard extras.
+4. **Hook resources** - update `AndroidManifest.xml`, string resources, and (optionally) screenshot scripts if the feature targets Play Store imagery.
+5. **Document/new datasets** - drop supporting tables under `/` or `assets/` and mention them in `docs/THIRD_PARTY_NOTICES.md` if licensing applies.
 
-## Additional Docs & Utilities
-- `readmehowitworks.md` – accuracy whitepaper for Swiss Ephemeris + Lahiri ayanamsa.
-- `docs/PRIVACY_POLICY.md`, `docs/privacy-policy.html`, `PrivacyActivity` – fulfill store/distribution requirements.
-- `docs/SWISS_EPH.md` – legal notice required by the Swiss Ephemeris license.
-- `scripts/capture_screenshots.sh` – drives adb to refresh marketing screenshots.
+## Utilities
+- `scripts/capture_screenshots.sh` generates deterministic Play Store imagery (used by `screenshot-capture.yml`).
 - Root-level `*.png` assets (chakra diagrams, feature graphics) are already Play Store ready.
 
 ## Troubleshooting
-- **“Swiss Ephemeris missing” snackbar** – the UI falls back to the built-in solver; verify `app/libs/swisseph.jar` is present and the `.se1` assets copied correctly.
-- **No geocoder suggestions** – many emulator images ship without Geocoder backends; the static `CityDatabase` list will still work, but for live suggestions install Google Play services or test on device.
-- **Saved chart not loading** – entries are de-duplicated by epoch; ensure the birth time truly differs or delete the JSON under `files/horoscopes` before saving again.
-- **Layout overlap on small screens** – most detail activities use nested scroll containers; adjust their layout XML if you add long descriptions or extra RecyclerViews.
+- **"Swiss Ephemeris missing" snackbar** - the UI falls back to the built-in solver; verify `app/libs/swisseph.jar` is present and the `.se1` assets copied correctly.
+- **No geocoder suggestions** - many emulator images ship without Geocoder backends; the static `CityDatabase` list will still work, but for live suggestions install Google Play services or test on device.
+- **Saved chart not loading** - entries are de-duplicated by epoch; ensure the birth time truly differs or delete the JSON under `files/horoscopes` before saving again.
+- **Layout overlap on small screens** - most detail activities use nested scroll containers; adjust their layout XML if you add long descriptions or extra RecyclerViews.
 
 This README should give you enough context to onboard quickly, trace any feature to the relevant code, and extend the astrology engines with confidence. For deeper math/astronomy notes, keep `readmehowitworks.md` handy.

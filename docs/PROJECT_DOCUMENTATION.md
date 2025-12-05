@@ -4,6 +4,13 @@ This document describes the structure, runtime flow, feature surface, data depen
 
 ---
 
+**Related docs**
+- `README.md` - entry point + quickstart.
+- `docs/GITHUB_WORKFLOWS.md` - CI build and screenshot jobs.
+- `docs/SWISS_EPH.md` - Swiss Ephemeris license notes.
+- `docs/PRIVACY_POLICY.md` / `docs/privacy-policy.html` - legal copy surfaced in-app.
+- `readmehowitworks.md` - Swiss Ephemeris + Lahiri ayanamsa accuracy notes.
+
 ## 1. Product & Scope
 
 | Item | Details |
@@ -19,23 +26,18 @@ This document describes the structure, runtime flow, feature surface, data depen
 
 ```
 .
-├── app/                         # Single Android application module
-│   ├── build.gradle.kts         # Android + Kotlin plugins, dependencies, desugaring
-│   ├── src/main/
-│   │   ├── java/com/aakash/astro
-│   │   │   ├── MainActivity.kt                # Input + navigation hub
-│   │   │   ├── astrology/                     # Domain calculators (Chart, Dasha, Panchanga, etc.)
-│   │   │   ├── geo/CityDatabase.kt           # Offline birthplace lookup
-│   │   │   ├── storage/SavedStore.kt         # JSON persistence helpers
-│   │   │   └── ui/                           # Custom views (VedicChartView, SavChartView, SbcOverlayView)
-│   │   ├── assets/ephe/                      # Swiss ephemeris data (.se1)
-│   │   └── res/                              # Layouts, drawables, strings, styles
-│   └── libs/swisseph.jar                     # Optional Swiss Ephemeris runtime
-├── docs/                        # Policies + this document
-├── scripts/capture_screenshots.sh
-├── readmehowitworks.md          # Accuracy whitepaper
-├── *.txt / *.json tables        # Domain datasets (tara, D60, Sarvatobhadra grid, etc.)
-└── vedic-light-policy/          # Play listing privacy copy
+app/                           # Single Android application module
+  build.gradle.kts             # Android + Kotlin plugins, dependencies, desugaring
+  src/main/
+    java/com/aakash/astro/     # Activities + domain calculators
+    assets/ephe/               # Swiss ephemeris data (.se1)
+    res/                       # Layouts, drawables, strings, styles
+  libs/swisseph.jar            # Optional Swiss Ephemeris runtime
+docs/                          # Policies + architecture docs
+scripts/capture_screenshots.sh # Play Store screenshot helper
+readmehowitworks.md            # Accuracy whitepaper
+*.txt / *.json tables          # Domain datasets (tara, D60, Sarvatobhadra grid, etc.)
+vedic-light-policy/            # Play listing privacy copy
 ```
 
 Other helper sources (`FeatureGen.java`, `IconGen.java`, `TabletShots.java`) live at the repo root and generate store artwork; they do not participate in the Android build.
@@ -57,8 +59,9 @@ Build commands:
 ```bash
 ./gradlew assembleDebug        # dev APK
 ./gradlew assembleRelease      # release APK (needs keystore props)
-./gradlew test                 # JVM unit tests (none yet; command still runs)
+./gradlew test                 # JVM unit tests (calculators, CityDatabase, etc.)
 ./gradlew lint                 # Android Lint
+./gradlew connectedDebugAndroidTest  # Instrumented tests (requires device/emulator)
 ```
 
 `scripts/capture_screenshots.sh` assumes an ADB-connected device/emulator and captures a few deterministic screens after installing `app/build/outputs/apk/debug/app-debug.apk`.
