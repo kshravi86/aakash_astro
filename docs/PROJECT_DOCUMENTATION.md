@@ -26,18 +26,18 @@ This document describes the structure, runtime flow, feature surface, data depen
 
 ```
 .
-app/                           # Single Android application module
-  build.gradle.kts             # Android + Kotlin plugins, dependencies, desugaring
-  src/main/
-    java/com/aakash/astro/     # Activities + domain calculators
-    assets/ephe/               # Swiss ephemeris data (.se1)
-    res/                       # Layouts, drawables, strings, styles
-  libs/swisseph.jar            # Optional Swiss Ephemeris runtime
-docs/                          # Policies + architecture docs
-scripts/capture_screenshots.sh # Play Store screenshot helper
-readmehowitworks.md            # Accuracy whitepaper
-*.txt / *.json tables          # Domain datasets (tara, D60, Sarvatobhadra grid, etc.)
-vedic-light-policy/            # Play listing privacy copy
+app/                               # The primary Android application module. This is where all application-specific code, resources, and configuration reside.
+  build.gradle.kts                 # Module-level Gradle build script. Configures Android + Kotlin plugins, defines dependencies (libraries, SDK versions), sets up build types (debug/release), and enables features like View Binding and desugaring.
+  src/main/                        # Contains the main source set for the application.
+    java/com/aakash/astro/         # Kotlin/Java source code for activities, services, custom views, and the core domain calculators. This is where the application's logic is implemented.
+    assets/ephe/                   # Raw asset files that are bundled directly into the APK without being compiled. Specifically, this directory holds the Swiss Ephemeris data files (`.se1` files) required for precise astrological calculations.
+    res/                           # Application resources such as layouts (XML files defining UI), drawables (images, vector assets), strings (translatable text), styles (theming), and other static content.
+  libs/swisseph.jar                # External Java Archive (JAR) file containing the Swiss Ephemeris library. Placing JARs here automatically includes them as dependencies in the build.
+docs/                              # Contains various documentation files including policies and architectural details.
+scripts/capture_screenshots.sh     # A shell script used to automate the capture of deterministic screenshots for the Play Store.
+readmehowitworks.md                # A detailed whitepaper explaining the accuracy choices for Swiss Ephemeris and Lahiri ayanamsa.
+*.txt / *.json tables              # Root-level domain datasets (e.g., tara tables, D60 data, Sarvatobhadra grid definitions). These are often used by import scripts or for reference, but typically not directly packaged into the APK.
+vedic-light-policy/                # Contains specific privacy policy copy, potentially for different platform listings or legal requirements.
 ```
 
 Other helper sources (`FeatureGen.java`, `IconGen.java`, `TabletShots.java`) live at the repo root and generate store artwork; they do not participate in the Android build.
@@ -46,25 +46,27 @@ Other helper sources (`FeatureGen.java`, `IconGen.java`, `TabletShots.java`) liv
 
 ## 3. Build & Runtime Stack
 
+The Android application build process is orchestrated by Gradle, an advanced build toolkit. It automates tasks such as compiling source code, packaging resources, managing dependencies, and generating the final APK (Android Package Kit) or AAB (Android App Bundle).
+
 | Layer | Notes |
 | --- | --- |
-| Gradle | Single-module project using Gradle 8.13 plugin + Kotlin 2.0.21 (`gradle/libs.versions.toml`). View Binding is enabled, Compose is not. |
-| Dependencies | AndroidX Core/AppCompat, Material, ConstraintLayout, Espresso/JUnit, and `com.android.tools:desugar_jdk_libs` for java.time on API 24. Any JAR dropped into `app/libs/` (notably `swisseph.jar`) is automatically picked up. |
-| Signing | `app/build.gradle.kts` reads `keystore.properties` to configure the `release` signingConfig when present. Debug signing uses the default debug keystore. |
-| Assets | Swiss ephemeris `.se1` files under `app/src/main/assets/ephe`. Privacy HTML is duplicated in both `assets/privacy_policy.html` and `docs/privacy-policy.html`. |
-| Runtime setup | `EphemerisPreparer` copies `assets/ephe/*` to app-private storage and `AccurateCalculator` points SwissEph to that folder. Fallback is `AstrologyCalculator` (pure Kotlin). |
+| **Gradle Build System** | This is a single-module project using Gradle 8.13 plugin and Kotlin 2.0.21, with configuration managed through `gradle/libs.versions.toml` for dependency versions. Gradle handles the entire build lifecycle: <br/> 1. **Dependency Resolution:** Downloads and includes all specified libraries (e.g., AndroidX, Material) and local JARs (`app/libs/swisseph.jar`). <br/> 2. **Compilation:** Compiles Kotlin source code (`.kt` files) into Java bytecode, and then converts Java bytecode into DEX (Dalvik Executable) format, which runs on the Android Runtime. <br/> 3. **Resource Packaging:** Processes and packages all resources (`res/` and `assets/` directories) into the final APK. <br/> 4. **Manifest Merging:** Combines `AndroidManifest.xml` files from the app module and any libraries into a single manifest. <br/> 5. **Signing:** Signs the application with a debug or release keystore for security and verification. <br/> 6. **APK/AAB Generation:** Outputs the final distributable package. View Binding is enabled, providing type-safe access to views, while Jetpack Compose is not used in this project. |
+| **Dependencies** | The project relies on standard AndroidX Core/AppCompat for core functionalities, Material Design components for UI, ConstraintLayout for flexible layouts, and Espresso/JUnit for testing. `com.android.tools:desugar_jdk_libs` is used to enable newer Java language features (`java.time` API) on older Android API levels (min API 24). Any JAR files placed into `app/libs/` (e.g., `swisseph.jar`) are automatically added to the classpath and packaged with the application. |
+| **Signing** | For `release` builds, `app/build.gradle.kts` is configured to read signing key details from `keystore.properties` (if present) to secure the application. Debug builds automatically use a default debug keystore provided by the Android SDK for development convenience. |
+| **Assets** | Crucial Swiss ephemeris `.se1` files are stored under `app/src/main/assets/ephe/`. These raw files are copied to the app's internal storage at runtime. Additionally, the privacy policy HTML is duplicated in both `assets/privacy_policy.html` and `docs/privacy-policy.html` to ensure it's bundled in the app and available in documentation. |
+| **Runtime setup** | On the first launch, `EphemerisPreparer` copies the `.se1` data from `assets/ephe` to the app's private storage. `AccurateCalculator` then uses this path to interface with the Swiss Ephemeris library. If these Swiss Ephemeris artifacts are missing, the application gracefully falls back to `AstrologyCalculator`, which is a pure Kotlin astronomical solver, ensuring basic functionality remains. |
 
 Build commands:
 
 ```bash
-./gradlew assembleDebug        # dev APK
-./gradlew assembleRelease      # release APK (needs keystore props)
-./gradlew test                 # JVM unit tests (calculators, CityDatabase, etc.)
-./gradlew lint                 # Android Lint
-./gradlew connectedDebugAndroidTest  # Instrumented tests (requires device/emulator)
+./gradlew assembleDebug        # Builds a debug APK for development and testing.
+./gradlew assembleRelease      # Builds a release APK; requires signing configuration in keystore.properties.
+./gradlew test                 # Runs JVM unit tests for core logic (calculators, CityDatabase, etc.).
+./gradlew lint                 # Executes Android Lint to check for code quality, correctness, and performance issues.
+./gradlew connectedDebugAndroidTest  # Runs instrumented tests on a connected device or emulator for UI and integration testing.
 ```
 
-`scripts/capture_screenshots.sh` assumes an ADB-connected device/emulator and captures a few deterministic screens after installing `app/build/outputs/apk/debug/app-debug.apk`.
+`scripts/capture_screenshots.sh` assumes an ADB-connected device/emulator and captures a few deterministic screens after installing `app/build/outputs/apk/debug/app-debug.apk`. This is used to generate consistent imagery for app store listings.
 
 ---
 
