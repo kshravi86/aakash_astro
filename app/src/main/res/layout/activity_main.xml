@@ -1,557 +1,604 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="@color/background_gradient_start"
+    android:fitsSystemWindows="true"
+    tools:context=".MainActivity">
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/topAppBar"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        app:title="@string/app_name"
-        app:subtitle="Vedic chart generator"
-        app:titleCentered="false"
-        app:navigationIcon="@drawable/ic_home_black_24dp"
-        app:subtitleTextColor="@color/secondaryText"
-        app:titleTextColor="@color/primaryText" />
-
-    <ScrollView
-        android:id="@+id/mainScroll"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="280dp"
+        android:fitsSystemWindows="true"
         android:background="@color/background_gradient_start"
-        android:fillViewport="true"
-        tools:context=".MainActivity">
+        app:liftOnScroll="true">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            app:contentScrim="?attr/colorSurface"
+            app:expandedTitleGravity="bottom"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:statusBarScrim="?attr/colorSurface">
 
-            <LinearLayout
-                android:id="@+id/contentContainer"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="24dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintWidth_percent="0.94">
-
-                <TextView
-                    android:id="@+id/titleText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Vedic Astrology Chart"
-                    android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium"
-                    android:textColor="@color/primaryText" />
-
-                <TextView
-                    android:id="@+id/subtitleText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="Enter birth details to generate a personalized chart"
-                    android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
-                    android:textColor="@color/secondaryText" />
-
-                <TextView
-                    android:id="@+id/engineIndicator"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:text="Engine: Approximate"
-                    android:textAppearance="@style/TextAppearance.Material3.BodySmall"
-                    android:textColor="@color/secondaryText" />
-
-                <com.google.android.material.divider.MaterialDivider
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="16dp"
-                    app:dividerThickness="1dp"
-                    app:dividerColor="@color/surface_variant"
-                     />
-
-                <TextView
-                    android:id="@+id/sectionBirth"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/birth_card_title"
-                    android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
-                    android:textColor="@color/primaryText" />
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_collapseMode="parallax">
 
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/birthAssistCard"
+                    android:id="@+id/heroCard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    app:cardBackgroundColor="@color/card_bg"
-                    app:cardCornerRadius="20dp"
-                    app:cardElevation="4dp"
-                    app:strokeWidth="0dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="16dp">
-
-                        <TextView
-                            android:id="@+id/birthAssistSubtitle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/birth_card_subtitle"
-                            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
-                            android:textColor="@color/secondaryText" />
-
-                        <TextView
-                            android:id="@+id/birthSmartActionsTitle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="12dp"
-                            android:text="@string/birth_smart_actions_title"
-                            android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
-                            android:textColor="@color/secondaryText" />
-
-                        <com.google.android.material.chip.ChipGroup
-                            android:id="@+id/smartActionChips"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            app:singleLine="false">
-
-                            <com.google.android.material.chip.Chip
-                                android:id="@+id/chipSmartNow"
-                                style="@style/Widget.Material3.Chip.Assist"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:checkable="false"
-                                android:text="@string/birth_action_now"
-                                app:chipIcon="@drawable/ic_clock_outline_24"
-                                app:chipIconTint="@color/accent_teal" />
-
-                            <com.google.android.material.chip.Chip
-                                android:id="@+id/chipSmartLast"
-                                style="@style/Widget.Material3.Chip.Assist"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:checkable="false"
-                                android:text="@string/birth_action_last"
-                                app:chipIcon="@drawable/ic_history_24"
-                                app:chipIconTint="@color/accent_orange" />
-
-                            <com.google.android.material.chip.Chip
-                                android:id="@+id/chipSmartSample"
-                                style="@style/Widget.Material3.Chip.Assist"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:checkable="false"
-                                android:text="@string/birth_action_sample"
-                                app:chipIcon="@drawable/ic_star_24"
-                                app:chipIconTint="@color/accent_purple" />
-
-                        </com.google.android.material.chip.ChipGroup>
-
-                        <TextView
-                            android:id="@+id/placeQuickTitle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="12dp"
-                            android:text="@string/place_quick_title"
-                            android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
-                            android:textColor="@color/secondaryText" />
-
-                        <com.google.android.material.chip.ChipGroup
-                            android:id="@+id/placeQuickChips"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            app:singleLine="false">
-
-                            <com.google.android.material.chip.Chip
-                                android:id="@+id/chipPlaceBengaluru"
-                                style="@style/Widget.Material3.Chip.Assist"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/place_chip_bengaluru"
-                                app:chipIcon="@drawable/ic_location_pin_24"
-                                app:chipIconTint="@color/accent_teal" />
-
-                            <com.google.android.material.chip.Chip
-                                android:id="@+id/chipPlaceDelhi"
-                                style="@style/Widget.Material3.Chip.Assist"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/place_chip_delhi"
-                                app:chipIcon="@drawable/ic_location_pin_24"
-                                app:chipIconTint="@color/accent_orange" />
-
-                            <com.google.android.material.chip.Chip
-                                android:id="@+id/chipPlaceMumbai"
-                                style="@style/Widget.Material3.Chip.Assist"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/place_chip_mumbai"
-                                app:chipIcon="@drawable/ic_location_pin_24"
-                                app:chipIconTint="@color/accent_purple" />
-
-                            <com.google.android.material.chip.Chip
-                                android:id="@+id/chipPlaceChennai"
-                                style="@style/Widget.Material3.Chip.Assist"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/place_chip_chennai"
-                                app:chipIcon="@drawable/ic_location_pin_24"
-                                app:chipIconTint="@color/accent_teal" />
-
-                        </com.google.android.material.chip.ChipGroup>
-
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/nameInputLayout"
-                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:hint="Name (optional)">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/nameInput"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:imeOptions="actionNext"
-                        android:inputType="textPersonName" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/dateInputLayout"
-                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:hint="@string/label_birth_date"
-                    app:endIconMode="custom"
-                    app:endIconDrawable="@drawable/ic_calendar_event_24"
-                    app:endIconContentDescription="@string/content_desc_pick_date">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/dateInput"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:focusable="false"
-                        android:clickable="true"
-                        android:cursorVisible="false"
-                        android:inputType="none"
-                        android:hint="@string/hint_select_date" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.chip.ChipGroup
-                    android:id="@+id/dateQuickChips"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    app:singleLine="false"
-                    app:singleSelection="true">
-
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chipDateToday"
-                        style="@style/Widget.Material3.Chip.Filter"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checkable="true"
-                        android:text="@string/quick_date_today"
-                        app:chipIcon="@drawable/ic_calendar_event_24"
-                        app:chipIconTint="@color/accent_teal"
-                        app:checkedIconVisible="true" />
-
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chipDateYesterday"
-                        style="@style/Widget.Material3.Chip.Filter"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checkable="true"
-                        android:text="@string/quick_date_yesterday"
-                        app:chipIcon="@drawable/ic_calendar_event_24"
-                        app:chipIconTint="@color/accent_orange"
-                        app:checkedIconVisible="true" />
-
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chipDateCustom"
-                        style="@style/Widget.Material3.Chip.Assist"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checkable="false"
-                        android:text="@string/quick_date_custom"
-                        app:chipIcon="@drawable/ic_calendar_event_24"
-                        app:chipIconTint="@color/secondaryText" />
-                </com.google.android.material.chip.ChipGroup>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/timeInputLayout"
-                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:hint="@string/label_birth_time"
-                    app:endIconMode="custom"
-                    app:endIconDrawable="@drawable/ic_clock_outline_24"
-                    app:endIconContentDescription="@string/content_desc_pick_time">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/timeInput"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:focusable="false"
-                        android:clickable="true"
-                        android:cursorVisible="false"
-                        android:inputType="none"
-                        android:hint="@string/hint_select_time" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.chip.ChipGroup
-                    android:id="@+id/timeQuickChips"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    app:singleLine="false"
-                    app:singleSelection="true">
-
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chipTimeNow"
-                        style="@style/Widget.Material3.Chip.Filter"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checkable="true"
-                        android:text="@string/quick_time_now"
-                        app:chipIcon="@drawable/ic_clock_outline_24"
-                        app:chipIconTint="@color/accent_teal"
-                        app:checkedIconVisible="true" />
-
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chipTimeMorning"
-                        style="@style/Widget.Material3.Chip.Filter"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checkable="true"
-                        android:text="@string/quick_time_morning"
-                        app:chipIcon="@drawable/ic_clock_outline_24"
-                        app:checkedIconVisible="true" />
-
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chipTimeNoon"
-                        style="@style/Widget.Material3.Chip.Filter"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checkable="true"
-                        android:text="@string/quick_time_noon"
-                        app:chipIcon="@drawable/ic_clock_outline_24"
-                        app:checkedIconVisible="true" />
-
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chipTimeEvening"
-                        style="@style/Widget.Material3.Chip.Filter"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checkable="true"
-                        android:text="@string/quick_time_evening"
-                        app:chipIcon="@drawable/ic_clock_outline_24"
-                        app:checkedIconVisible="true" />
-
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chipTimeCustom"
-                        style="@style/Widget.Material3.Chip.Assist"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checkable="false"
-                        android:text="@string/quick_time_custom"
-                        app:chipIcon="@drawable/ic_clock_outline_24"
-                        app:chipIconTint="@color/secondaryText" />
-                </com.google.android.material.chip.ChipGroup>
-
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/dateTimeSummaryCard"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
+                    android:layout_gravity="bottom"
+                    android:layout_margin="24dp"
                     app:cardBackgroundColor="@color/card_bg_elevated"
-                    app:cardCornerRadius="18dp"
+                    app:cardCornerRadius="28dp"
                     app:cardElevation="0dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:padding="16dp"
-                        android:gravity="center_vertical">
+                        android:orientation="vertical"
+                        android:padding="20dp">
 
-                        <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:background="@drawable/bg_circle_orange"
-                            android:padding="8dp"
-                            android:src="@drawable/ic_clock_outline_24"
-                            android:contentDescription="@null"
-                            app:tint="@color/accent_orange" />
+                        <TextView
+                            android:id="@+id/titleText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/app_name"
+                            android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
+                            android:textColor="@color/primaryText" />
+
+                        <TextView
+                            android:id="@+id/subtitleText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="@string/hero_subtitle"
+                            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                            android:textColor="@color/secondaryText" />
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
+                            android:layout_marginTop="16dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
 
-                            <TextView
-                                android:id="@+id/dateTimeLabel"
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/engineIndicator"
+                                style="@style/Widget.Material3.Chip.Suggestion"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/date_time_summary_label"
-                                android:textAppearance="@style/TextAppearance.Material3.BodySmall"
-                                android:textColor="@color/secondaryText" />
+                                android:text="@string/engine_indicator_placeholder"
+                                app:chipIcon="@drawable/ic_dashboard_black_24dp"
+                                app:chipIconTint="@color/accent_teal"
+                                app:chipSurfaceColor="@color/card_bg"
+                                app:chipStrokeColor="@color/secondaryText"
+                                app:chipStrokeWidth="1dp"
+                                tools:text="Engine · Approximate" />
 
-                            <TextView
-                                android:id="@+id/dateTimeValue"
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/generateButton"
+                                style="@style/Widget.Material3.Button"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="4dp"
-                                android:text="@string/date_time_summary_empty"
-                                android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
-                                android:textColor="@color/primaryText" />
+                                android:layout_marginStart="12dp"
+                                android:text="@string/generate_chart_cta" />
                         </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/dateTimeValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:text="@string/date_time_summary_empty"
+                            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+                            android:textColor="@color/primaryText" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
+            </FrameLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/placeInputLayout"
-                    style="@style/Widget.Material3.TextInputLayout.FilledBox"
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/topAppBar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:navigationIcon="@drawable/ic_home_black_24dp"
+                app:subtitle="@string/toolbar_subtitle"
+                app:subtitleTextColor="@color/secondaryText"
+                app:title="@string/app_name"
+                app:titleTextColor="@color/primaryText" />
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/mainScroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:id="@+id/contentContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="24dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="40dp">
+
+            <TextView
+                android:id="@+id/sectionBirth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/birth_card_title"
+                android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
+                android:textColor="@color/primaryText" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardBirthMoment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:cardBackgroundColor="@color/card_bg"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:hint="Birth place (city, India)"
-                    app:placeholderText="Type city name"
-                    app:startIconDrawable="@drawable/ic_place_24"
-                    app:startIconContentDescription="Location"
-                    app:startIconTint="@color/accent_teal"
-                    app:endIconMode="clear_text"
-                    app:endIconTint="@color/secondaryText"
-                    app:boxBackgroundColor="@color/card_bg"
-                    app:boxStrokeColor="@color/accent_teal"
-                    app:boxStrokeWidth="1dp"
-                    app:boxStrokeWidthFocused="2dp"
-                    app:boxCornerRadiusTopStart="14dp"
-                    app:boxCornerRadiusTopEnd="14dp"
-                    app:boxCornerRadiusBottomStart="14dp"
-                    app:boxCornerRadiusBottomEnd="14dp">
+                    android:orientation="vertical"
+                    android:padding="20dp">
 
-                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                        android:id="@+id/placeInput"
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/nameInputLayout"
+                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:minHeight="56dp"
-                        android:paddingVertical="12dp"
-                        android:textSize="16sp"
-                        android:textColor="@color/primaryText"
-                        android:textColorHint="@color/secondaryText"
-                        android:maxLines="1"
-                        android:ellipsize="end"
-                        android:scrollHorizontally="false"
-                        android:gravity="start|center_vertical"
-                        android:inputType="textCapWords|textPostalAddress"
-                        android:imeOptions="actionDone" />
-                </com.google.android.material.textfield.TextInputLayout>
-                <TextView
-                    android:id="@+id/placeCoords"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:text=""
-                    android:textAppearance="@style/TextAppearance.Material3.BodySmall"
-                    android:textColor="@color/secondaryText" />
+                        android:hint="@string/hint_name_optional">
 
-                <TextView
-                    android:id="@+id/locationHint"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="We'll auto-fill coordinates for major Indian cities"
-                    android:textAppearance="@style/TextAppearance.Material3.BodySmall"
-                    android:textColor="@color/secondaryText" />
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/nameInput"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionNext"
+                            android:inputType="textPersonName" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/generateButton"
-                    style="@style/Widget.Material3.Button"
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/dateInputLayout"
+                            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="@string/label_birth_date"
+                            app:endIconContentDescription="@string/content_desc_pick_date"
+                            app:endIconDrawable="@drawable/ic_calendar_event_24"
+                            app:endIconMode="custom">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/dateInput"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:clickable="true"
+                                android:cursorVisible="false"
+                                android:focusable="false"
+                                android:hint="@string/hint_select_date"
+                                android:inputType="none" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <Space
+                            android:layout_width="16dp"
+                            android:layout_height="wrap_content" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/timeInputLayout"
+                            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="@string/label_birth_time"
+                            app:endIconContentDescription="@string/content_desc_pick_time"
+                            app:endIconDrawable="@drawable/ic_clock_outline_24"
+                            app:endIconMode="custom">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/timeInput"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:clickable="true"
+                                android:cursorVisible="false"
+                                android:focusable="false"
+                                android:hint="@string/hint_select_time"
+                                android:inputType="none" />
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/quick_date_header"
+                        android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+                        android:textColor="@color/secondaryText" />
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/dateQuickChips"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        app:singleLine="false"
+                        app:singleSelection="true">
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chipDateToday"
+                            style="@style/Widget.Material3.Chip.Filter"
+                            android:checkable="true"
+                            android:text="@string/quick_date_today"
+                            app:chipIcon="@drawable/ic_calendar_event_24"
+                            app:chipIconTint="@color/accent_teal"
+                            app:checkedIconVisible="true" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chipDateYesterday"
+                            style="@style/Widget.Material3.Chip.Filter"
+                            android:checkable="true"
+                            android:text="@string/quick_date_yesterday"
+                            app:chipIcon="@drawable/ic_calendar_event_24"
+                            app:chipIconTint="@color/accent_orange"
+                            app:checkedIconVisible="true" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chipDateCustom"
+                            style="@style/Widget.Material3.Chip.Assist"
+                            android:checkable="false"
+                            android:text="@string/quick_date_custom"
+                            app:chipIcon="@drawable/ic_calendar_event_24"
+                            app:chipIconTint="@color/secondaryText" />
+                    </com.google.android.material.chip.ChipGroup>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="@string/quick_time_header"
+                        android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+                        android:textColor="@color/secondaryText" />
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/timeQuickChips"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        app:singleLine="false"
+                        app:singleSelection="true">
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chipTimeNow"
+                            style="@style/Widget.Material3.Chip.Filter"
+                            android:checkable="true"
+                            android:text="@string/quick_time_now"
+                            app:chipIcon="@drawable/ic_clock_outline_24"
+                            app:chipIconTint="@color/accent_teal"
+                            app:checkedIconVisible="true" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chipTimeMorning"
+                            style="@style/Widget.Material3.Chip.Filter"
+                            android:checkable="true"
+                            android:text="@string/quick_time_morning"
+                            app:chipIcon="@drawable/ic_clock_outline_24"
+                            app:chipIconTint="@color/accent_orange"
+                            app:checkedIconVisible="true" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chipTimeNoon"
+                            style="@style/Widget.Material3.Chip.Filter"
+                            android:checkable="true"
+                            android:text="@string/quick_time_noon"
+                            app:chipIcon="@drawable/ic_clock_outline_24"
+                            app:chipIconTint="@color/accent_purple"
+                            app:checkedIconVisible="true" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chipTimeEvening"
+                            style="@style/Widget.Material3.Chip.Filter"
+                            android:checkable="true"
+                            android:text="@string/quick_time_evening"
+                            app:chipIcon="@drawable/ic_clock_outline_24"
+                            app:checkedIconVisible="true" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chipTimeCustom"
+                            style="@style/Widget.Material3.Chip.Assist"
+                            android:checkable="false"
+                            android:text="@string/quick_time_custom"
+                            app:chipIcon="@drawable/ic_clock_outline_24"
+                            app:chipIconTint="@color/secondaryText" />
+                    </com.google.android.material.chip.ChipGroup>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardLocationZone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:cardBackgroundColor="@color/card_bg"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:text="Generate Chart" />
+                    android:orientation="vertical"
+                    android:padding="20dp">
 
-                <TextView
-                    android:id="@+id/sectionChart"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="Vedic Chart (South Indian)"
-                    android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
-                    android:textColor="@color/primaryText" />
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/placeInputLayout"
+                        style="@style/Widget.Material3.TextInputLayout.FilledBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/hint_birth_place"
+                        app:boxBackgroundColor="@color/card_bg"
+                        app:boxCornerRadiusBottomEnd="14dp"
+                        app:boxCornerRadiusBottomStart="14dp"
+                        app:boxCornerRadiusTopEnd="14dp"
+                        app:boxCornerRadiusTopStart="14dp"
+                        app:boxStrokeColor="@color/accent_teal"
+                        app:boxStrokeWidth="1dp"
+                        app:boxStrokeWidthFocused="2dp"
+                        app:endIconMode="clear_text"
+                        app:endIconTint="@color/secondaryText"
+                        app:placeholderText="@string/hint_type_city"
+                        app:startIconContentDescription="@string/content_desc_location"
+                        app:startIconDrawable="@drawable/ic_place_24"
+                        app:startIconTint="@color/accent_teal">
 
-                <com.aakash.astro.ui.VedicChartView
-                    android:id="@+id/vedicChartView"
+                        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                            android:id="@+id/placeInput"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:gravity="start|center_vertical"
+                            android:imeOptions="actionDone"
+                            android:inputType="textCapWords|textPostalAddress"
+                            android:maxLines="1"
+                            android:minHeight="56dp"
+                            android:paddingVertical="12dp"
+                            android:scrollHorizontally="false"
+                            android:textColor="@color/primaryText"
+                            android:textColorHint="@color/secondaryText"
+                            android:textSize="16sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        android:id="@+id/placeCoords"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                        android:textColor="@color/secondaryText"
+                        tools:text="12.9716° N, 77.5946° E · GMT+05:30" />
+
+                    <TextView
+                        android:id="@+id/locationHint"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/location_hint"
+                        android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                        android:textColor="@color/secondaryText" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/birthAssistCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:cardBackgroundColor="@color/card_bg_elevated"
+                app:cardCornerRadius="22dp"
+                app:cardElevation="0dp">
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp" />
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:id="@+id/birthAssistSubtitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/birth_card_subtitle"
+                        android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                        android:textColor="@color/secondaryText" />
+
+                    <TextView
+                        android:id="@+id/birthSmartActionsTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="@string/birth_smart_actions_title"
+                        android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+                        android:textColor="@color/secondaryText" />
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/smartActionChips"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        app:singleLine="false">
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chipSmartNow"
+                            style="@style/Widget.Material3.Chip.Assist"
+                            android:text="@string/birth_action_now"
+                            app:chipIcon="@drawable/ic_clock_outline_24"
+                            app:chipIconTint="@color/accent_teal" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chipSmartLast"
+                            style="@style/Widget.Material3.Chip.Assist"
+                            android:text="@string/birth_action_last"
+                            app:chipIcon="@drawable/ic_history_24"
+                            app:chipIconTint="@color/accent_orange" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chipSmartSample"
+                            style="@style/Widget.Material3.Chip.Assist"
+                            android:text="@string/birth_action_sample"
+                            app:chipIcon="@drawable/ic_star_24"
+                            app:chipIconTint="@color/accent_purple" />
+                    </com.google.android.material.chip.ChipGroup>
+
+                    <TextView
+                        android:id="@+id/placeShortcutsTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/place_shortcuts_title"
+                        android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+                        android:textColor="@color/secondaryText" />
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/placeQuickChips"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        app:singleLine="true">
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chipPlaceBengaluru"
+                            style="@style/Widget.Material3.Chip.Assist"
+                            android:text="@string/place_chip_bengaluru"
+                            app:chipIcon="@drawable/ic_location_pin_24"
+                            app:chipIconTint="@color/accent_teal" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chipPlaceDelhi"
+                            style="@style/Widget.Material3.Chip.Assist"
+                            android:text="@string/place_chip_delhi"
+                            app:chipIcon="@drawable/ic_location_pin_24"
+                            app:chipIconTint="@color/accent_orange" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chipPlaceMumbai"
+                            style="@style/Widget.Material3.Chip.Assist"
+                            android:text="@string/place_chip_mumbai"
+                            app:chipIcon="@drawable/ic_location_pin_24"
+                            app:chipIconTint="@color/accent_purple" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chipPlaceChennai"
+                            style="@style/Widget.Material3.Chip.Assist"
+                            android:text="@string/place_chip_chennai"
+                            app:chipIcon="@drawable/ic_location_pin_24"
+                            app:chipIconTint="@color/accent_teal" />
+                    </com.google.android.material.chip.ChipGroup>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <LinearLayout
+                android:id="@+id/recentActionsContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <TextView
-                    android:id="@+id/actionsHeader"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="Explore"
-                    android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
+                    android:text="@string/recent_actions_title"
+                    android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
                     android:textColor="@color/primaryText" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/actionGrid"
+                <HorizontalScrollView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:nestedScrollingEnabled="false"
-                    android:overScrollMode="never" />
+                    android:overScrollMode="never"
+                    android:scrollbars="none">
 
-                <TextView
-                    android:id="@+id/sectionResults"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:text="Results"
-                    android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
-                    android:textColor="@color/primaryText" />
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/recentActionChips"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="12dp"
+                        app:singleLine="true" />
+                </HorizontalScrollView>
+            </LinearLayout>
 
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/planetCard"
+            <TextView
+                android:id="@+id/sectionChart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/section_chart_title"
+                android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
+                android:textColor="@color/primaryText" />
+
+            <com.aakash.astro.ui.VedicChartView
+                android:id="@+id/vedicChartView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp" />
+
+            <TextView
+                android:id="@+id/actionsHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/actions_header"
+                android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
+                android:textColor="@color/primaryText" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/actionGrid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:nestedScrollingEnabled="false"
+                android:overScrollMode="never" />
+
+            <TextView
+                android:id="@+id/sectionResults"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/results_section_title"
+                android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
+                android:textColor="@color/primaryText" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/planetCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="6dp">
+
+                <LinearLayout
+                    android:id="@+id/planetContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    app:cardCornerRadius="20dp"
-                    app:cardElevation="6dp"
-                    app:strokeWidth="0dp">
+                    android:orientation="vertical"
+                    android:padding="16dp" />
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
-                    <LinearLayout
-                        android:id="@+id/planetContainer"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="16dp" />
-                </com.google.android.material.card.MaterialCardView>
-
-                
-
-            </LinearLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
-</LinearLayout>
-
-
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_share_transit"
+        android:icon="@drawable/ic_clock_outline_24"
+        android:title="@string/tara_share_transit"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_share_natal"
+        android:icon="@drawable/ic_star_24"
+        android:title="@string/tara_share_natal"
+        app:showAsAction="ifRoom" />
+</menu>

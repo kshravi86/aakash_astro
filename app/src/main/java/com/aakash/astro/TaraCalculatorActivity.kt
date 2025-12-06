@@ -1,7 +1,6 @@
 package com.aakash.astro
 
 import android.animation.ObjectAnimator
-import android.animation.ValueAnimator
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -22,13 +21,13 @@ import com.aakash.astro.databinding.ItemTaraRowBinding
 class TaraCalculatorActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityTaraCalculatorBinding
-    
+
     private val nakshatraNames = listOf(
-        "Aśvinī", "Bharanī", "Kṛttikā", "Rohiṇī", "Mṛgaśīrṣa", "Ārdrā", "Punarvasu",
-        "Puṣya", "Āśleṣā", "Maghā", "Pūrvaphalgunī", "Uttaraphalgunī", "Hastā",
-        "Citrā", "Svātī", "Viśākhā", "Anurādhā", "Jyeṣṭhā", "Mūlā", "Pūrvāṣāḍhā",
-        "Uttarāṣāḍhā", "Śravaṇa", "Dhaniṣṭhā", "Śatabhiṣā", "Pūrvabhādrapadā",
-        "Uttarabhādrapadā", "Revatī"
+        "Ashwini", "Bharani", "Krittika", "Rohini", "Mrigashira", "Ardra", "Punarvasu",
+        "Pushya", "Ashlesha", "Magha", "Purva Phalguni", "Uttara Phalguni", "Hasta",
+        "Chitra", "Swati", "Vishakha", "Anuradha", "Jyeshtha", "Mula", "Purva Ashadha",
+        "Uttara Ashadha", "Shravana", "Dhanishtha", "Shatabhisha", "Purva Bhadrapada",
+        "Uttara Bhadrapada", "Revati"
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,7 +35,7 @@ class TaraCalculatorActivity : AppCompatActivity() {
         binding = ActivityTaraCalculatorBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.topBar.setNavigationOnClickListener { 
+        binding.topBar.setNavigationOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
             startActivity(intent)
@@ -67,8 +66,8 @@ class TaraCalculatorActivity : AppCompatActivity() {
     }
 
     private fun setupNakshatraSpinner() {
-        val displayNames = nakshatraNames.mapIndexed { index, name -> 
-            "${index + 1}. $name" 
+        val displayNames = nakshatraNames.mapIndexed { index, name ->
+            "${index + 1}. $name"
         }
         val adapter = ArrayAdapter(
             this,
@@ -121,7 +120,7 @@ class TaraCalculatorActivity : AppCompatActivity() {
             binding.calculateButton.text = "Calculate Tara Bala"
 
             // Success feedback and guided focus to results
-            Toast.makeText(this@TaraCalculatorActivity, "✅ Chart generated successfully!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@TaraCalculatorActivity, "Chart generated successfully!", Toast.LENGTH_SHORT).show()
             Snackbar.make(binding.root, "Tara Bala chart generated", Snackbar.LENGTH_LONG)
                 .setAction("View") { scrollAndHighlightResults() }
                 .show()

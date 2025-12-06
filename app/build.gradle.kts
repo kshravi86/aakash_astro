@@ -1,8 +1,11 @@
-﻿import java.util.Properties
+import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
+import org.jlleitschuh.gradle.ktlint.tasks.KtLintCheckTask
+import java.util.Properties
 
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.ktlint)
 }
 
 android {
@@ -41,7 +44,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
             // Use signing config if provided via keystore.properties
             signingConfig = signingConfigs.getByName("release")
@@ -59,6 +62,23 @@ android {
     buildFeatures {
         viewBinding = true
     }
+}
+
+ktlint {
+    android.set(true)
+    ignoreFailures.set(false)
+    reporters {
+        reporter(ReporterType.PLAIN)
+        reporter(ReporterType.CHECKSTYLE)
+    }
+    filter {
+        exclude("**/build/**")
+        exclude("**/generated/**")
+    }
+}
+
+tasks.withType<KtLintCheckTask>().configureEach {
+    workerMaxHeapSize.set("512m")
 }
 
 dependencies {

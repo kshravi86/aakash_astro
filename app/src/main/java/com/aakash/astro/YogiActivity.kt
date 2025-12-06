@@ -1,10 +1,15 @@
 ﻿package com.aakash.astro
 
+import android.content.Intent
 import android.os.Bundle
-import android.widget.TextView
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.aakash.astro.EphemerisPreparer
 import com.aakash.astro.astrology.AccurateCalculator
 import com.aakash.astro.astrology.BirthDetails
 import com.aakash.astro.astrology.ChartResult
@@ -12,9 +17,11 @@ import com.aakash.astro.astrology.NakshatraCalc
 import com.aakash.astro.astrology.Planet
 import com.aakash.astro.astrology.YogiCalculator
 import com.aakash.astro.astrology.ZodiacSign
-import com.aakash.astro.EphemerisPreparer
 import com.aakash.astro.databinding.ActivityYogiBinding
+import com.aakash.astro.databinding.ItemYogiRowBinding
+import com.aakash.astro.databinding.ItemYogiSectionBinding
 import com.google.android.material.chip.Chip
+import com.google.android.material.snackbar.Snackbar
 import java.time.Instant
 import java.time.ZoneId
 import java.util.Locale
@@ -24,13 +31,30 @@ import kotlin.math.roundToInt
 class YogiActivity : AppCompatActivity() {
     private lateinit var binding: ActivityYogiBinding
     private val accurate = AccurateCalculator()
+    private lateinit var detailAdapter: YogiSectionAdapter
+    private var currentSections: List<YogiDetailSection> = emptyList()
+    private val pinPrefs by lazy { getSharedPreferences("yogi_pins", MODE_PRIVATE) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityYogiBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.topBar.setNavigationOnClickListener { finish() }
-        binding.topBar.title = getString(R.string.yogi_title)
+
+        detailAdapter = YogiSectionAdapter()
+        binding.detailList.apply {
+            layoutManager = LinearLayoutManager(this@YogiActivity)
+            adapter = detailAdapter
+        }
+
+        binding.yogiScroll.setOnScrollChangeListener { _, _, scrollY, _, _ ->
+            val collapseRange = resources.displayMetrics.density * 240f
+            val progress = (scrollY / collapseRange).coerceIn(0f, 1f)
+            binding.yogiMotionLayout.progress = progress
+        }
+
+        binding.ctaShare.setOnClickListener { shareCurrentSummary() }
+        binding.ctaPin.setOnClickListener { pinCurrentSummary() }
 
         val name = intent.getStringExtra(EXTRA_NAME)
         val epochMillis = intent.getLongExtra(EXTRA_EPOCH_MILLIS, 0L)
@@ -47,9 +71,6 @@ class YogiActivity : AppCompatActivity() {
             showEmptyState(getString(R.string.dasha_engine_missing))
             return
         }
-
-        binding.title.text = getString(R.string.yogi_title)
-        binding.subtitle.text = name?.let { getString(R.string.chart_generated_for, it) } ?: ""
 
         val sun = chart.planets.firstOrNull { it.planet == Planet.SUN }
         val moon = chart.planets.firstOrNull { it.planet == Planet.MOON }
@@ -71,33 +92,46 @@ class YogiActivity : AppCompatActivity() {
         val avayogiHouse = houseFromAsc(avayogiSign, chart)
         val avayogiVia6th = YogiCalculator.avayogiBy6th(yogiLord)
 
-        renderSummary(yogiLord, sahayogi, avayogiLord, yogiNak)
+        val summary = YogiSummary(
+            yogiLord = yogiLord,
+            sahayogi = sahayogi,
+            avayogiLord = avayogiLord,
+            yogiNakshatra = yogiNak,
+            name = name
+        )
+        renderSummary(summary)
+
+        val sections = buildSections(
+            yogiLord,
+            yogiPoint,
+            yogiNak,
+            yogiSign,
+            yogiHouse,
+            sahayogi,
+            avayogiLord,
+            avayogiPoint,
+            avayogiNak,
+            avayogiSign,
+            avayogiHouse,
+            avayogiVia6th
+        )
+        currentSections = sections
+        detailAdapter.submitList(sections)
         binding.emptyState.isVisible = false
-
-        binding.yogiPlanetValue.text = yogiLord
-        binding.yogiPointValue.text = getString(R.string.yogi_point_format, formatDegree(yogiPoint), yogiNak)
-        binding.yogiNakshatraValue.text = yogiNak
-        binding.yogiSignValue.text = getString(R.string.karaka_house_format, yogiSign.displayName, yogiHouse)
-
-        binding.sahayogiPlanetValue.text = sahayogi.displayName
-        binding.sahayogiSignValue.text = getString(R.string.karaka_house_format, yogiSign.displayName, yogiHouse)
-
-        binding.avayogiPlanetValue.text = avayogiLord
-        binding.avayogiPointValue.text = getString(R.string.yogi_point_format, formatDegree(avayogiPoint), avayogiNak)
-        binding.avayogiNakshatraValue.text = avayogiNak
-        binding.avayogiSignValue.text = getString(R.string.karaka_house_format, avayogiSign.displayName, avayogiHouse)
-        binding.avayogiCardNote.text = getString(R.string.yogi_card_avayogi_note, avayogiVia6th)
+        binding.detailList.isVisible = true
+        enableCtas(true)
     }
 
-    private fun renderSummary(yogiLord: String, sahayogi: Planet, avayogiLord: String, yogiNak: String) {
-        binding.summaryPrimary.text = getString(R.string.yogi_summary_primary, yogiLord)
-        binding.summarySecondary.text = getString(R.string.yogi_summary_secondary, sahayogi.displayName, avayogiLord)
+    private fun renderSummary(summary: YogiSummary) {
+        binding.summaryPrimary.text = getString(R.string.yogi_summary_primary, summary.yogiLord)
+        val subtitle = summary.name?.let { getString(R.string.chart_generated_for, it) } ?: ""
+        binding.summarySecondary.text = subtitle
         binding.highlightChips.apply {
             removeAllViews()
             isVisible = true
-            addView(createHighlightChip(getString(R.string.yogi_highlight_chip_point, yogiNak)))
-            addView(createHighlightChip(getString(R.string.yogi_highlight_chip_sahayogi, sahayogi.displayName)))
-            addView(createHighlightChip(getString(R.string.yogi_highlight_chip_avayogi, avayogiLord)))
+            addView(createHighlightChip(getString(R.string.yogi_highlight_chip_point, summary.yogiNakshatra)))
+            addView(createHighlightChip(getString(R.string.yogi_highlight_chip_sahayogi, summary.sahayogi.displayName)))
+            addView(createHighlightChip(getString(R.string.yogi_highlight_chip_avayogi, summary.avayogiLord)))
         }
     }
 
@@ -112,12 +146,108 @@ class YogiActivity : AppCompatActivity() {
         }
     }
 
+    private fun buildSections(
+        yogiLord: String,
+        yogiPoint: Double,
+        yogiNak: String,
+        yogiSign: ZodiacSign,
+        yogiHouse: Int,
+        sahayogi: Planet,
+        avayogiLord: String,
+        avayogiPoint: Double,
+        avayogiNak: String,
+        avayogiSign: ZodiacSign,
+        avayogiHouse: Int,
+        avayogiVia6th: String
+    ): List<YogiDetailSection> {
+        val yogiSection = YogiDetailSection(
+            title = getString(R.string.yogi_section_yogi),
+            rows = listOf(
+                YogiDetailRow(getString(R.string.yogi_row_lord), yogiLord),
+                YogiDetailRow(getString(R.string.yogi_row_point), getString(R.string.yogi_point_format, formatDegree(yogiPoint), yogiNak)),
+                YogiDetailRow(getString(R.string.yogi_row_nakshatra), yogiNak),
+                YogiDetailRow(
+                    getString(R.string.yogi_row_sign),
+                    getString(R.string.karaka_house_format, yogiSign.displayName, yogiHouse)
+                )
+            )
+        )
+
+        val sahayogiSection = YogiDetailSection(
+            title = getString(R.string.yogi_section_sahayogi),
+            rows = listOf(
+                YogiDetailRow(getString(R.string.yogi_row_sahayogi), sahayogi.displayName),
+                YogiDetailRow(
+                    getString(R.string.yogi_row_sahayogi_sign),
+                    getString(R.string.karaka_house_format, yogiSign.displayName, yogiHouse)
+                )
+            )
+        )
+
+        val avayogiSection = YogiDetailSection(
+            title = getString(R.string.yogi_section_avayogi),
+            rows = listOf(
+                YogiDetailRow(getString(R.string.yogi_row_avayogi), avayogiLord),
+                YogiDetailRow(
+                    getString(R.string.yogi_row_avayogi_point),
+                    getString(R.string.yogi_point_format, formatDegree(avayogiPoint), avayogiNak)
+                ),
+                YogiDetailRow(
+                    getString(R.string.yogi_row_avayogi_sign),
+                    getString(R.string.karaka_house_format, avayogiSign.displayName, avayogiHouse)
+                ),
+                YogiDetailRow(getString(R.string.yogi_row_avayogi_via), avayogiVia6th)
+            )
+        )
+
+        return listOf(yogiSection, sahayogiSection, avayogiSection)
+    }
+
+    private fun shareCurrentSummary() {
+        val sections = currentSections
+        if (sections.isEmpty()) return
+        val sb = StringBuilder()
+        sb.appendLine(getString(R.string.yogi_title))
+        sections.forEach { section ->
+            sb.appendLine(section.title)
+            section.rows.forEach { row ->
+                sb.appendLine("• ${row.label}: ${row.value}")
+            }
+            sb.appendLine()
+        }
+        val intent = Intent(Intent.ACTION_SEND)
+        intent.type = "text/plain"
+        intent.putExtra(Intent.EXTRA_TEXT, sb.toString())
+        startActivity(Intent.createChooser(intent, getString(R.string.share_result)))
+    }
+
+    private fun pinCurrentSummary() {
+        val sections = currentSections
+        if (sections.isEmpty()) return
+        val pinnedText = buildString {
+            appendLine(getString(R.string.yogi_title))
+            sections.forEach { section ->
+                appendLine(section.title)
+            }
+        }
+        pinPrefs.edit().putString("pinned_yogi", pinnedText).apply()
+        Snackbar.make(binding.root, getString(R.string.yogi_pinned_message), Snackbar.LENGTH_SHORT).show()
+    }
+
     private fun showEmptyState(message: String?) {
         binding.summaryPrimary.text = getString(R.string.yogi_summary_title)
         binding.summarySecondary.text = message ?: getString(R.string.yogi_empty_state)
         binding.highlightChips.isVisible = false
         binding.emptyState.isVisible = true
         binding.emptyState.text = message ?: getString(R.string.yogi_empty_state)
+        binding.detailList.isVisible = false
+        currentSections = emptyList()
+        enableCtas(false)
+    }
+
+    private fun enableCtas(enabled: Boolean) {
+        binding.ctaShare.isEnabled = enabled
+        binding.ctaPin.isEnabled = enabled
     }
 
     private fun formatDegree(value: Double): String {
@@ -128,12 +258,59 @@ class YogiActivity : AppCompatActivity() {
             minutes = 0
             degrees = (degrees + 1) % 360
         }
-        return String.format(Locale.US, "%03d° %02d'", degrees, minutes)
+        return String.format(Locale.US, "%03d\u00B0 %02d'", degrees, minutes)
     }
 
     private fun houseFromAsc(sign: ZodiacSign, chart: ChartResult): Int {
         val asc = chart.ascendantSign.ordinal
         return 1 + (sign.ordinal - asc + 12) % 12
+    }
+
+    private data class YogiDetailSection(val title: String, val rows: List<YogiDetailRow>)
+
+    private data class YogiDetailRow(val label: String, val value: String)
+
+    private data class YogiSummary(
+        val yogiLord: String,
+        val sahayogi: Planet,
+        val avayogiLord: String,
+        val yogiNakshatra: String,
+        val name: String?
+    )
+
+    private inner class YogiSectionAdapter : RecyclerView.Adapter<YogiSectionAdapter.VH>() {
+        private var items: List<YogiDetailSection> = emptyList()
+
+        fun submitList(newItems: List<YogiDetailSection>) {
+            items = newItems
+            notifyDataSetChanged()
+        }
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
+            val binding = ItemYogiSectionBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            return VH(binding)
+        }
+
+        override fun onBindViewHolder(holder: VH, position: Int) {
+            holder.bind(items[position])
+        }
+
+        override fun getItemCount(): Int = items.size
+
+        inner class VH(private val sectionBinding: ItemYogiSectionBinding) : RecyclerView.ViewHolder(sectionBinding.root) {
+            fun bind(section: YogiDetailSection) {
+                sectionBinding.sectionTitle.text = section.title
+                val container = sectionBinding.rowContainer
+                container.removeAllViews()
+                val inflater = LayoutInflater.from(container.context)
+                section.rows.forEach { row ->
+                    val rowBinding = ItemYogiRowBinding.inflate(inflater, container, false)
+                    rowBinding.rowLabel.text = row.label
+                    rowBinding.rowValue.text = row.value
+                    container.addView(rowBinding.root)
+                }
+            }
+        }
     }
 
     companion object {

@@ -14,6 +14,7 @@ navigationFragmentKtx = "2.9.4"
 navigationUiKtx = "2.9.4"
 swisseph = "2.10.03"
 desugarJdkLibs = "2.0.4"
+ktlintGradle = "12.1.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -33,3 +34,4 @@ desugar-jdk = { group = "com.android.tools", name = "desugar_jdk_libs", version.
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlintGradle" }

@@ -2,8 +2,14 @@
 
 import java.util.Locale
 
+/**
+ * Simple immutable point that captures a display name and its coordinates.
+ */
 data class City(val name: String, val latitude: Double, val longitude: Double)
 
+/**
+ * Offline catalogue of Indian cities that keeps lookup working when Geocoder is missing.
+ */
 object CityDatabase {
     val cities: List<City> = listOf(
         City("Delhi", 28.6139, 77.2090),
@@ -82,8 +88,14 @@ object CityDatabase {
 
     private val cityNames: List<String> = cities.map { it.name }
 
+    /**
+     * @return the list of display names in declaration order for adapters/autocomplete.
+     */
     fun names(): List<String> = cityNames
 
+    /**
+     * Returns a city if the provided name (case-insensitive) exactly matches the catalogue.
+     */
     fun findByName(name: String): City? {
         val normalized = name.trim().lowercase(Locale.ROOT)
         if (normalized.isEmpty()) return null

@@ -12,6 +12,7 @@ import com.aakash.astro.astrology.ChartResult
 import com.aakash.astro.astrology.GunMilanCalculator
 import com.aakash.astro.databinding.ActivityKundaliMatchingBinding
 import com.aakash.astro.databinding.ItemKootaRowBinding
+import com.aakash.astro.storage.SavedHoroscope
 import com.aakash.astro.storage.SavedStore
 import com.google.android.material.snackbar.Snackbar
 import java.time.Instant
@@ -22,7 +23,7 @@ class KundaliMatchingActivity : AppCompatActivity() {
     private lateinit var binding: ActivityKundaliMatchingBinding
     private val accurate = AccurateCalculator()
     private val fallback = AstrologyCalculator()
-    private val saved = mutableListOf<SavedStore.SavedHoroscope>()
+    private val saved = mutableListOf<SavedHoroscope>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,11 +74,7 @@ class KundaliMatchingActivity : AppCompatActivity() {
         val result = GunMilanCalculator.match(brideChart, groomChart)
 
         binding.summaryTitle.text = getString(R.string.kundali_score_title, result.total, result.max)
-        binding.summaryNames.text = getString(
-            R.string.kundali_pair_label,
-            bride.name,
-            groom.name
-        )
+        binding.summaryNames.text = getString(R.string.kundali_pair_label, bride.name, groom.name)
 
         renderParts(result)
         binding.resultContainer.visibility = View.VISIBLE
@@ -95,7 +92,7 @@ class KundaliMatchingActivity : AppCompatActivity() {
         }
     }
 
-    private fun chartFrom(saved: SavedStore.SavedHoroscope): ChartResult? {
+    private fun chartFrom(saved: SavedHoroscope): ChartResult? {
         val zdt = Instant.ofEpochMilli(saved.epochMillis).atZone(ZoneId.of(saved.zoneId))
         val details = BirthDetails(saved.name, zdt, saved.lat, saved.lon)
         return accurate.generateChart(details) ?: fallback.generateChart(details)
