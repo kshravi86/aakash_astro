@@ -23,7 +23,7 @@ object GunMilanCalculator {
             vashya(brideMoon, groomMoon),
             tara(brideMoon, groomMoon),
             yoni(brideMoon, groomMoon),
-            grahaMaitri(brideMoon, groomMoon),
+            grahaMaitri(bride, groom, brideMoon, groomMoon),
             gana(brideMoon, groomMoon),
             bhakoot(brideMoon, groomMoon),
             nadi(brideMoon, groomMoon)
@@ -64,12 +64,8 @@ object GunMilanCalculator {
     private fun tara(bride: MoonInfo, groom: MoonInfo): KootaScore {
         val diff = kotlin.math.abs(bride.nakIndex1Based - groom.nakIndex1Based)
         val rem = diff % 9
-        val score = when (rem) {
-            0, 1, 2, 3, 4 -> 3.0
-            5, 6 -> 1.5
-            else -> 0.0
-        }
-        return KootaScore("Tara", score, 3.0, "Nakshatra distance mod 9 = $rem")
+        val score = if (rem % 2 == 0) 3.0 else 0.0
+        return KootaScore("Tara", score, 3.0, "Nakshatra distance mod 9 = $rem (even=auspicious)")
     }
 
     private fun yoni(bride: MoonInfo, groom: MoonInfo): KootaScore {
@@ -79,9 +75,14 @@ object GunMilanCalculator {
         return KootaScore("Yoni", score, 4.0, "Bride: ${b.name}, Groom: ${g.name}")
     }
 
-    private fun grahaMaitri(bride: MoonInfo, groom: MoonInfo): KootaScore {
-        val relBG = relation(bride.lord, groom.lord)
-        val relGB = relation(groom.lord, bride.lord)
+    private fun grahaMaitri(
+        brideChart: ChartResult,
+        groomChart: ChartResult,
+        bride: MoonInfo,
+        groom: MoonInfo
+    ): KootaScore {
+        val relBG = compoundRelation(brideChart, bride.lord, groom.lord)
+        val relGB = compoundRelation(groomChart, groom.lord, bride.lord)
         val score = grahaScore(relBG, relGB, bride.lord == groom.lord)
         val note = "Bride lord: ${bride.lord.displayName} (${relBG.name.lowercase()}), Groom lord: ${groom.lord.displayName} (${relGB.name.lowercase()})"
         return KootaScore("Graha Maitri", score, 5.0, note)
@@ -133,6 +134,45 @@ object GunMilanCalculator {
     }
 
     private fun relation(from: Planet, to: Planet): Relation = naturalRelations[from]!![to] ?: Relation.NEUTRAL
+
+    private fun compoundRelation(chart: ChartResult, from: Planet, to: Planet): Relation {
+        val natural = relation(from, to)
+        val temporary = temporaryRelation(chart, from, to)
+        return combineRelations(natural, temporary)
+    }
+
+    private fun temporaryRelation(chart: ChartResult, from: Planet, to: Planet): Relation {
+        val fromDeg = chart.planets.find { it.planet == from }?.degree ?: return Relation.NEUTRAL
+        val toDeg = chart.planets.find { it.planet == to }?.degree ?: return Relation.NEUTRAL
+        val diff = (toDeg - fromDeg + 360.0) % 360.0
+        val houseOffset = (diff / 30.0).toInt() + 1 // 1..12 relative to 'from'
+        return when (houseOffset) {
+            2, 3, 4, 10, 11, 12 -> Relation.FRIEND
+            6, 7, 8 -> Relation.ENEMY
+            else -> Relation.NEUTRAL
+        }
+    }
+
+    private fun combineRelations(natural: Relation, temporary: Relation): Relation {
+        if (natural == temporary) return natural
+        return when (natural) {
+            Relation.FRIEND -> when (temporary) {
+                Relation.NEUTRAL -> Relation.FRIEND
+                Relation.ENEMY -> Relation.NEUTRAL
+                else -> Relation.FRIEND
+            }
+            Relation.NEUTRAL -> when (temporary) {
+                Relation.FRIEND -> Relation.FRIEND
+                Relation.ENEMY -> Relation.ENEMY
+                else -> Relation.NEUTRAL
+            }
+            Relation.ENEMY -> when (temporary) {
+                Relation.FRIEND -> Relation.NEUTRAL
+                Relation.NEUTRAL -> Relation.ENEMY
+                else -> Relation.ENEMY
+            }
+        }
+    }
 
     private fun grahaScore(relBG: Relation, relGB: Relation, same: Boolean): Double = when {
         same -> 5.0
