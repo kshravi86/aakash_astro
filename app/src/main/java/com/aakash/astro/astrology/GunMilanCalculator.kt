@@ -62,10 +62,10 @@ object GunMilanCalculator {
     }
 
     private fun tara(bride: MoonInfo, groom: MoonInfo): KootaScore {
-        val diff = kotlin.math.abs(bride.nakIndex1Based - groom.nakIndex1Based)
+        val diff = (groom.nakIndex1Based - bride.nakIndex1Based + 27) % 27 // bride -> groom direction
         val rem = diff % 9
         val score = if (rem % 2 == 0) 3.0 else 0.0
-        return KootaScore("Tara", score, 3.0, "Nakshatra distance mod 9 = $rem (even=auspicious)")
+        return KootaScore("Tara", score, 3.0, "Nakshatra distance (bride->groom) mod 9 = $rem (even=auspicious)")
     }
 
     private fun yoni(bride: MoonInfo, groom: MoonInfo): KootaScore {
@@ -96,12 +96,11 @@ object GunMilanCalculator {
     }
 
     private fun bhakoot(bride: MoonInfo, groom: MoonInfo): KootaScore {
-        val raw = (groom.sign.ordinal - bride.sign.ordinal + 12) % 12
-        if (raw == 0) return KootaScore("Bhakoot", 7.0, 7.0, "Same Moon sign")
-        val dist = raw
-        val inauspicious = setOf(2, 12, 5, 9, 6, 8)
+        val dist = (groom.sign.ordinal - bride.sign.ordinal + 12) % 12 + 1 // 1..12 bride -> groom
+        if (dist == 1) return KootaScore("Bhakoot", 7.0, 7.0, "Same Moon sign")
+        val inauspicious = setOf(2, 12, 5, 9, 6, 8) // classic 2/12, 5/9, 6/8 pairs
         val score = if (inauspicious.contains(dist)) 0.0 else 7.0
-        return KootaScore("Bhakoot", score, 7.0, "Sign distance (bride→groom): $dist")
+        return KootaScore("Bhakoot", score, 7.0, "Sign distance (bride->groom): $dist")
     }
 
     private fun nadi(bride: MoonInfo, groom: MoonInfo): KootaScore {
@@ -267,3 +266,6 @@ object GunMilanCalculator {
         ZodiacSign.SCORPIO -> Vashya.KEETA
     }
 }
+
+
+
