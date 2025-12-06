@@ -18,12 +18,24 @@ Aakash Astro is a fully offline-first Vedic astrology toolkit written in Kotlin/
 - **Self-contained data & privacy** - ephemeris files ship inside `app/src/main/assets/ephe`, saved horoscopes live in app-private storage via `SavedStore`, and an embedded privacy policy (`docs/privacy-policy.html` + `PrivacyActivity`) keeps compliance simple.
 
 ## Developer Quickstart (10 minutes)
-1. Open the project in Android Studio (JDK 17+); let it download the right SDKs when prompted.
-2. Keep the bundled Swiss ephemeris (`app/libs/swisseph.jar` + `app/src/main/assets/ephe`) or remove them to validate the built-in solver; the engine label under the natal chart shows which path is active.
-3. Build and install: `./gradlew assembleDebug` then `adb install app/build/outputs/apk/debug/app-debug.apk`, or hit **Run** in Android Studio.
-4. Smoke test: enter any birth date/time/place (or tap **Quick now**), generate the chart, and open `Panchanga`, `Dasha`, `Tara Bala`, and `Sarvatobhadra` to confirm calculators wire up.
-5. Persistence check: use the overflow menu to **Save**, then open **Saved charts** to reload and delete a record—this exercises `SavedStore`.
-6. Need more depth? `docs/PROJECT_DOCUMENTATION.md` walks through every subsystem; `readmehowitworks.md` covers Swiss Ephemeris accuracy choices.
+This guide will get you up and running with Aakash Astro in minutes, allowing you to build, install, and smoke test the application.
+
+1.  **Open in Android Studio:** Open the project in Android Studio (JDK 17+). Allow it to download any necessary SDKs when prompted.
+2.  **Ephemeris Setup (Optional):** You can keep the bundled Swiss ephemeris (`app/libs/swisseph.jar` + `app/src/main/assets/ephe`) for high-precision calculations, or remove them to validate the built-in solver. The engine label under the natal chart will indicate which path is active.
+3.  **Build and Install:**
+    *   From the terminal: Run `./gradlew assembleDebug` to build, then `adb install app/build/outputs/apk/debug/app-debug.apk` to install on a connected device/emulator.
+    *   From Android Studio: Click the **Run** button.
+4.  **Smoke Test:**
+    *   Enter any birth date, time, and place (or tap **Quick now**).
+    *   Generate a chart.
+    *   Open `Panchanga`, `Dasha`, `Tara Bala`, and `Sarvatobhadra` to confirm the calculators are functioning correctly.
+5.  **Persistence Check:**
+    *   Use the overflow menu to **Save** the current chart.
+    *   Open **Saved charts** to reload and then delete the record. This verifies the `SavedStore` functionality.
+
+**Expected Outcome:** By completing these steps, you will have a working debug build of Aakash Astro installed on your device/emulator, and you will have verified its core functionality, including chart generation and persistence.
+
+6.  **Need more depth?** `docs/PROJECT_DOCUMENTATION.md` walks through every subsystem; `readmehowitworks.md` covers Swiss Ephemeris accuracy choices.
 
 ## Repository Layout
 
@@ -190,11 +202,28 @@ Create `keystore.properties` with `storeFile`, `storePassword`, `keyAlias`, `key
 - Run `./gradlew lintDebug` locally; AGP 8.13 also supports `lintVitalRelease` if you add a CI gate.
 
 ## Extending the App
-1. **Add or update a calculator** under `com.aakash.astro.astrology` (keep pure Kotlin, no Android dependencies).
-2. **Create the UI** - add a layout under `res/layout`, generate a binding, and implement a new `Activity` or `Fragment` that consumes the calculator.
-3. **Register navigation** - add an `ActionTile` entry (or menu option) in `MainActivity.setupActionGrid()` and wire it to a launcher method that passes the standard extras.
-4. **Hook resources** - update `AndroidManifest.xml`, string resources, and (optionally) screenshot scripts if the feature targets Play Store imagery.
-5. **Document/new datasets** - drop supporting tables under `/` or `assets/` and mention them in `docs/THIRD_PARTY_NOTICES.md` if licensing applies.
+If you're looking to add new functionality or extend existing features, follow these steps:
+
+1.  **Add or update a calculator:** Develop your core logic under `com.aakash.astro.astrology`. Ensure it's pure Kotlin and has no Android-specific dependencies to maintain reusability and testability.
+2.  **Create the User Interface (UI):**
+    *   Design your layout in `app/src/main/res/layout`.
+    *   Implement a new `Activity` or `Fragment` that consumes the data from your calculator.
+    *   Utilize data binding or `findViewById` as per existing conventions to connect your UI elements.
+3.  **Register Navigation:**
+    *   Add an `ActionTile` entry (or update an existing menu option) in `MainActivity.setupActionGrid()`.
+    *   Wire it to a launcher method that passes the standard `BirthContext` extras required by your new feature.
+4.  **Hook Resources and Assets:**
+    *   Update `AndroidManifest.xml` with any new activities or permissions.
+    *   Add necessary string resources (`strings.xml`), drawables, or other assets.
+    *   If your feature involves Play Store imagery, update the screenshot scripts (`scripts/capture_screenshots.sh`).
+5.  **Add Tests:** Write unit tests for your calculators (`app/src/test/java/com/aakash/astro/astrology/*Test.kt`) and instrumented tests for your UI (`app/src/androidTest`) to ensure reliability and prevent regressions.
+6.  **Document New Datasets:** If your feature introduces new data tables or external resources, place them under the root directory or `assets/` and update `docs/THIRD_PARTY_NOTICES.md` if licensing applies.
+
+## Contribution Guide
+We welcome contributions to Aakash Astro! Whether you're looking to add a new feature, fix a bug, or improve existing code, this guide will help you get started.
+
+*   **Extending the App:** For detailed steps on adding new features or modifying existing ones, refer to the [Extending the App](#extending-the-app) section.
+*   **Quality & Testing:** Before submitting any changes, please ensure your code adheres to our quality standards and is thoroughly tested. Refer to the [Quality & Testing](#quality--testing) section for more information.
 
 ## Utilities
 - `scripts/capture_screenshots.sh` generates deterministic Play Store imagery (used by `screenshot-capture.yml`).
