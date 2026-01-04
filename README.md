@@ -14,6 +14,7 @@ Aakash Astro is an offline-first Vedic astrology toolkit written in Kotlin for A
 - `docs/SWISS_EPH.md` - Swiss Ephemeris licensing
 - `docs/GITHUB_WORKFLOWS.md` - CI build and screenshot pipelines
 - `docs/DIAGRAMS.md` - extra diagrams and flow references
+- `docs/FEATURES_VISUAL.md` - visual feature map (Mermaid diagram)
 - `docs/PRIVACY_POLICY.md` and `docs/privacy-policy.html` - bundled privacy policy
 - `docs/THIRD_PARTY_NOTICES.md` - third-party license acknowledgements
 - `scripts/capture_screenshots.sh` - Play Store screenshot generator
