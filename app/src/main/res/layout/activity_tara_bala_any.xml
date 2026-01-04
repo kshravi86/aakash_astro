@@ -41,7 +41,10 @@
                 android:id="@+id/dateInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp">
+                android:layout_marginTop="16dp"
+                app:endIconContentDescription="@string/content_desc_pick_date"
+                app:endIconDrawable="@drawable/ic_calendar_event_24"
+                app:endIconMode="custom">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/dateInput"
@@ -55,7 +58,10 @@
                 android:id="@+id/timeInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp">
+                android:layout_marginTop="8dp"
+                app:endIconContentDescription="@string/content_desc_pick_time"
+                app:endIconDrawable="@drawable/ic_clock_outline_24"
+                app:endIconMode="custom">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/timeInput"
@@ -64,6 +70,16 @@
                     android:focusable="false"
                     android:hint="@string/pick_time" />
             </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/nowButton"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/use_current_moment"
+                app:icon="@drawable/ic_clock_outline_24"
+                app:iconGravity="textStart" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -116,4 +132,3 @@
     </ScrollView>
 
 </LinearLayout>
-

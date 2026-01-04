@@ -14,6 +14,7 @@
     <string name="quick_time_custom">Custom time...</string>
     <string name="content_desc_pick_date">Pick birth date</string>
     <string name="content_desc_pick_time">Pick birth time</string>
+    <string name="use_current_moment">Use current moment</string>
     <string name="date_time_summary_label">Selected instant</string>
     <string name="date_time_summary_empty">No date and time selected</string>
     <string name="house_content_description">House %1$d contains %2$s. Positioned planets: %3$s</string>

@@ -1,6 +1,7 @@
 package com.aakash.astro
 
 import android.os.Bundle
+import android.text.format.DateFormat
 import android.view.LayoutInflater
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
@@ -17,6 +18,9 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import java.time.*
+import java.time.format.DateTimeFormatter
+import java.time.temporal.ChronoUnit
+import java.util.Locale
 
 class TaraBalaAnyActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTaraBalaAnyBinding
@@ -26,6 +30,10 @@ class TaraBalaAnyActivity : AppCompatActivity() {
     private var selectedDate: LocalDate? = null
     private var selectedTime: LocalTime? = null
     private var selectedCity: City? = null
+    private val deviceZone: ZoneId by lazy { ZoneId.systemDefault() }
+    private val dateFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy", Locale.getDefault())
+    private val timeFormatter24 = DateTimeFormatter.ofPattern("HH:mm", Locale.getDefault())
+    private val timeFormatter12 = DateTimeFormatter.ofPattern("hh:mm a", Locale.getDefault())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +47,7 @@ class TaraBalaAnyActivity : AppCompatActivity() {
         preloadNatalFromIntent()
         setupInputs()
         setupActions()
+        applyNow()
 
         binding.resultContainer.visibility = android.view.View.GONE
     }
@@ -70,6 +79,7 @@ class TaraBalaAnyActivity : AppCompatActivity() {
         binding.dateInput.setOnClickListener { showDatePicker() }
         binding.timeInputLayout.setEndIconOnClickListener { showTimePicker() }
         binding.timeInput.setOnClickListener { showTimePicker() }
+        binding.nowButton.setOnClickListener { applyNow() }
     }
 
     private fun setupActions() {
@@ -85,8 +95,23 @@ class TaraBalaAnyActivity : AppCompatActivity() {
         }
     }
 
+    private fun applyNow() {
+        val now = ZonedDateTime.now(deviceZone).truncatedTo(ChronoUnit.MINUTES)
+        selectedDate = now.toLocalDate()
+        selectedTime = now.toLocalTime()
+        updateDateTimeFields()
+    }
+
+    private fun updateDateTimeFields() {
+        val dateText = selectedDate?.format(dateFormatter).orEmpty()
+        val timeFormatter = if (DateFormat.is24HourFormat(this)) timeFormatter24 else timeFormatter12
+        val timeText = selectedTime?.format(timeFormatter).orEmpty()
+        binding.dateInput.setText(dateText)
+        binding.timeInput.setText(timeText)
+    }
+
     private fun computeTransitTara(date: LocalDate, time: LocalTime, city: City) {
-        val zone = ZoneId.systemDefault()
+        val zone = deviceZone
         val zdt = LocalDateTime.of(date, time).atZone(zone)
         val details = BirthDetails(null, zdt, city.latitude, city.longitude)
         val transitChart = accurate.generateChart(details)
@@ -161,28 +186,34 @@ class TaraBalaAnyActivity : AppCompatActivity() {
     }
 
     private fun showDatePicker() {
+        val selection = selectedDate
+            ?.atStartOfDay(deviceZone)
+            ?.toInstant()
+            ?.toEpochMilli()
+            ?: MaterialDatePicker.todayInUtcMilliseconds()
         val picker = MaterialDatePicker.Builder.datePicker()
             .setTitleText(getString(R.string.pick_date))
+            .setSelection(selection)
             .build()
         picker.addOnPositiveButtonClickListener { millis ->
-            val ld = Instant.ofEpochMilli(millis).atZone(ZoneId.systemDefault()).toLocalDate()
-            selectedDate = ld
-            binding.dateInput.setText(ld.toString())
+            selectedDate = Instant.ofEpochMilli(millis).atZone(deviceZone).toLocalDate()
+            updateDateTimeFields()
         }
         picker.show(supportFragmentManager, "tara_any_date")
     }
 
     private fun showTimePicker() {
+        val initial = selectedTime ?: LocalTime.now(deviceZone).truncatedTo(ChronoUnit.MINUTES)
+        val is24 = DateFormat.is24HourFormat(this)
         val picker = MaterialTimePicker.Builder()
-            .setTimeFormat(TimeFormat.CLOCK_24H)
-            .setHour(12)
-            .setMinute(0)
+            .setTimeFormat(if (is24) TimeFormat.CLOCK_24H else TimeFormat.CLOCK_12H)
+            .setHour(initial.hour)
+            .setMinute(initial.minute)
             .setTitleText(getString(R.string.pick_time))
             .build()
         picker.addOnPositiveButtonClickListener {
-            val lt = LocalTime.of(picker.hour, picker.minute)
-            selectedTime = lt
-            binding.timeInput.setText(String.format("%02d:%02d", picker.hour, picker.minute))
+            selectedTime = LocalTime.of(picker.hour, picker.minute)
+            updateDateTimeFields()
         }
         picker.show(supportFragmentManager, "tara_any_time")
     }
