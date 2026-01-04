@@ -1,6 +1,7 @@
 package com.aakash.astro.storage
 
 import android.content.Context
+import com.aakash.astro.util.AppLog
 import org.json.JSONObject
 import java.io.File
 import java.text.SimpleDateFormat
@@ -56,6 +57,7 @@ object SavedStore {
             .put("lon", lon)
         val file = File(dir(ctx), "$id.json")
         file.writeText(obj.toString())
+        AppLog.d("Saved chart file=${file.name}")
         return SavedHoroscope(id, safeName, epochMillis, zoneId, lat, lon)
     }
 
@@ -74,7 +76,8 @@ object SavedStore {
                     lat = o.optDouble("lat", 0.0),
                     lon = o.optDouble("lon", 0.0)
                 )
-            } catch (_: Throwable) {
+            } catch (t: Throwable) {
+                AppLog.w("Failed to parse saved chart file=${f.name}", t)
                 null
             }
         }.sortedByDescending { it.epochMillis }
@@ -82,7 +85,10 @@ object SavedStore {
 
     fun load(ctx: Context, id: String): SavedHoroscope? {
         val file = File(dir(ctx), "$id.json")
-        if (!file.exists()) return null
+        if (!file.exists()) {
+            AppLog.d("Saved chart not found id=$id")
+            return null
+        }
         return try {
             val o = JSONObject(file.readText())
             SavedHoroscope(
@@ -93,11 +99,16 @@ object SavedStore {
                 lat = o.getDouble("lat"),
                 lon = o.getDouble("lon")
             )
-        } catch (_: Throwable) { null }
+        } catch (t: Throwable) {
+            AppLog.w("Failed to load saved chart id=$id", t)
+            null
+        }
     }
 
     fun delete(ctx: Context, id: String): Boolean {
         val file = File(dir(ctx), "$id.json")
-        return file.delete()
+        val deleted = file.delete()
+        AppLog.d("Deleted saved chart id=$id success=$deleted")
+        return deleted
     }
 }

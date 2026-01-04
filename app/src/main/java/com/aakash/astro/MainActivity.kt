@@ -36,6 +36,7 @@ import com.aakash.astro.geo.CityDatabase
 import com.aakash.astro.ui.ActionGridItem
 import com.aakash.astro.ui.ActionTile
 import com.aakash.astro.ui.ActionTileAdapter
+import com.aakash.astro.util.AppLog
 import com.google.android.material.chip.Chip
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.snackbar.Snackbar
@@ -453,6 +454,7 @@ class MainActivity : AppCompatActivity() {
                 ctx.city.latitude,
                 ctx.city.longitude
             )
+            AppLog.d("Saved chart id=${saved.id}")
             Snackbar.make(
                 binding.root,
                 getString(R.string.saved_chart_confirmation, saved.id),
@@ -466,7 +468,12 @@ class MainActivity : AppCompatActivity() {
 
         val dir = EphemerisPreparer.prepare(this)
 
-        dir?.let { accurateCalculator.setEphePath(it.absolutePath) }
+        if (dir != null) {
+            accurateCalculator.setEphePath(dir.absolutePath)
+            AppLog.d("Ephemeris assets prepared.")
+        } else {
+            AppLog.d("Ephemeris assets not found; Swiss Ephemeris disabled.")
+        }
 
     }
 
@@ -494,6 +501,7 @@ class MainActivity : AppCompatActivity() {
                 selectedCity = null
                 updatePlaceCoords()
             }
+            AppLog.d("Place selection resolved=${resolved != null}")
 
             // Stop showing suggestions once a selection is made
 
@@ -556,6 +564,7 @@ class MainActivity : AppCompatActivity() {
                         val fallbackMatches = CityDatabase.names().filter { it.contains(query, ignoreCase = true) }
 
                         val merged = (dynamicNames + fallbackMatches).distinct().take(20)
+                        AppLog.d("Geocoder suggestions updated count=${merged.size} queryLen=${query.length}")
 
                         runOnUiThread {
 
@@ -817,7 +826,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun geocodeInIndia(query: String, maxResults: Int): List<Address>? {
 
-        if (!Geocoder.isPresent()) return null
+        if (!Geocoder.isPresent()) {
+            AppLog.d("Geocoder not present on device.")
+            return null
+        }
 
         return runCatching {
 
@@ -839,6 +851,8 @@ class MainActivity : AppCompatActivity() {
 
             )
 
+        }.onFailure {
+            AppLog.d("Geocoder lookup failed.")
         }.getOrNull()
 
     }
@@ -1012,6 +1026,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showMissingBirthDetailsMessage() {
+        AppLog.d("Missing birth details; prompting user.")
         Snackbar.make(binding.root, getString(R.string.missing_birth_details), Snackbar.LENGTH_LONG).show()
     }
 
@@ -1033,11 +1048,13 @@ class MainActivity : AppCompatActivity() {
                     getString(R.string.swiss_ephemeris_missing_generic),
                     Snackbar.LENGTH_LONG
                 ).show()
+                AppLog.d("Swiss Ephemeris unavailable; using fallback engine.")
                 fallbackCalculator.generateChart(ctx.birthDetails)
             }
 
             persistBirthDefaults(ctx.date, ctx.time, ctx.city)
             renderPlanets(chart)
+            AppLog.d("Chart generated using ${if (accurate != null) "swiss" else "fallback"} engine.")
             binding.engineIndicator.text = if (accurate != null) {
                 getString(R.string.engine_label_swiss)
             } else {

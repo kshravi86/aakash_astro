@@ -5,5 +5,6 @@
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="6dp"
     android:layout_marginVertical="8dp"
+    android:letterSpacing="0.08"
     android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-    android:textColor="@color/primaryText" />
+    android:textColor="@color/secondaryText" />

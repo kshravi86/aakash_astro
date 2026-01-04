@@ -1,6 +1,7 @@
 ﻿package com.aakash.astro
 
 import android.content.Context
+import com.aakash.astro.util.AppLog
 import java.io.File
 
 object EphemerisPreparer {
@@ -8,7 +9,12 @@ object EphemerisPreparer {
         return try {
             val am = context.assets
             val outDir = File(context.filesDir, "ephe").apply { mkdirs() }
-            val entries = am.list("ephe") ?: return null
+            val entries = am.list("ephe")
+            if (entries.isNullOrEmpty()) {
+                AppLog.d("No ephemeris assets found under assets/ephe.")
+                return null
+            }
+            var copied = 0
             for (name in entries) {
                 val inStream = am.open("ephe/$name")
                 val outFile = File(outDir, name)
@@ -17,9 +23,12 @@ object EphemerisPreparer {
                         input.copyTo(output)
                     }
                 }
+                copied += 1
             }
+            AppLog.d("Ephemeris assets prepared count=$copied.")
             outDir
-        } catch (_: Throwable) {
+        } catch (t: Throwable) {
+            AppLog.w("Ephemeris asset preparation failed.", t)
             null
         }
     }

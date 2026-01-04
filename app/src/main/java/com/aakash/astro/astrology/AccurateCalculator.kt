@@ -1,5 +1,6 @@
 ﻿package com.aakash.astro.astrology
 
+import com.aakash.astro.util.AppLog
 import java.time.ZoneOffset
 import java.time.ZonedDateTime
 import kotlin.math.floor
@@ -9,6 +10,7 @@ class AccurateCalculator {
 
     fun setEphePath(path: String) {
         ephePath = if (path.endsWith("/")) path else "$path/"
+        AppLog.d("Ephemeris path configured.")
     }
 
     fun generateChart(details: BirthDetails): ChartResult? = try {
@@ -124,6 +126,14 @@ class AccurateCalculator {
             planets = planets
         )
     } catch (t: Throwable) {
+        when (t) {
+            is ClassNotFoundException, is NoClassDefFoundError -> {
+                AppLog.d("Swiss Ephemeris not available; returning null.")
+            }
+            else -> {
+                AppLog.w("Swiss Ephemeris calculation failed.", t)
+            }
+        }
         null
     }
 
