@@ -47,8 +47,8 @@
                     app:cardBackgroundColor="@color/card_bg_elevated"
                     app:cardCornerRadius="28dp"
                     app:cardElevation="8dp"
-                    app:cardStrokeColor="@color/card_stroke_strong"
-                    app:cardStrokeWidth="1dp">
+                    app:strokeColor="@color/card_stroke_strong"
+                    app:strokeWidth="1dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -168,8 +168,8 @@
                 app:cardBackgroundColor="@color/card_bg"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="0dp"
-                app:cardStrokeColor="@color/card_stroke"
-                app:cardStrokeWidth="1dp">
+                app:strokeColor="@color/card_stroke"
+                app:strokeWidth="1dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -360,8 +360,8 @@
                 app:cardBackgroundColor="@color/card_bg"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="0dp"
-                app:cardStrokeColor="@color/card_stroke"
-                app:cardStrokeWidth="1dp">
+                app:strokeColor="@color/card_stroke"
+                app:strokeWidth="1dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -435,8 +435,8 @@
                 app:cardBackgroundColor="@color/card_bg_elevated"
                 app:cardCornerRadius="22dp"
                 app:cardElevation="0dp"
-                app:cardStrokeColor="@color/card_stroke"
-                app:cardStrokeWidth="1dp">
+                app:strokeColor="@color/card_stroke"
+                app:strokeWidth="1dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -617,8 +617,8 @@
                 app:cardBackgroundColor="@color/card_bg"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="0dp"
-                app:cardStrokeColor="@color/card_stroke"
-                app:cardStrokeWidth="1dp">
+                app:strokeColor="@color/card_stroke"
+                app:strokeWidth="1dp">
 
                 <LinearLayout
                     android:id="@+id/planetContainer"
