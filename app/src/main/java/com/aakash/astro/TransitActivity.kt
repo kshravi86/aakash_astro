@@ -10,12 +10,16 @@ import com.aakash.astro.databinding.ActivityTransitBinding
 import com.aakash.astro.databinding.ItemTransitPlanetBinding
 import java.time.Instant
 import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+import java.util.Locale
 import kotlin.math.floor
 import kotlin.math.roundToInt
 
 class TransitActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTransitBinding
     private val accurate = AccurateCalculator()
+    private val dateFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy", Locale.getDefault())
+    private val timeFormatter12 = DateTimeFormatter.ofPattern("hh:mm a", Locale.getDefault())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,7 +53,7 @@ class TransitActivity : AppCompatActivity() {
 
         binding.title.text = getString(R.string.transit_title)
         val who = name?.let { getString(R.string.chart_generated_for, it) } ?: ""
-        val whenText = "@ " + transitZdt.toLocalDate().toString() + " " + transitZdt.toLocalTime().withSecond(0).withNano(0).toString() + " (" + zoneId.id + ")"
+        val whenText = "@ ${dateFormatter.format(transitZdt)} ${timeFormatter12.format(transitZdt)} (${zoneId.id})"
         binding.subtitle.text = (who + if (who.isNotEmpty()) "\n" else "") + whenText
 
         if (transitChart == null) {

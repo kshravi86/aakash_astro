@@ -24,7 +24,7 @@ class SavedHoroscopesActivity : AppCompatActivity() {
             binding.emptyView.visibility = android.view.View.VISIBLE
             return
         }
-        val fmt = DateTimeFormatter.ofPattern("dd MMM yyyy, HH:mm")
+        val fmt = DateTimeFormatter.ofPattern("dd MMM yyyy, hh:mm a")
         val inflater = LayoutInflater.from(this)
         list.forEach { s ->
             val item = inflater.inflate(R.layout.item_saved_horoscope, binding.listContainer, false)

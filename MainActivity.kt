@@ -108,7 +108,7 @@ class MainActivity : AppCompatActivity() {
         val initialTime = selectedTime ?: LocalTime.of(12, 0)
         val picker = MaterialTimePicker.Builder()
             .setTitleText("Select birth time")
-            .setTimeFormat(TimeFormat.CLOCK_24H)
+            .setTimeFormat(TimeFormat.CLOCK_12H)
             .setHour(initialTime.hour)
             .setMinute(initialTime.minute)
             .build()
@@ -124,7 +124,7 @@ class MainActivity : AppCompatActivity() {
         val date = selectedDate
         val time = selectedTime
         val dateFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy")
-        val timeFormatter = DateTimeFormatter.ofPattern("HH:mm")
+        val timeFormatter = DateTimeFormatter.ofPattern("hh:mm a")
 
         val dateText = date?.format(dateFormatter) ?: ""
         val timeText = time?.format(timeFormatter) ?: ""

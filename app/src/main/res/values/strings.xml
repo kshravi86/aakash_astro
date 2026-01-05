@@ -8,9 +8,9 @@
     <string name="label_birth_time">Birth time</string>
     <string name="hint_select_time">Select time</string>
     <string name="quick_time_now">Now</string>
-    <string name="quick_time_morning">06:00</string>
-    <string name="quick_time_noon">Noon</string>
-    <string name="quick_time_evening">18:00</string>
+    <string name="quick_time_morning">6:00 AM</string>
+    <string name="quick_time_noon">12:00 PM</string>
+    <string name="quick_time_evening">6:00 PM</string>
     <string name="quick_time_custom">Custom time...</string>
     <string name="content_desc_pick_date">Pick birth date</string>
     <string name="content_desc_pick_time">Pick birth time</string>

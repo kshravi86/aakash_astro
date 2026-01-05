@@ -11,7 +11,6 @@ import android.os.Handler
 import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
-import android.text.format.DateFormat
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
@@ -108,7 +107,6 @@ class MainActivity : AppCompatActivity() {
     private val defaultCityFallback = City("Bengaluru", 12.9716, 77.5946)
     private val deviceZone: ZoneId by lazy { ZoneId.systemDefault() }
     private val dateFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy")
-    private val timeFormatter24H: DateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm")
     private val timeFormatter12H: DateTimeFormatter = DateTimeFormatter.ofPattern("hh:mm a")
     private val actionTileLookup: MutableMap<String, ActionTile> = linkedMapOf()
 
@@ -910,8 +908,7 @@ class MainActivity : AppCompatActivity() {
         val initial = selectedTime ?: LocalTime.now().truncatedTo(ChronoUnit.MINUTES)
 
         val picker = MaterialTimePicker.Builder()
-
-            .setTimeFormat(if (DateFormat.is24HourFormat(this)) TimeFormat.CLOCK_24H else TimeFormat.CLOCK_12H)
+            .setTimeFormat(TimeFormat.CLOCK_12H)
 
             .setHour(initial.hour)
 
@@ -943,9 +940,7 @@ class MainActivity : AppCompatActivity() {
 
         val dateText = date?.format(dateFormatter) ?: ""
 
-        val timeFormatter = if (DateFormat.is24HourFormat(this)) timeFormatter24H else timeFormatter12H
-
-        val timeText = time?.format(timeFormatter) ?: ""
+        val timeText = time?.format(timeFormatter12H) ?: ""
 
 
 

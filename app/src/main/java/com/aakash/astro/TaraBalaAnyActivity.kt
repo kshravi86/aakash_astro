@@ -1,7 +1,6 @@
 package com.aakash.astro
 
 import android.os.Bundle
-import android.text.format.DateFormat
 import android.view.LayoutInflater
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
@@ -32,7 +31,6 @@ class TaraBalaAnyActivity : AppCompatActivity() {
     private var selectedCity: City? = null
     private val deviceZone: ZoneId by lazy { ZoneId.systemDefault() }
     private val dateFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy", Locale.getDefault())
-    private val timeFormatter24 = DateTimeFormatter.ofPattern("HH:mm", Locale.getDefault())
     private val timeFormatter12 = DateTimeFormatter.ofPattern("hh:mm a", Locale.getDefault())
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -104,8 +102,7 @@ class TaraBalaAnyActivity : AppCompatActivity() {
 
     private fun updateDateTimeFields() {
         val dateText = selectedDate?.format(dateFormatter).orEmpty()
-        val timeFormatter = if (DateFormat.is24HourFormat(this)) timeFormatter24 else timeFormatter12
-        val timeText = selectedTime?.format(timeFormatter).orEmpty()
+        val timeText = selectedTime?.format(timeFormatter12).orEmpty()
         binding.dateInput.setText(dateText)
         binding.timeInput.setText(timeText)
     }
@@ -125,7 +122,9 @@ class TaraBalaAnyActivity : AppCompatActivity() {
         }
 
         binding.title.text = getString(R.string.tara_any_title)
-        binding.subtitle.text = "@ ${zdt.toLocalDate()} ${zdt.toLocalTime().withSecond(0).withNano(0)} (${zone.id})\n${city.name}: " +
+        val dateText = dateFormatter.format(zdt)
+        val timeText = timeFormatter12.format(zdt)
+        binding.subtitle.text = "@ $dateText $timeText (${zone.id})\n${city.name}: " +
                 String.format("%.4f, %.4f", city.latitude, city.longitude)
 
         renderTransitTaraBala(transitChart, natal)
@@ -204,9 +203,8 @@ class TaraBalaAnyActivity : AppCompatActivity() {
 
     private fun showTimePicker() {
         val initial = selectedTime ?: LocalTime.now(deviceZone).truncatedTo(ChronoUnit.MINUTES)
-        val is24 = DateFormat.is24HourFormat(this)
         val picker = MaterialTimePicker.Builder()
-            .setTimeFormat(if (is24) TimeFormat.CLOCK_24H else TimeFormat.CLOCK_12H)
+            .setTimeFormat(TimeFormat.CLOCK_12H)
             .setHour(initial.hour)
             .setMinute(initial.minute)
             .setTitleText(getString(R.string.pick_time))

@@ -37,7 +37,7 @@ class AshtakavargaBavActivity : AppCompatActivity() {
     )
 
     private val headerFormatter: DateTimeFormatter by lazy {
-        DateTimeFormatter.ofPattern("dd MMM yyyy • HH:mm z", Locale.getDefault())
+        DateTimeFormatter.ofPattern("dd MMM yyyy • hh:mm a z", Locale.getDefault())
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
