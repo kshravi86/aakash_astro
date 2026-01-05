@@ -208,6 +208,11 @@
     <string name="kundali_pair_label">%1$s &lt;-&gt; %2$s</string>
     <string name="kundali_no_saved">No saved charts found. Save two charts first.</string>
     <string name="kundali_pick_both">Pick both bride and groom charts to compute Gun Milan.</string>
+    <string name="kundali_synastry_title">Mars-Venus Synastry</string>
+    <string name="kundali_synastry_note">Major aspects within 8° orb.</string>
+    <string name="kundali_synastry_detail">%1$s (orb %2$.1f°) - %3$s to %4$s</string>
+    <string name="kundali_synastry_none">No major aspect - %1$s to %2$s</string>
+    <string name="kundali_synastry_missing">Synastry data unavailable.</string>
     <string name="yogas_legend_body">We scan Pancha Mahapurusha, Nabhasa, Raja, Dhana, Parivartana and Viparita patterns.</string>
     <string name="yogas_legend_point_one">- Kendras with own/exalted planets light up Mahapurusha yogas.</string>
     <string name="yogas_legend_point_two">- Moon neighbours reveal Anapha, Sunapha, and Durdhara strengths.</string>

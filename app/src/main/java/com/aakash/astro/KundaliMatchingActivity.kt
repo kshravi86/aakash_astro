@@ -10,13 +10,17 @@ import com.aakash.astro.astrology.AstrologyCalculator
 import com.aakash.astro.astrology.BirthDetails
 import com.aakash.astro.astrology.ChartResult
 import com.aakash.astro.astrology.GunMilanCalculator
+import com.aakash.astro.astrology.Planet
+import com.aakash.astro.astrology.PlanetPosition
 import com.aakash.astro.databinding.ActivityKundaliMatchingBinding
 import com.aakash.astro.databinding.ItemKootaRowBinding
+import com.aakash.astro.databinding.ItemSynastryRowBinding
 import com.aakash.astro.storage.SavedHoroscope
 import com.aakash.astro.storage.SavedStore
 import com.google.android.material.snackbar.Snackbar
 import java.time.Instant
 import java.time.ZoneId
+import kotlin.math.abs
 
 class KundaliMatchingActivity : AppCompatActivity() {
 
@@ -24,6 +28,13 @@ class KundaliMatchingActivity : AppCompatActivity() {
     private val accurate = AccurateCalculator()
     private val fallback = AstrologyCalculator()
     private val saved = mutableListOf<SavedHoroscope>()
+    private val synastryAspects = listOf(
+        Aspect("Conjunction", 0.0),
+        Aspect("Sextile", 60.0),
+        Aspect("Square", 90.0),
+        Aspect("Trine", 120.0),
+        Aspect("Opposition", 180.0)
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,6 +88,7 @@ class KundaliMatchingActivity : AppCompatActivity() {
         binding.summaryNames.text = getString(R.string.kundali_pair_label, bride.name, groom.name)
 
         renderParts(result)
+        renderSynastry(bride, groom, brideChart, groomChart)
         binding.resultContainer.visibility = View.VISIBLE
     }
 
@@ -91,6 +103,81 @@ class KundaliMatchingActivity : AppCompatActivity() {
             binding.kootaContainer.addView(row.root)
         }
     }
+
+    private fun renderSynastry(
+        bride: SavedHoroscope,
+        groom: SavedHoroscope,
+        brideChart: ChartResult,
+        groomChart: ChartResult
+    ) {
+        binding.synastryContainer.removeAllViews()
+
+        val brideMars = brideChart.planets.firstOrNull { it.planet == Planet.MARS }
+        val brideVenus = brideChart.planets.firstOrNull { it.planet == Planet.VENUS }
+        val groomMars = groomChart.planets.firstOrNull { it.planet == Planet.MARS }
+        val groomVenus = groomChart.planets.firstOrNull { it.planet == Planet.VENUS }
+
+        if (brideMars == null || brideVenus == null || groomMars == null || groomVenus == null) {
+            val row = ItemSynastryRowBinding.inflate(LayoutInflater.from(this), binding.synastryContainer, false)
+            row.title.text = getString(R.string.kundali_synastry_title)
+            row.detail.text = getString(R.string.kundali_synastry_missing)
+            binding.synastryContainer.addView(row.root)
+            return
+        }
+
+        val rows = listOf(
+            buildSynastryRow("${bride.name} Mars", brideMars, "${groom.name} Venus", groomVenus),
+            buildSynastryRow("${groom.name} Mars", groomMars, "${bride.name} Venus", brideVenus)
+        )
+
+        val inflater = LayoutInflater.from(this)
+        rows.forEach { rowData ->
+            val row = ItemSynastryRowBinding.inflate(inflater, binding.synastryContainer, false)
+            row.title.text = rowData.title
+            row.detail.text = rowData.detail
+            binding.synastryContainer.addView(row.root)
+        }
+    }
+
+    private fun buildSynastryRow(
+        leftLabel: String,
+        leftPos: PlanetPosition,
+        rightLabel: String,
+        rightPos: PlanetPosition
+    ): SynastryRow {
+        val match = bestAspect(leftPos.degree, rightPos.degree)
+        val detail = if (match != null) {
+            getString(
+                R.string.kundali_synastry_detail,
+                match.aspect.name,
+                match.orb,
+                leftPos.sign.displayName,
+                rightPos.sign.displayName
+            )
+        } else {
+            getString(
+                R.string.kundali_synastry_none,
+                leftPos.sign.displayName,
+                rightPos.sign.displayName
+            )
+        }
+        return SynastryRow("$leftLabel to $rightLabel", detail)
+    }
+
+    private fun bestAspect(a: Double, b: Double, maxOrb: Double = 8.0): AspectMatch? {
+        val separation = angularSeparation(a, b)
+        val candidate = synastryAspects.minByOrNull { abs(separation - it.angle) } ?: return null
+        val orb = abs(separation - candidate.angle)
+        return if (orb <= maxOrb) AspectMatch(candidate, orb) else null
+    }
+
+    private fun angularSeparation(a: Double, b: Double): Double {
+        return abs(((a - b) % 360.0 + 540.0) % 360.0 - 180.0)
+    }
+
+    private data class SynastryRow(val title: String, val detail: String)
+    private data class Aspect(val name: String, val angle: Double)
+    private data class AspectMatch(val aspect: Aspect, val orb: Double)
 
     private fun chartFrom(saved: SavedHoroscope): ChartResult? {
         val zdt = Instant.ofEpochMilli(saved.epochMillis).atZone(ZoneId.of(saved.zoneId))
