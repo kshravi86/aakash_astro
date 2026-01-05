@@ -13,6 +13,7 @@ class SavedHoroscopesActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySavedHoroscopesBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Load saved charts and render a list with actions.
         super.onCreate(savedInstanceState)
         binding = ActivitySavedHoroscopesBinding.inflate(layoutInflater)
         setContentView(binding.root)

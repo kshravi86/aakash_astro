@@ -71,13 +71,16 @@ class MainActivity : AppCompatActivity() {
 
     private val dynamicCityMap: MutableMap<String, City> = mutableMapOf()
 
+    // Normalize city names for consistent lookup keys.
     private fun normalizedCityKey(name: String): String = name.trim().lowercase(Locale.ROOT)
 
     private fun rememberDynamicCity(city: City) {
+        // Cache a dynamically resolved city for reuse.
         dynamicCityMap[normalizedCityKey(city.name)] = city
     }
 
     private fun resolveCityByName(rawName: String, allowGeocoder: Boolean = false): City? {
+        // Resolve city from cache, database, or geocoder fallback.
         val normalized = normalizedCityKey(rawName)
         if (normalized.isEmpty()) return null
         dynamicCityMap[normalized]?.let { return it }
@@ -124,6 +127,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
+        // Initialize UI, inputs, and default state for the main screen.
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -187,7 +191,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupActionGrid() {
-
+        // Build the action grid sections and wire click handling.
         val foundationsLabel = getString(R.string.category_foundations)
         val predictiveLabel = getString(R.string.category_predictive)
         val utilitiesLabel = getString(R.string.category_utilities)
@@ -255,6 +259,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun handleActionTileClick(item: ActionTile) {
+        // Route action tiles to their corresponding screens.
         recordRecentAction(item.id)
         when (item.id) {
             "dasha" -> openDasha()
@@ -283,6 +288,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun recordRecentAction(actionId: String) {
+        // Keep a small MRU list of recent actions.
         val ids = readRecentActionIds()
         ids.remove(actionId)
         ids.add(0, actionId)
@@ -292,11 +298,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun renderRecentActionsFromStorage() {
+        // Load recent actions from storage and rebuild chips.
         val tiles = readRecentActionIds().mapNotNull { actionTileLookup[it] }
         renderRecentActionChips(tiles)
     }
 
     private fun renderRecentActionChips(tiles: List<ActionTile>) {
+        // Render recent action chips with icons and colors.
         val container = binding.recentActionsContainer
         val chipGroup = binding.recentActionChips
         chipGroup.removeAllViews()
@@ -321,6 +329,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun readRecentActionIds(): MutableList<String> =
+        // Read and parse persisted recent action IDs.
         recentActionPrefs.getString(RECENT_ACTION_KEY, "")
             ?.split(",")
             ?.mapNotNull { it.trim().takeIf(String::isNotEmpty) }
@@ -332,8 +341,7 @@ class MainActivity : AppCompatActivity() {
     private fun openTaraBala() = launchBirthActivity<TaraBalaActivity>()
 
     private fun openTaraBalaAny() {
-
-        // Pass natal context for Moon reference; user picks transit inputs on the next page
+        // Pass natal context so the next screen can evaluate Tara Bala.
 
         val context = buildBirthContext()
 
@@ -362,8 +370,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun openTransitComboAny() {
-
-        // Combined page: pass natal context; user picks transit inputs on the next page
+        // Pass natal context for combined Transit + Tara results.
 
         val context = buildBirthContext()
 
@@ -396,7 +403,7 @@ class MainActivity : AppCompatActivity() {
 
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-
+        // Inflate the toolbar menu actions.
         menuInflater.inflate(R.menu.menu_main, menu)
 
         return true
@@ -406,7 +413,7 @@ class MainActivity : AppCompatActivity() {
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
+        // Route toolbar actions to their handlers.
         return when (item.itemId) {
 
             R.id.action_save -> {
@@ -442,7 +449,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun saveCurrentHoroscope() {
-
+        // Persist the current chart to local storage.
         withBirthContext(notifyOnMissing = true) { ctx ->
             val saved = com.aakash.astro.storage.SavedStore.save(
                 this,
@@ -463,7 +470,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun prepareEphemeris() {
-
+        // Prepare ephemeris assets for accurate calculations when available.
         val dir = EphemerisPreparer.prepare(this)
 
         if (dir != null) {
@@ -476,7 +483,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupPlaceInput() {
-
+        // Configure place autocomplete and geocoding suggestions.
         val baseNames = CityDatabase.names().toMutableList()
 
         val adapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, baseNames)
@@ -619,7 +626,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupDateInput() {
-
+        // Wire date input field, chips, and picker.
         binding.dateInputLayout.setEndIconOnClickListener { showDatePicker() }
 
         binding.dateInput.setOnClickListener { showDatePicker() }
@@ -651,7 +658,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun setupTimeInput() {
-
+        // Wire time input field, chips, and picker.
         binding.timeInputLayout.setEndIconOnClickListener { showTimePicker() }
 
         binding.timeInput.setOnClickListener { showTimePicker() }
@@ -693,6 +700,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun setupSmartInputHelpers() {
+        // Provide quick smart presets for date/time/place.
         binding.chipSmartNow.setOnClickListener { applySmartNow() }
         binding.chipSmartLast.setOnClickListener { applySmartLast() }
         binding.chipSmartSample.setOnClickListener { applySampleBirth() }
@@ -703,7 +711,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setSelectedDate(date: LocalDate?, preferredChipId: Int? = null) {
-
+        // Update selected date and refresh dependent UI.
         selectedDate = date
 
         updateDateTimeSummary()
@@ -715,7 +723,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun updateDateQuickChipSelection(preferredChipId: Int? = null) {
-
+        // Keep date chips in sync with the selected date.
         suppressDateChipCallback = true
 
         val targetId = preferredChipId?.takeUnless { it == View.NO_ID } ?: when (selectedDate) {
@@ -747,7 +755,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun setSelectedTime(time: LocalTime?, preferredChipId: Int? = null) {
-
+        // Update selected time and refresh dependent UI.
         selectedTime = time
 
         lastQuickNowTime = if (preferredChipId == R.id.chipTimeNow) time else null
@@ -761,7 +769,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun updateTimeQuickChipSelection(preferredChipId: Int? = null) {
-
+        // Keep time chips in sync with the selected time.
         suppressTimeChipCallback = true
 
         val targetId = preferredChipId?.takeUnless { it == View.NO_ID } ?: when (selectedTime) {
@@ -797,7 +805,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun fetchIndiaSuggestions(query: String): List<City>? {
-
+        // Fetch geocoded city suggestions for India.
         val addresses = geocodeInIndia(query, 10) ?: return null
 
         return addresses.mapNotNull { addr ->
@@ -813,7 +821,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun geocodeFirstIndia(query: String): City? {
-
+        // Resolve a single best-match city inside India.
         val address = geocodeInIndia(query, 1)?.firstOrNull() ?: return null
 
         val name = resolveDisplayName(address) ?: query
@@ -823,7 +831,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun geocodeInIndia(query: String, maxResults: Int): List<Address>? {
-
+        // Query the device geocoder with India bounds.
         if (!Geocoder.isPresent()) {
             AppLog.d("Geocoder not present on device.")
             return null
@@ -856,7 +864,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun resolveDisplayName(address: Address): String? {
-
+        // Prefer locality/admin names; fall back to feature name.
         val locality = listOfNotNull(address.locality, address.subAdminArea, address.adminArea).joinToString(", ")
 
         return if (locality.isNotBlank()) locality else address.featureName
@@ -866,7 +874,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun showDatePicker() {
-
+        // Show date picker with current selection preselected.
         val zone = deviceZone
 
         val selection = selectedDate?.let { it.atStartOfDay(zone).toInstant().toEpochMilli() }
@@ -904,7 +912,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun showTimePicker() {
-
+        // Show time picker with current selection preselected.
         val initial = selectedTime ?: LocalTime.now().truncatedTo(ChronoUnit.MINUTES)
 
         val picker = MaterialTimePicker.Builder()
@@ -933,7 +941,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun updateDateTimeSummary() {
-
+        // Update date/time fields and the summary label.
         val date = selectedDate
 
         val time = selectedTime
@@ -972,6 +980,7 @@ class MainActivity : AppCompatActivity() {
         notifyOnMissing: Boolean = false,
         block: (BirthContext) -> Unit
     ) {
+        // Build a context object and run the given block if valid.
         val context = buildBirthContext(notifyOnMissing) ?: return
         block(context)
     }
@@ -980,6 +989,7 @@ class MainActivity : AppCompatActivity() {
         notifyOnMissing: Boolean = true,
         crossinline configure: Intent.(BirthContext) -> Unit = {}
     ) {
+        // Launch an activity that requires the current birth context.
         withBirthContext(notifyOnMissing) { ctx ->
             val intent = Intent(this, A::class.java).apply {
                 putBirthPayload(ctx.toIntentPayload())
@@ -989,10 +999,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // Convert the birth context into an intent payload.
     private fun BirthContext.toIntentPayload(): BirthIntentPayload =
         BirthIntentPayload(rawName, epochMillis, zone, city.latitude, city.longitude)
 
     private fun buildBirthContext(notifyOnMissing: Boolean = false): BirthContext? {
+        // Validate inputs and construct a complete birth context.
         val date = selectedDate
         val time = selectedTime
         val city = resolveCityInput()
@@ -1016,11 +1028,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun resolveCityInput(): City? {
+        // Resolve the city from selection or typed input.
         val typed = binding.placeInput.text?.toString().orEmpty()
         return selectedCity ?: resolveCityByName(typed)
     }
 
     private fun showMissingBirthDetailsMessage() {
+        // Notify the user when required inputs are missing.
         AppLog.d("Missing birth details; prompting user.")
         Snackbar.make(binding.root, getString(R.string.missing_birth_details), Snackbar.LENGTH_LONG).show()
     }
@@ -1028,7 +1042,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun generateChart() {
-
+        // Run chart generation using accurate or fallback engines.
         // Hide keyboard and clear focus
 
         hideKeyboard()
@@ -1081,7 +1095,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun openTransitAny() {
-
+        // Launch transit-any page with optional natal context.
         // Open a clean page that asks for date/time/place and computes transit only after user input.
 
         // Pass natal details so the page can judge houses against the natal ascendant.
@@ -1145,7 +1159,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun openTodayPanchanga() {
-
+        // Launch Panchanga for the current moment using the chosen city.
         val city = resolveCityInput() ?: run {
 
             showMissingBirthDetailsMessage()
@@ -1179,7 +1193,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun renderPlanets(chart: com.aakash.astro.astrology.ChartResult) {
-
+        // Render chart planets and ascendant rows into the results list.
         binding.planetContainer.removeAllViews()
 
         val inflater: LayoutInflater = LayoutInflater.from(this)
@@ -1318,7 +1332,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun formatDegree(value: Double): String {
-
+        // Format degrees with minute rounding and carry-over.
         val normalized = ((value % 360.0) + 360.0) % 360.0
 
         var degrees = floor(normalized).toInt()
@@ -1340,7 +1354,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun formatDegreeWithSign(value: Double): String {
-
+        // Combine absolute and intra-sign degrees for display.
         val absText = formatDegree(value)
 
         val inSign = ((value % 30.0) + 30.0) % 30.0
@@ -1358,7 +1372,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun initializeDefaultsAndGenerate() {
-
+        // Apply default inputs and generate an initial chart.
         val effectiveDate = selectedDate ?: LocalDate.of(1993, 5, 18)
         val effectiveTime = selectedTime ?: LocalTime.of(22, 30)
         setSelectedDate(effectiveDate)
@@ -1380,7 +1394,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun applyPrefillFromIntent(intent: android.content.Intent?) {
-
+        // Prefill inputs when opening from a saved chart or deep link.
         if (intent == null) return
 
         val epoch = intent.getLongExtra("prefill_epochMillis", -1L)
@@ -1416,7 +1430,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun updatePlaceCoords() {
-
+        // Show resolved coordinates for the selected city.
         val c = selectedCity
 
         val summary = if (c != null) {
@@ -1436,6 +1450,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun applySmartNow() {
+        // Apply "now" quick preset with a fallback city.
         val now = ZonedDateTime.now()
         setSelectedDate(now.toLocalDate(), R.id.chipDateToday)
         setSelectedTime(now.toLocalTime().truncatedTo(ChronoUnit.MINUTES), R.id.chipTimeNow)
@@ -1446,6 +1461,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun applySmartLast() {
+        // Restore the last saved birth details from storage.
         val dateStr = birthPrefs.getString(PREF_LAST_DATE, null)
         val timeStr = birthPrefs.getString(PREF_LAST_TIME, null)
         val cityName = birthPrefs.getString(PREF_LAST_CITY_NAME, null)
@@ -1466,6 +1482,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun applySampleBirth() {
+        // Apply a sample birth preset for quick demos.
         setSelectedDate(LocalDate.of(1993, 5, 18))
         setSelectedTime(LocalTime.of(22, 30))
         val city = CityDatabase.findByName("Mumbai") ?: City("Mumbai", 19.0760, 72.8777)
@@ -1473,6 +1490,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun applyPlaceShortcut(name: String) {
+        // Apply a predefined city shortcut.
         val city = CityDatabase.findByName(name)
         if (city != null) {
             setSelectedCity(city)
@@ -1482,6 +1500,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun persistBirthDefaults(date: LocalDate, time: LocalTime, city: City) {
+        // Persist the latest birth details for quick reuse.
         birthPrefs.edit()
             .putString(PREF_LAST_DATE, date.toString())
             .putString(PREF_LAST_TIME, time.toString())
@@ -1492,12 +1511,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun readStoredDouble(key: String): Double? {
+        // Read a persisted double value stored as raw bits.
         val bits = birthPrefs.getLong(key, java.lang.Double.doubleToRawLongBits(Double.NaN))
         val value = java.lang.Double.longBitsToDouble(bits)
         return if (value.isNaN()) null else value
     }
 
     private fun setSelectedCity(city: City, updateInput: Boolean = true) {
+        // Update selected city and optionally sync the input field.
         selectedCity = city
         if (updateInput) {
             suppressPlaceSuggestions = true
@@ -1508,7 +1529,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun hideKeyboard() {
-
+        // Dismiss the soft keyboard when focus is cleared.
         val imm = getSystemService(android.content.Context.INPUT_METHOD_SERVICE) as? android.view.inputmethod.InputMethodManager
 
         currentFocus?.let { view ->
@@ -1522,7 +1543,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun scrollAndHighlightChart() {
-
+        // Scroll to the chart section and apply a brief highlight animation.
         // Smooth scroll to the chart section
 
         binding.mainScroll.post {
@@ -1578,7 +1599,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun dp(value: Int): Int {
-
+        // Convert dp units to pixels.
         val density = resources.displayMetrics.density
 
         return (value * density).toInt()

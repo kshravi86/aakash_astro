@@ -36,6 +36,7 @@ class MainActivity : AppCompatActivity() {
     private var selectedCity: City? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Initialize the basic input UI and pickers.
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -69,6 +70,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupPlaceInput() {
+        // Configure the place autocomplete and selection behavior.
         val names = CityDatabase.names()
         val adapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, names)
         binding.placeInput.setAdapter(adapter)
@@ -87,6 +89,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showDatePicker() {
+        // Show date picker with current selection preselected.
         val zone = ZoneId.systemDefault()
         val selection = selectedDate?.let { it.atStartOfDay(zone).toInstant().toEpochMilli() }
             ?: MaterialDatePicker.todayInUtcMilliseconds()
@@ -105,6 +108,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showTimePicker() {
+        // Show time picker with current selection preselected.
         val initialTime = selectedTime ?: LocalTime.of(12, 0)
         val picker = MaterialTimePicker.Builder()
             .setTitleText("Select birth time")
@@ -121,6 +125,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateDateTimeSummary() {
+        // Update input fields and summary label for date/time.
         val date = selectedDate
         val time = selectedTime
         val dateFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy")
@@ -141,6 +146,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun generateChart() {
+        // Validate inputs and generate the chart output.
         val date = selectedDate
         val time = selectedTime
         val city = selectedCity ?: CityDatabase.findByName(binding.placeInput.text?.toString()?.trim().orEmpty())
@@ -173,6 +179,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun renderPlanets(chart: com.aakash.astro.astrology.ChartResult) {
+        // Render planet positions into the list.
         binding.planetContainer.removeAllViews()
         val inflater: LayoutInflater = LayoutInflater.from(this)
 
@@ -191,6 +198,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun formatDegree(value: Double): String {
+        // Format degrees with minute rounding and carry-over.
         var normalized = ((value % 360.0) + 360.0) % 360.0
         var degrees = floor(normalized).toInt()
         var minutes = ((normalized - degrees) * 60).roundToInt()

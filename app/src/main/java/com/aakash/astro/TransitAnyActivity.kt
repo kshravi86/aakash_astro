@@ -36,6 +36,7 @@ class TransitAnyActivity : AppCompatActivity() {
     private val timeFormatter12 = DateTimeFormatter.ofPattern("hh:mm a", Locale.getDefault())
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Initialize UI, ephemeris, and default selections before user action.
         super.onCreate(savedInstanceState)
         binding = ActivityTransitAnyBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -57,6 +58,7 @@ class TransitAnyActivity : AppCompatActivity() {
     }
 
     private fun preloadNatalFromIntent() {
+        // Load natal chart details from the incoming intent for context.
         val name = intent.getStringExtra(TransitActivity.EXTRA_NAME)
         val zoneId = intent.getStringExtra(TransitActivity.EXTRA_ZONE_ID)?.let { ZoneId.of(it) } ?: ZoneId.systemDefault()
         val lat = intent.getDoubleExtra(TransitActivity.EXTRA_LAT, Double.NaN)
@@ -70,6 +72,7 @@ class TransitAnyActivity : AppCompatActivity() {
     }
 
     private fun setupInputs() {
+        // Wire the input fields for place, date, and time.
         // Place suggestions from built-in database
         val adapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, CityDatabase.names())
         binding.placeInput.setAdapter(adapter)
@@ -92,6 +95,7 @@ class TransitAnyActivity : AppCompatActivity() {
     }
 
     private fun setupActions() {
+        // Handle calculation requests and basic navigation.
         binding.computeButton.setOnClickListener {
             val date = selectedDate
             val time = selectedTime
@@ -110,6 +114,7 @@ class TransitAnyActivity : AppCompatActivity() {
     }
 
     private fun applyNow() {
+        // Prefill date/time inputs with the current moment.
         val now = ZonedDateTime.now(deviceZone).truncatedTo(ChronoUnit.MINUTES)
         selectedDate = now.toLocalDate()
         selectedTime = now.toLocalTime()
@@ -117,6 +122,7 @@ class TransitAnyActivity : AppCompatActivity() {
     }
 
     private fun updateDateTimeFields() {
+        // Sync selected values back into the visible fields.
         val dateText = selectedDate?.format(dateFormatter).orEmpty()
         val timeText = selectedTime?.format(timeFormatter12).orEmpty()
         binding.dateInput.setText(dateText)
@@ -124,6 +130,7 @@ class TransitAnyActivity : AppCompatActivity() {
     }
 
     private fun showDatePicker() {
+        // Show date picker with current selection preselected.
         val selection = selectedDate
             ?.atStartOfDay(deviceZone)
             ?.toInstant()
@@ -141,6 +148,7 @@ class TransitAnyActivity : AppCompatActivity() {
     }
 
     private fun showTimePicker() {
+        // Show time picker with current selection preselected.
         val initial = selectedTime ?: LocalTime.now(deviceZone).truncatedTo(ChronoUnit.MINUTES)
         val picker = MaterialTimePicker.Builder()
             .setTimeFormat(TimeFormat.CLOCK_12H)
@@ -156,6 +164,7 @@ class TransitAnyActivity : AppCompatActivity() {
     }
 
     private fun computeTransit(date: LocalDate, time: LocalTime, city: City) {
+        // Generate the transit chart and update the results UI.
         val zone = deviceZone
         val zdt = LocalDateTime.of(date, time).atZone(zone)
 
@@ -179,6 +188,7 @@ class TransitAnyActivity : AppCompatActivity() {
     }
 
     private fun renderTransitPlanets(transitChart: com.aakash.astro.astrology.ChartResult) {
+        // Render each transit planet row with verdict and cautions.
         binding.transitPlanetContainer.removeAllViews()
         val inflater = LayoutInflater.from(this)
         // Cache Sun degree for combustion check
@@ -223,18 +233,21 @@ class TransitAnyActivity : AppCompatActivity() {
     }
 
     private fun calculateNatalHouse(transitDegree: Double, natalAscSign: ZodiacSign): Int {
+        // Map a transit longitude into the natal house number.
         val transitSign = ZodiacSign.fromDegree(transitDegree)
         return 1 + (transitSign.ordinal - natalAscSign.ordinal + 12) % 12
     }
 
     private enum class HouseVerdict { Good, Bad, Neutral }
 
+    // Mark natural malefics to drive verdict logic.
     private fun isMalefic(planet: Planet): Boolean = when (planet) {
         Planet.SATURN, Planet.MARS, Planet.RAHU, Planet.KETU, Planet.SUN -> true
         else -> false // MOON, MERCURY, JUPITER, VENUS treated as benefic/neutral
     }
 
     private fun houseVerdict(planet: Planet, house: Int): HouseVerdict {
+        // Classify the transit house impact based on benefic/malefic rules.
         val upachaya = setOf(3, 6, 10, 11)
         val dusthana = setOf(6, 8, 12)
         val trine = setOf(1, 5, 9)
@@ -258,6 +271,7 @@ class TransitAnyActivity : AppCompatActivity() {
     }
 
     private fun isCombust(planet: Planet, planetDegree: Double, sunDegree: Double): Boolean {
+        // Flag combustion by checking proximity to the Sun.
         if (planet == Planet.SUN) return false
         // Within +/- 10 degrees of Sun (circular distance)
         val diff = angularSeparation(planetDegree, sunDegree)
@@ -265,11 +279,13 @@ class TransitAnyActivity : AppCompatActivity() {
     }
 
     private fun angularSeparation(a: Double, b: Double): Double {
+        // Compute the smallest angular distance on a circle.
         val diff = kotlin.math.abs(((a - b) % 360.0 + 540.0) % 360.0 - 180.0)
         return diff
     }
 
     private fun updatePlaceCoords() {
+        // Show resolved coordinates for the selected city.
         val c = selectedCity
         val summary = if (c != null) {
             val lat = String.format("%.4f", c.latitude)
@@ -280,6 +296,7 @@ class TransitAnyActivity : AppCompatActivity() {
     }
 
     private fun formatDegree(value: Double): String {
+        // Format degrees and minutes with proper roll-over.
         val normalized = ((value % 360.0) + 360.0) % 360.0
         var degrees = floor(normalized).toInt()
         var minutes = ((normalized - degrees) * 60).roundToInt()
@@ -291,6 +308,7 @@ class TransitAnyActivity : AppCompatActivity() {
     }
 
     private fun formatDegreeWithSign(value: Double): String {
+        // Combine absolute and intra-sign degrees for display.
         val absText = formatDegree(value)
         val inSign = ((value % 30.0) + 30.0) % 30.0
         val inSignText = formatDegree(inSign)

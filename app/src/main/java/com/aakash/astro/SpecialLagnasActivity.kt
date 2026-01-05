@@ -33,6 +33,7 @@ class SpecialLagnasActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Build the chart and render the special lagna panels.
         super.onCreate(savedInstanceState)
         binding = ActivitySpecialLagnasBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -62,6 +63,7 @@ class SpecialLagnasActivity : AppCompatActivity() {
     }
 
     private fun renderProfile(name: String?, birthZdt: ZonedDateTime) {
+        // Populate header identity, birth info, and location details.
         val subtitleText = buildString {
             append(getString(R.string.special_lagnas_subtitle))
             if (!name.isNullOrBlank()) {
@@ -86,6 +88,7 @@ class SpecialLagnasActivity : AppCompatActivity() {
     }
 
     private fun renderGhatikaLagna(chart: ChartResult, birthZdt: ZonedDateTime) {
+        // Compute and render the Ghatika lagna values.
         val result = GhatikaLagnaCalc.compute(birthZdt, latExtra, lonExtra, zoneIdExtra, accurate)
         if (result == null) {
             applyMissingState(
@@ -107,6 +110,7 @@ class SpecialLagnasActivity : AppCompatActivity() {
     }
 
     private fun renderArudhaLagna(chart: ChartResult) {
+        // Compute and render Arudha lagna values.
         val arudha = JaiminiArudha.compute(chart).firstOrNull { it.house == 1 }
         if (arudha == null) {
             applyMissingState(
@@ -127,6 +131,7 @@ class SpecialLagnasActivity : AppCompatActivity() {
     }
 
     private fun renderHoraLagna(chart: ChartResult, birthZdt: ZonedDateTime) {
+        // Compute and render Hora lagna values.
         val result = HoraLagnaJaiminiCalc.compute(birthZdt, latExtra, lonExtra, zoneIdExtra, accurate)
         if (result == null) {
             applyMissingState(
@@ -148,6 +153,7 @@ class SpecialLagnasActivity : AppCompatActivity() {
     }
 
     private fun applyMissingState(vararg views: android.widget.TextView) {
+        // Apply a consistent missing-data label to a set of views.
         val missingText = getString(R.string.special_lagna_missing)
         views.forEach {
             it.text = missingText
@@ -155,11 +161,13 @@ class SpecialLagnasActivity : AppCompatActivity() {
     }
 
     private fun houseFromAsc(sign: ZodiacSign, chart: ChartResult): Int {
+        // Map a sign to its house number from the ascendant.
         val asc = chart.ascendantSign.ordinal
         return 1 + (sign.ordinal - asc + 12) % 12
     }
 
     private fun formatDegreeWithSign(value: Double): String {
+        // Combine absolute and intra-sign degrees for display.
         val absText = formatDegree(value)
         val inSign = ((value % 30.0) + 30.0) % 30.0
         val inSignText = formatDegree(inSign)
@@ -167,6 +175,7 @@ class SpecialLagnasActivity : AppCompatActivity() {
     }
 
     private fun formatDegree(value: Double): String {
+        // Format degrees with minute rounding and carry-over.
         val normalized = ((value % 360.0) + 360.0) % 360.0
         var degrees = floor(normalized).toInt()
         var minutes = ((normalized - degrees) * 60).roundToInt()
@@ -178,11 +187,13 @@ class SpecialLagnasActivity : AppCompatActivity() {
     }
 
     private fun formatCoordinate(value: Double, positiveSuffix: String, negativeSuffix: String): String {
+        // Format coordinates with N/S or E/W suffix.
         val suffix = if (value >= 0) positiveSuffix else negativeSuffix
         return String.format(Locale.US, "%.2f°%s", abs(value), suffix)
     }
 
     private fun showUnavailableState() {
+        // Apply missing state to all lagna fields.
         applyMissingState(
             binding.glSignValue,
             binding.glDegreeValue,

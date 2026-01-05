@@ -41,6 +41,7 @@ class AshtakavargaBavActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Build the chart and render the Ashtakavarga BAV screen.
         super.onCreate(savedInstanceState)
         binding = ActivityAshtakavargaBavBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -73,6 +74,7 @@ class AshtakavargaBavActivity : AppCompatActivity() {
     }
 
     private fun renderHeader(chart: ChartResult, name: String?, zdt: ZonedDateTime) {
+        // Populate the header with identity, birth info, and highlight chips.
         val displayName = name?.takeIf { it.isNotBlank() } ?: getString(R.string.ashtakavarga_anonymous_native)
         binding.nativeName.text = displayName
         binding.birthInfo.text = headerFormatter.format(zdt)
@@ -95,6 +97,7 @@ class AshtakavargaBavActivity : AppCompatActivity() {
     }
 
     private fun buildHighlights(chart: ChartResult): List<HighlightChip> {
+        // Compute highlight chips for peak/low SAV and other key signals.
         val highlights = mutableListOf<HighlightChip>()
 
         val savValues = AshtakavargaCalc.computeSarva(chart).values
@@ -149,6 +152,7 @@ class AshtakavargaBavActivity : AppCompatActivity() {
     }
 
     private fun createHighlightChip(data: HighlightChip): Chip {
+        // Build a styled chip for the highlights row.
         return Chip(this).apply {
             this.text = data.label
             isCheckable = false
@@ -169,6 +173,7 @@ class AshtakavargaBavActivity : AppCompatActivity() {
     }
 
     private fun renderBAV(chart: ChartResult) {
+        // Compute BAV sections and bind them to the list.
         val sections = mutableListOf<BavSection>()
         bavRefs.forEach { ref ->
             val bav = AshtakavargaCalc.computeBAVParashara(ref, chart).values
@@ -181,6 +186,7 @@ class AshtakavargaBavActivity : AppCompatActivity() {
     }
 
     private fun bindRow(row: View, sign: ZodiacSign, ascOrdinal: Int, index: Int, value: Int) {
+        // Bind a sign row with its house, value, and styling.
         val house = 1 + (index - ascOrdinal + 12) % 12
         row.findViewById<TextView>(R.id.signName).text = sign.displayName
         row.findViewById<TextView>(R.id.houseBadge).text =
@@ -194,6 +200,7 @@ class AshtakavargaBavActivity : AppCompatActivity() {
     }
 
     private fun styleValue(value: Int, valueView: TextView, progress: LinearProgressIndicator) {
+        // Style value chips and progress based on thresholds.
         val (bgRes, colorRes) = when {
             value >= 6 -> R.drawable.bg_value_chip_high to R.color.accent_teal
             value <= 3 -> R.drawable.bg_value_chip_low to R.color.accent_orange
@@ -213,17 +220,20 @@ class AshtakavargaBavActivity : AppCompatActivity() {
         private var chart: ChartResult? = null
 
         fun submitData(chart: ChartResult, sections: List<BavSection>) {
+            // Refresh adapter data for the BAV sections list.
             this.chart = chart
             this.sections = sections
             notifyDataSetChanged()
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
+            // Inflate section rows for the RecyclerView.
             val binding = ItemSavSectionBinding.inflate(LayoutInflater.from(parent.context), parent, false)
             return VH(binding)
         }
 
         override fun onBindViewHolder(holder: VH, position: Int) {
+            // Bind section data to the view holder.
             val chartSnapshot = chart ?: return
             holder.bind(chartSnapshot, sections[position])
         }
@@ -232,6 +242,7 @@ class AshtakavargaBavActivity : AppCompatActivity() {
 
         inner class VH(private val sectionBinding: ItemSavSectionBinding) : RecyclerView.ViewHolder(sectionBinding.root) {
             fun bind(chart: ChartResult, section: BavSection) {
+                // Render each section with its sign rows.
                 sectionBinding.sectionTitle.text = section.title
                 val list = sectionBinding.sectionList
                 list.removeAllViews()
@@ -247,10 +258,12 @@ class AshtakavargaBavActivity : AppCompatActivity() {
     }
 
     private fun formatCoordinate(value: Double, positiveSuffix: String, negativeSuffix: String): String {
+        // Format coordinates with N/S or E/W suffix.
         val suffix = if (value >= 0) positiveSuffix else negativeSuffix
         return String.format(Locale.US, "%.2f°%s", abs(value), suffix)
     }
 
+    // Provide ordinal suffix for house labels.
     private fun ordinal(n: Int): String = when {
         n % 100 in 11..13 -> "${n}th"
         n % 10 == 1 -> "${n}st"

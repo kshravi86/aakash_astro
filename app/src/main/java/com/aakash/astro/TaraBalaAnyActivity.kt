@@ -34,6 +34,7 @@ class TaraBalaAnyActivity : AppCompatActivity() {
     private val timeFormatter12 = DateTimeFormatter.ofPattern("hh:mm a", Locale.getDefault())
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Initialize UI, load ephemeris, and prepare default inputs.
         super.onCreate(savedInstanceState)
         binding = ActivityTaraBalaAnyBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -51,6 +52,7 @@ class TaraBalaAnyActivity : AppCompatActivity() {
     }
 
     private fun preloadNatalFromIntent() {
+        // Load natal chart data from the intent for comparison.
         val name = intent.getStringExtra(TaraBalaActivity.EXTRA_NAME)
         val zoneId = intent.getStringExtra(TaraBalaActivity.EXTRA_ZONE_ID)?.let { ZoneId.of(it) } ?: ZoneId.systemDefault()
         val lat = intent.getDoubleExtra(TaraBalaActivity.EXTRA_LAT, Double.NaN)
@@ -64,6 +66,7 @@ class TaraBalaAnyActivity : AppCompatActivity() {
     }
 
     private fun setupInputs() {
+        // Wire the place/date/time inputs and helpers.
         val adapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, CityDatabase.names())
         binding.placeInput.setAdapter(adapter)
         binding.placeInput.threshold = 1
@@ -81,6 +84,7 @@ class TaraBalaAnyActivity : AppCompatActivity() {
     }
 
     private fun setupActions() {
+        // Handle compute requests and basic validation.
         binding.computeButton.setOnClickListener {
             val date = selectedDate
             val time = selectedTime
@@ -94,6 +98,7 @@ class TaraBalaAnyActivity : AppCompatActivity() {
     }
 
     private fun applyNow() {
+        // Prefill date/time inputs with the current moment.
         val now = ZonedDateTime.now(deviceZone).truncatedTo(ChronoUnit.MINUTES)
         selectedDate = now.toLocalDate()
         selectedTime = now.toLocalTime()
@@ -101,6 +106,7 @@ class TaraBalaAnyActivity : AppCompatActivity() {
     }
 
     private fun updateDateTimeFields() {
+        // Sync selected values back into the input fields.
         val dateText = selectedDate?.format(dateFormatter).orEmpty()
         val timeText = selectedTime?.format(timeFormatter12).orEmpty()
         binding.dateInput.setText(dateText)
@@ -108,6 +114,7 @@ class TaraBalaAnyActivity : AppCompatActivity() {
     }
 
     private fun computeTransitTara(date: LocalDate, time: LocalTime, city: City) {
+        // Generate the transit chart and render Tara Bala results.
         val zone = deviceZone
         val zdt = LocalDateTime.of(date, time).atZone(zone)
         val details = BirthDetails(null, zdt, city.latitude, city.longitude)
@@ -135,6 +142,7 @@ class TaraBalaAnyActivity : AppCompatActivity() {
         transitChart: com.aakash.astro.astrology.ChartResult,
         natalChart: com.aakash.astro.astrology.ChartResult
     ) {
+        // Render Tara Bala rows for each transit planet.
         val inflater = LayoutInflater.from(this)
         binding.transitRowContainer.removeAllViews()
 
@@ -175,6 +183,7 @@ class TaraBalaAnyActivity : AppCompatActivity() {
     }
 
     private fun updatePlaceCoords() {
+        // Show resolved coordinates for the selected city.
         val c = selectedCity
         val summary = if (c != null) {
             val lat = String.format("%.4f", c.latitude)
@@ -185,6 +194,7 @@ class TaraBalaAnyActivity : AppCompatActivity() {
     }
 
     private fun showDatePicker() {
+        // Show date picker with current selection preselected.
         val selection = selectedDate
             ?.atStartOfDay(deviceZone)
             ?.toInstant()
@@ -202,6 +212,7 @@ class TaraBalaAnyActivity : AppCompatActivity() {
     }
 
     private fun showTimePicker() {
+        // Show time picker with current selection preselected.
         val initial = selectedTime ?: LocalTime.now(deviceZone).truncatedTo(ChronoUnit.MINUTES)
         val picker = MaterialTimePicker.Builder()
             .setTimeFormat(TimeFormat.CLOCK_12H)

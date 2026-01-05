@@ -22,6 +22,7 @@ class TransitActivity : AppCompatActivity() {
     private val timeFormatter12 = DateTimeFormatter.ofPattern("hh:mm a", Locale.getDefault())
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Build the transit chart (and optional natal chart) and render the screen.
         super.onCreate(savedInstanceState)
         binding = ActivityTransitBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -75,6 +76,7 @@ class TransitActivity : AppCompatActivity() {
         transitChart: com.aakash.astro.astrology.ChartResult,
         natalChart: com.aakash.astro.astrology.ChartResult?
     ) {
+        // Render each transit planet with its natal house context when available.
         binding.transitPlanetContainer.removeAllViews()
         val inflater = LayoutInflater.from(this)
 
@@ -101,6 +103,7 @@ class TransitActivity : AppCompatActivity() {
     }
 
     private fun calculateNatalHouse(transitDegree: Double, natalAscSign: ZodiacSign): Int {
+        // Convert a transit degree to the natal house index using whole-sign logic.
         // Convert transit degree to sign
         val transitSign = ZodiacSign.fromDegree(transitDegree)
         // Calculate house based on whole sign system from natal ascendant
@@ -108,6 +111,7 @@ class TransitActivity : AppCompatActivity() {
     }
 
     private fun formatDegree(value: Double): String {
+        // Format a longitude into degrees and minutes with roll-over handling.
         val normalized = ((value % 360.0) + 360.0) % 360.0
         var degrees = floor(normalized).toInt()
         var minutes = ((normalized - degrees) * 60).roundToInt()
@@ -119,6 +123,7 @@ class TransitActivity : AppCompatActivity() {
     }
 
     private fun formatDegreeWithSign(value: Double): String {
+        // Show absolute degree and the intra-sign degree in one label.
         val absText = formatDegree(value)
         val inSign = ((value % 30.0) + 30.0) % 30.0
         val inSignText = formatDegree(inSign)
