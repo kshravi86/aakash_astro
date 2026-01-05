@@ -182,7 +182,11 @@
                         style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/hint_name_optional">
+                        android:hint="@string/hint_name_optional"
+                        app:boxBackgroundColor="@color/card_bg_elevated"
+                        app:boxStrokeColor="@color/card_stroke"
+                        app:boxStrokeWidth="1dp"
+                        app:boxStrokeWidthFocused="2dp">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/nameInput"
@@ -207,7 +211,11 @@
                             android:hint="@string/label_birth_date"
                             app:endIconContentDescription="@string/content_desc_pick_date"
                             app:endIconDrawable="@drawable/ic_calendar_event_24"
-                            app:endIconMode="custom">
+                            app:endIconMode="custom"
+                            app:boxBackgroundColor="@color/card_bg_elevated"
+                            app:boxStrokeColor="@color/card_stroke"
+                            app:boxStrokeWidth="1dp"
+                            app:boxStrokeWidthFocused="2dp">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/dateInput"
@@ -233,7 +241,11 @@
                             android:hint="@string/label_birth_time"
                             app:endIconContentDescription="@string/content_desc_pick_time"
                             app:endIconDrawable="@drawable/ic_clock_outline_24"
-                            app:endIconMode="custom">
+                            app:endIconMode="custom"
+                            app:boxBackgroundColor="@color/card_bg_elevated"
+                            app:boxStrokeColor="@color/card_stroke"
+                            app:boxStrokeWidth="1dp"
+                            app:boxStrokeWidthFocused="2dp">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/timeInput"
@@ -375,7 +387,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/hint_birth_place"
-                        app:boxBackgroundColor="@color/card_bg"
+                        app:boxBackgroundColor="@color/card_bg_elevated"
                         app:boxCornerRadiusBottomEnd="14dp"
                         app:boxCornerRadiusBottomStart="14dp"
                         app:boxCornerRadiusTopEnd="14dp"
