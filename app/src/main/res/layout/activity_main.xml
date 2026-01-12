@@ -44,17 +44,18 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
                     android:layout_margin="24dp"
-                    app:cardBackgroundColor="@color/card_bg_elevated"
+                    app:cardBackgroundColor="@android:color/transparent"
                     app:cardCornerRadius="28dp"
                     app:cardElevation="8dp"
                     app:strokeColor="@color/card_stroke_strong"
-                    app:strokeWidth="1dp">
+                    app:strokeWidth="0dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:padding="20dp">
+                        android:padding="20dp"
+                        android:background="@drawable/bg_hero_card">
 
                         <TextView
                             android:id="@+id/titleText"
