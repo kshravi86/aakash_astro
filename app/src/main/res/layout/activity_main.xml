@@ -279,6 +279,8 @@
                         <com.google.android.material.chip.Chip
                             android:id="@+id/chipDateToday"
                             style="@style/Widget.Material3.Chip.Filter"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:checkable="true"
                             android:text="@string/quick_date_today"
                             app:chipIcon="@drawable/ic_calendar_event_24"
@@ -288,6 +290,8 @@
                         <com.google.android.material.chip.Chip
                             android:id="@+id/chipDateYesterday"
                             style="@style/Widget.Material3.Chip.Filter"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:checkable="true"
                             android:text="@string/quick_date_yesterday"
                             app:chipIcon="@drawable/ic_calendar_event_24"
@@ -297,6 +301,8 @@
                         <com.google.android.material.chip.Chip
                             android:id="@+id/chipDateCustom"
                             style="@style/Widget.Material3.Chip.Assist"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:checkable="false"
                             android:text="@string/quick_date_custom"
                             app:chipIcon="@drawable/ic_calendar_event_24"
@@ -322,6 +328,8 @@
                         <com.google.android.material.chip.Chip
                             android:id="@+id/chipTimeNow"
                             style="@style/Widget.Material3.Chip.Filter"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:checkable="true"
                             android:text="@string/quick_time_now"
                             app:chipIcon="@drawable/ic_clock_outline_24"
@@ -331,6 +339,8 @@
                         <com.google.android.material.chip.Chip
                             android:id="@+id/chipTimeMorning"
                             style="@style/Widget.Material3.Chip.Filter"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:checkable="true"
                             android:text="@string/quick_time_morning"
                             app:chipIcon="@drawable/ic_clock_outline_24"
@@ -340,6 +350,8 @@
                         <com.google.android.material.chip.Chip
                             android:id="@+id/chipTimeNoon"
                             style="@style/Widget.Material3.Chip.Filter"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:checkable="true"
                             android:text="@string/quick_time_noon"
                             app:chipIcon="@drawable/ic_clock_outline_24"
@@ -349,6 +361,8 @@
                         <com.google.android.material.chip.Chip
                             android:id="@+id/chipTimeEvening"
                             style="@style/Widget.Material3.Chip.Filter"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:checkable="true"
                             android:text="@string/quick_time_evening"
                             app:chipIcon="@drawable/ic_clock_outline_24"
@@ -357,6 +371,8 @@
                         <com.google.android.material.chip.Chip
                             android:id="@+id/chipTimeCustom"
                             style="@style/Widget.Material3.Chip.Assist"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:checkable="false"
                             android:text="@string/quick_time_custom"
                             app:chipIcon="@drawable/ic_clock_outline_24"
@@ -484,6 +500,8 @@
                         <com.google.android.material.chip.Chip
                             android:id="@+id/chipSmartNow"
                             style="@style/Widget.Material3.Chip.Assist"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:text="@string/birth_action_now"
                             app:chipIcon="@drawable/ic_clock_outline_24"
                             app:chipIconTint="@color/accent_teal" />
@@ -491,6 +509,8 @@
                         <com.google.android.material.chip.Chip
                             android:id="@+id/chipSmartLast"
                             style="@style/Widget.Material3.Chip.Assist"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:text="@string/birth_action_last"
                             app:chipIcon="@drawable/ic_history_24"
                             app:chipIconTint="@color/accent_orange" />
@@ -498,6 +518,8 @@
                         <com.google.android.material.chip.Chip
                             android:id="@+id/chipSmartSample"
                             style="@style/Widget.Material3.Chip.Assist"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:text="@string/birth_action_sample"
                             app:chipIcon="@drawable/ic_star_24"
                             app:chipIconTint="@color/accent_purple" />
@@ -522,6 +544,8 @@
                         <com.google.android.material.chip.Chip
                             android:id="@+id/chipPlaceBengaluru"
                             style="@style/Widget.Material3.Chip.Assist"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:text="@string/place_chip_bengaluru"
                             app:chipIcon="@drawable/ic_location_pin_24"
                             app:chipIconTint="@color/accent_teal" />
@@ -529,6 +553,8 @@
                         <com.google.android.material.chip.Chip
                             android:id="@+id/chipPlaceDelhi"
                             style="@style/Widget.Material3.Chip.Assist"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:text="@string/place_chip_delhi"
                             app:chipIcon="@drawable/ic_location_pin_24"
                             app:chipIconTint="@color/accent_orange" />
@@ -536,6 +562,8 @@
                         <com.google.android.material.chip.Chip
                             android:id="@+id/chipPlaceMumbai"
                             style="@style/Widget.Material3.Chip.Assist"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:text="@string/place_chip_mumbai"
                             app:chipIcon="@drawable/ic_location_pin_24"
                             app:chipIconTint="@color/accent_purple" />
@@ -543,6 +571,8 @@
                         <com.google.android.material.chip.Chip
                             android:id="@+id/chipPlaceChennai"
                             style="@style/Widget.Material3.Chip.Assist"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:text="@string/place_chip_chennai"
                             app:chipIcon="@drawable/ic_location_pin_24"
                             app:chipIconTint="@color/accent_teal" />
