@@ -1198,135 +1198,88 @@ class MainActivity : AppCompatActivity() {
 
         val inflater: LayoutInflater = LayoutInflater.from(this)
 
-
-
         // Add Ascendant (Lagna) as a row
-
         run {
-
             val itemBinding = ItemPlanetPositionBinding.inflate(inflater, binding.planetContainer, false)
-
             itemBinding.planetName.text = "Ascendant (Lagna)"
 
             val degreeText = formatDegreeWithSign(chart.ascendantDegree)
-
-            itemBinding.planetDetails.text = getString(
-
-                R.string.planet_position_format,
-
-                chart.ascendantSign.displayName,
-
-                degreeText,
-
-                "House 1"
-
-            )
+            itemBinding.planetDetails.text = "${chart.ascendantSign.displayName} • $degreeText • House 1"
 
             val (nakNameA, padaA) = com.aakash.astro.astrology.NakshatraCalc.fromLongitude(chart.ascendantDegree)
-
-            itemBinding.planetNakshatra.text = getString(R.string.nakshatra_format, nakNameA, padaA)
+            itemBinding.planetNakshatra.text = "$nakNameA • Pada $padaA"
 
             val lagnaUttama = com.aakash.astro.astrology.DrekkanaUtils.isUttamaDrekkana(chart.ascendantSign, chart.ascendantDegree)
-
-            itemBinding.uttamaStatus.text = getString(
-
-                R.string.uttama_drekkana_format,
-
-                if (lagnaUttama) getString(R.string.yes_label) else getString(R.string.no_label)
-
-            )
+            if (lagnaUttama) {
+                itemBinding.uttamaStatus.text = "Uttama"
+                itemBinding.uttamaStatus.visibility = android.view.View.VISIBLE
+            } else {
+                itemBinding.uttamaStatus.visibility = android.view.View.GONE
+            }
 
             val lagnaDegInSign = ((chart.ascendantDegree % 30.0) + 30.0) % 30.0
-
             val lagnaVarg = com.aakash.astro.astrology.Vargottama.isVargottama(chart.ascendantSign, lagnaDegInSign)
+            if (lagnaVarg) {
+                itemBinding.vargottamaStatus.text = "Vargottama"
+                itemBinding.vargottamaStatus.visibility = android.view.View.VISIBLE
+            } else {
+                itemBinding.vargottamaStatus.visibility = android.view.View.GONE
+            }
 
-            itemBinding.vargottamaStatus.text = getString(
-
-                R.string.vargottama_format,
-
-                if (lagnaVarg) getString(R.string.yes_label) else getString(R.string.no_label)
-
-            )
-
+            // Set icon tint for Ascendant (distinct color)
+            itemBinding.planetIcon.setColorFilter(getColor(R.color.accent_teal))
+            
             binding.planetContainer.addView(itemBinding.root)
-
         }
 
-
-
         chart.planets.forEach { planet ->
-
             val itemBinding = ItemPlanetPositionBinding.inflate(inflater, binding.planetContainer, false)
-
             val nameWithRetro = if (planet.isRetrograde) "${planet.name} (R)" else planet.name
-
             itemBinding.planetName.text = nameWithRetro
 
             val degreeText = formatDegreeWithSign(planet.degree)
-
-            itemBinding.planetDetails.text = getString(
-
-                R.string.planet_position_format,
-
-                planet.sign.displayName,
-
-                degreeText,
-
-                "House ${planet.house}"
-
-            )
+            itemBinding.planetDetails.text = "${planet.sign.displayName} • $degreeText • House ${planet.house}"
 
             val (nakName, pada) = com.aakash.astro.astrology.NakshatraCalc.fromLongitude(planet.degree)
-
-            itemBinding.planetNakshatra.text = getString(R.string.nakshatra_format, nakName, pada)
+            itemBinding.planetNakshatra.text = "$nakName • Pada $pada"
 
             val isUttama = com.aakash.astro.astrology.DrekkanaUtils.isUttamaDrekkana(planet.sign, planet.degree)
-
-            itemBinding.uttamaStatus.text = getString(
-
-                R.string.uttama_drekkana_format,
-
-                if (isUttama) getString(R.string.yes_label) else getString(R.string.no_label)
-
-            )
+            if (isUttama) {
+                itemBinding.uttamaStatus.text = "Uttama"
+                itemBinding.uttamaStatus.visibility = android.view.View.VISIBLE
+            } else {
+                itemBinding.uttamaStatus.visibility = android.view.View.GONE
+            }
 
             val degInSign = ((planet.degree % 30.0) + 30.0) % 30.0
-
             val isVarg = com.aakash.astro.astrology.Vargottama.isVargottama(planet.sign, degInSign)
+            if (isVarg) {
+                itemBinding.vargottamaStatus.text = "Vargottama"
+                itemBinding.vargottamaStatus.visibility = android.view.View.VISIBLE
+            } else {
+                itemBinding.vargottamaStatus.visibility = android.view.View.GONE
+            }
 
-            itemBinding.vargottamaStatus.text = getString(
-
-                R.string.vargottama_format,
-
-                if (isVarg) getString(R.string.yes_label) else getString(R.string.no_label)
-
-            )
+            // Tint icon based on planet benefic/malefic or just variety
+             val tintColor = when (planet.planet) {
+                com.aakash.astro.astrology.Planet.JUPITER, com.aakash.astro.astrology.Planet.VENUS -> getColor(R.color.accent_gold)
+                com.aakash.astro.astrology.Planet.SATURN, com.aakash.astro.astrology.Planet.RAHU, com.aakash.astro.astrology.Planet.KETU -> getColor(R.color.accent_purple)
+                com.aakash.astro.astrology.Planet.MARS, com.aakash.astro.astrology.Planet.SUN -> getColor(R.color.accent_orange)
+                else -> getColor(R.color.accent_blue)
+            }
+            itemBinding.planetIcon.setColorFilter(tintColor)
 
             binding.planetContainer.addView(itemBinding.root)
-
         }
 
-
-
-        // Special lagnas now live on their dedicated screen
-
-
         // Finally, render the Vedic chart (South Indian style) at the end
-
         binding.vedicChartView.setChart(chart)
 
-
-
         // Notify and guide the user to the chart
-
         Snackbar.make(binding.root, "Chart generated", Snackbar.LENGTH_LONG)
-
             .setAction("View") { scrollAndHighlightChart() }
-
             .show()
-
         scrollAndHighlightChart()
-
     }
 
 
