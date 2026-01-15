@@ -106,7 +106,7 @@
                                 app:cornerRadius="18dp"
                                 app:icon="@drawable/ic_star_24"
                                 app:iconGravity="textStart"
-                                app:iconTint="@color/black" />
+                                app:iconTint="@color/white" />
                         </LinearLayout>
 
                         <TextView
