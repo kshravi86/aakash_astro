@@ -54,7 +54,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:padding="20dp"
+                        android:padding="24dp"
+                        android:gravity="center_horizontal"
                         android:background="@drawable/bg_hero_card">
 
                         <TextView
@@ -62,7 +63,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/app_name"
-                            android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium"
+                            android:textAppearance="@style/TextAppearance.Material3.HeadlineLarge"
+                            android:textStyle="bold"
                             android:textColor="@color/primaryText" />
 
                         <TextView
@@ -71,55 +73,52 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
                             android:text="@string/hero_subtitle"
-                            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                            android:textAlignment="center"
+                            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
                             android:textColor="@color/secondaryText" />
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/engineIndicator"
+                            style="@style/Widget.Material3.Chip.Suggestion"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
-
-                            <com.google.android.material.chip.Chip
-                                android:id="@+id/engineIndicator"
-                                style="@style/Widget.Material3.Chip.Suggestion"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/engine_indicator_placeholder"
-                                android:textColor="@color/primaryText"
-                                app:chipIcon="@drawable/ic_dashboard_black_24dp"
-                                app:chipIconTint="@color/accent_teal"
-                                app:chipSurfaceColor="@color/surface_variant"
-                                app:chipStrokeColor="@color/card_stroke"
-                                app:chipStrokeWidth="1dp"
-                                tools:text="Engine · Approximate" />
-
-                            <com.google.android.material.button.MaterialButton
-                                android:id="@+id/generateButton"
-                                style="@style/Widget.Material3.Button"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="12dp"
-                                android:paddingHorizontal="18dp"
-                                android:text="@string/generate_chart_cta"
-                                app:cornerRadius="18dp"
-                                app:icon="@drawable/ic_star_24"
-                                app:iconGravity="textStart"
-                                app:iconTint="@color/white" />
-                        </LinearLayout>
+                            android:layout_marginTop="12dp"
+                            android:text="@string/engine_indicator_placeholder"
+                            android:textColor="@color/secondaryText"
+                            app:chipIcon="@drawable/ic_dashboard_black_24dp"
+                            app:chipIconTint="@color/accent_teal"
+                            app:chipSurfaceColor="@color/surface_variant"
+                            app:chipStrokeColor="@color/card_stroke"
+                            app:chipStrokeWidth="1dp"
+                            app:chipMinTouchTargetSize="0dp"
+                            tools:text="Engine · Approximate" />
 
                         <TextView
                             android:id="@+id/dateTimeValue"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="12dp"
+                            android:layout_marginTop="8dp"
                             android:background="@drawable/bg_value_chip_neutral"
                             android:paddingHorizontal="12dp"
                             android:paddingVertical="6dp"
                             android:text="@string/date_time_summary_empty"
-                            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+                            android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
                             android:textColor="@color/primaryText" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/generateButton"
+                            style="@style/Widget.Material3.Button"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:paddingVertical="12dp"
+                            android:text="@string/generate_chart_cta"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            app:cornerRadius="12dp"
+                            app:icon="@drawable/ic_star_24"
+                            app:iconGravity="textStart"
+                            app:iconTint="@color/white" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
             </FrameLayout>
@@ -158,7 +157,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/birth_card_title"
-                android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
+                android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
                 android:textColor="@color/primaryText" />
 
             <com.google.android.material.card.MaterialCardView
@@ -168,7 +167,7 @@
                 android:layout_marginTop="12dp"
                 app:cardBackgroundColor="@color/card_bg"
                 app:cardCornerRadius="20dp"
-                app:cardElevation="0dp"
+                app:cardElevation="2dp"
                 app:strokeColor="@color/card_stroke"
                 app:strokeWidth="1dp">
 
@@ -268,46 +267,53 @@
                         android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
                         android:textColor="@color/secondaryText" />
 
-                    <com.google.android.material.chip.ChipGroup
-                        android:id="@+id/dateQuickChips"
+                    <HorizontalScrollView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        app:singleLine="false"
-                        app:singleSelection="true">
+                        android:scrollbars="none"
+                        android:overScrollMode="never"
+                        android:layout_marginTop="8dp">
 
-                        <com.google.android.material.chip.Chip
-                            android:id="@+id/chipDateToday"
-                            style="@style/Widget.Material3.Chip.Filter"
+                        <com.google.android.material.chip.ChipGroup
+                            android:id="@+id/dateQuickChips"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:checkable="true"
-                            android:text="@string/quick_date_today"
-                            app:chipIcon="@drawable/ic_calendar_event_24"
-                            app:chipIconTint="@color/accent_teal"
-                            app:checkedIconVisible="true" />
+                            app:singleLine="true"
+                            app:singleSelection="true">
 
-                        <com.google.android.material.chip.Chip
-                            android:id="@+id/chipDateYesterday"
-                            style="@style/Widget.Material3.Chip.Filter"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:checkable="true"
-                            android:text="@string/quick_date_yesterday"
-                            app:chipIcon="@drawable/ic_calendar_event_24"
-                            app:chipIconTint="@color/accent_orange"
-                            app:checkedIconVisible="true" />
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/chipDateToday"
+                                style="@style/Widget.Material3.Chip.Filter"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:checkable="true"
+                                android:text="@string/quick_date_today"
+                                app:chipIcon="@drawable/ic_calendar_event_24"
+                                app:chipIconTint="@color/accent_teal"
+                                app:checkedIconVisible="true" />
 
-                        <com.google.android.material.chip.Chip
-                            android:id="@+id/chipDateCustom"
-                            style="@style/Widget.Material3.Chip.Assist"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:checkable="false"
-                            android:text="@string/quick_date_custom"
-                            app:chipIcon="@drawable/ic_calendar_event_24"
-                            app:chipIconTint="@color/secondaryText" />
-                    </com.google.android.material.chip.ChipGroup>
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/chipDateYesterday"
+                                style="@style/Widget.Material3.Chip.Filter"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:checkable="true"
+                                android:text="@string/quick_date_yesterday"
+                                app:chipIcon="@drawable/ic_calendar_event_24"
+                                app:chipIconTint="@color/accent_orange"
+                                app:checkedIconVisible="true" />
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/chipDateCustom"
+                                style="@style/Widget.Material3.Chip.Assist"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:checkable="false"
+                                android:text="@string/quick_date_custom"
+                                app:chipIcon="@drawable/ic_calendar_event_24"
+                                app:chipIconTint="@color/secondaryText" />
+                        </com.google.android.material.chip.ChipGroup>
+                    </HorizontalScrollView>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -317,67 +323,74 @@
                         android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
                         android:textColor="@color/secondaryText" />
 
-                    <com.google.android.material.chip.ChipGroup
-                        android:id="@+id/timeQuickChips"
+                    <HorizontalScrollView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        app:singleLine="false"
-                        app:singleSelection="true">
+                        android:scrollbars="none"
+                        android:overScrollMode="never"
+                        android:layout_marginTop="8dp">
 
-                        <com.google.android.material.chip.Chip
-                            android:id="@+id/chipTimeNow"
-                            style="@style/Widget.Material3.Chip.Filter"
+                        <com.google.android.material.chip.ChipGroup
+                            android:id="@+id/timeQuickChips"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:checkable="true"
-                            android:text="@string/quick_time_now"
-                            app:chipIcon="@drawable/ic_clock_outline_24"
-                            app:chipIconTint="@color/accent_teal"
-                            app:checkedIconVisible="true" />
+                            app:singleLine="true"
+                            app:singleSelection="true">
 
-                        <com.google.android.material.chip.Chip
-                            android:id="@+id/chipTimeMorning"
-                            style="@style/Widget.Material3.Chip.Filter"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:checkable="true"
-                            android:text="@string/quick_time_morning"
-                            app:chipIcon="@drawable/ic_clock_outline_24"
-                            app:chipIconTint="@color/accent_orange"
-                            app:checkedIconVisible="true" />
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/chipTimeNow"
+                                style="@style/Widget.Material3.Chip.Filter"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:checkable="true"
+                                android:text="@string/quick_time_now"
+                                app:chipIcon="@drawable/ic_clock_outline_24"
+                                app:chipIconTint="@color/accent_teal"
+                                app:checkedIconVisible="true" />
 
-                        <com.google.android.material.chip.Chip
-                            android:id="@+id/chipTimeNoon"
-                            style="@style/Widget.Material3.Chip.Filter"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:checkable="true"
-                            android:text="@string/quick_time_noon"
-                            app:chipIcon="@drawable/ic_clock_outline_24"
-                            app:chipIconTint="@color/accent_purple"
-                            app:checkedIconVisible="true" />
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/chipTimeMorning"
+                                style="@style/Widget.Material3.Chip.Filter"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:checkable="true"
+                                android:text="@string/quick_time_morning"
+                                app:chipIcon="@drawable/ic_clock_outline_24"
+                                app:chipIconTint="@color/accent_orange"
+                                app:checkedIconVisible="true" />
 
-                        <com.google.android.material.chip.Chip
-                            android:id="@+id/chipTimeEvening"
-                            style="@style/Widget.Material3.Chip.Filter"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:checkable="true"
-                            android:text="@string/quick_time_evening"
-                            app:chipIcon="@drawable/ic_clock_outline_24"
-                            app:checkedIconVisible="true" />
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/chipTimeNoon"
+                                style="@style/Widget.Material3.Chip.Filter"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:checkable="true"
+                                android:text="@string/quick_time_noon"
+                                app:chipIcon="@drawable/ic_clock_outline_24"
+                                app:chipIconTint="@color/accent_purple"
+                                app:checkedIconVisible="true" />
 
-                        <com.google.android.material.chip.Chip
-                            android:id="@+id/chipTimeCustom"
-                            style="@style/Widget.Material3.Chip.Assist"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:checkable="false"
-                            android:text="@string/quick_time_custom"
-                            app:chipIcon="@drawable/ic_clock_outline_24"
-                            app:chipIconTint="@color/secondaryText" />
-                    </com.google.android.material.chip.ChipGroup>
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/chipTimeEvening"
+                                style="@style/Widget.Material3.Chip.Filter"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:checkable="true"
+                                android:text="@string/quick_time_evening"
+                                app:chipIcon="@drawable/ic_clock_outline_24"
+                                app:checkedIconVisible="true" />
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/chipTimeCustom"
+                                style="@style/Widget.Material3.Chip.Assist"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:checkable="false"
+                                android:text="@string/quick_time_custom"
+                                app:chipIcon="@drawable/ic_clock_outline_24"
+                                app:chipIconTint="@color/secondaryText" />
+                        </com.google.android.material.chip.ChipGroup>
+                    </HorizontalScrollView>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -388,7 +401,7 @@
                 android:layout_marginTop="16dp"
                 app:cardBackgroundColor="@color/card_bg"
                 app:cardCornerRadius="20dp"
-                app:cardElevation="0dp"
+                app:cardElevation="2dp"
                 app:strokeColor="@color/card_stroke"
                 app:strokeWidth="1dp">
 
@@ -490,40 +503,47 @@
                         android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
                         android:textColor="@color/secondaryText" />
 
-                    <com.google.android.material.chip.ChipGroup
-                        android:id="@+id/smartActionChips"
+                    <HorizontalScrollView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        app:singleLine="false">
+                        android:scrollbars="none"
+                        android:overScrollMode="never"
+                        android:layout_marginTop="8dp">
 
-                        <com.google.android.material.chip.Chip
-                            android:id="@+id/chipSmartNow"
-                            style="@style/Widget.Material3.Chip.Assist"
+                        <com.google.android.material.chip.ChipGroup
+                            android:id="@+id/smartActionChips"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/birth_action_now"
-                            app:chipIcon="@drawable/ic_clock_outline_24"
-                            app:chipIconTint="@color/accent_teal" />
+                            app:singleLine="true">
 
-                        <com.google.android.material.chip.Chip
-                            android:id="@+id/chipSmartLast"
-                            style="@style/Widget.Material3.Chip.Assist"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/birth_action_last"
-                            app:chipIcon="@drawable/ic_history_24"
-                            app:chipIconTint="@color/accent_orange" />
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/chipSmartNow"
+                                style="@style/Widget.Material3.Chip.Assist"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/birth_action_now"
+                                app:chipIcon="@drawable/ic_clock_outline_24"
+                                app:chipIconTint="@color/accent_teal" />
 
-                        <com.google.android.material.chip.Chip
-                            android:id="@+id/chipSmartSample"
-                            style="@style/Widget.Material3.Chip.Assist"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/birth_action_sample"
-                            app:chipIcon="@drawable/ic_star_24"
-                            app:chipIconTint="@color/accent_purple" />
-                    </com.google.android.material.chip.ChipGroup>
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/chipSmartLast"
+                                style="@style/Widget.Material3.Chip.Assist"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/birth_action_last"
+                                app:chipIcon="@drawable/ic_history_24"
+                                app:chipIconTint="@color/accent_orange" />
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/chipSmartSample"
+                                style="@style/Widget.Material3.Chip.Assist"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/birth_action_sample"
+                                app:chipIcon="@drawable/ic_star_24"
+                                app:chipIconTint="@color/accent_purple" />
+                        </com.google.android.material.chip.ChipGroup>
+                    </HorizontalScrollView>
 
                     <TextView
                         android:id="@+id/placeShortcutsTitle"
@@ -534,49 +554,56 @@
                         android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
                         android:textColor="@color/secondaryText" />
 
-                    <com.google.android.material.chip.ChipGroup
-                        android:id="@+id/placeQuickChips"
+                    <HorizontalScrollView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        app:singleLine="true">
+                        android:scrollbars="none"
+                        android:overScrollMode="never"
+                        android:layout_marginTop="8dp">
 
-                        <com.google.android.material.chip.Chip
-                            android:id="@+id/chipPlaceBengaluru"
-                            style="@style/Widget.Material3.Chip.Assist"
+                        <com.google.android.material.chip.ChipGroup
+                            android:id="@+id/placeQuickChips"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/place_chip_bengaluru"
-                            app:chipIcon="@drawable/ic_location_pin_24"
-                            app:chipIconTint="@color/accent_teal" />
+                            app:singleLine="true">
 
-                        <com.google.android.material.chip.Chip
-                            android:id="@+id/chipPlaceDelhi"
-                            style="@style/Widget.Material3.Chip.Assist"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/place_chip_delhi"
-                            app:chipIcon="@drawable/ic_location_pin_24"
-                            app:chipIconTint="@color/accent_orange" />
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/chipPlaceBengaluru"
+                                style="@style/Widget.Material3.Chip.Assist"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/place_chip_bengaluru"
+                                app:chipIcon="@drawable/ic_location_pin_24"
+                                app:chipIconTint="@color/accent_teal" />
 
-                        <com.google.android.material.chip.Chip
-                            android:id="@+id/chipPlaceMumbai"
-                            style="@style/Widget.Material3.Chip.Assist"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/place_chip_mumbai"
-                            app:chipIcon="@drawable/ic_location_pin_24"
-                            app:chipIconTint="@color/accent_purple" />
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/chipPlaceDelhi"
+                                style="@style/Widget.Material3.Chip.Assist"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/place_chip_delhi"
+                                app:chipIcon="@drawable/ic_location_pin_24"
+                                app:chipIconTint="@color/accent_orange" />
 
-                        <com.google.android.material.chip.Chip
-                            android:id="@+id/chipPlaceChennai"
-                            style="@style/Widget.Material3.Chip.Assist"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/place_chip_chennai"
-                            app:chipIcon="@drawable/ic_location_pin_24"
-                            app:chipIconTint="@color/accent_teal" />
-                    </com.google.android.material.chip.ChipGroup>
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/chipPlaceMumbai"
+                                style="@style/Widget.Material3.Chip.Assist"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/place_chip_mumbai"
+                                app:chipIcon="@drawable/ic_location_pin_24"
+                                app:chipIconTint="@color/accent_purple" />
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/chipPlaceChennai"
+                                style="@style/Widget.Material3.Chip.Assist"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/place_chip_chennai"
+                                app:chipIcon="@drawable/ic_location_pin_24"
+                                app:chipIconTint="@color/accent_teal" />
+                        </com.google.android.material.chip.ChipGroup>
+                    </HorizontalScrollView>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
