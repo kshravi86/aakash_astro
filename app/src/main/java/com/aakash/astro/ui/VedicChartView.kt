@@ -76,6 +76,12 @@ class VedicChartView @JvmOverloads constructor(
             pada
         )
 
+        // Animated entrance for summary
+        binding.chartSummaryLagna.alpha = 0f
+        binding.chartSummaryLagna.animate().alpha(1f).setDuration(800).start()
+        binding.chartSummaryNakshatra.alpha = 0f
+        binding.chartSummaryNakshatra.animate().alpha(1f).setStartDelay(200).setDuration(800).start()
+
         binding.shareChartButton.isEnabled = true
         binding.shareChartButton.setOnClickListener {
             // Intent to share summary

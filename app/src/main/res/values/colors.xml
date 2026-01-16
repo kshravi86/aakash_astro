@@ -44,6 +44,19 @@
 
     <!-- Special UI Elements -->
     <color name="hero_glow_center">#508B5CF6</color> <!-- Violet Glow -->
+    
+    <!-- Glassmorphism Palette -->
+    <color name="glass_white_5">#0DFFFFFF</color>
+    <color name="glass_white_10">#1AFFFFFF</color>
+    <color name="glass_white_20">#33FFFFFF</color>
+    <color name="glass_violet_20">#338B5CF6</color>
+    <color name="glass_amber_20">#33F59E0B</color>
+    
+    <!-- Glow Colors -->
+    <color name="glow_violet">#408B5CF6</color>
+    <color name="glow_amber">#40F59E0B</color>
+    <color name="glow_teal">#402DD4BF</color>
+    <color name="surface_card_glass">#CC13111C</color> <!-- Translucent Deep Purple -->
 
     <!-- Chip Backgrounds -->
     <color name="value_chip_high_bg">#2638BDF8</color>

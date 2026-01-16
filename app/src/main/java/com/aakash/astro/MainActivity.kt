@@ -1084,6 +1084,17 @@ class MainActivity : AppCompatActivity() {
 
                             persistBirthDefaults(ctx.date, ctx.time, ctx.city)
                             renderPlanets(chart)
+
+                            // Staggered entrance animation for result cards.
+                            binding.planetContainer.alpha = 0f
+                            binding.planetContainer.translationY = 50f
+                            binding.planetContainer.animate()
+                                .alpha(1f)
+                                .translationY(0f)
+                                .setDuration(500)
+                                .setInterpolator(android.view.animation.DecelerateInterpolator())
+                                .start()
+
                             AppLog.d("Chart generated using ${if (accurate != null) "swiss" else "fallback"} engine.")
                             binding.engineIndicator.text = if (accurate != null) {
                                 getString(R.string.engine_label_swiss)

@@ -105,20 +105,36 @@
                             android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
                             android:textColor="@color/primaryText" />
 
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/generateButton"
-                            style="@style/Widget.Material3.Button"
+                        <FrameLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="20dp"
-                            android:paddingVertical="12dp"
-                            android:text="@string/generate_chart_cta"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            app:cornerRadius="12dp"
-                            app:icon="@drawable/ic_star_24"
-                            app:iconGravity="textStart"
-                            app:iconTint="@color/white" />
+                            android:layout_marginTop="20dp">
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="48dp"
+                                android:layout_gravity="center"
+                                android:alpha="0.5"
+                                android:background="@drawable/bg_hero_glow"
+                                android:backgroundTint="@color/accent_gold" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/generateButton"
+                                style="@style/Widget.Material3.Button"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/bg_button_gradient"
+                                app:backgroundTint="@android:color/transparent"
+                                android:paddingVertical="12dp"
+                                android:text="@string/generate_chart_cta"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/black"
+                                app:cornerRadius="16dp"
+                                app:icon="@drawable/ic_star_24"
+                                app:iconGravity="textStart"
+                                app:iconTint="@color/black" />
+                        </FrameLayout>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
             </FrameLayout>
@@ -156,26 +172,43 @@
                 android:id="@+id/sectionBirth"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:text="@string/birth_card_title"
                 android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-                android:textColor="@color/primaryText" />
+                android:textColor="@color/accent_blue"
+                android:textAllCaps="true"
+                android:letterSpacing="0.1" />
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardBirthMoment"
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                app:cardBackgroundColor="@color/card_bg"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="2dp"
-                app:strokeColor="@color/card_stroke"
-                app:strokeWidth="1dp">
+                android:layout_marginTop="12dp">
 
-                <LinearLayout
+                <View
+                    android:layout_width="180dp"
+                    android:layout_height="180dp"
+                    android:layout_gravity="center_vertical|start"
+                    android:layout_marginStart="-40dp"
+                    android:alpha="0.4"
+                    android:background="@drawable/bg_hero_glow"
+                    android:backgroundTint="@color/accent_purple" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardBirthMoment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="20dp">
+                    app:cardBackgroundColor="@android:color/transparent"
+                    app:cardCornerRadius="24dp"
+                    app:cardElevation="4dp"
+                    app:strokeColor="@color/glass_white_10"
+                    app:strokeWidth="1dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_glass_card"
+                        android:orientation="vertical"
+                        android:padding="20dp">
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/nameInputLayout"
@@ -393,21 +426,23 @@
                     </HorizontalScrollView>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
+        </FrameLayout>
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardLocationZone"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardLocationZone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                app:cardBackgroundColor="@color/card_bg"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="2dp"
-                app:strokeColor="@color/card_stroke"
+                app:cardBackgroundColor="@android:color/transparent"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="4dp"
+                app:strokeColor="@color/glass_white_10"
                 app:strokeWidth="1dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/bg_glass_card"
                     android:orientation="vertical"
                     android:padding="20dp">
 
@@ -418,10 +453,10 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/hint_birth_place"
                         app:boxBackgroundColor="@color/card_bg_elevated"
-                        app:boxCornerRadiusBottomEnd="14dp"
-                        app:boxCornerRadiusBottomStart="14dp"
-                        app:boxCornerRadiusTopEnd="14dp"
-                        app:boxCornerRadiusTopStart="14dp"
+                        app:boxCornerRadiusBottomEnd="18dp"
+                        app:boxCornerRadiusBottomStart="18dp"
+                        app:boxCornerRadiusTopEnd="18dp"
+                        app:boxCornerRadiusTopStart="18dp"
                         app:boxStrokeColor="@color/accent_teal"
                         app:boxStrokeWidth="1dp"
                         app:boxStrokeWidthFocused="2dp"
@@ -455,7 +490,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
                         android:textAppearance="@style/TextAppearance.Material3.BodySmall"
-                        android:textColor="@color/secondaryText"
+                        android:textColor="@color/accent_teal"
+                        android:textStyle="bold"
                         tools:text="12.9716° N, 77.5946° E · GMT+05:30" />
 
                     <TextView
@@ -474,15 +510,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                app:cardBackgroundColor="@color/card_bg_elevated"
-                app:cardCornerRadius="22dp"
+                app:cardBackgroundColor="@android:color/transparent"
+                app:cardCornerRadius="24dp"
                 app:cardElevation="0dp"
-                app:strokeColor="@color/card_stroke"
+                app:strokeColor="@color/glass_white_10"
                 app:strokeWidth="1dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/bg_glass_card"
                     android:orientation="vertical"
                     android:padding="20dp">
 
@@ -501,7 +538,8 @@
                         android:layout_marginTop="12dp"
                         android:text="@string/birth_smart_actions_title"
                         android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
-                        android:textColor="@color/secondaryText" />
+                        android:textColor="@color/accent_teal"
+                        android:textStyle="bold" />
 
                     <HorizontalScrollView
                         android:layout_width="match_parent"
@@ -523,7 +561,9 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/birth_action_now"
                                 app:chipIcon="@drawable/ic_clock_outline_24"
-                                app:chipIconTint="@color/accent_teal" />
+                                app:chipIconTint="@color/accent_teal"
+                                app:chipBackgroundColor="@color/glass_white_10"
+                                app:chipStrokeWidth="0dp" />
 
                             <com.google.android.material.chip.Chip
                                 android:id="@+id/chipSmartLast"
@@ -532,7 +572,9 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/birth_action_last"
                                 app:chipIcon="@drawable/ic_history_24"
-                                app:chipIconTint="@color/accent_orange" />
+                                app:chipIconTint="@color/accent_orange"
+                                app:chipBackgroundColor="@color/glass_white_10"
+                                app:chipStrokeWidth="0dp" />
 
                             <com.google.android.material.chip.Chip
                                 android:id="@+id/chipSmartSample"
@@ -541,7 +583,9 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/birth_action_sample"
                                 app:chipIcon="@drawable/ic_star_24"
-                                app:chipIconTint="@color/accent_purple" />
+                                app:chipIconTint="@color/accent_purple"
+                                app:chipBackgroundColor="@color/glass_white_10"
+                                app:chipStrokeWidth="0dp" />
                         </com.google.android.material.chip.ChipGroup>
                     </HorizontalScrollView>
 
@@ -552,7 +596,8 @@
                         android:layout_marginTop="16dp"
                         android:text="@string/place_shortcuts_title"
                         android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
-                        android:textColor="@color/secondaryText" />
+                        android:textColor="@color/accent_orange"
+                        android:textStyle="bold" />
 
                     <HorizontalScrollView
                         android:layout_width="match_parent"
@@ -574,7 +619,9 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/place_chip_bengaluru"
                                 app:chipIcon="@drawable/ic_location_pin_24"
-                                app:chipIconTint="@color/accent_teal" />
+                                app:chipIconTint="@color/accent_teal"
+                                app:chipBackgroundColor="@color/glass_white_10"
+                                app:chipStrokeWidth="0dp" />
 
                             <com.google.android.material.chip.Chip
                                 android:id="@+id/chipPlaceDelhi"
@@ -583,7 +630,9 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/place_chip_delhi"
                                 app:chipIcon="@drawable/ic_location_pin_24"
-                                app:chipIconTint="@color/accent_orange" />
+                                app:chipIconTint="@color/accent_orange"
+                                app:chipBackgroundColor="@color/glass_white_10"
+                                app:chipStrokeWidth="0dp" />
 
                             <com.google.android.material.chip.Chip
                                 android:id="@+id/chipPlaceMumbai"
@@ -592,7 +641,9 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/place_chip_mumbai"
                                 app:chipIcon="@drawable/ic_location_pin_24"
-                                app:chipIconTint="@color/accent_purple" />
+                                app:chipIconTint="@color/accent_purple"
+                                app:chipBackgroundColor="@color/glass_white_10"
+                                app:chipStrokeWidth="0dp" />
 
                             <com.google.android.material.chip.Chip
                                 android:id="@+id/chipPlaceChennai"
@@ -601,7 +652,9 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/place_chip_chennai"
                                 app:chipIcon="@drawable/ic_location_pin_24"
-                                app:chipIconTint="@color/accent_teal" />
+                                app:chipIconTint="@color/accent_teal"
+                                app:chipBackgroundColor="@color/glass_white_10"
+                                app:chipStrokeWidth="0dp" />
                         </com.google.android.material.chip.ChipGroup>
                     </HorizontalScrollView>
                 </LinearLayout>
@@ -619,13 +672,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/recent_actions_title"
-                    android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-                    android:textColor="@color/primaryText" />
+                    android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
+                    android:textColor="@color/accent_purple"
+                    android:textAllCaps="true"
+                    android:letterSpacing="0.1" />
 
                 <HorizontalScrollView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="12dp"
                     android:overScrollMode="never"
                     android:scrollbars="none">
 
@@ -642,31 +697,35 @@
                 android:id="@+id/sectionChart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="32dp"
                 android:text="@string/section_chart_title"
-                android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
-                android:textColor="@color/primaryText" />
+                android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                android:textColor="@color/accent_gold"
+                android:textAllCaps="true"
+                android:letterSpacing="0.1" />
 
             <com.aakash.astro.ui.VedicChartView
                 android:id="@+id/vedicChartView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp" />
+                android:layout_marginTop="16dp" />
 
             <TextView
                 android:id="@+id/actionsHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="32dp"
                 android:text="@string/actions_header"
-                android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
-                android:textColor="@color/primaryText" />
+                android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                android:textColor="@color/accent_teal"
+                android:textAllCaps="true"
+                android:letterSpacing="0.1" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/actionGrid"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="12dp"
                 android:nestedScrollingEnabled="false"
                 android:overScrollMode="never" />
 
@@ -674,28 +733,31 @@
                 android:id="@+id/sectionResults"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="32dp"
                 android:text="@string/results_section_title"
-                android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
-                android:textColor="@color/primaryText" />
+                android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                android:textColor="@color/accent_orange"
+                android:textAllCaps="true"
+                android:letterSpacing="0.1" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/planetCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                app:cardBackgroundColor="@color/card_bg"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="0dp"
-                app:strokeColor="@color/card_stroke"
+                android:layout_marginTop="16dp"
+                app:cardBackgroundColor="@android:color/transparent"
+                app:cardCornerRadius="28dp"
+                app:cardElevation="2dp"
+                app:strokeColor="@color/glass_white_10"
                 app:strokeWidth="1dp">
 
                 <LinearLayout
                     android:id="@+id/planetContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/bg_glass_card"
                     android:orientation="vertical"
-                    android:padding="16dp" />
+                    android:padding="20dp" />
             </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
