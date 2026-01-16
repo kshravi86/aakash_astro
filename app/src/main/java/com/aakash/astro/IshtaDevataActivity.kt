@@ -79,11 +79,17 @@ class IshtaDevataActivity : AppCompatActivity() {
             val tvValue = TextView(this)
             tvLabel.text = label
             tvValue.text = value
-            tvLabel.setPadding(8, 8, 16, 8)
-            tvValue.setPadding(8, 8, 8, 8)
+            tvLabel.setPadding(16, 12, 32, 12)
+            tvValue.setPadding(16, 12, 16, 12)
+            
+            tvLabel.setTextColor(getColor(R.color.secondaryText))
+            tvLabel.textAppearance = com.google.android.material.R.style.TextAppearance_Material3_LabelMedium
+            
+            tvValue.setTextColor(if (highlight) getColor(R.color.accent_teal) else getColor(R.color.primaryText))
+            tvValue.textAppearance = com.google.android.material.R.style.TextAppearance_Material3_BodyMedium
+            
             if (highlight) {
                 tvValue.setTypeface(tvValue.typeface, android.graphics.Typeface.BOLD)
-                tvValue.setBackgroundColor(getColor(com.aakash.astro.R.color.surface_variant))
             }
             row.addView(tvLabel)
             row.addView(tvValue)
@@ -93,8 +99,14 @@ class IshtaDevataActivity : AppCompatActivity() {
         binding.ishtaTable.removeAllViews()
         run {
             val header = android.widget.TableRow(this)
-            val h1 = TextView(this); h1.text = "Field"; h1.setTypeface(h1.typeface, android.graphics.Typeface.BOLD)
-            val h2 = TextView(this); h2.text = "Value"; h2.setTypeface(h2.typeface, android.graphics.Typeface.BOLD)
+            val h1 = TextView(this); h1.text = "CALCULATION FIELD"; h1.setTextColor(getColor(R.color.accent_gold))
+            h1.setPadding(16, 8, 16, 8)
+            h1.textAppearance = com.google.android.material.R.style.TextAppearance_Material3_LabelSmall
+            h1.letterSpacing = 0.1f
+            val h2 = TextView(this); h2.text = "RESULT"; h2.setTextColor(getColor(R.color.accent_gold))
+            h2.setPadding(16, 8, 16, 8)
+            h2.textAppearance = com.google.android.material.R.style.TextAppearance_Material3_LabelSmall
+            h2.letterSpacing = 0.1f
             header.addView(h1); header.addView(h2); binding.ishtaTable.addView(header)
         }
         addRow(binding.ishtaTable, "Atmakaraka", "${res.atmakaraka.displayName} (Rasi: ${res.akRasiSign.displayName})")
@@ -104,17 +116,22 @@ class IshtaDevataActivity : AppCompatActivity() {
         addRow(binding.ishtaTable, "Occupant in 12th (D9)", res.twelfthOccupant?.displayName ?: getString(R.string.none))
         addRow(
             binding.ishtaTable,
-            "Ishta Devata (by ${if (res.twelfthOccupant!=null) "occupant" else "lord"})",
-            res.deity,
+            "Determining Factor",
+            if (res.twelfthOccupant!=null) "Occupant" else "Lord",
             highlight = true
         )
-        addRow(binding.ishtaTable, "Practice", res.suggestion)
 
         binding.palanaTable.removeAllViews()
         run {
             val header = android.widget.TableRow(this)
-            val h1 = TextView(this); h1.text = "Field"; h1.setTypeface(h1.typeface, android.graphics.Typeface.BOLD)
-            val h2 = TextView(this); h2.text = "Value"; h2.setTypeface(h2.typeface, android.graphics.Typeface.BOLD)
+            val h1 = TextView(this); h1.text = "CALCULATION FIELD"; h1.setTextColor(getColor(R.color.accent_purple))
+            h1.setPadding(16, 8, 16, 8)
+            h1.textAppearance = com.google.android.material.R.style.TextAppearance_Material3_LabelSmall
+            h1.letterSpacing = 0.1f
+            val h2 = TextView(this); h2.text = "RESULT"; h2.setTextColor(getColor(R.color.accent_purple))
+            h2.setPadding(16, 8, 16, 8)
+            h2.textAppearance = com.google.android.material.R.style.TextAppearance_Material3_LabelSmall
+            h2.letterSpacing = 0.1f
             header.addView(h1); header.addView(h2); binding.palanaTable.addView(header)
         }
         addRow(binding.palanaTable, "Amatyakaraka", "${res.amatyakaraka.displayName} (Rasi: ${res.amkRasiSign.displayName})")
@@ -124,11 +141,20 @@ class IshtaDevataActivity : AppCompatActivity() {
         addRow(binding.palanaTable, "Occupant in 6th (D9)", res.sixthOccupant?.displayName ?: getString(R.string.none))
         addRow(
             binding.palanaTable,
-            "Palana Devata (by ${if (res.sixthOccupant!=null) "occupant" else "lord"})",
-            res.palanaDeity,
+            "Determining Factor",
+            if (res.sixthOccupant!=null) "Occupant" else "Lord",
             highlight = true
         )
-        addRow(binding.palanaTable, "Practice", res.palanaSuggestion)
+
+        // Staggered entrance animation
+        binding.contentContainer.alpha = 0f
+        binding.contentContainer.translationY = 30f
+        binding.contentContainer.animate()
+            .alpha(1f)
+            .translationY(0f)
+            .setDuration(600)
+            .setInterpolator(android.view.animation.DecelerateInterpolator())
+            .start()
 
         binding.details.text = "" // optional legacy text; keep empty now
     }
