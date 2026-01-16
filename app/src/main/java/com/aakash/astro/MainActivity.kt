@@ -50,6 +50,7 @@ import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 import java.util.Locale
+import kotlin.concurrent.thread
 import kotlin.math.floor
 import kotlin.math.roundToInt
 
@@ -1046,34 +1047,60 @@ class MainActivity : AppCompatActivity() {
         // Hide keyboard and clear focus
 
         hideKeyboard()
-
         binding.root.clearFocus()
 
         withBirthContext(notifyOnMissing = true) { ctx ->
-            val accurate = accurateCalculator.generateChart(ctx.birthDetails)
-            val chart = accurate ?: run {
-                Snackbar.make(
-                    binding.root,
-                    getString(R.string.swiss_ephemeris_missing_generic),
-                    Snackbar.LENGTH_LONG
-                ).show()
-                AppLog.d("Swiss Ephemeris unavailable; using fallback engine.")
-                fallbackCalculator.generateChart(ctx.birthDetails)
-            }
+            binding.loadingOverlay.visibility = View.VISIBLE
 
-            persistBirthDefaults(ctx.date, ctx.time, ctx.city)
-            renderPlanets(chart)
-            AppLog.d("Chart generated using ${if (accurate != null) "swiss" else "fallback"} engine.")
-            binding.engineIndicator.text = if (accurate != null) {
-                getString(R.string.engine_label_swiss)
-            } else {
-                getString(R.string.engine_label_builtin)
-            }
-            ctx.birthDetails.name?.let {
-                binding.subtitleText.text = getString(R.string.chart_generated_for, it)
-            }
+            // Perform calculation after a tiny delay for visual feedback of "intelligence"
+            uiHandler.postDelayed({
+                thread {
+                    val accurate = accurateCalculator.generateChart(ctx.birthDetails)
+                    val chart = accurate ?: fallbackCalculator.generateChart(ctx.birthDetails)
+
+                    uiHandler.post {
+                        if (isFinishing || isDestroyed) {
+                            return@post
+                        }
+
+                        try {
+                            if (accurate == null) {
+                                Snackbar.make(
+                                    binding.root,
+                                    getString(R.string.swiss_ephemeris_missing_generic),
+                                    Snackbar.LENGTH_LONG
+                                ).show()
+                                AppLog.d("Swiss Ephemeris unavailable; using fallback engine.")
+                            }
+
+                            if (chart == null) {
+                                Snackbar.make(
+                                    binding.root,
+                                    getString(R.string.calculation_error),
+                                    Snackbar.LENGTH_LONG
+                                ).show()
+                                return@post
+                            }
+
+                            persistBirthDefaults(ctx.date, ctx.time, ctx.city)
+                            renderPlanets(chart)
+                            AppLog.d("Chart generated using ${if (accurate != null) "swiss" else "fallback"} engine.")
+                            binding.engineIndicator.text = if (accurate != null) {
+                                getString(R.string.engine_label_swiss)
+                            } else {
+                                getString(R.string.engine_label_builtin)
+                            }
+                            ctx.birthDetails.name?.let {
+                                binding.subtitleText.text = getString(R.string.chart_generated_for, it)
+                            }
+                            scrollAndHighlightChart()
+                        } finally {
+                            binding.loadingOverlay.visibility = View.GONE
+                        }
+                    }
+                }
+            }, 600)
         }
-
     }
 
 

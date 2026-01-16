@@ -45,6 +45,14 @@
     <string name="swiss_ephemeris_missing_generic">Swiss Ephemeris not available. Falling back to the built-in engine. Please add swisseph.jar and ephemeris files (see docs).</string>
     <string name="saved_chart_confirmation">Saved: %1$s</string>
     <string name="chart_generated_for">Chart generated for %1$s</string>
+    <string name="chart_summary_title">Natal chart</string>
+    <string name="chart_summary_lagna">Lagna: %1$s</string>
+    <string name="chart_summary_nakshatra">Nakshatra: %1$s | Pada %2$d</string>
+    <string name="chart_summary_placeholder_lagna">Awaiting birth details</string>
+    <string name="chart_summary_placeholder_nakshatra">Fill form and click generate</string>
+    <string name="chart_share_cta">Share</string>
+    <string name="chart_share_title">Share chart summary</string>
+    <string name="chart_share_text">My Vedic chart: Lagna in %1$s, Nakshatra: %2$s (Pada %3$d).</string>
     <string name="planet_position_format">%1$s - %2$s - %3$s</string>
     <string name="nakshatra_format">%1$s - Pada %2$d</string>
     <string name="uttama_drekkana_format">Uttama Drekkana: %1$s</string>

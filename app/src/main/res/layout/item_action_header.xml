@@ -2,24 +2,26 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:gravity="center_vertical"
-    android:paddingHorizontal="6dp"
-    android:paddingVertical="12dp">
-
-    <View
-        android:layout_width="4dp"
-        android:layout_height="16dp"
-        android:background="@drawable/bg_pill_amber"
-        android:backgroundTint="@color/accent_purple" />
+    android:orientation="vertical"
+    android:paddingHorizontal="8dp"
+    android:paddingTop="24dp"
+    android:paddingBottom="8dp">
 
     <TextView
         android:id="@+id/headerTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:letterSpacing="0.05"
+        android:layout_marginStart="4dp"
+        android:layout_marginBottom="8dp"
         android:textStyle="bold"
-        android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-        android:textColor="@color/secondaryText" />
+        android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+        android:textColor="@color/accent_blue"
+        android:textAllCaps="true"
+        android:letterSpacing="0.05" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divider"
+        android:layout_marginHorizontal="4dp" />
 </LinearLayout>
