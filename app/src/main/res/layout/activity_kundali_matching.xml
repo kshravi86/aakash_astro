@@ -202,7 +202,7 @@
                                 android:layout_marginTop="4dp"
                                 android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
                                 android:textColor="@color/secondaryText"
-                                tools:text="Bride <-> Groom" />
+                                tools:text="Bride &lt;-&gt; Groom" />
                         </LinearLayout>
                     </com.google.android.material.card.MaterialCardView>
 

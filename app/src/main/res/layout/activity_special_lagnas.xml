@@ -167,7 +167,7 @@
                             android:layout_marginTop="4dp"
                             android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
                             android:textColor="@color/secondaryText"
-                            tools:text="12° 30' 45\"" />
+                            tools:text="12° 30' 45&quot;" />
 
                         <TextView
                             android:id="@+id/glNoteValue"
@@ -297,7 +297,7 @@
                             android:layout_marginTop="4dp"
                             android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
                             android:textColor="@color/secondaryText"
-                            tools:text="12° 30' 45\"" />
+                            tools:text="12° 30' 45&quot;" />
 
                         <TextView
                             android:id="@+id/hlNoteValue"
