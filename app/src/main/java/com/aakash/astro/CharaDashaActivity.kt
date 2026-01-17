@@ -87,7 +87,7 @@ class CharaDashaActivity : AppCompatActivity() {
 
         if (maIndex >= 0) {
             val (maItem, maPeriod) = items[maIndex]
-            maItem.root.setBackgroundColor(getColor(R.color.surface_variant))
+            highlightCard(maItem, isMain = true)
             toggleAntar(maItem, maPeriod, inflater, fmt, forward)
             val antars = CharaDasha.antardashaFor(maPeriod, forward)
             val antarIndex = antars.indexOfFirst { !now.isBefore(it.start) && now.isBefore(it.end) }
@@ -95,11 +95,30 @@ class CharaDashaActivity : AppCompatActivity() {
                 val antarChild = maItem.childrenContainer.getChildAt(antarIndex)
                 if (antarChild != null) {
                     val antarBinding = ItemDashaBinding.bind(antarChild)
-                    antarBinding.root.setBackgroundColor(getColor(R.color.surface_variant))
+                    highlightCard(antarBinding)
                     togglePratyantar(antarBinding, antars[antarIndex], inflater, fmt, forward)
+                    val praty = CharaDasha.pratyantarFor(antars[antarIndex], forward)
+                    val pIdx = praty.indexOfFirst { !now.isBefore(it.start) && now.isBefore(it.end) }
+                    if (pIdx >= 0) {
+                        val pratyChild = antarBinding.childrenContainer.getChildAt(pIdx)
+                        if (pratyChild != null) {
+                            highlightCard(ItemDashaBinding.bind(pratyChild))
+                            pratyChild.post { scrollToView(pratyChild) }
+                        }
+                    }
                 }
             }
         }
+    }
+
+    private fun highlightCard(item: ItemDashaBinding, isMain: Boolean = false) {
+        item.dashaCard.strokeWidth = dp(1.5f).toInt()
+        item.dashaCard.strokeColor = getColor(if (isMain) R.color.accent_gold else R.color.accent_teal)
+        item.dashaCard.setCardBackgroundColor(getColor(R.color.glass_white_5))
+    }
+
+    private fun dp(value: Float): Float {
+        return value * resources.displayMetrics.density
     }
 
     private fun toggleAntar(

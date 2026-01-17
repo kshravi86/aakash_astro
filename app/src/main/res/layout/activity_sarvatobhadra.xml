@@ -1,71 +1,159 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="@drawable/bg_app_gradient"
+    android:fitsSystemWindows="true">
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/topBar"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        app:navigationIcon="@drawable/ic_home_black_24dp"
-        app:title="Sarvatobhadra Chakra"
-        app:titleCentered="false"
-        app:titleTextColor="@color/primaryText" />
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        app:elevation="0dp">
 
-    <ScrollView
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topBar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:navigationIcon="@drawable/ic_home_black_24dp"
+            app:navigationIconTint="@color/white"
+            app:title="Sarvatobhadra"
+            app:titleTextColor="@color/white" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
+            android:id="@+id/contentContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:paddingHorizontal="20dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="48dp">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:letterSpacing="0.1"
+                android:text="Sarvatobhadra"
+                android:textAllCaps="true"
+                android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
+                android:textColor="@color/accent_gold"
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="9×9 grid — outer: 28 nakshatras (incl. Abhijit)"
-                android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                android:layout_marginTop="4dp"
+                android:text="28-Star Vedha Map (incl. Abhijit)"
+                android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
                 android:textColor="@color/secondaryText" />
 
+            <!-- CHAKRA CONTAINER -->
             <FrameLayout
-                android:id="@+id/sbcFrame"
+                android:id="@+id/chakraWrapper"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp">
-                <GridLayout
-                    android:id="@+id/gridSbc"
+                android:layout_marginTop="24dp">
+
+                <View
+                    android:layout_width="300dp"
+                    android:layout_height="300dp"
+                    android:layout_gravity="center"
+                    android:alpha="0.2"
+                    android:background="@drawable/bg_hero_glow"
+                    android:backgroundTint="@color/accent_blue" />
+
+                <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:useDefaultMargins="false" />
-                <com.aakash.astro.ui.SbcOverlayView
-                    android:id="@+id/gridOverlay"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:clickable="false"
-                    android:focusable="false" />
+                    app:cardBackgroundColor="@android:color/transparent"
+                    app:cardCornerRadius="24dp"
+                    app:cardElevation="0dp"
+                    app:strokeColor="@color/glass_white_10"
+                    app:strokeWidth="1dp">
+
+                    <FrameLayout
+                        android:id="@+id/sbcFrame"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_glass_card"
+                        android:padding="8dp">
+
+                        <GridLayout
+                            android:id="@+id/gridSbc"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:useDefaultMargins="false" />
+
+                        <com.aakash.astro.ui.SbcOverlayView
+                            android:id="@+id/gridOverlay"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:clickable="false"
+                            android:focusable="false" />
+                    </FrameLayout>
+                </com.google.android.material.card.MaterialCardView>
             </FrameLayout>
 
-            <TextView
-                android:id="@+id/summaryText"
+            <!-- INTELLIGENT LEGEND -->
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:text=""
-                android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
-                android:textColor="@color/primaryText" />
+                android:layout_marginTop="24dp"
+                app:cardBackgroundColor="@android:color/transparent"
+                app:cardCornerRadius="20dp"
+                app:strokeColor="@color/glass_white_10"
+                app:strokeWidth="1dp">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Legend: Blue = Janma, Gold = Sensitive Tara stars, Red = Transit Moon"
-                android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
-                android:textColor="@color/secondaryText" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_glass_card"
+                    android:padding="16dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:letterSpacing="0.1"
+                        android:text="Interpretation Legend"
+                        android:textAllCaps="true"
+                        android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+                        android:textColor="@color/accent_teal"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+                        <View android:layout_width="8dp" android:layout_height="8dp" android:background="@color/accent_blue" android:layout_marginEnd="8dp" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Janma Points" android:textColor="@color/secondaryText" android:textSize="11sp" />
+                        <Space android:layout_width="24dp" android:layout_height="0dp" />
+                        <View android:layout_width="8dp" android:layout_height="8dp" android:background="@color/accent_gold" android:layout_marginEnd="8dp" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Tara Bala Hits" android:textColor="@color/secondaryText" android:textSize="11sp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/summaryText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                        android:textColor="@color/primaryText"
+                        tools:text="Tap a planet cell to reveal Vedha impact lines." />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
         </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

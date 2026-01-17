@@ -1,56 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="12dp"
-    app:cardBackgroundColor="@color/card_bg_elevated"
-    app:cardCornerRadius="18dp"
-    app:cardElevation="4dp"
-    app:strokeColor="@color/divider"
+    android:layout_marginVertical="6dp"
+    app:cardBackgroundColor="@android:color/transparent"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="0dp"
+    app:strokeColor="@color/glass_white_10"
     app:strokeWidth="1dp">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:background="@drawable/bg_glass_card"
         android:padding="16dp">
 
         <TextView
             android:id="@+id/karakaName"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Atmakaraka"
             android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-            android:textColor="@color/primaryText" />
+            android:textColor="@color/accent_teal"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/karakaPlanet"
+            tools:text="Atmakaraka" />
 
         <TextView
             android:id="@+id/karakaPlanet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="Planet"
-            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
-            android:textColor="@color/secondaryText" />
+            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+            android:textColor="@color/primaryText"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Jupiter" />
 
         <TextView
             android:id="@+id/karakaPosition"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="@string/karaka_position_placeholder"
             android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
-            android:textColor="@color/primaryText" />
+            android:textColor="@color/secondaryText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/karakaName"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="Pisces (House 4)" />
 
         <TextView
             android:id="@+id/karakaDegree"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="@string/karaka_degree_placeholder"
-            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
-            android:textColor="@color/secondaryText" />
+            android:layout_marginTop="2dp"
+            android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+            android:textColor="@color/tertiaryText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/karakaPosition"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="12° 30' 45\"" />
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>

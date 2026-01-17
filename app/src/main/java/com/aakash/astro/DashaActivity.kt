@@ -88,7 +88,7 @@ class DashaActivity : AppCompatActivity() {
         if (maIndex >= 0) {
             val (maItem, maPeriod) = items[maIndex]
             // Highlight Mahadasha row
-            maItem.root.setBackgroundColor(getColor(com.aakash.astro.R.color.surface_variant))
+            highlightCard(maItem, isMain = true)
             toggleAntar(maItem, maPeriod, inflater, fmt)
             val antars = DashaCalculator.antardashaFor(maPeriod)
             val antarIndex = antars.indexOfFirst { !now.isBefore(it.start) && now.isBefore(it.end) }
@@ -96,17 +96,19 @@ class DashaActivity : AppCompatActivity() {
                 val antarChild = maItem.childrenContainer.getChildAt(antarIndex)
                 if (antarChild != null) {
                     val antarBinding = ItemDashaBinding.bind(antarChild)
-                    antarBinding.root.setBackgroundColor(getColor(com.aakash.astro.R.color.surface_variant))
+                    highlightCard(antarBinding)
                     togglePratyantar(antarBinding, antars[antarIndex], inflater, fmt)
                     val praty = DashaCalculator.pratyantarFor(antars[antarIndex])
                     val pratyIndex = praty.indexOfFirst { !now.isBefore(it.start) && now.isBefore(it.end) }
                     if (pratyIndex >= 0) {
                         val pratyChild = antarBinding.childrenContainer.getChildAt(pratyIndex)
-                        pratyChild?.setBackgroundColor(getColor(com.aakash.astro.R.color.surface_variant))
-                        // Scroll into view
-                        pratyChild?.post {
-                            val rect = Rect(0, 0, pratyChild.width, pratyChild.height)
-                            pratyChild.requestRectangleOnScreen(rect, true)
+                        if (pratyChild != null) {
+                            highlightCard(ItemDashaBinding.bind(pratyChild))
+                            // Scroll into view
+                            pratyChild.post {
+                                val rect = Rect(0, 0, pratyChild.width, pratyChild.height)
+                                pratyChild.requestRectangleOnScreen(rect, true)
+                            }
                         }
                     } else {
                         antarBinding.root.post {
@@ -146,20 +148,22 @@ class DashaActivity : AppCompatActivity() {
                     binding.todaysCard.visibility = View.VISIBLE
                 }
                 val (maItem, maPeriod) = items[maIndex2]
-                maItem.root.setBackgroundColor(getColor(com.aakash.astro.R.color.surface_variant))
+                highlightCard(maItem, isMain = true)
                 toggleAntar(maItem, maPeriod, inflater, fmt)
                 if (aIdx >= 0) {
                     val antarChild = maItem.childrenContainer.getChildAt(aIdx)
                     if (antarChild != null) {
                         val antarBinding = ItemDashaBinding.bind(antarChild)
-                        antarBinding.root.setBackgroundColor(getColor(com.aakash.astro.R.color.surface_variant))
+                        highlightCard(antarBinding)
                         togglePratyantar(antarBinding, antars[aIdx], inflater, fmt)
                         val pr = DashaCalculator.pratyantarFor(antars[aIdx])
                         val pIdx = pr.indexOfFirst { !now.isBefore(it.start) && now.isBefore(it.end) }
                         if (pIdx >= 0) {
                             val pratyChild = antarBinding.childrenContainer.getChildAt(pIdx)
-                            pratyChild?.setBackgroundColor(getColor(com.aakash.astro.R.color.surface_variant))
-                            pratyChild?.let { scrollToView(it) }
+                            if (pratyChild != null) {
+                                highlightCard(ItemDashaBinding.bind(pratyChild))
+                                scrollToView(pratyChild)
+                            }
                         } else {
                             scrollToView(antarBinding.root)
                         }
@@ -171,6 +175,16 @@ class DashaActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun highlightCard(item: ItemDashaBinding, isMain: Boolean = false) {
+        item.dashaCard.strokeWidth = dp(1.5f).toInt()
+        item.dashaCard.strokeColor = getColor(if (isMain) R.color.accent_gold else R.color.accent_teal)
+        item.dashaCard.setCardBackgroundColor(getColor(R.color.glass_white_5))
+    }
+
+    private fun dp(value: Float): Float {
+        return value * resources.displayMetrics.density
     }
 
     private fun scrollToView(view: View) {

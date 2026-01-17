@@ -42,30 +42,62 @@ class DivisionalChartsActivity : AppCompatActivity() {
             return
         }
 
-        renderAllVargas(natal)
+        setupVargaSelector(natal)
+        
+        // Entrance animation
+        binding.contentContainer.alpha = 0f
+        binding.contentContainer.translationY = 30f
+        binding.contentContainer.animate()
+            .alpha(1f)
+            .translationY(0f)
+            .setDuration(600)
+            .start()
     }
 
-    private fun renderAllVargas(natal: ChartResult) {
-        val container: LinearLayout = binding.listContainer
-        container.removeAllViews()
-        val inflater = LayoutInflater.from(this)
-
+    private fun setupVargaSelector(natal: ChartResult) {
         val vargas = listOf(
             Varga.D1, Varga.D2, Varga.D3, Varga.D4, Varga.D7, Varga.D9, Varga.D10, Varga.D12,
             Varga.D16, Varga.D20, Varga.D24, Varga.D27, Varga.D30, Varga.D40, Varga.D45, Varga.D60
         )
 
+        val selector = binding.vargaSelector
         vargas.forEach { v ->
-            val card = inflater.inflate(R.layout.item_varga_chart, container, false) as LinearLayout
-            val title = card.findViewById<TextView>(R.id.vargaTitle)
-            val subtitle = card.findViewById<TextView>(R.id.vargaSubtitle)
-            val chartView = card.findViewById<VedicChartView>(R.id.vargaChart)
-            title.text = v.code
-            subtitle.text = VargaCalculator.description(v)
-            val vc = VargaCalculator.computeVargaChart(natal, v, natal.ascendantDegree)
-            chartView.setChart(vc)
-            container.addView(card)
+            val chip = com.google.android.material.chip.Chip(this).apply {
+                text = v.code
+                isCheckable = true
+                id = android.view.View.generateViewId()
+                tag = v
+                
+                // Style to match system
+                chipBackgroundColor = android.content.res.ColorStateList.valueOf(getColor(R.color.glass_white_5))
+                chipStrokeColor = android.content.res.ColorStateList.valueOf(getColor(R.color.glass_white_10))
+                chipStrokeWidth = resources.displayMetrics.density
+                setTextColor(getColor(R.color.primaryText))
+            }
+            selector.addView(chip)
         }
+
+        selector.setOnCheckedStateChangeListener { group, checkedIds ->
+            val checkedId = checkedIds.firstOrNull() ?: return@setOnCheckedStateChangeListener
+            val chip = group.findViewById<com.google.android.material.chip.Chip>(checkedId)
+            val varga = chip.tag as Varga
+            updateVargaDisplay(natal, varga)
+        }
+
+        // Default selection
+        (selector.getChildAt(0) as? com.google.android.material.chip.Chip)?.isChecked = true
+    }
+
+    private fun updateVargaDisplay(natal: ChartResult, varga: Varga) {
+        binding.selectedVargaTitle.text = "${varga.code} - ${VargaCalculator.vargaName(varga)}"
+        binding.vargaDescription.text = VargaCalculator.description(varga)
+        
+        val vc = VargaCalculator.computeVargaChart(natal, varga, natal.ascendantDegree)
+        binding.vedicChartView.setChart(vc)
+        
+        // Animation for smooth transition
+        binding.vargaCard.alpha = 0.5f
+        binding.vargaCard.animate().alpha(1f).setDuration(300).start()
     }
 
     companion object {

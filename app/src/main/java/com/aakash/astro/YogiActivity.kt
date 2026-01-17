@@ -141,8 +141,15 @@ class YogiActivity : AppCompatActivity() {
             isCheckable = false
             isClickable = false
             setEnsureMinTouchTargetSize(false)
-            chipBackgroundColor = ContextCompat.getColorStateList(context, R.color.card_bg_elevated)
+            
+            // Standard Secondary Glass Style
+            chipBackgroundColor = android.content.res.ColorStateList.valueOf(getColor(R.color.glass_white_5))
+            chipStrokeColor = android.content.res.ColorStateList.valueOf(getColor(R.color.glass_white_10))
+            chipStrokeWidth = resources.displayMetrics.density // 1dp
+            
             setTextColor(ContextCompat.getColor(context, R.color.primaryText))
+            chipIcon = ContextCompat.getDrawable(context, R.drawable.ic_star_24)
+            chipIconTint = android.content.res.ColorStateList.valueOf(getColor(R.color.accent_gold))
         }
     }
 

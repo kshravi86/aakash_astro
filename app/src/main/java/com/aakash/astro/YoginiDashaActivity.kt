@@ -87,7 +87,7 @@ class YoginiDashaActivity : AppCompatActivity() {
         }
         if (maIndex >= 0) {
             val (maItem, maPeriod) = items[maIndex]
-            maItem.root.setBackgroundColor(getColor(com.aakash.astro.R.color.surface_variant))
+            highlightCard(maItem, isMain = true)
             toggleAntar(maItem, maPeriod, inflater, fmt)
             val antars = YoginiDasha.antardashaFor(maPeriod)
             val antarIndex = antars.indexOfFirst { !now.isBefore(it.start) && now.isBefore(it.end) }
@@ -95,14 +95,16 @@ class YoginiDashaActivity : AppCompatActivity() {
                 val antarChild = maItem.childrenContainer.getChildAt(antarIndex)
                 if (antarChild != null) {
                     val antarBinding = ItemDashaBinding.bind(antarChild)
-                    antarBinding.root.setBackgroundColor(getColor(com.aakash.astro.R.color.surface_variant))
+                    highlightCard(antarBinding)
                     togglePratyantar(antarBinding, antars[antarIndex], inflater, fmt)
                     val praty = YoginiDasha.pratyantarFor(antars[antarIndex])
                     val pratyIndex = praty.indexOfFirst { !now.isBefore(it.start) && now.isBefore(it.end) }
                     if (pratyIndex >= 0) {
                         val pratyChild = antarBinding.childrenContainer.getChildAt(pratyIndex)
-                        pratyChild?.setBackgroundColor(getColor(com.aakash.astro.R.color.surface_variant))
-                        pratyChild?.post { scrollToView(pratyChild) }
+                        if (pratyChild != null) {
+                            highlightCard(ItemDashaBinding.bind(pratyChild))
+                            pratyChild.post { scrollToView(pratyChild) }
+                        }
                     } else {
                         antarBinding.root.post { scrollToView(antarBinding.root) }
                     }
@@ -111,6 +113,16 @@ class YoginiDashaActivity : AppCompatActivity() {
                 maItem.root.post { scrollToView(maItem.root) }
             }
         }
+    }
+
+    private fun highlightCard(item: ItemDashaBinding, isMain: Boolean = false) {
+        item.dashaCard.strokeWidth = dp(1.5f).toInt()
+        item.dashaCard.strokeColor = getColor(if (isMain) R.color.accent_gold else R.color.accent_teal)
+        item.dashaCard.setCardBackgroundColor(getColor(R.color.glass_white_5))
+    }
+
+    private fun dp(value: Float): Float {
+        return value * resources.displayMetrics.density
     }
 
     private fun toggleAntar(item: ItemDashaBinding, ma: YoginiPeriod, inflater: LayoutInflater, fmt: DateTimeFormatter) {

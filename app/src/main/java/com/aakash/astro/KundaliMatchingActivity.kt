@@ -86,10 +86,30 @@ class KundaliMatchingActivity : AppCompatActivity() {
 
         binding.summaryTitle.text = getString(R.string.kundali_score_title, result.total, result.max)
         binding.summaryNames.text = getString(R.string.kundali_pair_label, bride.name, groom.name)
+        
+        // Semantic coloring based on score
+        val scorePercent = result.total / result.max
+        val scoreColor = when {
+            scorePercent >= 0.7 -> getColor(R.color.planet_favorable)
+            scorePercent >= 0.5 -> getColor(R.color.accent_gold)
+            else -> getColor(R.color.planet_unfavorable)
+        }
+        binding.summaryTitle.setTextColor(scoreColor)
 
         renderParts(result)
         renderSynastry(bride, groom, brideChart, groomChart)
+        
         binding.resultContainer.visibility = View.VISIBLE
+        
+        // Glide-in animation
+        binding.resultContainer.alpha = 0f
+        binding.resultContainer.translationY = 40f
+        binding.resultContainer.animate()
+            .alpha(1f)
+            .translationY(0f)
+            .setDuration(600)
+            .setInterpolator(android.view.animation.DecelerateInterpolator())
+            .start()
     }
 
     private fun renderParts(result: GunMilanCalculator.Result) {

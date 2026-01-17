@@ -1,81 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/background_gradient_start">
+    android:background="@drawable/bg_app_gradient"
+    android:fitsSystemWindows="true">
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/topBar"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        app:title="@string/special_lagnas_title"
-        app:navigationIcon="@drawable/ic_home_black_24dp"
-        app:titleTextColor="@color/primaryText"
-        app:navigationIconTint="@color/primaryText" />
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        app:elevation="0dp">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topBar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:navigationIcon="@drawable/ic_home_black_24dp"
+            app:navigationIconTint="@color/white"
+            app:title="@string/special_lagnas_title"
+            app:titleTextColor="@color/white" />
+    </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
+            android:id="@+id/contentContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="20dp"
-            android:paddingBottom="36dp">
+            android:paddingHorizontal="24dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="48dp">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:letterSpacing="0.1"
+                android:text="@string/special_lagnas_title"
+                android:textAllCaps="true"
+                android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
+                android:textColor="@color/accent_gold"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/subtitle"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
                 android:text="@string/special_lagnas_subtitle"
-                android:textColor="@color/primaryText"
-                android:textAppearance="@style/TextAppearance.Material3.TitleSmall" />
+                android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                android:textColor="@color/secondaryText" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/profileCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                app:cardBackgroundColor="@color/card_bg"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="6dp"
-                app:strokeWidth="0dp">
+                android:layout_marginTop="24dp"
+                app:cardBackgroundColor="@android:color/transparent"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/glass_white_10"
+                app:strokeWidth="1dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/bg_glass_card"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="20dp">
 
                     <TextView
                         android:id="@+id/nativeName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/ashtakavarga_native_placeholder"
-                        android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+                        android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
+                        android:textColor="@color/primaryText"
                         android:textStyle="bold"
-                        android:textColor="@color/primaryText" />
+                        tools:text="Aakash Sharma" />
 
                     <TextView
                         android:id="@+id/birthInfo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:text="@string/ashtakavarga_birth_placeholder"
                         android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
-                        android:textColor="@color/secondaryText" />
+                        android:textColor="@color/secondaryText"
+                        tools:text="18 May 1993, 10:30 PM" />
 
                     <TextView
                         android:id="@+id/locationInfo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
-                        android:text="@string/ashtakavarga_location_placeholder"
-                        android:textAppearance="@style/TextAppearance.Material3.BodySmall"
-                        android:textColor="@color/secondaryText" />
+                        android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+                        android:textColor="@color/accent_teal"
+                        android:textStyle="bold"
+                        tools:text="Mumbai, India" />
 
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -84,326 +110,204 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginTop="20dp"
-                android:divider="@drawable/divider_line"
-                android:showDividers="middle">
+                android:layout_marginTop="32dp">
 
+                <!-- GHATIKA LAGNA -->
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/glCard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
-                    app:cardBackgroundColor="@color/card_bg_elevated"
-                    app:cardCornerRadius="18dp"
+                    android:stateListAnimator="@animator/card_touch_feedback"
+                    app:cardBackgroundColor="@android:color/transparent"
+                    app:cardCornerRadius="24dp"
                     app:cardElevation="4dp"
-                    app:strokeWidth="0dp">
+                    app:strokeColor="@color/glass_white_10"
+                    app:strokeWidth="1dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:background="@drawable/bg_glass_card"
                         android:orientation="vertical"
-                        android:padding="16dp">
+                        android:padding="20dp">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:letterSpacing="0.1"
                             android:text="@string/lagna_card_ghatika"
-                            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-                            android:textColor="@color/primaryText"
+                            android:textAllCaps="true"
+                            android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
+                            android:textColor="@color/accent_gold"
                             android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="12dp"
-                            android:text="@string/special_lagna_sign_label"
-                            android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-                            android:textColor="@color/secondaryText" />
 
                         <TextView
                             android:id="@+id/glSignValue"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/special_lagna_missing"
-                            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
-                            android:textColor="@color/primaryText" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:text="@string/special_lagna_degree_label"
-                            android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-                            android:textColor="@color/secondaryText" />
-
-                        <TextView
-                            android:id="@+id/glDegreeValue"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/special_lagna_missing"
-                            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
-                            android:textColor="@color/primaryText" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:text="@string/special_lagna_nakshatra_label"
-                            android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-                            android:textColor="@color/secondaryText" />
+                            android:layout_marginTop="12dp"
+                            android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+                            android:textColor="@color/primaryText"
+                            android:textStyle="bold"
+                            tools:text="Leo" />
 
                         <TextView
                             android:id="@+id/glNakValue"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/special_lagna_missing"
-                            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
-                            android:textColor="@color/primaryText" />
+                            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                            android:textColor="@color/accent_teal"
+                            tools:text="Magha • Pada 2" />
 
                         <TextView
+                            android:id="@+id/glDegreeValue"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:text="@string/special_lagna_house_label"
-                            android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-                            android:textColor="@color/secondaryText" />
-
-                        <TextView
-                            android:id="@+id/glHouseValue"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/special_lagna_missing"
-                            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
-                            android:textColor="@color/primaryText" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:text="@string/special_lagna_note_label"
-                            android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-                            android:textColor="@color/secondaryText" />
+                            android:layout_marginTop="4dp"
+                            android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+                            android:textColor="@color/secondaryText"
+                            tools:text="12° 30' 45\"" />
 
                         <TextView
                             android:id="@+id/glNoteValue"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/special_lagna_note_ghatika"
-                            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
-                            android:textColor="@color/secondaryText" />
+                            android:layout_marginTop="12dp"
+                            android:alpha="0.7"
+                            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                            android:textColor="@color/secondaryText"
+                            tools:text="Projects worldly image" />
 
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
+                <!-- ARUDHA LAGNA -->
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/alCard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
-                    app:cardBackgroundColor="@color/card_bg_elevated"
-                    app:cardCornerRadius="18dp"
+                    android:stateListAnimator="@animator/card_touch_feedback"
+                    app:cardBackgroundColor="@android:color/transparent"
+                    app:cardCornerRadius="24dp"
                     app:cardElevation="4dp"
-                    app:strokeWidth="0dp">
+                    app:strokeColor="@color/glass_white_10"
+                    app:strokeWidth="1dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:background="@drawable/bg_glass_card"
                         android:orientation="vertical"
-                        android:padding="16dp">
+                        android:padding="20dp">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:letterSpacing="0.1"
                             android:text="@string/lagna_card_arudha"
-                            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-                            android:textColor="@color/primaryText"
+                            android:textAllCaps="true"
+                            android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
+                            android:textColor="@color/accent_purple"
                             android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="12dp"
-                            android:text="@string/special_lagna_sign_label"
-                            android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-                            android:textColor="@color/secondaryText" />
 
                         <TextView
                             android:id="@+id/alSignValue"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/special_lagna_missing"
-                            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
-                            android:textColor="@color/primaryText" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:text="@string/special_lagna_degree_label"
-                            android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-                            android:textColor="@color/secondaryText" />
-
-                        <TextView
-                            android:id="@+id/alDegreeValue"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/special_lagna_na"
-                            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
-                            android:textColor="@color/primaryText" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:text="@string/special_lagna_nakshatra_label"
-                            android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-                            android:textColor="@color/secondaryText" />
+                            android:layout_marginTop="12dp"
+                            android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+                            android:textColor="@color/primaryText"
+                            android:textStyle="bold"
+                            tools:text="Capricorn" />
 
                         <TextView
                             android:id="@+id/alNakValue"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/special_lagna_na"
-                            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
-                            android:textColor="@color/primaryText" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:text="@string/special_lagna_house_label"
-                            android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-                            android:textColor="@color/secondaryText" />
-
-                        <TextView
-                            android:id="@+id/alHouseValue"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/special_lagna_missing"
-                            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
-                            android:textColor="@color/primaryText" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:text="@string/special_lagna_note_label"
-                            android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-                            android:textColor="@color/secondaryText" />
+                            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                            android:textColor="@color/accent_teal"
+                            tools:text="Shravana • Pada 4" />
 
                         <TextView
                             android:id="@+id/alNoteValue"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/special_lagna_note_arudha"
-                            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
-                            android:textColor="@color/secondaryText" />
+                            android:layout_marginTop="12dp"
+                            android:alpha="0.7"
+                            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                            android:textColor="@color/secondaryText"
+                            tools:text="Projects worldly image" />
 
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
+                <!-- HORA LAGNA -->
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/hlCard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:cardBackgroundColor="@color/card_bg_elevated"
-                    app:cardCornerRadius="18dp"
+                    android:stateListAnimator="@animator/card_touch_feedback"
+                    app:cardBackgroundColor="@android:color/transparent"
+                    app:cardCornerRadius="24dp"
                     app:cardElevation="4dp"
-                    app:strokeWidth="0dp">
+                    app:strokeColor="@color/glass_white_10"
+                    app:strokeWidth="1dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:background="@drawable/bg_glass_card"
                         android:orientation="vertical"
-                        android:padding="16dp">
+                        android:padding="20dp">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:letterSpacing="0.1"
                             android:text="@string/lagna_card_hora"
-                            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-                            android:textColor="@color/primaryText"
+                            android:textAllCaps="true"
+                            android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
+                            android:textColor="@color/accent_blue"
                             android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="12dp"
-                            android:text="@string/special_lagna_sign_label"
-                            android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-                            android:textColor="@color/secondaryText" />
 
                         <TextView
                             android:id="@+id/hlSignValue"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/special_lagna_missing"
-                            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
-                            android:textColor="@color/primaryText" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:text="@string/special_lagna_degree_label"
-                            android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-                            android:textColor="@color/secondaryText" />
-
-                        <TextView
-                            android:id="@+id/hlDegreeValue"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/special_lagna_missing"
-                            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
-                            android:textColor="@color/primaryText" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:text="@string/special_lagna_nakshatra_label"
-                            android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-                            android:textColor="@color/secondaryText" />
+                            android:layout_marginTop="12dp"
+                            android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+                            android:textColor="@color/primaryText"
+                            android:textStyle="bold"
+                            tools:text="Virgo" />
 
                         <TextView
                             android:id="@+id/hlNakValue"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/special_lagna_missing"
-                            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
-                            android:textColor="@color/primaryText" />
+                            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                            android:textColor="@color/accent_teal"
+                            tools:text="Hasta • Pada 1" />
 
                         <TextView
+                            android:id="@+id/hlDegreeValue"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:text="@string/special_lagna_house_label"
-                            android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-                            android:textColor="@color/secondaryText" />
-
-                        <TextView
-                            android:id="@+id/hlHouseValue"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/special_lagna_missing"
-                            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
-                            android:textColor="@color/primaryText" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:text="@string/special_lagna_note_label"
-                            android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-                            android:textColor="@color/secondaryText" />
+                            android:layout_marginTop="4dp"
+                            android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+                            android:textColor="@color/secondaryText"
+                            tools:text="12° 30' 45\"" />
 
                         <TextView
                             android:id="@+id/hlNoteValue"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/special_lagna_note_hora"
-                            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
-                            android:textColor="@color/secondaryText" />
+                            android:layout_marginTop="12dp"
+                            android:alpha="0.7"
+                            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                            android:textColor="@color/secondaryText"
+                            tools:text="Financial prosperity indicator" />
 
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -412,5 +316,4 @@
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
-
-</LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

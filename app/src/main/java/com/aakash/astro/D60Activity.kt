@@ -14,6 +14,66 @@ class D60Activity : AppCompatActivity() {
     private lateinit var binding: ActivityD60Binding
     private val accurate = AccurateCalculator()
 
+    private fun renderD60(natal: ChartResult, d60: ChartResult) {
+        val table = binding.d60Table
+        
+        fun createCell(text: String, isHeader: Boolean = false, textColor: Int? = null): TextView {
+            return TextView(this).apply {
+                this.text = text
+                this.setPadding(16, 12, 16, 12)
+                this.textAppearance = if (isHeader) {
+                    com.google.android.material.R.style.TextAppearance_Material3_LabelSmall
+                } else {
+                    com.google.android.material.R.style.TextAppearance_Material3_BodyMedium
+                }
+                this.setTextColor(textColor ?: if (isHeader) getColor(R.color.accent_blue) else getColor(R.color.primaryText))
+                if (isHeader) {
+                    this.letterSpacing = 0.1f
+                    this.text = text.uppercase()
+                    this.setTypeface(this.typeface, android.graphics.Typeface.BOLD)
+                }
+            }
+        }
+
+        fun addRow(c1: String, c2: String, c3: String, c4: String, c5: String, isBenefic: Boolean) {
+            val row = TableRow(this)
+            row.addView(createCell(c1))
+            row.addView(createCell(c2))
+            row.addView(createCell(c3))
+            row.addView(createCell(c4))
+            
+            val nature = if (isBenefic) getString(R.string.benefic) else getString(R.string.malefic)
+            val natureColor = if (isBenefic) getColor(R.color.planet_favorable) else getColor(R.color.planet_unfavorable)
+            row.addView(createCell(nature, false, natureColor))
+            
+            table.addView(row)
+        }
+
+        table.removeAllViews()
+        val header = TableRow(this)
+        header.addView(createCell("PLANET", true))
+        header.addView(createCell("SIGN", true))
+        header.addView(createCell("AMSHA", true))
+        header.addView(createCell("NAME", true))
+        header.addView(createCell("NATURE", true))
+        table.addView(header)
+
+        val natalByPlanet = natal.planets.associateBy { it.planet }
+        d60.planets.forEach { p ->
+            val natalPos = natalByPlanet[p.planet]
+            val natalDegree = natalPos?.degree ?: p.degree
+            val natalSignIndex = natalPos?.sign?.ordinal ?: (natalDegree / 30.0).toInt()
+            val inSign = ((natalDegree - natalSignIndex * 30.0) % 30.0 + 30.0) % 30.0
+
+            val amsha = D60Shashtiamsa.amshaNumber(inSign)
+            val isOddSign = (natalSignIndex % 2 == 0) 
+            val amshaName = D60Shashtiamsa.amshaName(amsha, isOddSign)
+            val isBenefic = D60Shashtiamsa.isBenefic(amsha, isOddSign)
+            
+            addRow(p.name, p.sign.displayName, amsha.toString(), amshaName, "", isBenefic)
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityD60Binding.inflate(layoutInflater)
@@ -40,44 +100,17 @@ class D60Activity : AppCompatActivity() {
 
         val d60 = VargaCalculator.computeVargaChart(natal, Varga.D60, natal.ascendantDegree)
         binding.vedicChartView.setChart(d60)
+        
+        renderD60(natal, d60)
 
-        // Fill planet table with D60 sign, house, amsha number and range within the sign
-        val table = binding.d60Table
-        fun addRow(c1: String, c2: String, c3: String, c4: String, c5: String, c6: String, c7: String) {
-            val row = TableRow(this)
-            fun cell(text: String) = TextView(this).apply { this.text = text; setPadding(8,8,8,8) }
-            row.addView(cell(c1))
-            row.addView(cell(c2))
-            row.addView(cell(c3))
-            row.addView(cell(c4))
-            row.addView(cell(c5))
-            row.addView(cell(c6))
-            val natureView = cell(c7)
-            val isBenefic = c7.equals(getString(R.string.benefic), ignoreCase = true)
-            val color = if (isBenefic) 0xFF2E7D32.toInt() else 0xFFC62828.toInt()
-            natureView.setTextColor(color)
-            row.addView(natureView)
-            table.addView(row)
-        }
-
-        val natalByPlanet = natal.planets.associateBy { it.planet }
-        d60.planets.forEach { p ->
-            val natalPos = natalByPlanet[p.planet]
-            val natalDegree = natalPos?.degree ?: p.degree
-            val natalSignIndex = natalPos?.sign?.ordinal ?: (natalDegree / 30.0).toInt()
-            val inSign = ((natalDegree - natalSignIndex * 30.0) % 30.0 + 30.0) % 30.0
-
-            val amsha = D60Shashtiamsa.amshaNumber(inSign)
-            val start = floor((amsha - 1).toDouble()) * (30.0 / 60.0)
-            val end = start + (30.0 / 60.0)
-            val range = String.format("%05.2f°–%05.2f°", start, end)
-
-            val isOddSign = (natalSignIndex % 2 == 0) // Aries(0) odd, Taurus(1) even, etc.
-            val amshaName = D60Shashtiamsa.amshaName(amsha, isOddSign)
-            val isBenefic = D60Shashtiamsa.isBenefic(amsha, isOddSign)
-            val nature = if (isBenefic) getString(R.string.benefic) else getString(R.string.malefic)
-            addRow(p.name, p.sign.displayName, p.house.toString(), amsha.toString(), range, amshaName, nature)
-        }
+        // Entrance animation
+        binding.contentContainer.alpha = 0f
+        binding.contentContainer.translationY = 30f
+        binding.contentContainer.animate()
+            .alpha(1f)
+            .translationY(0f)
+            .setDuration(600)
+            .start()
     }
 
     // amshaInfo no longer needed; naming and nature now use Phaladipika-style rules from D60Shashtiamsa

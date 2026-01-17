@@ -319,9 +319,15 @@ class MainActivity : AppCompatActivity() {
                 text = tile.title
                 isCheckable = false
                 setEnsureMinTouchTargetSize(false)
-                val accent = ContextCompat.getColor(context, tile.accentColor)
-                chipBackgroundColor = ColorStateList.valueOf(ColorUtils.setAlphaComponent(accent, 60))
+                
+                // Secondary Glass Style
+                chipBackgroundColor = ColorStateList.valueOf(getColor(R.color.glass_white_5))
+                chipStrokeColor = ColorStateList.valueOf(getColor(R.color.glass_white_10))
+                chipStrokeWidth = dp(1).toFloat()
+                
+                setTextColor(getColor(R.color.primaryText))
                 chipIcon = ContextCompat.getDrawable(context, tile.iconRes)
+                val accent = ContextCompat.getColor(context, tile.accentColor)
                 chipIconTint = ColorStateList.valueOf(accent)
             }
             chip.setOnClickListener { handleActionTileClick(tile) }

@@ -1,57 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="8dp">
+    android:layout_marginVertical="6dp"
+    app:cardBackgroundColor="@android:color/transparent"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="0dp"
+    app:strokeColor="@color/glass_white_10"
+    app:strokeWidth="1dp">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:background="@drawable/bg_glass_card"
+        android:padding="16dp">
 
         <TextView
             android:id="@+id/planetName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+            android:textColor="@color/primaryText"
             android:textStyle="bold"
-            android:text="Planet" />
+            app:layout_constraintEnd_toStartOf="@id/statusBadge"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Jupiter" />
 
         <TextView
-            android:id="@+id/indicator"
+            android:id="@+id/planetDetails"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+            android:textColor="@color/secondaryText"
+            app:layout_constraintEnd_toStartOf="@id/statusBadge"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/planetName"
+            tools:text="Pisces • 12° 30' 45\"" />
+
+        <TextView
+            android:id="@+id/pushkaraBand"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+            android:textColor="@color/accent_teal"
+            android:textStyle="italic"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/planetDetails"
+            tools:text="Pushkara Band: 12°30' - 15°00'" />
+
+        <!-- High-Contrast Status Badge -->
+        <TextView
+            android:id="@+id/statusBadge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="*"
-            android:textSize="16sp"
+            android:background="@drawable/bg_pill_amber"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="4dp"
+            android:textAllCaps="true"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:backgroundTint="@color/accent_teal"
+            tools:text="YES"
+            tools:textColor="@color/white" />
+
+        <ImageView
+            android:id="@+id/indicator"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/ic_star_24"
             android:visibility="gone"
-            android:paddingStart="4dp"
-            android:paddingEnd="4dp" />
-    </LinearLayout>
+            app:layout_constraintBottom_toBottomOf="@id/statusBadge"
+            app:layout_constraintEnd_toStartOf="@id/statusBadge"
+            app:layout_constraintTop_toTopOf="@id/statusBadge"
+            app:tint="@color/accent_gold"
+            tools:visibility="visible" />
 
-    <TextView
-        android:id="@+id/planetDetails"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="" />
-
-    <TextView
-        android:id="@+id/pushkaraStatus"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Pushkara: No" />
-
-    <TextView
-        android:id="@+id/pushkaraBand"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:textAppearance="@style/TextAppearance.Material3.BodySmall" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/surface_variant" />
-
-</LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

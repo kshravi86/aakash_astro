@@ -57,12 +57,18 @@ class PushkaraNavamshaActivity : AppCompatActivity() {
                 formatDeg(degInSign)
             )
             if (band != null) {
-                item.pushkaraStatus.text = getString(R.string.pushkara_yes)
+                item.statusBadge.text = "YES"
+                item.statusBadge.backgroundTintList = android.content.res.ColorStateList.valueOf(getColor(R.color.accent_teal))
+                item.statusBadge.setTextColor(getColor(R.color.white))
                 item.pushkaraBand.text = band
+                item.pushkaraBand.visibility = View.VISIBLE
                 item.indicator.visibility = View.VISIBLE
             } else {
-                item.pushkaraStatus.text = getString(R.string.pushkara_no)
+                item.statusBadge.text = "NO"
+                item.statusBadge.backgroundTintList = android.content.res.ColorStateList.valueOf(getColor(R.color.glass_white_10))
+                item.statusBadge.setTextColor(getColor(R.color.secondaryText))
                 item.pushkaraBand.text = ""
+                item.pushkaraBand.visibility = View.GONE
                 item.indicator.visibility = View.GONE
             }
             binding.pushkaraContainer.addView(item.root)
@@ -80,12 +86,18 @@ class PushkaraNavamshaActivity : AppCompatActivity() {
                 formatDeg(degInSign)
             )
             if (band != null) {
-                item.pushkaraStatus.text = getString(R.string.pushkara_yes)
+                item.statusBadge.text = "YES"
+                item.statusBadge.backgroundTintList = android.content.res.ColorStateList.valueOf(getColor(R.color.accent_teal))
+                item.statusBadge.setTextColor(getColor(R.color.white))
                 item.pushkaraBand.text = band
+                item.pushkaraBand.visibility = View.VISIBLE
                 item.indicator.visibility = View.VISIBLE
             } else {
-                item.pushkaraStatus.text = getString(R.string.pushkara_no)
+                item.statusBadge.text = "NO"
+                item.statusBadge.backgroundTintList = android.content.res.ColorStateList.valueOf(getColor(R.color.glass_white_10))
+                item.statusBadge.setTextColor(getColor(R.color.secondaryText))
                 item.pushkaraBand.text = ""
+                item.pushkaraBand.visibility = View.GONE
                 item.indicator.visibility = View.GONE
             }
             binding.pushkaraContainer.addView(item.root)

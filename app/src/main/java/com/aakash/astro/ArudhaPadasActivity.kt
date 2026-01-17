@@ -42,16 +42,43 @@ class ArudhaPadasActivity : AppCompatActivity() {
 
     private fun renderArudha(natal: ChartResult) {
         val table = binding.arudhaTable
+        
+        fun createCell(text: String, isHeader: Boolean = false): TextView {
+            return TextView(this).apply {
+                this.text = text
+                this.setPadding(16, 12, 16, 12)
+                this.textAppearance = if (isHeader) {
+                    com.google.android.material.R.style.TextAppearance_Material3_LabelSmall
+                } else {
+                    com.google.android.material.R.style.TextAppearance_Material3_BodyMedium
+                }
+                this.setTextColor(if (isHeader) getColor(R.color.accent_blue) else getColor(R.color.primaryText))
+                if (isHeader) {
+                    this.letterSpacing = 0.1f
+                    this.text = text.uppercase()
+                    this.setTypeface(this.typeface, android.graphics.Typeface.BOLD)
+                }
+            }
+        }
+
         fun addRow(cells: List<String>) {
             val row = TableRow(this)
-            cells.forEach { text ->
-                val tv = TextView(this)
-                tv.text = text
-                tv.setPadding(8, 8, 8, 8)
+            row.background = getDrawable(R.drawable.glass_white_5) // Add subtle row background if needed
+            cells.forEachIndexed { index, text ->
+                val tv = createCell(text)
+                if (index > 0) tv.gravity = android.view.Gravity.START
                 row.addView(tv)
             }
             table.addView(row)
         }
+
+        table.removeAllViews()
+        val header = TableRow(this)
+        header.addView(createCell("HOUSE", true))
+        header.addView(createCell("LORD", true))
+        header.addView(createCell("POS", true))
+        header.addView(createCell("ARUDHA", true))
+        table.addView(header)
 
         val list = JaiminiArudha.compute(natal)
         list.forEach { e ->

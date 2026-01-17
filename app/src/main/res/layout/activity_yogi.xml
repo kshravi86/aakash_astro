@@ -1,103 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/yogiMotionLayout"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_gradient_start"
-    app:layoutDescription="@xml/motion_yogi_summary">
+    android:background="@drawable/bg_app_gradient"
+    android:fitsSystemWindows="true">
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/topBar"
-        android:layout_width="0dp"
-        android:layout_height="?attr/actionBarSize"
-        android:paddingHorizontal="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:navigationIcon="@drawable/ic_home_black_24dp"
-        app:title="@string/yogi_title"
-        app:titleTextColor="@color/primaryText" />
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/summaryCard"
-        android:layout_width="0dp"
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="16dp"
-        app:cardBackgroundColor="@color/card_bg"
-        app:cardCornerRadius="24dp"
-        app:cardElevation="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/topBar">
+        android:background="@android:color/transparent"
+        app:elevation="0dp">
 
-        <LinearLayout
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topBar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="20dp">
-
-            <TextView
-                android:id="@+id/summaryPrimary"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/yogi_summary_title"
-                android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
-                android:textColor="@color/primaryText" />
-
-            <TextView
-                android:id="@+id/summarySecondary"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
-                android:textColor="@color/secondaryText" />
-
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/highlightChips"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                app:singleLine="false" />
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
+            android:layout_height="?attr/actionBarSize"
+            app:navigationIcon="@drawable/ic_home_black_24dp"
+            app:navigationIconTint="@color/white"
+            app:title="@string/yogi_title"
+            app:titleTextColor="@color/white" />
+    </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/yogiScroll"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:fillViewport="true"
-        app:layout_constraintTop_toBottomOf="@id/summaryCard"
-        app:layout_constraintBottom_toTopOf="@id/ctaRow"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
+            android:id="@+id/contentContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingHorizontal="20dp"
+            android:paddingHorizontal="24dp"
             android:paddingTop="16dp"
             android:paddingBottom="120dp">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:letterSpacing="0.1"
+                android:text="Yogi Analysis"
+                android:textAllCaps="true"
+                android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
+                android:textColor="@color/accent_gold"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Deep insights into your Yoga and Sahayogi lords"
+                android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                android:textColor="@color/secondaryText" />
+
+            <!-- SUMMARY CARD -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/summaryCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                app:cardBackgroundColor="@android:color/transparent"
+                app:cardCornerRadius="28dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/glass_white_20"
+                app:strokeWidth="1.5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_hero_card"
+                    android:orientation="vertical"
+                    android:padding="24dp">
+
+                    <TextView
+                        android:id="@+id/summaryPrimary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/yogi_summary_title"
+                        android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium"
+                        android:textColor="@color/primaryText"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/summarySecondary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+                        android:textColor="@color/secondaryText" />
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/highlightChips"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        app:chipSpacingHorizontal="12dp"
+                        app:chipSpacingVertical="8dp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
             <TextView
                 android:id="@+id/listHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:letterSpacing="0.1"
                 android:text="@string/yogi_list_header"
-                android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-                android:textColor="@color/primaryText" />
-
-            <TextView
-                android:id="@+id/emptyState"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:text="@string/yogi_empty_state"
-                android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
-                android:textColor="@color/secondaryText"
-                android:visibility="gone" />
+                android:textAllCaps="true"
+                android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
+                android:textColor="@color/accent_blue"
+                android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/detailList"
@@ -106,20 +123,19 @@
                 android:layout_marginTop="12dp"
                 android:nestedScrollingEnabled="false"
                 android:overScrollMode="never" />
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
     <LinearLayout
         android:id="@+id/ctaRow"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/card_bg_elevated"
+        android:layout_gravity="bottom"
+        android:background="@color/surface_card_glass"
         android:gravity="center"
         android:orientation="horizontal"
-        android:padding="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        android:padding="20dp">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/ctaShare"
@@ -128,7 +144,11 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="12dp"
             android:layout_weight="1"
-            android:text="@string/yogi_share_cta" />
+            android:background="@drawable/bg_button_gradient"
+            app:backgroundTint="@android:color/transparent"
+            android:text="@string/yogi_share_cta"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/ctaPin"
@@ -136,7 +156,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/yogi_pin_cta" />
+            android:text="@string/yogi_pin_cta"
+            android:textColor="@color/white"
+            app:strokeColor="@color/glass_white_20" />
     </LinearLayout>
 
-</androidx.constraintlayout.motion.widget.MotionLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

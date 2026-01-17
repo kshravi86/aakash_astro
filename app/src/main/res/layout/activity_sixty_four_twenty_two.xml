@@ -1,141 +1,170 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="@drawable/bg_app_gradient"
+    android:fitsSystemWindows="true">
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/topBar"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        app:navigationIcon="@drawable/ic_home_black_24dp"
-        app:title="@string/sixtyfour_twenty_two_title" />
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        app:elevation="0dp">
 
-    <ScrollView
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topBar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:navigationIcon="@drawable/ic_home_black_24dp"
+            app:navigationIconTint="@color/white"
+            app:title="@string/sixtyfour_twenty_two_title"
+            app:titleTextColor="@color/white" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
+            android:id="@+id/contentContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:paddingHorizontal="24dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="48dp">
 
             <TextView
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:letterSpacing="0.1"
                 android:text="@string/sixtyfour_twenty_two_title"
-                android:textAppearance="@style/TextAppearance.Material3.TitleLarge" />
+                android:textAllCaps="true"
+                android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
+                android:textColor="@color/accent_gold"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/subtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="@string/sixtyfour_twenty_two_subtitle"
-                android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
+                android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                android:textColor="@color/secondaryText"
+                tools:text="Sensitive points in the natal chart" />
+
+            <!-- 64th NAVAMSHA SECTION -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:letterSpacing="0.1"
+                android:text="@string/section_64th_navamsa"
+                android:textAllCaps="true"
+                android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
+                android:textColor="@color/accent_orange"
+                android:textStyle="bold" />
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="2dp"
-                app:cardBackgroundColor="@color/card_bg_elevated"
-                app:strokeColor="@color/accent_orange"
-                app:strokeWidth="2dp">
+                android:layout_marginTop="12dp"
+                app:cardBackgroundColor="@android:color/transparent"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/glass_white_10"
+                app:strokeWidth="1dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/bg_glass_card"
                     android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/section_64th_navamsa"
-                        android:textStyle="bold"
-                        android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-                        android:textColor="@color/accent_orange" />
+                    android:padding="20dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="12dp">
-                        <TextView android:text="@string/label_64th_navamsa_lagna" android:textStyle="bold" style="@style/TextAppearance.Material3.BodyMedium" android:textColor="@color/secondaryText" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" />
-                        <TextView android:id="@+id/valueNavamsaLagna" style="@style/TextAppearance.Material3.TitleSmall" android:textColor="@color/primaryText" android:textStyle="bold" android:gravity="end" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:paddingLeft="6dp" android:paddingRight="6dp" android:background="@drawable/bg_pill_amber" />
+                        android:orientation="vertical">
+                        <TextView android:text="@string/label_64th_navamsa_lagna" android:textAppearance="@style/TextAppearance.Material3.LabelSmall" android:textColor="@color/secondaryText" android:textAllCaps="true" android:letterSpacing="0.05" />
+                        <TextView android:id="@+id/valueNavamsaLagna" android:layout_marginTop="4dp" android:textAppearance="@style/TextAppearance.Material3.TitleMedium" android:textColor="@color/primaryText" android:textStyle="bold" tools:text="Jupiter — Pisces (#64)" />
                     </LinearLayout>
+
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginVertical="16dp" android:background="@color/divider" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="8dp">
-                        <TextView android:text="@string/label_64th_navamsa_moon" android:textStyle="bold" style="@style/TextAppearance.Material3.BodyMedium" android:textColor="@color/secondaryText" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" />
-                        <TextView android:id="@+id/valueNavamsaMoon" style="@style/TextAppearance.Material3.TitleSmall" android:textColor="@color/primaryText" android:textStyle="bold" android:gravity="end" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:paddingLeft="6dp" android:paddingRight="6dp" android:background="@drawable/bg_pill_amber" />
+                        android:orientation="vertical">
+                        <TextView android:text="@string/label_64th_navamsa_moon" android:textAppearance="@style/TextAppearance.Material3.LabelSmall" android:textColor="@color/secondaryText" android:textAllCaps="true" android:letterSpacing="0.05" />
+                        <TextView android:id="@+id/valueNavamsaMoon" android:layout_marginTop="4dp" android:textAppearance="@style/TextAppearance.Material3.TitleMedium" android:textColor="@color/primaryText" android:textStyle="bold" tools:text="Saturn — Capricorn (#64)" />
                     </LinearLayout>
-
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
+            <!-- 22nd DREKKANA SECTION -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:letterSpacing="0.1"
+                android:text="@string/section_22nd_drekkana"
+                android:textAllCaps="true"
+                android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
+                android:textColor="@color/planet_unfavorable"
+                android:textStyle="bold" />
+
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="2dp"
-                app:cardBackgroundColor="@color/card_bg_elevated"
-                app:strokeColor="@color/planet_unfavorable"
-                app:strokeWidth="3dp">
+                android:layout_marginTop="12dp"
+                app:cardBackgroundColor="@android:color/transparent"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/glass_white_10"
+                app:strokeWidth="1dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/bg_glass_card"
                     android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/section_22nd_drekkana"
-                        android:textStyle="bold"
-                        android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-                        android:textColor="@color/planet_unfavorable" />
+                    android:padding="20dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="12dp">
-                        <TextView android:text="@string/label_22nd_drekkana_moon" android:textStyle="bold" style="@style/TextAppearance.Material3.BodyMedium" android:textColor="@color/secondaryText" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" />
-                        <TextView android:id="@+id/valueDrekkanaMoon" style="@style/TextAppearance.Material3.TitleSmall" android:textColor="@color/primaryText" android:textStyle="bold" android:gravity="end" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:paddingLeft="6dp" android:paddingRight="6dp" android:background="@drawable/bg_pill_red" />
+                        android:orientation="vertical">
+                        <TextView android:text="@string/label_22nd_drekkana_moon" android:textAppearance="@style/TextAppearance.Material3.LabelSmall" android:textColor="@color/secondaryText" android:textAllCaps="true" android:letterSpacing="0.05" />
+                        <TextView android:id="@+id/valueDrekkanaMoon" android:layout_marginTop="4dp" android:textAppearance="@style/TextAppearance.Material3.TitleMedium" android:textColor="@color/primaryText" android:textStyle="bold" tools:text="Mars — Aries (#22)" />
                     </LinearLayout>
+
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginVertical="16dp" android:background="@color/divider" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="8dp">
-                        <TextView android:text="@string/label_22nd_drekkana_lagna" android:textStyle="bold" style="@style/TextAppearance.Material3.BodyMedium" android:textColor="@color/secondaryText" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" />
-                        <TextView android:id="@+id/valueDrekkanaLagna" style="@style/TextAppearance.Material3.TitleSmall" android:textColor="@color/primaryText" android:textStyle="bold" android:gravity="end" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:paddingLeft="6dp" android:paddingRight="6dp" android:background="@drawable/bg_pill_red" />
+                        android:orientation="vertical">
+                        <TextView android:text="@string/label_22nd_drekkana_lagna" android:textAppearance="@style/TextAppearance.Material3.LabelSmall" android:textColor="@color/secondaryText" android:textAllCaps="true" android:letterSpacing="0.05" />
+                        <TextView android:id="@+id/valueDrekkanaLagna" android:layout_marginTop="4dp" android:textAppearance="@style/TextAppearance.Material3.TitleMedium" android:textColor="@color/primaryText" android:textStyle="bold" tools:text="Sun — Leo (#22)" />
                     </LinearLayout>
-
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="32dp"
+                android:alpha="0.7"
+                android:lineSpacingExtra="4dp"
                 android:text="@string/section_note_6422"
                 android:textAppearance="@style/TextAppearance.Material3.BodySmall"
                 android:textColor="@color/secondaryText" />
 
         </LinearLayout>
-    </ScrollView>
-
-</LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

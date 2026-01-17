@@ -122,15 +122,18 @@ class SarvatobhadraActivity : AppCompatActivity() {
             for (c in 0 until 9) {
                 val tv = TextView(this)
                 tv.gravity = Gravity.CENTER
-                tv.setPadding(dp(8), dp(8), dp(8), dp(8)); tv.minHeight = dp(64); tv.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 13f)
+                tv.setPadding(dp(4), dp(4), dp(4), dp(4))
+                tv.minHeight = dp(52) // More compact grid
+                tv.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 11f)
                 tv.setTextColor(primary)
                 tv.text = ""
-                tv.background = androidx.core.content.ContextCompat.getDrawable(this, R.drawable.bg_chart_highlight)
+                tv.background = ContextCompat.getDrawable(this, R.drawable.glass_white_5)
 
                 // Corners
                 cornerText[r to c]?.let {
-                    tv.text = it
+                    tv.text = it.uppercase()
                     tv.setTextColor(secondary)
+                    tv.textStyle = android.graphics.Typeface.BOLD
                 }
 
                 // Outer ring
@@ -140,10 +143,12 @@ class SarvatobhadraActivity : AppCompatActivity() {
                     val planets = outerOverlays[idxOuter]
                     tv.text = if (planets != null && planets.isNotEmpty()) "$base\n${planets.joinToString(" ")}" else base
                     if (planets != null && planets.isNotEmpty()) {
+                        tv.setTextColor(getColor(R.color.accent_gold))
+                        tv.textStyle = android.graphics.Typeface.BOLD
                         tv.isClickable = true
                         tv.setOnClickListener {
                             val (r0, c0) = outer[idxOuter]
-                            clearHighlights(); highlightVedhaBoxes(r0, c0); findViewById<com.aakash.astro.ui.SbcOverlayView>(R.id.gridOverlay).setLines(emptyList())
+                            clearHighlights(); highlightVedhaBoxes(r0, c0); findViewById<com.aakash.astro.ui.SbcOverlayView>(R.id.gridOverlay).setLines(vedhaLinesFor(r0, c0))
                         }
                     }
                 }
@@ -166,6 +171,8 @@ class SarvatobhadraActivity : AppCompatActivity() {
                 val idxR3 = ring3.indexOf(r to c)
                 if (idxR3 >= 0 && idxR3 < signsRing.size) {
                     tv.text = signsRing[idxR3]
+                    tv.setTextColor(getColor(R.color.accent_blue))
+                    tv.textStyle = android.graphics.Typeface.BOLD
                 }
 
                 // Central 3x3: match provided center-box.png exactly
@@ -177,58 +184,17 @@ class SarvatobhadraActivity : AppCompatActivity() {
                         5 to 3 -> "am"
                         5 to 5 -> "au"
                         // tithi groups
-                        3 to 4 -> "Rikta\nFri"
-                        4 to 3 -> "Jaya\nThu"
-                        4 to 4 -> "Poorna\nSat"
-                        4 to 5 -> "Nanda\nSun Tue"
-                        5 to 4 -> "Bhadra\nMon Wed"
+                        3 to 4 -> "Rikta"
+                        4 to 3 -> "Jaya"
+                        4 to 4 -> "Poorna"
+                        4 to 5 -> "Nanda"
+                        5 to 4 -> "Bhadra"
                         else -> ""
                     }
-                    if (label.isNotEmpty()) tv.text = label
-                }
-
-                // Override 2nd and 3rd rows to match provided 2ndand3rdrow.png
-                if (r == 1 && c in 1..7) {
-                    val row2 = listOf("rii", "g", "s", "d", "ch", "l", "u")
-                    tv.text = row2[c - 1]
-                    tv.setTextColor(secondary)
-                }
-                if (r == 2 && c in 1..7) {
-                    val row3 = listOf("kh", "ai", "Aq", "Pi", "Ar", "lu", "a")
-                    val v = row3[c - 1]
-                    tv.text = v
-                    // Color signs in primary, letters in secondary
-                    tv.setTextColor(if (v in listOf("Aq","Pi","Ar")) primary else secondary)
-                }
-                if (r == 3 && c in 1..7) {
-                    val row4 = listOf("j", "Cp", "ah", "Rikta\nFri", "o", "Ta", "v")
-                    val v = row4[c - 1]
-                    tv.text = v
-                    tv.setTextColor(if (v in listOf("Cp","Ta")) primary else secondary)
-                }
-                if (r == 4 && c in 1..7) {
-                    val row5 = listOf("bh", "Sg", "Jaya\nThu", "Poorna\nSat", "Nanda\nSun Tue", "Ge", "k")
-                    val v = row5[c - 1]
-                    tv.text = v
-                    tv.setTextColor(if (v in listOf("Sg","Ge")) primary else secondary)
-                }
-                if (r == 5 && c in 1..7) {
-                    val row6 = listOf("y", "Sc", "am", "Bhadra\nMon Wed", "au", "Cn", "h")
-                    val v = row6[c - 1]
-                    tv.text = v
-                    tv.setTextColor(if (v in listOf("Sc","Cn")) primary else secondary)
-                }
-                if (r == 6 && c in 1..7) {
-                    val row7 = listOf("n", "e", "Li", "Vi", "Le", "luu", "d")
-                    val v = row7[c - 1]
-                    tv.text = v
-                    tv.setTextColor(if (v in listOf("Li","Vi","Le")) primary else secondary)
-                }
-                if (r == 7 && c in 1..7) {
-                    val row8 = listOf("ri", "t", "r", "p", "t~", "m", "uu")
-                    val v = row8[c - 1]
-                    tv.text = v
-                    tv.setTextColor(secondary)
+                    if (label.isNotEmpty()) {
+                        tv.text = label
+                        tv.setTextColor(getColor(R.color.accent_teal))
+                    }
                 }
 
                 val p = android.widget.GridLayout.LayoutParams().apply {
@@ -236,13 +202,26 @@ class SarvatobhadraActivity : AppCompatActivity() {
                     height = android.widget.GridLayout.LayoutParams.WRAP_CONTENT
                     columnSpec = android.widget.GridLayout.spec(c, 1f)
                     rowSpec = android.widget.GridLayout.spec(r, 1f)
-                    setMargins(0, 0, 0, 0)
+                    setMargins(1, 1, 1, 1)
                 }
                 grid.addView(tv, p)
                 cellViews[r][c] = tv
             }
         }
+        
+        // Entrance animation
+        binding.contentContainer.alpha = 0f
+        binding.contentContainer.translationY = 30f
+        binding.contentContainer.animate()
+            .alpha(1f)
+            .translationY(0f)
+            .setDuration(700)
+            .start()
     }
+
+    private var TextView.textStyle: Int
+        get() = typeface.style
+        set(value) { setTypeface(null, value) }
 
     private fun perimeterCoords(offset: Int): List<Pair<Int, Int>> {
         val min = offset

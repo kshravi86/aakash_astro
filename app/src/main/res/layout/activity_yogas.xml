@@ -1,74 +1,88 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/background_gradient_start">
+    android:background="@drawable/bg_app_gradient"
+    android:fitsSystemWindows="true">
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/topBar"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        app:navigationIcon="@drawable/ic_home_black_24dp"
-        app:title="@string/yogas_title"
-        app:titleCentered="false"
-        app:titleTextColor="@color/primaryText"
-        app:navigationIconTint="@color/primaryText" />
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        app:elevation="0dp">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topBar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:navigationIcon="@drawable/ic_home_black_24dp"
+            app:navigationIconTint="@color/white"
+            app:title="@string/yogas_title"
+            app:titleTextColor="@color/white" />
+    </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
+            android:id="@+id/contentContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="20dp"
-            android:paddingBottom="32dp">
+            android:paddingHorizontal="24dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="48dp">
 
             <TextView
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:letterSpacing="0.1"
+                android:text="@string/yogas_title"
+                android:textAllCaps="true"
                 android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
-                android:textColor="@color/primaryText"
-                android:text="@string/yogas_title" />
+                android:textColor="@color/accent_gold"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/subtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
+                android:text="@string/yogas_subtitle"
                 android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
-                android:textColor="@color/secondaryText"
-                android:text="@string/yogas_subtitle" />
+                android:textColor="@color/secondaryText" />
 
+            <!-- SUMMARY CARD -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/summaryCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                app:cardBackgroundColor="@color/card_bg"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="6dp"
-                app:strokeWidth="0dp">
+                android:layout_marginTop="24dp"
+                app:cardBackgroundColor="@android:color/transparent"
+                app:cardCornerRadius="28dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/glass_white_20"
+                app:strokeWidth="1.5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/bg_hero_card"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="24dp">
 
                     <TextView
                         android:id="@+id/summaryCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="@style/TextAppearance.Material3.DisplaySmall"
+                        android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium"
                         android:textStyle="bold"
                         android:textColor="@color/primaryText"
-                        android:text="@string/yogas_total_placeholder" />
+                        tools:text="12 Yogas Detected" />
 
                     <TextView
                         android:id="@+id/summaryLine"
@@ -83,7 +97,7 @@
                         android:id="@+id/highlightChips"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
+                        android:layout_marginTop="16dp"
                         app:chipSpacingHorizontal="12dp"
                         app:chipSpacingVertical="8dp" />
 
@@ -94,60 +108,37 @@
                 android:id="@+id/legendCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                app:cardBackgroundColor="@color/card_bg_elevated"
-                app:cardCornerRadius="18dp"
-                app:cardElevation="2dp"
-                app:strokeWidth="0dp">
+                android:layout_marginTop="24dp"
+                app:cardBackgroundColor="@android:color/transparent"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/glass_white_10"
+                app:strokeWidth="1dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/bg_glass_card"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="20dp">
 
                     <TextView
                         android:id="@+id/legendTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:letterSpacing="0.1"
                         android:text="@string/yogas_legend_title"
-                        android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-                        android:textColor="@color/primaryText"
+                        android:textAllCaps="true"
+                        android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
+                        android:textColor="@color/accent_teal"
                         android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/legendBody"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="@string/yogas_legend_body"
-                        android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
-                        android:textColor="@color/secondaryText" />
-
-                    <TextView
-                        android:id="@+id/legendPointOne"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="@string/yogas_legend_point_one"
-                        android:textAppearance="@style/TextAppearance.Material3.BodySmall"
-                        android:textColor="@color/secondaryText" />
-
-                    <TextView
-                        android:id="@+id/legendPointTwo"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="@string/yogas_legend_point_two"
-                        android:textAppearance="@style/TextAppearance.Material3.BodySmall"
-                        android:textColor="@color/secondaryText" />
-
-                    <TextView
-                        android:id="@+id/legendPointThree"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="@string/yogas_legend_point_three"
+                        android:text="@string/yogas_legend_body"
                         android:textAppearance="@style/TextAppearance.Material3.BodySmall"
                         android:textColor="@color/secondaryText" />
 
@@ -158,10 +149,13 @@
                 android:id="@+id/listHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="40dp"
+                android:letterSpacing="0.1"
                 android:text="@string/yogas_list_header"
-                android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-                android:textColor="@color/primaryText" />
+                android:textAllCaps="true"
+                android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
+                android:textColor="@color/accent_blue"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/emptyState"
@@ -178,12 +172,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginTop="8dp"
-                android:divider="@drawable/divider_line"
-                android:showDividers="none" />
+                android:layout_marginTop="12dp" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
-
-</LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
 

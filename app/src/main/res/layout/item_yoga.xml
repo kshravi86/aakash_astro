@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="12dp"
-    app:cardBackgroundColor="@color/card_bg_elevated"
-    app:cardCornerRadius="18dp"
-    app:cardElevation="4dp"
-    app:strokeColor="@color/divider"
+    android:layout_marginVertical="6dp"
+    app:cardBackgroundColor="@android:color/transparent"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="0dp"
+    app:strokeColor="@color/glass_white_10"
     app:strokeWidth="1dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/bg_glass_card"
         android:orientation="vertical"
         android:padding="16dp">
 
@@ -27,28 +29,29 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_house_badge"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:paddingTop="4dp"
-                android:paddingBottom="4dp"
-                android:text="@string/yogas_badge_placeholder"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="4dp"
                 android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-                android:textColor="@color/primaryText" />
+                android:textColor="@color/accent_teal"
+                android:textStyle="bold"
+                tools:text="#1" />
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical"
-                android:layout_marginStart="12dp">
+                android:layout_marginStart="16dp">
 
                 <TextView
                     android:id="@+id/yogaCategory"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/yogas_category_generic"
+                    android:letterSpacing="0.05"
+                    android:textAllCaps="true"
                     android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
-                    android:textColor="@color/secondaryText" />
+                    android:textColor="@color/accent_blue"
+                    tools:text="Mahapurusha Yoga" />
 
                 <TextView
                     android:id="@+id/yogaTitle"
@@ -57,7 +60,8 @@
                     android:layout_marginTop="2dp"
                     android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
                     android:textColor="@color/primaryText"
-                    android:text="Yoga Title" />
+                    android:textStyle="bold"
+                    tools:text="Hamsa Yoga" />
             </LinearLayout>
         </LinearLayout>
 
@@ -65,10 +69,11 @@
             android:id="@+id/yogaDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="12dp"
             android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
             android:textColor="@color/secondaryText"
-            android:text="Description" />
+            android:lineSpacingExtra="4dp"
+            tools:text="Jupiter in a Kendra from Lagna in its own or exaltation sign." />
 
     </LinearLayout>
 
