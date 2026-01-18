@@ -91,18 +91,6 @@ class MainActivity : AppCompatActivity() {
 
     private var suppressPlaceSuggestions: Boolean = false
 
-    private var suppressDateChipCallback = false
-
-    private var suppressTimeChipCallback = false
-
-    private var lastQuickNowTime: LocalTime? = null
-
-    private val morningPreset: LocalTime = LocalTime.of(6, 0)
-
-    private val eveningPreset: LocalTime = LocalTime.of(18, 0)
-
-
-
     private var selectedDate: LocalDate? = null
     private var selectedTime: LocalTime? = null
     private var selectedCity: City? = null
@@ -633,74 +621,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupDateInput() {
-        // Wire date input field, chips, and picker.
+        // Wire date input field and picker.
         binding.dateInputLayout.setEndIconOnClickListener { showDatePicker() }
 
         binding.dateInput.setOnClickListener { showDatePicker() }
-
-        binding.chipDateCustom.setOnClickListener {
-
-            updateDateQuickChipSelection(View.NO_ID)
-
-            showDatePicker()
-
-        }
-
-        binding.dateQuickChips.setOnCheckedChangeListener { _, checkedId ->
-
-            if (suppressDateChipCallback) return@setOnCheckedChangeListener
-
-            when (checkedId) {
-
-                R.id.chipDateToday -> setSelectedDate(LocalDate.now(), R.id.chipDateToday)
-
-                R.id.chipDateYesterday -> setSelectedDate(LocalDate.now().minusDays(1), R.id.chipDateYesterday)
-
-            }
-
-        }
 
     }
 
 
 
     private fun setupTimeInput() {
-        // Wire time input field, chips, and picker.
+        // Wire time input field and picker.
         binding.timeInputLayout.setEndIconOnClickListener { showTimePicker() }
 
         binding.timeInput.setOnClickListener { showTimePicker() }
-
-        binding.chipTimeCustom.setOnClickListener {
-
-            updateTimeQuickChipSelection(View.NO_ID)
-
-            showTimePicker()
-
-        }
-
-        binding.timeQuickChips.setOnCheckedChangeListener { _, checkedId ->
-
-            if (suppressTimeChipCallback) return@setOnCheckedChangeListener
-
-            when (checkedId) {
-
-                R.id.chipTimeNow -> {
-
-                    val now = LocalTime.now().truncatedTo(ChronoUnit.MINUTES)
-
-                    setSelectedTime(now, R.id.chipTimeNow)
-
-                }
-
-                R.id.chipTimeMorning -> setSelectedTime(morningPreset, R.id.chipTimeMorning)
-
-                R.id.chipTimeNoon -> setSelectedTime(LocalTime.NOON, R.id.chipTimeNoon)
-
-                R.id.chipTimeEvening -> setSelectedTime(eveningPreset, R.id.chipTimeEvening)
-
-            }
-
-        }
 
     }
 
@@ -710,103 +644,25 @@ class MainActivity : AppCompatActivity() {
         // Provide quick smart presets for date/time/place.
         binding.chipSmartNow.setOnClickListener { applySmartNow() }
         binding.chipSmartLast.setOnClickListener { applySmartLast() }
-        binding.chipSmartSample.setOnClickListener { applySampleBirth() }
         binding.chipPlaceBengaluru.setOnClickListener { applyPlaceShortcut("Bengaluru") }
         binding.chipPlaceDelhi.setOnClickListener { applyPlaceShortcut("Delhi") }
         binding.chipPlaceMumbai.setOnClickListener { applyPlaceShortcut("Mumbai") }
-        binding.chipPlaceChennai.setOnClickListener { applyPlaceShortcut("Chennai") }
     }
 
-    private fun setSelectedDate(date: LocalDate?, preferredChipId: Int? = null) {
+    private fun setSelectedDate(date: LocalDate?) {
         // Update selected date and refresh dependent UI.
         selectedDate = date
 
         updateDateTimeSummary()
-
-        updateDateQuickChipSelection(preferredChipId)
-
     }
 
 
 
-    private fun updateDateQuickChipSelection(preferredChipId: Int? = null) {
-        // Keep date chips in sync with the selected date.
-        suppressDateChipCallback = true
-
-        val targetId = preferredChipId?.takeUnless { it == View.NO_ID } ?: when (selectedDate) {
-
-            LocalDate.now() -> R.id.chipDateToday
-
-            LocalDate.now().minusDays(1) -> R.id.chipDateYesterday
-
-            else -> View.NO_ID
-
-        }
-
-        val current = binding.dateQuickChips.checkedChipId
-
-        if (targetId == View.NO_ID) {
-
-            binding.dateQuickChips.clearCheck()
-
-        } else if (current != targetId) {
-
-            binding.dateQuickChips.check(targetId)
-
-        }
-
-        suppressDateChipCallback = false
-
-    }
-
-
-
-    private fun setSelectedTime(time: LocalTime?, preferredChipId: Int? = null) {
+    private fun setSelectedTime(time: LocalTime?) {
         // Update selected time and refresh dependent UI.
         selectedTime = time
 
-        lastQuickNowTime = if (preferredChipId == R.id.chipTimeNow) time else null
-
         updateDateTimeSummary()
-
-        updateTimeQuickChipSelection(preferredChipId)
-
-    }
-
-
-
-    private fun updateTimeQuickChipSelection(preferredChipId: Int? = null) {
-        // Keep time chips in sync with the selected time.
-        suppressTimeChipCallback = true
-
-        val targetId = preferredChipId?.takeUnless { it == View.NO_ID } ?: when (selectedTime) {
-
-            lastQuickNowTime -> R.id.chipTimeNow
-
-            morningPreset -> R.id.chipTimeMorning
-
-            LocalTime.NOON -> R.id.chipTimeNoon
-
-            eveningPreset -> R.id.chipTimeEvening
-
-            else -> View.NO_ID
-
-        }
-
-        val current = binding.timeQuickChips.checkedChipId
-
-        if (targetId == View.NO_ID) {
-
-            binding.timeQuickChips.clearCheck()
-
-        } else if (current != targetId) {
-
-            binding.timeQuickChips.check(targetId)
-
-        }
-
-        suppressTimeChipCallback = false
-
     }
 
 
@@ -1449,8 +1305,8 @@ class MainActivity : AppCompatActivity() {
     private fun applySmartNow() {
         // Apply "now" quick preset with a fallback city.
         val now = ZonedDateTime.now()
-        setSelectedDate(now.toLocalDate(), R.id.chipDateToday)
-        setSelectedTime(now.toLocalTime().truncatedTo(ChronoUnit.MINUTES), R.id.chipTimeNow)
+        setSelectedDate(now.toLocalDate())
+        setSelectedTime(now.toLocalTime().truncatedTo(ChronoUnit.MINUTES))
         if (binding.placeInput.text.isNullOrBlank()) {
             val city = CityDatabase.findByName(defaultCityFallback.name) ?: defaultCityFallback
             setSelectedCity(city)

@@ -89,7 +89,12 @@ class DivisionalChartsActivity : AppCompatActivity() {
     }
 
     private fun updateVargaDisplay(natal: ChartResult, varga: Varga) {
-        binding.selectedVargaTitle.text = "${varga.code} - ${VargaCalculator.vargaName(varga)}"
+        val titleParts = varga.code.split(" ", limit = 2)
+        binding.selectedVargaTitle.text = if (titleParts.size == 2) {
+            "${titleParts[0]} - ${titleParts[1]}"
+        } else {
+            varga.code
+        }
         binding.vargaDescription.text = VargaCalculator.description(varga)
         
         val vc = VargaCalculator.computeVargaChart(natal, varga, natal.ascendantDegree)

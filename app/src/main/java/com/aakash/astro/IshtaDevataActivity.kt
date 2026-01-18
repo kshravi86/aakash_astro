@@ -83,10 +83,10 @@ class IshtaDevataActivity : AppCompatActivity() {
             tvValue.setPadding(16, 12, 16, 12)
             
             tvLabel.setTextColor(getColor(R.color.secondaryText))
-            tvLabel.textAppearance = com.google.android.material.R.style.TextAppearance_Material3_LabelMedium
+            tvLabel.setTextAppearance(com.google.android.material.R.style.TextAppearance_Material3_LabelMedium)
             
             tvValue.setTextColor(if (highlight) getColor(R.color.accent_teal) else getColor(R.color.primaryText))
-            tvValue.textAppearance = com.google.android.material.R.style.TextAppearance_Material3_BodyMedium
+            tvValue.setTextAppearance(com.google.android.material.R.style.TextAppearance_Material3_BodyMedium)
             
             if (highlight) {
                 tvValue.setTypeface(tvValue.typeface, android.graphics.Typeface.BOLD)
@@ -101,11 +101,11 @@ class IshtaDevataActivity : AppCompatActivity() {
             val header = android.widget.TableRow(this)
             val h1 = TextView(this); h1.text = "CALCULATION FIELD"; h1.setTextColor(getColor(R.color.accent_gold))
             h1.setPadding(16, 8, 16, 8)
-            h1.textAppearance = com.google.android.material.R.style.TextAppearance_Material3_LabelSmall
+            h1.setTextAppearance(com.google.android.material.R.style.TextAppearance_Material3_LabelSmall)
             h1.letterSpacing = 0.1f
             val h2 = TextView(this); h2.text = "RESULT"; h2.setTextColor(getColor(R.color.accent_gold))
             h2.setPadding(16, 8, 16, 8)
-            h2.textAppearance = com.google.android.material.R.style.TextAppearance_Material3_LabelSmall
+            h2.setTextAppearance(com.google.android.material.R.style.TextAppearance_Material3_LabelSmall)
             h2.letterSpacing = 0.1f
             header.addView(h1); header.addView(h2); binding.ishtaTable.addView(header)
         }
@@ -126,11 +126,11 @@ class IshtaDevataActivity : AppCompatActivity() {
             val header = android.widget.TableRow(this)
             val h1 = TextView(this); h1.text = "CALCULATION FIELD"; h1.setTextColor(getColor(R.color.accent_purple))
             h1.setPadding(16, 8, 16, 8)
-            h1.textAppearance = com.google.android.material.R.style.TextAppearance_Material3_LabelSmall
+            h1.setTextAppearance(com.google.android.material.R.style.TextAppearance_Material3_LabelSmall)
             h1.letterSpacing = 0.1f
             val h2 = TextView(this); h2.text = "RESULT"; h2.setTextColor(getColor(R.color.accent_purple))
             h2.setPadding(16, 8, 16, 8)
-            h2.textAppearance = com.google.android.material.R.style.TextAppearance_Material3_LabelSmall
+            h2.setTextAppearance(com.google.android.material.R.style.TextAppearance_Material3_LabelSmall)
             h2.letterSpacing = 0.1f
             header.addView(h1); header.addView(h2); binding.palanaTable.addView(header)
         }

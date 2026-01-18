@@ -94,8 +94,7 @@ class SpecialLagnasActivity : AppCompatActivity() {
             applyMissingState(
                 binding.glSignValue,
                 binding.glDegreeValue,
-                binding.glNakValue,
-                binding.glHouseValue
+                binding.glNakValue
             )
             binding.glNoteValue.text = getString(R.string.special_lagna_note_ghatika)
             return
@@ -105,8 +104,8 @@ class SpecialLagnasActivity : AppCompatActivity() {
         binding.glDegreeValue.text = formatDegreeWithSign(result.longitude)
         val (nak, pada) = NakshatraCalc.fromLongitude(result.longitude)
         binding.glNakValue.text = getString(R.string.nakshatra_format, nak, pada)
-        binding.glHouseValue.text = getString(R.string.special_lagna_house_value, houseFromAsc(result.sign, chart))
-        binding.glNoteValue.text = getString(R.string.special_lagna_note_ghatika)
+        val glHouse = getString(R.string.special_lagna_house_value, houseFromAsc(result.sign, chart))
+        binding.glNoteValue.text = "${getString(R.string.special_lagna_note_ghatika)} - $glHouse"
     }
 
     private fun renderArudhaLagna(chart: ChartResult) {
@@ -115,19 +114,16 @@ class SpecialLagnasActivity : AppCompatActivity() {
         if (arudha == null) {
             applyMissingState(
                 binding.alSignValue,
-                binding.alDegreeValue,
-                binding.alNakValue,
-                binding.alHouseValue
+                binding.alNakValue
             )
             binding.alNoteValue.text = getString(R.string.special_lagna_note_arudha, getString(R.string.special_lagna_na))
             return
         }
 
         binding.alSignValue.text = arudha.padaSign.displayName
-        binding.alDegreeValue.text = getString(R.string.special_lagna_na)
         binding.alNakValue.text = getString(R.string.special_lagna_na)
-        binding.alHouseValue.text = getString(R.string.special_lagna_house_value, arudha.padaHouse)
-        binding.alNoteValue.text = getString(R.string.special_lagna_note_arudha, arudha.lord.displayName)
+        val alHouse = getString(R.string.special_lagna_house_value, arudha.padaHouse)
+        binding.alNoteValue.text = "${getString(R.string.special_lagna_note_arudha, arudha.lord.displayName)} - $alHouse"
     }
 
     private fun renderHoraLagna(chart: ChartResult, birthZdt: ZonedDateTime) {
@@ -137,8 +133,7 @@ class SpecialLagnasActivity : AppCompatActivity() {
             applyMissingState(
                 binding.hlSignValue,
                 binding.hlDegreeValue,
-                binding.hlNakValue,
-                binding.hlHouseValue
+                binding.hlNakValue
             )
             binding.hlNoteValue.text = getString(R.string.special_lagna_note_hora)
             return
@@ -148,8 +143,8 @@ class SpecialLagnasActivity : AppCompatActivity() {
         binding.hlDegreeValue.text = formatDegreeWithSign(result.longitude)
         val (nak, pada) = NakshatraCalc.fromLongitude(result.longitude)
         binding.hlNakValue.text = getString(R.string.nakshatra_format, nak, pada)
-        binding.hlHouseValue.text = getString(R.string.special_lagna_house_value, houseFromAsc(result.sign, chart))
-        binding.hlNoteValue.text = getString(R.string.special_lagna_note_hora)
+        val hlHouse = getString(R.string.special_lagna_house_value, houseFromAsc(result.sign, chart))
+        binding.hlNoteValue.text = "${getString(R.string.special_lagna_note_hora)} - $hlHouse"
     }
 
     private fun applyMissingState(vararg views: android.widget.TextView) {
@@ -198,15 +193,11 @@ class SpecialLagnasActivity : AppCompatActivity() {
             binding.glSignValue,
             binding.glDegreeValue,
             binding.glNakValue,
-            binding.glHouseValue,
             binding.alSignValue,
-            binding.alDegreeValue,
             binding.alNakValue,
-            binding.alHouseValue,
             binding.hlSignValue,
             binding.hlDegreeValue,
-            binding.hlNakValue,
-            binding.hlHouseValue
+            binding.hlNakValue
         )
     }
 

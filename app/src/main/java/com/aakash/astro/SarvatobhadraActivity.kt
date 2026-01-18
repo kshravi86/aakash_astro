@@ -127,7 +127,7 @@ class SarvatobhadraActivity : AppCompatActivity() {
                 tv.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 11f)
                 tv.setTextColor(primary)
                 tv.text = ""
-                tv.background = ContextCompat.getDrawable(this, R.drawable.glass_white_5)
+                tv.setBackgroundColor(ContextCompat.getColor(this, R.color.glass_white_5))
 
                 // Corners
                 cornerText[r to c]?.let {

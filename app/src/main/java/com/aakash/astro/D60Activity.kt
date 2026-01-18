@@ -21,11 +21,11 @@ class D60Activity : AppCompatActivity() {
             return TextView(this).apply {
                 this.text = text
                 this.setPadding(16, 12, 16, 12)
-                this.textAppearance = if (isHeader) {
+                setTextAppearance(if (isHeader) {
                     com.google.android.material.R.style.TextAppearance_Material3_LabelSmall
                 } else {
                     com.google.android.material.R.style.TextAppearance_Material3_BodyMedium
-                }
+                })
                 this.setTextColor(textColor ?: if (isHeader) getColor(R.color.accent_blue) else getColor(R.color.primaryText))
                 if (isHeader) {
                     this.letterSpacing = 0.1f

@@ -59,7 +59,6 @@ class JaiminiKarakasActivity : AppCompatActivity() {
             return
         }
 
-        binding.emptyState.isVisible = false
         val ak = karakas.firstOrNull()?.planet?.displayName ?: getString(R.string.karaka_summary_missing)
         val amk = karakas.getOrNull(1)?.planet?.displayName ?: getString(R.string.karaka_summary_missing)
         val bk = karakas.getOrNull(2)?.planet?.displayName ?: getString(R.string.karaka_summary_missing)
@@ -95,7 +94,6 @@ class JaiminiKarakasActivity : AppCompatActivity() {
         binding.summaryPrimary.text = getString(R.string.karaka_summary_placeholder)
         binding.summarySecondary.text = getString(R.string.karaka_summary_secondary_placeholder)
         binding.highlightChips.isVisible = false
-        binding.emptyState.isVisible = true
         binding.karakaList.removeAllViews()
     }
 

@@ -47,11 +47,11 @@ class ArudhaPadasActivity : AppCompatActivity() {
             return TextView(this).apply {
                 this.text = text
                 this.setPadding(16, 12, 16, 12)
-                this.textAppearance = if (isHeader) {
+                setTextAppearance(if (isHeader) {
                     com.google.android.material.R.style.TextAppearance_Material3_LabelSmall
                 } else {
                     com.google.android.material.R.style.TextAppearance_Material3_BodyMedium
-                }
+                })
                 this.setTextColor(if (isHeader) getColor(R.color.accent_blue) else getColor(R.color.primaryText))
                 if (isHeader) {
                     this.letterSpacing = 0.1f
@@ -63,7 +63,7 @@ class ArudhaPadasActivity : AppCompatActivity() {
 
         fun addRow(cells: List<String>) {
             val row = TableRow(this)
-            row.background = getDrawable(R.drawable.glass_white_5) // Add subtle row background if needed
+            row.setBackgroundColor(getColor(R.color.glass_white_5)) // Add subtle row background if needed
             cells.forEachIndexed { index, text ->
                 val tv = createCell(text)
                 if (index > 0) tv.gravity = android.view.Gravity.START

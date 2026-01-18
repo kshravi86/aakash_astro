@@ -47,12 +47,6 @@ class YogiActivity : AppCompatActivity() {
             adapter = detailAdapter
         }
 
-        binding.yogiScroll.setOnScrollChangeListener { _, _, scrollY, _, _ ->
-            val collapseRange = resources.displayMetrics.density * 240f
-            val progress = (scrollY / collapseRange).coerceIn(0f, 1f)
-            binding.yogiMotionLayout.progress = progress
-        }
-
         binding.ctaShare.setOnClickListener { shareCurrentSummary() }
         binding.ctaPin.setOnClickListener { pinCurrentSummary() }
 
@@ -117,7 +111,6 @@ class YogiActivity : AppCompatActivity() {
         )
         currentSections = sections
         detailAdapter.submitList(sections)
-        binding.emptyState.isVisible = false
         binding.detailList.isVisible = true
         enableCtas(true)
     }
@@ -245,8 +238,6 @@ class YogiActivity : AppCompatActivity() {
         binding.summaryPrimary.text = getString(R.string.yogi_summary_title)
         binding.summarySecondary.text = message ?: getString(R.string.yogi_empty_state)
         binding.highlightChips.isVisible = false
-        binding.emptyState.isVisible = true
-        binding.emptyState.text = message ?: getString(R.string.yogi_empty_state)
         binding.detailList.isVisible = false
         currentSections = emptyList()
         enableCtas(false)
