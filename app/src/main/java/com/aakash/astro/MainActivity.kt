@@ -113,6 +113,13 @@ class MainActivity : AppCompatActivity() {
         val epochMillis: Long = birthDetails.dateTime.toInstant().toEpochMilli()
     }
 
+    private data class ActionSection(
+        val title: String,
+        val subtitle: String,
+        val accentColor: Int,
+        val tiles: List<ActionTile>
+    )
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -124,6 +131,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(binding.topAppBar)
+        updateEngineIndicator()
 
 
 
@@ -217,17 +225,39 @@ class MainActivity : AppCompatActivity() {
         )
 
         val categories = listOf(
-            foundationsLabel to foundations,
-            predictiveLabel to predictive,
-            utilitiesLabel to utilities
+            ActionSection(
+                foundationsLabel,
+                getString(R.string.category_foundations_blurb),
+                R.color.accent_gold,
+                foundations
+            ),
+            ActionSection(
+                predictiveLabel,
+                getString(R.string.category_predictive_blurb),
+                R.color.accent_teal,
+                predictive
+            ),
+            ActionSection(
+                utilitiesLabel,
+                getString(R.string.category_utilities_blurb),
+                R.color.accent_orange,
+                utilities
+            )
         )
 
         val entries = mutableListOf<ActionGridItem>()
         actionTileLookup.clear()
-        categories.forEach { (header, tiles) ->
-            if (tiles.isEmpty()) return@forEach
-            entries.add(ActionGridItem.Header(header))
-            tiles.forEach { tile ->
+        categories.forEach { section ->
+            if (section.tiles.isEmpty()) return@forEach
+            entries.add(
+                ActionGridItem.Header(
+                    title = section.title,
+                    subtitle = section.subtitle,
+                    count = section.tiles.size,
+                    accentColor = section.accentColor
+                )
+            )
+            section.tiles.forEach { tile ->
                 actionTileLookup[tile.id] = tile
                 entries.add(ActionGridItem.Tile(tile))
             }
@@ -303,19 +333,18 @@ class MainActivity : AppCompatActivity() {
         }
         container.visibility = View.VISIBLE
         tiles.forEach { tile ->
+            val accent = ContextCompat.getColor(this, tile.accentColor)
             val chip = Chip(this).apply {
                 text = tile.title
                 isCheckable = false
                 setEnsureMinTouchTargetSize(false)
-                
-                // Secondary Glass Style
-                chipBackgroundColor = ColorStateList.valueOf(getColor(R.color.glass_white_5))
-                chipStrokeColor = ColorStateList.valueOf(getColor(R.color.glass_white_10))
+
+                chipBackgroundColor = ColorStateList.valueOf(ColorUtils.setAlphaComponent(accent, 34))
+                chipStrokeColor = ColorStateList.valueOf(ColorUtils.setAlphaComponent(accent, 92))
                 chipStrokeWidth = dp(1).toFloat()
-                
+
                 setTextColor(getColor(R.color.primaryText))
                 chipIcon = ContextCompat.getDrawable(context, tile.iconRes)
-                val accent = ContextCompat.getColor(context, tile.accentColor)
                 chipIconTint = ColorStateList.valueOf(accent)
             }
             chip.setOnClickListener { handleActionTileClick(tile) }
@@ -644,9 +673,11 @@ class MainActivity : AppCompatActivity() {
         // Provide quick smart presets for date/time/place.
         binding.chipSmartNow.setOnClickListener { applySmartNow() }
         binding.chipSmartLast.setOnClickListener { applySmartLast() }
+        binding.chipSmartSample.setOnClickListener { applySampleBirth() }
         binding.chipPlaceBengaluru.setOnClickListener { applyPlaceShortcut("Bengaluru") }
         binding.chipPlaceDelhi.setOnClickListener { applyPlaceShortcut("Delhi") }
         binding.chipPlaceMumbai.setOnClickListener { applyPlaceShortcut("Mumbai") }
+        binding.chipPlaceChennai.setOnClickListener { applyPlaceShortcut("Chennai") }
     }
 
     private fun setSelectedDate(date: LocalDate?) {
@@ -829,14 +860,38 @@ class MainActivity : AppCompatActivity() {
 
             date == null && time == null -> getString(R.string.date_time_summary_empty)
 
-            date != null && time == null -> "${getString(R.string.label_birth_date)}: $dateText"
+            date != null && time == null -> dateText
 
-            date == null && time != null -> "${getString(R.string.label_birth_time)}: $timeText"
+            date == null && time != null -> timeText
 
-            else -> "$dateText | $timeText"
+            else -> "$dateText  •  $timeText"
 
         }
 
+    }
+
+    private fun updateEngineIndicator(isAccurate: Boolean? = null, isLoading: Boolean = false) {
+        // Keep the hero engine pill visually aligned with the calculation state.
+        val labelRes = when {
+            isLoading -> R.string.engine_label_loading
+            isAccurate == true -> R.string.engine_label_swiss
+            isAccurate == false -> R.string.engine_label_builtin
+            else -> R.string.engine_indicator_placeholder
+        }
+        val colorRes = when {
+            isLoading -> R.color.accent_blue
+            isAccurate == true -> R.color.accent_teal
+            isAccurate == false -> R.color.accent_orange
+            else -> R.color.accent_gold
+        }
+        val accent = ContextCompat.getColor(this, colorRes)
+        binding.engineIndicator.text = getString(labelRes)
+        binding.engineIndicator.setTextColor(accent)
+        binding.engineIndicator.chipBackgroundColor =
+            ColorStateList.valueOf(ColorUtils.setAlphaComponent(accent, 34))
+        binding.engineIndicator.chipStrokeColor =
+            ColorStateList.valueOf(ColorUtils.setAlphaComponent(accent, 96))
+        binding.engineIndicator.chipIconTint = ColorStateList.valueOf(accent)
     }
 
     private inline fun withBirthContext(
@@ -912,7 +967,9 @@ class MainActivity : AppCompatActivity() {
         binding.root.clearFocus()
 
         withBirthContext(notifyOnMissing = true) { ctx ->
+            binding.generateButton.isEnabled = false
             binding.loadingOverlay.visibility = View.VISIBLE
+            updateEngineIndicator(isLoading = true)
 
             // Perform calculation after a tiny delay for visual feedback of "intelligence"
             uiHandler.postDelayed({
@@ -936,6 +993,7 @@ class MainActivity : AppCompatActivity() {
                             }
 
                             if (chart == null) {
+                                updateEngineIndicator()
                                 Snackbar.make(
                                     binding.root,
                                     getString(R.string.calculation_error),
@@ -958,16 +1016,14 @@ class MainActivity : AppCompatActivity() {
                                 .start()
 
                             AppLog.d("Chart generated using ${if (accurate != null) "swiss" else "fallback"} engine.")
-                            binding.engineIndicator.text = if (accurate != null) {
-                                getString(R.string.engine_label_swiss)
-                            } else {
-                                getString(R.string.engine_label_builtin)
-                            }
-                            ctx.birthDetails.name?.let {
-                                binding.subtitleText.text = getString(R.string.chart_generated_for, it)
-                            }
+                            updateEngineIndicator(isAccurate = accurate != null)
+                            binding.subtitleText.text = ctx.birthDetails.name
+                                ?.takeIf { it.isNotBlank() }
+                                ?.let { getString(R.string.chart_generated_for, it) }
+                                ?: getString(R.string.hero_subtitle)
                             scrollAndHighlightChart()
                         } finally {
+                            binding.generateButton.isEnabled = true
                             binding.loadingOverlay.visibility = View.GONE
                         }
                     }
@@ -1097,6 +1153,7 @@ class MainActivity : AppCompatActivity() {
         binding.planetContainer.removeAllViews()
 
         val inflater: LayoutInflater = LayoutInflater.from(this)
+        var rowIndex = 0
 
         // Add Ascendant (Lagna) as a row
         run {
@@ -1128,8 +1185,9 @@ class MainActivity : AppCompatActivity() {
 
             // Set icon tint for Ascendant (distinct color)
             itemBinding.planetIcon.setColorFilter(getColor(R.color.accent_teal))
-            
+
             binding.planetContainer.addView(itemBinding.root)
+            animateResultRow(itemBinding.root, rowIndex++)
         }
 
         chart.planets.forEach { planet ->
@@ -1170,6 +1228,7 @@ class MainActivity : AppCompatActivity() {
             itemBinding.planetIcon.setColorFilter(tintColor)
 
             binding.planetContainer.addView(itemBinding.root)
+            animateResultRow(itemBinding.root, rowIndex++)
         }
 
         // Finally, render the Vedic chart (South Indian style) at the end
@@ -1180,6 +1239,19 @@ class MainActivity : AppCompatActivity() {
             .setAction("View") { scrollAndHighlightChart() }
             .show()
         scrollAndHighlightChart()
+    }
+
+    private fun animateResultRow(view: View, index: Int) {
+        // Fade and lift rows in with a short stagger so results feel progressive.
+        view.alpha = 0f
+        view.translationY = dp(10).toFloat()
+        view.animate()
+            .alpha(1f)
+            .translationY(0f)
+            .setStartDelay(index * 32L)
+            .setDuration(260L)
+            .setInterpolator(android.view.animation.DecelerateInterpolator())
+            .start()
     }
 
 
@@ -1292,7 +1364,7 @@ class MainActivity : AppCompatActivity() {
 
             val lon = String.format("%.4f", c.longitude)
 
-            "${c.name}: ${lat}, ${lon}"
+            "${c.name} • $lat, $lon"
 
         } else ""
 

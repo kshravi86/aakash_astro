@@ -5,72 +5,97 @@
     android:id="@+id/tileCard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
+    android:layout_margin="6dp"
     android:foreground="?attr/selectableItemBackground"
     android:stateListAnimator="@animator/card_touch_feedback"
     app:cardBackgroundColor="@android:color/transparent"
     app:cardCornerRadius="24dp"
     app:cardElevation="0dp"
-    app:strokeColor="@color/glass_white_10"
+    app:strokeColor="@color/glass_white_20"
     app:strokeWidth="1dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="160dp"
+        android:layout_height="184dp"
         android:background="@drawable/bg_action_tile"
-        android:padding="16dp">
+        android:padding="18dp">
 
-        <ImageView
-            android:id="@+id/icon"
-            android:layout_width="44dp"
-            android:layout_height="44dp"
-            android:padding="10dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/ic_star_24" />
+        <View
+            android:id="@+id/tileGlow"
+            android:layout_width="118dp"
+            android:layout_height="118dp"
+            android:alpha="0.88"
+            android:background="@drawable/bg_hero_glow"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/categoryBadge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:letterSpacing="0.1"
-            android:textAllCaps="true"
+            android:background="@drawable/bg_chip"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="5dp"
             android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
-            android:textColor="@color/tertiaryText"
-            android:textSize="10sp"
-            app:layout_constraintBottom_toBottomOf="@id/icon"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/icon"
+            android:textColor="@color/secondaryText"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             tools:text="Foundations" />
+
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_circle_orange"
+            android:padding="12dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/categoryBadge"
+            tools:src="@drawable/ic_star_24" />
 
         <TextView
             android:id="@+id/title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="14dp"
             android:ellipsize="end"
-            android:maxLines="1"
-            android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
+            android:maxLines="2"
+            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
             android:textColor="@color/primaryText"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/icon"
+            app:layout_constraintStart_toEndOf="@id/icon"
+            app:layout_constraintTop_toTopOf="@id/icon"
             tools:text="Vimshottari Dasha" />
 
         <TextView
             android:id="@+id/subtitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="8dp"
             android:ellipsize="end"
-            android:maxLines="2"
+            android:maxLines="3"
             android:textAppearance="@style/TextAppearance.Material3.BodySmall"
             android:textColor="@color/secondaryText"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/title"
-            tools:text="Deep time-period analysis for predictions" />
+            app:layout_constraintStart_toStartOf="@id/icon"
+            app:layout_constraintTop_toBottomOf="@id/icon"
+            tools:text="Core timing view for Mahadasha and Antardasha periods." />
+
+        <TextView
+            android:id="@+id/openLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_chip"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="6dp"
+            android:text="@string/action_tile_cta"
+            android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
+            android:textColor="@color/primaryText"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

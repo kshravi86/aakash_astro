@@ -1,30 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- Bottom layer: Deep translucent base -->
     <item>
         <shape android:shape="rectangle">
             <corners android:radius="24dp" />
-            <solid android:color="#E613111C" />
+            <solid android:color="@color/surface_card_glass" />
         </shape>
     </item>
-    <!-- Middle layer: Subtle top-to-bottom sheen -->
+
     <item>
         <shape android:shape="rectangle">
             <corners android:radius="24dp" />
             <gradient
-                android:angle="270"
-                android:startColor="#1AFFFFFF"
-                android:centerColor="@android:color/transparent"
+                android:angle="315"
+                android:startColor="#22FFF8EE"
+                android:centerColor="#10D9A45D"
                 android:endColor="@android:color/transparent" />
         </shape>
     </item>
-    <!-- Top layer: Crisp glass border -->
+
+    <item android:bottom="112dp">
+        <shape android:shape="rectangle">
+            <corners android:radius="24dp" />
+            <gradient
+                android:angle="270"
+                android:startColor="#12FFFFFF"
+                android:endColor="@android:color/transparent" />
+        </shape>
+    </item>
+
     <item>
         <shape android:shape="rectangle">
             <corners android:radius="24dp" />
             <stroke
                 android:width="1.2dp"
-                android:color="#26FFFFFF" />
+                android:color="@color/glass_white_20" />
         </shape>
     </item>
 </layer-list>

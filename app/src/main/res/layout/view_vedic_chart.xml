@@ -11,7 +11,7 @@
         android:layout_gravity="center"
         android:alpha="0.3"
         android:background="@drawable/bg_hero_glow"
-        android:backgroundTint="@color/accent_purple" />
+        android:backgroundTint="@color/accent_gold" />
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
@@ -219,11 +219,11 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:text="@string/chart_share_cta"
-                        android:textColor="@color/accent_blue"
+                        android:textColor="@color/accent_teal"
                         android:textSize="12sp"
                         app:icon="@drawable/ic_notifications_black_24dp"
                         app:iconSize="14dp"
-                        app:iconTint="@color/accent_blue"
+                        app:iconTint="@color/accent_teal"
                         android:paddingBottom="0dp"
                         android:paddingTop="0dp" />
                 </LinearLayout>

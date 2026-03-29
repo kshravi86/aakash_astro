@@ -1,74 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Brand Colors - Vibrant Violet & Gold Theme -->
-    <color name="brand_primary">#8B5CF6</color> <!-- Violet 500 -->
-    <color name="brand_primary_variant">#6D28D9</color> <!-- Violet 700 -->
-    <color name="brand_secondary">#F59E0B</color> <!-- Amber 500 -->
+    <color name="brand_primary">#D9A45D</color>
+    <color name="brand_primary_variant">#A77438</color>
+    <color name="brand_secondary">#56CAB9</color>
 
-    <!-- Standard Material Colors -->
-    <color name="purple_200">#A78BFA</color>
-    <color name="purple_500">#8B5CF6</color>
-    <color name="purple_700">#6D28D9</color>
-    <color name="teal_200">#2DD4BF</color>
-    <color name="teal_700">#0F766E</color>
+    <color name="purple_200">#D9A6BF</color>
+    <color name="purple_500">#B97A96</color>
+    <color name="purple_700">#8C536C</color>
+    <color name="teal_200">#78D5CA</color>
+    <color name="teal_700">#1F7B75</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <!-- App Backgrounds - Deep Space Gradient -->
-    <color name="background_gradient_start">#050508</color> <!-- Almost Black -->
-    <color name="background_gradient_mid">#13111C</color> <!-- Deep Purple Hint -->
-    <color name="background_gradient_end">#251046</color> <!-- Rich Violet Bottom -->
+    <color name="background_gradient_start">#04131C</color>
+    <color name="background_gradient_mid">#0B1C27</color>
+    <color name="background_gradient_end">#162737</color>
 
-    <!-- Text Colors -->
-    <color name="primaryText">#FFFFFF</color>
-    <color name="secondaryText">#94A3B8</color> <!-- Slate 400 -->
-    <color name="tertiaryText">#64748B</color> <!-- Slate 500 -->
+    <color name="primaryText">#FFF8EE</color>
+    <color name="secondaryText">#A8B6C2</color>
+    <color name="tertiaryText">#70818F</color>
 
-    <!-- Accents -->
-    <color name="accent_orange">#FB923C</color> <!-- Orange 400 -->
-    <color name="accent_blue">#38BDF8</color>   <!-- Sky 400 -->
-    <color name="accent_gold">#FBBF24</color>   <!-- Amber 400 -->
-    <color name="accent_teal">#2DD4BF</color>   <!-- Teal 400 -->
-    <color name="accent_purple">#C084FC</color> <!-- Purple 400 -->
-    <color name="accent_pink">#F472B6</color>   <!-- Pink 400 -->
+    <color name="accent_orange">#E88B52</color>
+    <color name="accent_blue">#66C0E8</color>
+    <color name="accent_gold">#E2BC6B</color>
+    <color name="accent_teal">#56CAB9</color>
+    <color name="accent_purple">#D284A7</color>
+    <color name="accent_pink">#F39A88</color>
 
-    <!-- Cards & Surfaces -->
-    <color name="card_bg">#1A1A2E</color>       <!-- Dark Navy/Purple -->
-    <color name="card_bg_elevated">#24243E</color>
-    <color name="surface_variant">#2E2E4A</color>
+    <color name="card_bg">#0F1D29</color>
+    <color name="card_bg_elevated">#152736</color>
+    <color name="surface_variant">#203646</color>
 
-    <!-- Strokes & Dividers -->
-    <color name="card_stroke">#2E2E44</color>
-    <color name="card_stroke_strong">#6D28D9</color> <!-- Violet 700 stroke -->
-    <color name="divider">#1FFFFFFF</color>
+    <color name="card_stroke">#2B4656</color>
+    <color name="card_stroke_strong">#D9A45D</color>
+    <color name="divider">#26FFF8EE</color>
 
-    <!-- Special UI Elements -->
-    <color name="hero_glow_center">#508B5CF6</color> <!-- Violet Glow -->
-    
-    <!-- Glassmorphism Palette -->
-    <color name="glass_white_5">#0DFFFFFF</color>
-    <color name="glass_white_10">#1AFFFFFF</color>
-    <color name="glass_white_20">#33FFFFFF</color>
-    <color name="glass_violet_20">#338B5CF6</color>
-    <color name="glass_amber_20">#33F59E0B</color>
-    
-    <!-- Glow Colors -->
-    <color name="glow_violet">#408B5CF6</color>
-    <color name="glow_amber">#40F59E0B</color>
-    <color name="glow_teal">#402DD4BF</color>
-    <color name="surface_card_glass">#CC13111C</color> <!-- Translucent Deep Purple -->
+    <color name="hero_glow_center">#55D9A45D</color>
 
-    <!-- Chip Backgrounds -->
-    <color name="value_chip_high_bg">#2638BDF8</color>
-    <color name="value_chip_neutral_bg">#1AFFFFFF</color>
-    <color name="value_chip_low_bg">#26FB923C</color>
+    <color name="glass_white_5">#0DFFF8EE</color>
+    <color name="glass_white_10">#18FFF8EE</color>
+    <color name="glass_white_20">#30FFF8EE</color>
+    <color name="glass_violet_20">#24D9A45D</color>
+    <color name="glass_amber_20">#2456CAB9</color>
 
-    <!-- Tara Bala result colors -->
-    <color name="planet_favorable">#34D399</color>   <!-- Emerald 400 -->
-    <color name="planet_unfavorable">#F87171</color> <!-- Red 400 -->
-    <color name="planet_neutral">#94A3B8</color>
-    <color name="planet_retrograde">#FBBF24</color>
+    <color name="glow_violet">#36D9A45D</color>
+    <color name="glow_amber">#30E88B52</color>
+    <color name="glow_teal">#3056CAB9</color>
+    <color name="surface_card_glass">#E6101E29</color>
 
-    <color name="alert_orange_translucent">#33FB923C</color>
-    <color name="alert_red_translucent">#33F87171</color>
+    <color name="value_chip_high_bg">#2666C0E8</color>
+    <color name="value_chip_neutral_bg">#16FFF8EE</color>
+    <color name="value_chip_low_bg">#26E88B52</color>
+
+    <color name="planet_favorable">#4AD29A</color>
+    <color name="planet_unfavorable">#F17777</color>
+    <color name="planet_neutral">#93A4B2</color>
+    <color name="planet_retrograde">#E2BC6B</color>
+
+    <color name="alert_orange_translucent">#2AE88B52</color>
+    <color name="alert_red_translucent">#2AF17777</color>
 </resources>
