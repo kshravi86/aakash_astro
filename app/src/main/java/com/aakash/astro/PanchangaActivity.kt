@@ -11,6 +11,8 @@ import com.aakash.astro.astrology.PanchangaCalc
 import com.aakash.astro.databinding.ActivityPanchangaBinding
 import java.time.Instant
 import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+import java.util.Locale
 
 class PanchangaActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPanchangaBinding
@@ -48,6 +50,9 @@ class PanchangaActivity : AppCompatActivity() {
         val lat = intent.getDoubleExtra(EXTRA_LAT, 0.0)
         val lon = intent.getDoubleExtra(EXTRA_LON, 0.0)
         val isToday = intent.getBooleanExtra(EXTRA_IS_TODAY, false)
+        val displayDate = DateTimeFormatter.ofPattern("dd MMM yyyy", Locale.getDefault()).format(Instant.ofEpochMilli(epochMillis).atZone(zoneId))
+        val displayTime = DateTimeFormatter.ofPattern("hh:mm a", Locale.getDefault()).format(Instant.ofEpochMilli(epochMillis).atZone(zoneId))
+        binding.contextLine.text = getString(R.string.panchanga_context_format, displayDate, displayTime, zoneId.id)
 
         if (isToday) {
             binding.topBar.title = getString(R.string.todays_panchanga_title)
@@ -87,7 +92,7 @@ class PanchangaActivity : AppCompatActivity() {
         binding.karanaValue.text = p.karana
         binding.karanaLordValue.text = p.karanaLord
 
-        binding.engineNote.text = "Engine: Swiss Ephemeris"
+        binding.engineNote.text = "${getString(R.string.hero_engine_label)} • ${getString(R.string.engine_label_swiss)}"
 
         // Tooltips for yoga/karana
         if (p.yogaLord.isNotBlank() && p.yogaLord != "—") {

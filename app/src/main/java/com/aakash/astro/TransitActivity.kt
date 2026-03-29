@@ -1,10 +1,13 @@
 package com.aakash.astro
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.LayoutInflater
+import androidx.core.graphics.ColorUtils
 import androidx.appcompat.app.AppCompatActivity
 import com.aakash.astro.astrology.AccurateCalculator
 import com.aakash.astro.astrology.BirthDetails
+import com.aakash.astro.astrology.Planet
 import com.aakash.astro.astrology.ZodiacSign
 import com.aakash.astro.databinding.ActivityTransitBinding
 import com.aakash.astro.databinding.ItemTransitPlanetBinding
@@ -98,7 +101,27 @@ class TransitActivity : AppCompatActivity() {
                 itemBinding.natalHouseInfo.text = "Natal chart not available"
             }
 
+            val accent = when (transitPlanet.planet) {
+                Planet.JUPITER, Planet.VENUS, Planet.MOON -> getColor(R.color.accent_gold)
+                Planet.SATURN, Planet.RAHU, Planet.KETU -> getColor(R.color.accent_purple)
+                Planet.MARS, Planet.SUN -> getColor(R.color.accent_orange)
+                else -> getColor(R.color.accent_teal)
+            }
+            itemBinding.planetName.setTextColor(accent)
+            itemBinding.natalHouseInfo.setTextColor(accent)
+            itemBinding.natalHouseInfo.backgroundTintList =
+                ColorStateList.valueOf(ColorUtils.setAlphaComponent(accent, 28))
+
             binding.transitPlanetContainer.addView(itemBinding.root)
+            itemBinding.root.alpha = 0f
+            itemBinding.root.translationY = 24f
+            itemBinding.root.animate()
+                .alpha(1f)
+                .translationY(0f)
+                .setStartDelay(binding.transitPlanetContainer.childCount * 24L)
+                .setDuration(260L)
+                .setInterpolator(android.view.animation.DecelerateInterpolator())
+                .start()
         }
     }
 

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.graphics.ColorUtils
 import com.aakash.astro.astrology.*
 import com.aakash.astro.databinding.ActivityDashaBinding
 import com.aakash.astro.databinding.ItemDashaBinding
@@ -61,6 +62,15 @@ class DashaActivity : AppCompatActivity() {
             item.dashaRange.text = getString(R.string.dasha_range_format, fmt.format(p.start), fmt.format(p.end))
             item.root.setOnClickListener { toggleAntar(item, p, inflater, fmt) }
             binding.dashaContainer.addView(item.root)
+            item.root.alpha = 0f
+            item.root.translationY = dp(10).toFloat()
+            item.root.animate()
+                .alpha(1f)
+                .translationY(0f)
+                .setStartDelay(binding.dashaContainer.childCount * 22L)
+                .setDuration(240L)
+                .setInterpolator(android.view.animation.DecelerateInterpolator())
+                .start()
             items += item to p
         }
 
@@ -178,9 +188,12 @@ class DashaActivity : AppCompatActivity() {
     }
 
     private fun highlightCard(item: ItemDashaBinding, isMain: Boolean = false) {
+        val accent = getColor(if (isMain) R.color.accent_gold else R.color.accent_teal)
         item.dashaCard.strokeWidth = dp(1.5f).toInt()
-        item.dashaCard.strokeColor = getColor(if (isMain) R.color.accent_gold else R.color.accent_teal)
-        item.dashaCard.setCardBackgroundColor(getColor(R.color.glass_white_5))
+        item.dashaCard.strokeColor = accent
+        item.dashaCard.setCardBackgroundColor(ColorUtils.setAlphaComponent(accent, 28))
+        item.dashaLord.setTextColor(accent)
+        item.dashaRange.setTextColor(accent)
     }
 
     private fun dp(value: Float): Float {

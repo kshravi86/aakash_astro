@@ -23,6 +23,7 @@ class SavedHoroscopesActivity : AppCompatActivity() {
         if (list.isEmpty()) {
             binding.emptyView.text = getString(R.string.saved_empty)
             binding.emptyView.visibility = android.view.View.VISIBLE
+            binding.listContainer.visibility = android.view.View.GONE
             return
         }
         val fmt = DateTimeFormatter.ofPattern("dd MMM yyyy, hh:mm a")
@@ -58,6 +59,15 @@ class SavedHoroscopesActivity : AppCompatActivity() {
                 }
             }
             binding.listContainer.addView(item)
+            item.alpha = 0f
+            item.translationY = 24f
+            item.animate()
+                .alpha(1f)
+                .translationY(0f)
+                .setStartDelay(binding.listContainer.childCount * 24L)
+                .setDuration(260L)
+                .setInterpolator(android.view.animation.DecelerateInterpolator())
+                .start()
         }
     }
 }
