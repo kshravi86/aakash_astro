@@ -4,20 +4,39 @@ import java.time.ZonedDateTime
 import kotlin.math.abs
 import kotlin.math.min
 
+/**
+ * Six-fold planetary strength scores for a single planet.
+ * All component values are expressed in Shashtiamsas (sixtieths of a rupa),
+ * consistent with classical Parashari Shadbala convention.
+ */
 data class ShadbalaValues(
     val planet: Planet,
     val position: PlanetPosition,
+    /** Naisargika (natural/inherent) bala — fixed per planet, independent of the chart. */
     val naisargika: Double,
-    val sthana: Double,   // Uccha + Saptavargaja + Ojayugmariamsa + Kendradi + Drekkana
-    val dig: Double,      // directional strength (0..60)
-    val kala: Double,     // placeholder (0..60)
-    val cheshta: Double,  // retrograde-based approximation (0..60)
-    val drik: Double,     // placeholder (0..60)
+    /** Sthana bala = Uccha + Saptavargaja + Ojayugmariamsa + Kendradi + Drekkana. */
+    val sthana: Double,
+    /** Dig bala — directional strength; peaks in the planet's preferred quadrant (0–60). */
+    val dig: Double,
+    /** Kala bala — temporal strength based on birth time factors (0–60). */
+    val kala: Double,
+    /** Cheshta bala — motional strength; retrograde planets score higher (0–60). */
+    val cheshta: Double,
+    /** Drik bala — aspectual strength from benefic/malefic aspects (0–60). */
+    val drik: Double,
     val total: Double
 )
 
+/**
+ * Calculates Shadbala ("six-fold strength") for the seven classical planets
+ * (Sun through Saturn). Rahu and Ketu are excluded as they have no Shadbala
+ * in classical texts.
+ *
+ * Reference: Brihat Parashara Hora Shastra, chapters on Shadbala.
+ */
 object ShadbalaCalculator {
 
+    /** Returns [ShadbalaValues] for each of the seven classical planets in the [chart]. */
     fun compute(chart: ChartResult, birthDateTime: ZonedDateTime? = null): List<ShadbalaValues> {
         val seven = chart.planets.filter { it.planet in setOf(
             Planet.SUN, Planet.MOON, Planet.MERCURY, Planet.VENUS, Planet.MARS, Planet.JUPITER, Planet.SATURN

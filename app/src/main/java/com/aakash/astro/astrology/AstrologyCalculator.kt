@@ -10,6 +10,7 @@ import kotlin.math.sqrt
 
 private const val J2000 = 2451545.0
 
+/** All inputs needed to cast a birth chart. */
 data class BirthDetails(
     val name: String?,
     val dateTime: ZonedDateTime,
@@ -17,22 +18,27 @@ data class BirthDetails(
     val longitude: Double
 )
 
+/** Sidereal longitude and house placement of a single planet. */
 data class PlanetPosition(
     val planet: Planet,
+    /** Sidereal ecliptic longitude in degrees [0, 360). */
     val degree: Double,
     val sign: ZodiacSign,
+    /** Whole-sign house number (1–12), counted from the ascendant. */
     val house: Int,
     val isRetrograde: Boolean = false
 ) {
     val name: String = planet.displayName
 }
 
+/** Whole-sign house: its number (1–12), starting degree, and occupying sign. */
 data class HouseInfo(
     val number: Int,
     val startDegree: Double,
     val sign: ZodiacSign
 )
 
+/** Complete birth chart: ascendant, twelve houses, and all planetary positions. */
 data class ChartResult(
     val ascendantDegree: Double,
     val ascendantSign: ZodiacSign,
@@ -75,6 +81,13 @@ enum class ZodiacSign(val displayName: String, val symbol: String) {
     }
 }
 
+/**
+ * Built-in Vedic chart generator based on VSOP87-derived mean orbital elements.
+ *
+ * Accuracy is sufficient for most astrological work (~0.5° typical error) without
+ * requiring the Swiss Ephemeris library. Used as the fallback when
+ * [AccurateCalculator] cannot load the SwissEph JAR.
+ */
 class AstrologyCalculator {
 
     fun generateChart(details: BirthDetails): ChartResult {

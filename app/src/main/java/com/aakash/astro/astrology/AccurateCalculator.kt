@@ -5,14 +5,31 @@ import java.time.ZoneOffset
 import java.time.ZonedDateTime
 import kotlin.math.floor
 
+/**
+ * High-accuracy chart generator that delegates to the Swiss Ephemeris library
+ * (loaded at runtime via reflection so the JAR remains an optional dependency).
+ *
+ * Returns `null` when the library is absent on the classpath — callers should
+ * fall back to [AstrologyCalculator] in that case.
+ */
 class AccurateCalculator {
     @Volatile private var ephePath: String? = null
 
+    /**
+     * Tells Swiss Ephemeris where to find its data files on disk.
+     * Must be called before [generateChart] when the files were copied to
+     * internal storage by [EphemerisPreparer].
+     */
     fun setEphePath(path: String) {
         ephePath = if (path.endsWith("/")) path else "$path/"
-        AppLog.d("Ephemeris path configured.")
+        AppLog.d("Swiss Ephemeris data path set to $ephePath")
     }
 
+    /**
+     * Computes a sidereal (Lahiri ayanamsa) Vedic birth chart for the given
+     * [details]. Returns `null` if Swiss Ephemeris is not on the classpath or
+     * if computation fails for any reason.
+     */
     fun generateChart(details: BirthDetails): ChartResult? = try {
         val sweConst = Class.forName("swisseph.SweConst")
         val swissEphClass = Class.forName("swisseph.SwissEph")
@@ -128,10 +145,10 @@ class AccurateCalculator {
     } catch (t: Throwable) {
         when (t) {
             is ClassNotFoundException, is NoClassDefFoundError -> {
-                AppLog.d("Swiss Ephemeris not available; returning null.")
+                AppLog.d("Swiss Ephemeris JAR not on classpath — falling back to built-in solver.")
             }
             else -> {
-                AppLog.w("Swiss Ephemeris calculation failed.", t)
+                AppLog.w("Swiss Ephemeris chart calculation failed for ${details.dateTime}.", t)
             }
         }
         null
