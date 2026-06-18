@@ -17,8 +17,8 @@
     <color name="background_gradient_end">#162737</color>
 
     <color name="primaryText">#FFF8EE</color>
-    <color name="secondaryText">#A8B6C2</color>
-    <color name="tertiaryText">#70818F</color>
+    <color name="secondaryText">#BBC8D3</color>
+    <color name="tertiaryText">#8A9BAA</color>
 
     <color name="accent_orange">#E88B52</color>
     <color name="accent_blue">#66C0E8</color>
@@ -56,6 +56,18 @@
     <color name="planet_unfavorable">#F17777</color>
     <color name="planet_neutral">#93A4B2</color>
     <color name="planet_retrograde">#E2BC6B</color>
+
+    <!-- Per-planet icon accent colours (used in planet position list) -->
+    <color name="planet_sun">#E2A942</color>
+    <color name="planet_moon">#7AAFD4</color>
+    <color name="planet_mars">#D96060</color>
+    <color name="planet_mercury">#5AB88A</color>
+    <color name="planet_jupiter">#C49A3A</color>
+    <color name="planet_venus">#C87FAA</color>
+    <color name="planet_saturn">#7B85C0</color>
+    <color name="planet_rahu">#7A9BAE</color>
+    <color name="planet_ketu">#A8886A</color>
+    <color name="planet_lagna">#56CAB9</color>
 
     <color name="alert_orange_translucent">#2AE88B52</color>
     <color name="alert_red_translucent">#2AF17777</color>
