@@ -19,6 +19,7 @@ import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.ColorUtils
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
@@ -1183,8 +1184,7 @@ class MainActivity : AppCompatActivity() {
                 itemBinding.vargottamaStatus.visibility = android.view.View.GONE
             }
 
-            // Set icon tint for Ascendant (distinct color)
-            itemBinding.planetIcon.setColorFilter(getColor(R.color.accent_teal))
+            applyPlanetIconColor(itemBinding.planetIcon, R.color.planet_lagna)
 
             binding.planetContainer.addView(itemBinding.root)
             animateResultRow(itemBinding.root, rowIndex++)
@@ -1218,14 +1218,18 @@ class MainActivity : AppCompatActivity() {
                 itemBinding.vargottamaStatus.visibility = android.view.View.GONE
             }
 
-            // Tint icon based on planet benefic/malefic or just variety
-             val tintColor = when (planet.planet) {
-                com.aakash.astro.astrology.Planet.JUPITER, com.aakash.astro.astrology.Planet.VENUS -> getColor(R.color.accent_gold)
-                com.aakash.astro.astrology.Planet.SATURN, com.aakash.astro.astrology.Planet.RAHU, com.aakash.astro.astrology.Planet.KETU -> getColor(R.color.accent_purple)
-                com.aakash.astro.astrology.Planet.MARS, com.aakash.astro.astrology.Planet.SUN -> getColor(R.color.accent_orange)
-                else -> getColor(R.color.accent_blue)
+            val planetColorRes = when (planet.planet) {
+                com.aakash.astro.astrology.Planet.SUN -> R.color.planet_sun
+                com.aakash.astro.astrology.Planet.MOON -> R.color.planet_moon
+                com.aakash.astro.astrology.Planet.MARS -> R.color.planet_mars
+                com.aakash.astro.astrology.Planet.MERCURY -> R.color.planet_mercury
+                com.aakash.astro.astrology.Planet.JUPITER -> R.color.planet_jupiter
+                com.aakash.astro.astrology.Planet.VENUS -> R.color.planet_venus
+                com.aakash.astro.astrology.Planet.SATURN -> R.color.planet_saturn
+                com.aakash.astro.astrology.Planet.RAHU -> R.color.planet_rahu
+                com.aakash.astro.astrology.Planet.KETU -> R.color.planet_ketu
             }
-            itemBinding.planetIcon.setColorFilter(tintColor)
+            applyPlanetIconColor(itemBinding.planetIcon, planetColorRes)
 
             binding.planetContainer.addView(itemBinding.root)
             animateResultRow(itemBinding.root, rowIndex++)
@@ -1239,6 +1243,16 @@ class MainActivity : AppCompatActivity() {
             .setAction("View") { scrollAndHighlightChart() }
             .show()
         scrollAndHighlightChart()
+    }
+
+    private fun applyPlanetIconColor(icon: android.widget.ImageView, @androidx.annotation.ColorRes colorRes: Int) {
+        val color = getColor(colorRes)
+        val bgDrawable = DrawableCompat.wrap(
+            ContextCompat.getDrawable(this, R.drawable.bg_circle_orange)!!.mutate()
+        )
+        DrawableCompat.setTint(bgDrawable, ColorUtils.setAlphaComponent(color, 52))
+        icon.background = bgDrawable
+        icon.setColorFilter(color)
     }
 
     private fun animateResultRow(view: View, index: Int) {

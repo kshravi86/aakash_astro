@@ -51,7 +51,7 @@
     <string name="category_utilities">Utilities</string>
     <string name="category_utilities_blurb">Supporting screens for matching, special calculations, and checks.</string>
     <string name="category_count_format">%1$d tools</string>
-    <string name="action_tile_cta">Open</string>
+    <string name="action_tile_cta">Open →</string>
     <string name="calculation_error">Unable to calculate chart. Please check the inputs.</string>
     <string name="engine_label_swiss">Swiss Ephemeris</string>
     <string name="engine_label_builtin">Built-in fallback</string>

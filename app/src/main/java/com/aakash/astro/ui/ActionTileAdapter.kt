@@ -95,19 +95,21 @@ class ActionTileAdapter(
             icon.setImageResource(tile.iconRes)
 
             val accent = ContextCompat.getColor(itemView.context, tile.accentColor)
-            tileCard.strokeColor = ColorUtils.setAlphaComponent(accent, 76)
-            tileGlow.backgroundTintList = ColorStateList.valueOf(ColorUtils.setAlphaComponent(accent, 110))
+            tileCard.strokeColor = ColorUtils.setAlphaComponent(accent, 60)
+
+            // Left accent bar — solid colour at full opacity for a clean stripe
+            tileGlow.backgroundTintList = ColorStateList.valueOf(accent)
 
             DrawableCompat.setTint(icon.drawable, accent)
             val bg = DrawableCompat.wrap(
                 ContextCompat.getDrawable(itemView.context, R.drawable.bg_circle_orange)!!.mutate()
             )
-            DrawableCompat.setTint(bg, ColorUtils.setAlphaComponent(accent, 56))
+            DrawableCompat.setTint(bg, ColorUtils.setAlphaComponent(accent, 48))
             icon.background = bg
 
             categoryBadge.setTextColor(accent)
             categoryBadge.background = DrawableCompat.wrap(categoryBadge.background.mutate()).also {
-                DrawableCompat.setTint(it, ColorUtils.setAlphaComponent(accent, 32))
+                DrawableCompat.setTint(it, ColorUtils.setAlphaComponent(accent, 28))
             }
 
             openLabel.setTextColor(accent)

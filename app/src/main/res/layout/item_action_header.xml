@@ -1,63 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="18dp"
-    android:layout_marginBottom="6dp"
-    app:cardBackgroundColor="@android:color/transparent"
-    app:cardCornerRadius="22dp"
-    app:cardElevation="0dp"
-    app:strokeColor="@color/glass_white_20"
-    app:strokeWidth="1dp">
+    android:layout_marginTop="24dp"
+    android:layout_marginBottom="4dp"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <!-- Coloured left-accent pill -->
+    <View
+        android:id="@+id/headerAccent"
+        android:layout_width="4dp"
+        android:layout_height="28dp"
+        android:background="@drawable/bg_circle_orange"
+        android:layout_marginEnd="12dp" />
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_glass_card"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_weight="1"
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/headerTitle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <View
-                android:id="@+id/headerAccent"
-                android:layout_width="10dp"
-                android:layout_height="10dp"
-                android:background="@drawable/bg_circle_orange" />
-
-            <TextView
-                android:id="@+id/headerTitle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_weight="1"
-                android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-                android:textColor="@color/primaryText"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/headerCount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bg_chip"
-                android:paddingHorizontal="10dp"
-                android:paddingVertical="6dp"
-                android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
-                android:textColor="@color/primaryText"
-                android:textStyle="bold" />
-        </LinearLayout>
+            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+            android:textColor="@color/primaryText"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/headerSummary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="2dp"
             android:textAppearance="@style/TextAppearance.Material3.BodySmall"
             android:textColor="@color/secondaryText" />
     </LinearLayout>
-</com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:id="@+id/headerCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_chip"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="6dp"
+        android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
+        android:textColor="@color/primaryText"
+        android:textStyle="bold" />
+</LinearLayout>

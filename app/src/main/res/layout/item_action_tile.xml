@@ -9,93 +9,104 @@
     android:foreground="?attr/selectableItemBackground"
     android:stateListAnimator="@animator/card_touch_feedback"
     app:cardBackgroundColor="@android:color/transparent"
-    app:cardCornerRadius="24dp"
+    app:cardCornerRadius="20dp"
     app:cardElevation="0dp"
     app:strokeColor="@color/glass_white_20"
     app:strokeWidth="1dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="184dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/bg_action_tile"
-        android:padding="18dp">
+        android:paddingHorizontal="18dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp">
 
+        <!-- Accent bar on the left edge -->
         <View
             android:id="@+id/tileGlow"
-            android:layout_width="118dp"
-            android:layout_height="118dp"
-            android:alpha="0.88"
-            android:background="@drawable/bg_hero_glow"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="3dp"
+            android:layout_height="0dp"
+            android:background="@drawable/bg_circle_orange"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <!-- Category badge top-left -->
         <TextView
             android:id="@+id/categoryBadge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
             android:background="@drawable/bg_chip"
-            android:paddingHorizontal="10dp"
-            android:paddingVertical="5dp"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="4dp"
             android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
             android:textColor="@color/secondaryText"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tileGlow"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Foundations" />
 
+        <!-- Icon circle -->
         <ImageView
             android:id="@+id/icon"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="16dp"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/bg_circle_orange"
-            android:padding="12dp"
-            app:layout_constraintStart_toStartOf="parent"
+            android:padding="10dp"
+            app:layout_constraintStart_toEndOf="@id/tileGlow"
             app:layout_constraintTop_toBottomOf="@id/categoryBadge"
             tools:src="@drawable/ic_star_24" />
 
+        <!-- Title next to icon -->
         <TextView
             android:id="@+id/title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="14dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="4dp"
             android:ellipsize="end"
             android:maxLines="2"
-            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+            android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
             android:textColor="@color/primaryText"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/openLabel"
             app:layout_constraintStart_toEndOf="@id/icon"
             app:layout_constraintTop_toTopOf="@id/icon"
             tools:text="Vimshottari Dasha" />
 
+        <!-- Subtitle below title/icon -->
         <TextView
             android:id="@+id/subtitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:ellipsize="end"
-            android:maxLines="3"
+            android:maxLines="2"
             android:textAppearance="@style/TextAppearance.Material3.BodySmall"
             android:textColor="@color/secondaryText"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/icon"
-            app:layout_constraintTop_toBottomOf="@id/icon"
+            app:layout_constraintStart_toStartOf="@id/title"
+            app:layout_constraintTop_toBottomOf="@id/title"
             tools:text="Core timing view for Mahadasha and Antardasha periods." />
 
+        <!-- "Open →" label pinned to top-right -->
         <TextView
             android:id="@+id/openLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_chip"
-            android:paddingHorizontal="12dp"
-            android:paddingVertical="6dp"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="5dp"
             android:text="@string/action_tile_cta"
-            android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
+            android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
             android:textColor="@color/primaryText"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>
