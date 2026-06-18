@@ -3,14 +3,24 @@ package com.aakash.astro.astrology
 import java.time.Duration
 import java.time.ZonedDateTime
 
+/** A single dasha or antardasha span: the ruling planet and its exact start/end. */
 data class DashaPeriod(
     val lord: String,
     val start: ZonedDateTime,
     val end: ZonedDateTime
 )
 
+/**
+ * Computes Vimshottari dasha periods from a birth chart.
+ *
+ * The Vimshottari system divides a 120-year cycle among nine planetary lords
+ * (Ketu → Venus → Sun → Moon → Mars → Rahu → Jupiter → Saturn → Mercury).
+ * The active mahadasha at birth is determined by the Moon's nakshatra; the
+ * elapsed fraction of that nakshatra determines the remaining time in the
+ * first period.
+ */
 object DashaCalculator {
-    // Vimshottari order and durations (years)
+    // Vimshottari planetary order and full-cycle durations in years.
     private val order = listOf(
         "Ketu" to 7.0,
         "Venus" to 20.0,
@@ -26,6 +36,13 @@ object DashaCalculator {
     private const val NAK_LEN = 360.0 / 27.0
     private const val DAYS_PER_YEAR = 365.25
 
+    /**
+     * Returns the full sequence of mahadasha periods starting from birth.
+     * The list covers 120 years (one complete Vimshottari cycle), with the
+     * first entry being the partial period remaining at birth.
+     *
+     * @param moonSiderealLongitude Moon's sidereal ecliptic longitude in degrees.
+     */
     fun vimshottariFrom(details: BirthDetails, moonSiderealLongitude: Double): List<DashaPeriod> {
         var start = details.dateTime
         // Determine starting mahadasha from Moon's nakshatra
@@ -62,6 +79,7 @@ object DashaCalculator {
         return list
     }
 
+    /** Divides a mahadasha [ma] into its nine antardasha (sub-period) intervals. */
     fun antardashaFor(ma: DashaPeriod): List<DashaPeriod> {
         val totalDays = Duration.between(ma.start, ma.end).toDays().toDouble()
         val startIndex = indexOf(ma.lord)
@@ -77,6 +95,7 @@ object DashaCalculator {
         return list
     }
 
+    /** Divides an antardasha [antar] into its nine pratyantar (sub-sub-period) intervals. */
     fun pratyantarFor(antar: DashaPeriod): List<DashaPeriod> {
         val totalDays = Duration.between(antar.start, antar.end).toDays().toDouble()
         val startIndex = indexOf(antar.lord)
