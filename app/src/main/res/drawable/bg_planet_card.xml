@@ -1,29 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Rich base -->
     <item>
         <shape android:shape="rectangle">
             <corners android:radius="20dp" />
-            <solid android:color="#E6101E29" />
+            <solid android:color="#F0101E2A" />
         </shape>
     </item>
 
+    <!-- Diagonal shimmer -->
     <item>
         <shape android:shape="rectangle">
             <corners android:radius="20dp" />
             <gradient
                 android:angle="315"
-                android:startColor="#12FFF8EE"
+                android:startColor="#1EFFF8EE"
                 android:centerColor="@android:color/transparent"
-                android:endColor="#0FD9A45D" />
+                android:endColor="#12D9A45D" />
         </shape>
     </item>
 
+    <!-- Top highlight -->
+    <item android:bottom="50dp">
+        <shape android:shape="rectangle">
+            <corners android:radius="20dp" />
+            <gradient
+                android:angle="270"
+                android:startColor="#10FFFFFF"
+                android:endColor="@android:color/transparent" />
+        </shape>
+    </item>
+
+    <!-- Border -->
     <item>
         <shape android:shape="rectangle">
             <corners android:radius="20dp" />
             <stroke
                 android:width="1dp"
-                android:color="@color/glass_white_20" />
+                android:color="#32FFF8EE" />
         </shape>
     </item>
 </layer-list>

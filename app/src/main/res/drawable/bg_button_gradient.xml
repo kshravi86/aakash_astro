@@ -1,18 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ripple xmlns:android="http://schemas.android.com/apk/res/android"
-    android:color="@color/glass_white_20">
+    android:color="#60000000">
     <item>
         <shape android:shape="rectangle">
             <corners android:radius="16dp" />
             <gradient
-                android:angle="0"
-                android:startColor="#F0D8A25E"
-                android:centerColor="@color/accent_gold"
-                android:endColor="#F0EE9460"
+                android:angle="135"
+                android:startColor="#FFF5C842"
+                android:centerColor="#FFD9A45D"
+                android:endColor="#FFED8E4A"
                 android:type="linear" />
-            <stroke
-                android:width="1dp"
-                android:color="@color/glass_white_20" />
+        </shape>
+    </item>
+    <!-- Shimmer highlight top -->
+    <item android:bottom="26dp">
+        <shape android:shape="rectangle">
+            <corners android:radius="16dp" />
+            <gradient
+                android:angle="270"
+                android:startColor="#30FFFFFF"
+                android:endColor="@android:color/transparent" />
         </shape>
     </item>
 </ripple>

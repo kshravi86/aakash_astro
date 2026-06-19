@@ -1,39 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Deep glass base -->
     <item>
         <shape android:shape="rectangle">
             <corners android:radius="24dp" />
-            <solid android:color="@color/surface_card_glass" />
+            <solid android:color="#F0101E2B" />
         </shape>
     </item>
 
+    <!-- Diagonal shimmer from top-left -->
     <item>
         <shape android:shape="rectangle">
             <corners android:radius="24dp" />
             <gradient
                 android:angle="315"
-                android:startColor="#22FFF8EE"
-                android:centerColor="#10D9A45D"
+                android:startColor="#2EFFF8EE"
+                android:centerColor="#14D9A45D"
                 android:endColor="@android:color/transparent" />
         </shape>
     </item>
 
-    <item android:bottom="112dp">
+    <!-- Top-edge highlight bar -->
+    <item android:bottom="88dp">
         <shape android:shape="rectangle">
             <corners android:radius="24dp" />
             <gradient
                 android:angle="270"
-                android:startColor="#12FFFFFF"
+                android:startColor="#1AFFFFFF"
                 android:endColor="@android:color/transparent" />
         </shape>
     </item>
 
+    <!-- Subtle bottom glow -->
+    <item android:top="80dp">
+        <shape android:shape="rectangle">
+            <corners android:radius="24dp" />
+            <gradient
+                android:angle="90"
+                android:startColor="#0E56CAB9"
+                android:endColor="@android:color/transparent" />
+        </shape>
+    </item>
+
+    <!-- Border -->
     <item>
         <shape android:shape="rectangle">
             <corners android:radius="24dp" />
             <stroke
-                android:width="1.2dp"
-                android:color="@color/glass_white_20" />
+                android:width="1dp"
+                android:color="#3AFFF8EE" />
         </shape>
     </item>
 </layer-list>

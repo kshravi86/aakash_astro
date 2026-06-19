@@ -11,30 +11,46 @@
         </shape>
     </item>
 
+    <!-- Top-right gold glow (stronger) -->
     <item android:gravity="top|end">
         <shape android:shape="oval">
             <size
-                android:width="340dp"
-                android:height="340dp" />
+                android:width="420dp"
+                android:height="420dp" />
             <gradient
                 android:type="radial"
-                android:gradientRadius="190dp"
-                android:startColor="@color/glow_violet"
+                android:gradientRadius="240dp"
+                android:startColor="#4AD9A45D"
                 android:endColor="@android:color/transparent" />
         </shape>
     </item>
 
+    <!-- Bottom-left teal glow (stronger) -->
     <item
         android:gravity="bottom|start"
-        android:top="240dp">
+        android:top="180dp">
         <shape android:shape="oval">
             <size
-                android:width="300dp"
-                android:height="300dp" />
+                android:width="380dp"
+                android:height="380dp" />
             <gradient
                 android:type="radial"
-                android:gradientRadius="180dp"
-                android:startColor="@color/glow_teal"
+                android:gradientRadius="220dp"
+                android:startColor="#3A56CAB9"
+                android:endColor="@android:color/transparent" />
+        </shape>
+    </item>
+
+    <!-- Centre ambient purple haze -->
+    <item android:gravity="center">
+        <shape android:shape="oval">
+            <size
+                android:width="480dp"
+                android:height="480dp" />
+            <gradient
+                android:type="radial"
+                android:gradientRadius="260dp"
+                android:startColor="#12D284A7"
                 android:endColor="@android:color/transparent" />
         </shape>
     </item>

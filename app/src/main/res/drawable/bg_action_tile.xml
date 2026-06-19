@@ -1,29 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Base dark glass -->
     <item>
         <shape android:shape="rectangle">
-            <corners android:radius="24dp" />
-            <solid android:color="#E6101F2B" />
+            <corners android:radius="22dp" />
+            <solid android:color="#F2111F2C" />
         </shape>
     </item>
 
+    <!-- Diagonal shimmer gradient -->
     <item>
         <shape android:shape="rectangle">
-            <corners android:radius="24dp" />
+            <corners android:radius="22dp" />
             <gradient
                 android:angle="315"
-                android:startColor="#18FFF8EE"
-                android:centerColor="@android:color/transparent"
-                android:endColor="#1266C0E8" />
+                android:startColor="#22FFF8EE"
+                android:centerColor="#08D9A45D"
+                android:endColor="#1256CAB9" />
         </shape>
     </item>
 
+    <!-- Top edge highlight -->
+    <item android:bottom="60dp">
+        <shape android:shape="rectangle">
+            <corners android:radius="22dp" />
+            <gradient
+                android:angle="270"
+                android:startColor="#14FFFFFF"
+                android:endColor="@android:color/transparent" />
+        </shape>
+    </item>
+
+    <!-- Border -->
     <item>
         <shape android:shape="rectangle">
-            <corners android:radius="24dp" />
+            <corners android:radius="22dp" />
             <stroke
                 android:width="1dp"
-                android:color="@color/glass_white_20" />
+                android:color="#35FFF8EE" />
         </shape>
     </item>
 </layer-list>
