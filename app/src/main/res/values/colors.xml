@@ -43,9 +43,9 @@
     <color name="glass_violet_20">#24D9A45D</color>
     <color name="glass_amber_20">#2456CAB9</color>
 
-    <color name="glow_violet">#36D9A45D</color>
-    <color name="glow_amber">#30E88B52</color>
-    <color name="glow_teal">#3056CAB9</color>
+    <color name="glow_violet">#4AD9A45D</color>
+    <color name="glow_amber">#42E88B52</color>
+    <color name="glow_teal">#4256CAB9</color>
     <color name="surface_card_glass">#E6101E29</color>
 
     <color name="value_chip_high_bg">#2666C0E8</color>

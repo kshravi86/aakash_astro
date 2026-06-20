@@ -14,11 +14,11 @@
     <item android:gravity="top|end">
         <shape android:shape="oval">
             <size
-                android:width="340dp"
-                android:height="340dp" />
+                android:width="400dp"
+                android:height="400dp" />
             <gradient
                 android:type="radial"
-                android:gradientRadius="190dp"
+                android:gradientRadius="220dp"
                 android:startColor="@color/glow_violet"
                 android:endColor="@android:color/transparent" />
         </shape>
@@ -29,12 +29,25 @@
         android:top="240dp">
         <shape android:shape="oval">
             <size
-                android:width="300dp"
-                android:height="300dp" />
+                android:width="360dp"
+                android:height="360dp" />
             <gradient
                 android:type="radial"
-                android:gradientRadius="180dp"
+                android:gradientRadius="210dp"
                 android:startColor="@color/glow_teal"
+                android:endColor="@android:color/transparent" />
+        </shape>
+    </item>
+
+    <item android:gravity="center">
+        <shape android:shape="oval">
+            <size
+                android:width="280dp"
+                android:height="280dp" />
+            <gradient
+                android:type="radial"
+                android:gradientRadius="160dp"
+                android:startColor="@color/glow_amber"
                 android:endColor="@android:color/transparent" />
         </shape>
     </item>

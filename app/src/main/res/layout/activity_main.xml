@@ -267,7 +267,8 @@
                 android:text="@string/birth_card_title"
                 android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
                 android:textColor="@color/accent_gold"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:letterSpacing="0.04" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -579,7 +580,8 @@
                 android:text="@string/section_chart_title"
                 android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
                 android:textColor="@color/accent_gold"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:letterSpacing="0.04" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -602,8 +604,9 @@
                 android:layout_marginTop="32dp"
                 android:text="@string/results_section_title"
                 android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
-                android:textColor="@color/accent_teal"
-                android:textStyle="bold" />
+                android:textColor="@color/accent_gold"
+                android:textStyle="bold"
+                android:letterSpacing="0.04" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -640,8 +643,9 @@
                 android:layout_marginTop="32dp"
                 android:text="@string/actions_header"
                 android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
-                android:textColor="@color/accent_orange"
-                android:textStyle="bold" />
+                android:textColor="@color/accent_gold"
+                android:textStyle="bold"
+                android:letterSpacing="0.04" />
 
             <TextView
                 android:layout_width="match_parent"
